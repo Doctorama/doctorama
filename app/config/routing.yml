@@ -1,0 +1,4 @@
+dt_utilisateur:
+    resource: "@DTUtilisateurBundle/Resources/config/routing.yml"
+    prefix:   /utilisateur
+
