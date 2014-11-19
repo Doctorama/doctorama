@@ -9,8 +9,8 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-    	$content = $this->get('templating')->render('DTUtilisateurBundle:Advert:index.html.twig', array('nom' => 'Pierre'));
-        return new Response($content);
+    	#$content = $this->get('templating')->render('DTUtilisateurBundle:Advert:index.html.twig', array('nom' => 'Pierre'));
+        return new Response("lol");
     }
     public function viewAction($id)
     {
