@@ -30,11 +30,11 @@ security:
             anonymous: true
             provider: in_memory
             form_login: 
-            	login_path: login
-            	check_path: login_check
+                login_path: login
+                check_path: login_check
             logout:
-            	path: logout
-            	target: /utilisateur	            
+                path: logout
+                target: /utilisateur	            
 
 
     # with these settings you can restrict or allow access for different parts
