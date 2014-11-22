@@ -19,6 +19,6 @@ class AdvertController extends Controller
     
     public function viewSlugAction($slug, $year, $_format)
     {
-    	return new Response("Annonce au slug '".$slug."', créée en ".$year." et au format ".$_format.".");
+    	return new Response("Annonce slug '".$slug."', créée en ".$year." et au format ".$_format.".");
     }
 }
