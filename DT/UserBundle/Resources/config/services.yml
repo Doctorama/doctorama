@@ -1,0 +1,4 @@
+services:
+#    dt_user.example:
+#        class: DT\UserBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
