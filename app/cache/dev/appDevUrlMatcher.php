@@ -122,29 +122,32 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        if (0 === strpos($pathinfo, '/utilisateur')) {
-            // dt_utilisateur_home
-            if (rtrim($pathinfo, '/') === '/utilisateur') {
-                if (substr($pathinfo, -1) !== '/') {
-                    return $this->redirect($pathinfo.'/', 'dt_utilisateur_home');
+        // dt_platform_accueil
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'dt_platform_accueil');
+            }
+
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::indexAction',  '_route' => 'dt_platform_accueil',);
+        }
+
+        if (0 === strpos($pathinfo, '/log')) {
+            if (0 === strpos($pathinfo, '/login')) {
+                // login
+                if ($pathinfo === '/login') {
+                    return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
                 }
 
-                return array (  '_controller' => 'DT\\UtilisateurBundle\\Controller\\AdvertController::indexAction',  '_route' => 'dt_utilisateur_home',);
+                // login_check
+                if ($pathinfo === '/login_check') {
+                    return array('_route' => 'login_check');
+                }
+
             }
 
-            // dt_utilisateur_view
-            if (0 === strpos($pathinfo, '/utilisateur/advert') && preg_match('#^/utilisateur/advert/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'dt_utilisateur_view')), array (  '_controller' => 'DT\\UtilisateurBundle\\Controller\\AdvertController::viewAction',));
-            }
-
-            // dt_utilisateur_view_slug
-            if (preg_match('#^/utilisateur/(?P<year>\\d{4})/(?P<slug>[^/\\.]++)(?:\\.(?P<_format>html|xml))?$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'dt_utilisateur_view_slug')), array (  '_controller' => 'DT\\UtilisateurBundle\\Controller\\AdvertController::viewSlugAction',  '_format' => 'html',));
-            }
-
-            // dt_utilisateur_add
-            if ($pathinfo === '/utilisateur/add') {
-                return array (  '_controller' => 'DT\\UtilisateurBundle\\Controller\\AdvertController::addAction',  '_route' => 'dt_utilisateur_add',);
+            // logout
+            if ($pathinfo === '/logout') {
+                return array('_route' => 'logout');
             }
 
         }

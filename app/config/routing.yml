@@ -1,6 +1,6 @@
-dt_user:
-    resource: "@DTUserBundle/Resources/config/routing.yml"
-    prefix:   /
+dt_platform_accueil:
+    pattern:   /
+    defaults: { _controller: DTUserBundle:Security:index}
 
 #dt_utilisateur:
  #   resource: "@DTUtilisateurBundle/Resources/config/routing.yml"
@@ -12,6 +12,6 @@ login:
     
 login_check:
     pattern: /login_check
-	
+
 logout:
     pattern: /logout
