@@ -4,7 +4,7 @@
     <parameter key="kernel.root_dir">/Applications/MAMP/htdocs/doctorama/app</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.name">ap_</parameter>
+    <parameter key="kernel.name">app</parameter>
     <parameter key="kernel.cache_dir">/Applications/MAMP/htdocs/doctorama/app/cache/dev</parameter>
     <parameter key="kernel.logs_dir">/Applications/MAMP/htdocs/doctorama/app/logs</parameter>
     <parameter key="kernel.bundles" type="collection">
@@ -159,6 +159,7 @@
     <parameter key="templating.loader.cache.path">null</parameter>
     <parameter key="templating.engines" type="collection">
       <parameter>twig</parameter>
+      <parameter>php</parameter>
     </parameter>
     <parameter key="validator.class">Symfony\Component\Validator\ValidatorInterface</parameter>
     <parameter key="validator.builder.class">Symfony\Component\Validator\ValidatorBuilderInterface</parameter>
@@ -424,7 +425,6 @@
     <parameter key="assetic.directory_resource.class">Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource</parameter>
     <parameter key="assetic.filter_manager.class">Symfony\Bundle\AsseticBundle\FilterManager</parameter>
     <parameter key="assetic.worker.ensure_filter.class">Assetic\Factory\Worker\EnsureFilterWorker</parameter>
-    <parameter key="assetic.worker.cache_busting.class">Assetic\Factory\Worker\CacheBustingWorker</parameter>
     <parameter key="assetic.value_supplier.class">Symfony\Bundle\AsseticBundle\DefaultValueSupplier</parameter>
     <parameter key="assetic.node.paths" type="collection"/>
     <parameter key="assetic.cache_dir">/Applications/MAMP/htdocs/doctorama/app/cache/dev/assetic</parameter>
@@ -451,6 +451,39 @@
     <parameter key="assetic.cache.class">Assetic\Cache\FilesystemCache</parameter>
     <parameter key="assetic.use_controller_worker.class">Symfony\Bundle\AsseticBundle\Factory\Worker\UseControllerWorker</parameter>
     <parameter key="assetic.request_listener.class">Symfony\Bundle\AsseticBundle\EventListener\RequestListener</parameter>
+    <parameter key="doctrine_cache.apc.class">Doctrine\Common\Cache\ApcCache</parameter>
+    <parameter key="doctrine_cache.array.class">Doctrine\Common\Cache\ArrayCache</parameter>
+    <parameter key="doctrine_cache.file_system.class">Doctrine\Common\Cache\FilesystemCache</parameter>
+    <parameter key="doctrine_cache.php_file.class">Doctrine\Common\Cache\PhpFileCache</parameter>
+    <parameter key="doctrine_cache.mongodb.class">Doctrine\Common\Cache\MongoDBCache</parameter>
+    <parameter key="doctrine_cache.mongodb.collection.class">MongoCollection</parameter>
+    <parameter key="doctrine_cache.mongodb.connection.class">MongoClient</parameter>
+    <parameter key="doctrine_cache.mongodb.server">localhost:27017</parameter>
+    <parameter key="doctrine_cache.riak.class">Doctrine\Common\Cache\RiakCache</parameter>
+    <parameter key="doctrine_cache.riak.bucket.class">Riak\Bucket</parameter>
+    <parameter key="doctrine_cache.riak.connection.class">Riak\Connection</parameter>
+    <parameter key="doctrine_cache.riak.bucket_property_list.class">Riak\BucketPropertyList</parameter>
+    <parameter key="doctrine_cache.riak.host">localhost</parameter>
+    <parameter key="doctrine_cache.riak.port">8087</parameter>
+    <parameter key="doctrine_cache.memcache.class">Doctrine\Common\Cache\MemcacheCache</parameter>
+    <parameter key="doctrine_cache.memcache.connection.class">Memcache</parameter>
+    <parameter key="doctrine_cache.memcache.host">localhost</parameter>
+    <parameter key="doctrine_cache.memcache.port">11211</parameter>
+    <parameter key="doctrine_cache.memcached.class">Doctrine\Common\Cache\MemcachedCache</parameter>
+    <parameter key="doctrine_cache.memcached.connection.class">Memcached</parameter>
+    <parameter key="doctrine_cache.memcached.host">localhost</parameter>
+    <parameter key="doctrine_cache.memcached.port">11211</parameter>
+    <parameter key="doctrine_cache.redis.class">Doctrine\Common\Cache\RedisCache</parameter>
+    <parameter key="doctrine_cache.redis.connection.class">Redis</parameter>
+    <parameter key="doctrine_cache.redis.host">localhost</parameter>
+    <parameter key="doctrine_cache.redis.port">6379</parameter>
+    <parameter key="doctrine_cache.couchbase.class">Doctrine\Common\Cache\CouchbaseCache</parameter>
+    <parameter key="doctrine_cache.couchbase.connection.class">Couchbase</parameter>
+    <parameter key="doctrine_cache.couchbase.hostnames">localhost:8091</parameter>
+    <parameter key="doctrine_cache.wincache.class">Doctrine\Common\Cache\WinCacheCache</parameter>
+    <parameter key="doctrine_cache.xcache.class">Doctrine\Common\Cache\XcacheCache</parameter>
+    <parameter key="doctrine_cache.zenddata.class">Doctrine\Common\Cache\ZendDataCache</parameter>
+    <parameter key="doctrine_cache.security.acl.cache.class">Doctrine\Bundle\DoctrineCacheBundle\Acl\Model\AclCache</parameter>
     <parameter key="doctrine.dbal.logger.chain.class">Doctrine\DBAL\Logging\LoggerChain</parameter>
     <parameter key="doctrine.dbal.logger.profiling.class">Doctrine\DBAL\Logging\DebugStack</parameter>
     <parameter key="doctrine.dbal.logger.class">Symfony\Bridge\Doctrine\Logger\DbalLogger</parameter>
@@ -490,7 +523,7 @@
     <parameter key="doctrine.orm.cache.xcache.class">Doctrine\Common\Cache\XcacheCache</parameter>
     <parameter key="doctrine.orm.cache.wincache.class">Doctrine\Common\Cache\WinCacheCache</parameter>
     <parameter key="doctrine.orm.cache.zenddata.class">Doctrine\Common\Cache\ZendDataCache</parameter>
-    <parameter key="doctrine.orm.metadata.driver_chain.class">Doctrine\ORM\Mapping\Driver\DriverChain</parameter>
+    <parameter key="doctrine.orm.metadata.driver_chain.class">Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain</parameter>
     <parameter key="doctrine.orm.metadata.annotation.class">Doctrine\ORM\Mapping\Driver\AnnotationDriver</parameter>
     <parameter key="doctrine.orm.metadata.xml.class">Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver</parameter>
     <parameter key="doctrine.orm.metadata.yml.class">Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver</parameter>
@@ -502,8 +535,17 @@
     <parameter key="doctrine.orm.validator_initializer.class">Symfony\Bridge\Doctrine\Validator\DoctrineInitializer</parameter>
     <parameter key="doctrine.orm.security.user.provider.class">Symfony\Bridge\Doctrine\Security\User\EntityUserProvider</parameter>
     <parameter key="doctrine.orm.listeners.resolve_target_entity.class">Doctrine\ORM\Tools\ResolveTargetEntityListener</parameter>
+    <parameter key="doctrine.orm.listeners.attach_entity_listeners.class">Doctrine\ORM\Tools\AttachEntityListenersListener</parameter>
     <parameter key="doctrine.orm.naming_strategy.default.class">Doctrine\ORM\Mapping\DefaultNamingStrategy</parameter>
     <parameter key="doctrine.orm.naming_strategy.underscore.class">Doctrine\ORM\Mapping\UnderscoreNamingStrategy</parameter>
+    <parameter key="doctrine.orm.entity_listener_resolver.class">Doctrine\ORM\Mapping\DefaultEntityListenerResolver</parameter>
+    <parameter key="doctrine.orm.second_level_cache.default_cache_factory.class">Doctrine\ORM\Cache\DefaultCacheFactory</parameter>
+    <parameter key="doctrine.orm.second_level_cache.default_region.class">Doctrine\ORM\Cache\Region\DefaultRegion</parameter>
+    <parameter key="doctrine.orm.second_level_cache.filelock_region.class">Doctrine\ORM\Cache\Region\FileLockRegion</parameter>
+    <parameter key="doctrine.orm.second_level_cache.logger_chain.class">Doctrine\ORM\Cache\Logging\CacheLoggerChain</parameter>
+    <parameter key="doctrine.orm.second_level_cache.logger_statistics.class">Doctrine\ORM\Cache\Logging\StatisticsCacheLogger</parameter>
+    <parameter key="doctrine.orm.second_level_cache.cache_configuration.class">Doctrine\ORM\Cache\CacheConfiguration</parameter>
+    <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.proxy_dir">/Applications/MAMP/htdocs/doctorama/app/cache/dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
@@ -577,7 +619,7 @@
       </parameter>
       <parameter key="data_collector.doctrine" type="collection">
         <parameter>db</parameter>
-        <parameter>DoctrineBundle:Collector:db</parameter>
+        <parameter>@Doctrine/Collector/db.html.twig</parameter>
       </parameter>
     </parameter>
     <parameter key="console.command.ids" type="collection">
@@ -1009,6 +1051,10 @@
         <argument>Symfony\Bundle\FrameworkBundle\EventListener\SessionListener</argument>
       </call>
       <call method="addSubscriberService">
+        <argument>session.save_listener</argument>
+        <argument>Symfony\Component\HttpKernel\EventListener\SaveSessionListener</argument>
+      </call>
+      <call method="addSubscriberService">
         <argument>fragment.listener</argument>
         <argument>Symfony\Component\HttpKernel\EventListener\FragmentListener</argument>
       </call>
@@ -1122,6 +1168,9 @@
     <service id="session_listener" class="Symfony\Bundle\FrameworkBundle\EventListener\SessionListener">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="service_container"/>
+    </service>
+    <service id="session.save_listener" class="Symfony\Component\HttpKernel\EventListener\SaveSessionListener">
+      <tag name="kernel.event_subscriber"/>
     </service>
     <service id="security.secure_random" class="Symfony\Component\Security\Core\Util\SecureRandom">
       <tag name="monolog.logger" channel="security"/>
@@ -1554,7 +1603,7 @@
       <call method="add">
         <argument type="service">
           <service class="Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector" public="false">
-            <tag name="data_collector" template="DoctrineBundle:Collector:db" id="db"/>
+            <tag name="data_collector" template="@Doctrine/Collector/db.html.twig" id="db"/>
             <argument type="service" id="doctrine"/>
             <call method="addLogger">
               <argument>default</argument>
@@ -1620,7 +1669,6 @@
               <service class="Symfony\Bundle\AsseticBundle\Routing\AsseticLoader" public="false">
                 <tag name="routing.loader"/>
                 <argument type="service" id="assetic.asset_manager"/>
-                <argument type="collection"/>
               </service>
             </argument>
           </call>
@@ -1688,7 +1736,7 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>54723e8299782</argument>
+            <argument>547a5889342f3</argument>
           </service>
         </argument>
         <argument type="service">
@@ -1871,7 +1919,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>54723e8299782</argument>
+            <argument>547a5889342f3</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
           </service>
         </argument>
@@ -2140,11 +2188,7 @@
             <argument>true</argument>
             <argument type="collection"/>
             <argument type="collection"/>
-            <argument type="service">
-              <service class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
-                <argument type="service" id="service_container"/>
-              </service>
-            </argument>
+            <argument type="service" id="assetic.value_supplier.default" on-invalid="null"/>
           </service>
         </argument>
       </call>
@@ -2220,9 +2264,25 @@
             <argument type="service">
               <service class="Assetic\Extension\Twig\TwigFormulaLoader" public="false">
                 <tag name="assetic.templating.twig"/>
-                <tag name="monolog.logger" channel="assetic"/>
                 <argument type="service" id="twig"/>
-                <argument type="service" id="monolog.logger.assetic" on-invalid="ignore"/>
+              </service>
+            </argument>
+            <argument type="service">
+              <service class="Assetic\Cache\ConfigCache" public="false">
+                <argument>/Applications/MAMP/htdocs/doctorama/app/cache/dev/assetic/config</argument>
+              </service>
+            </argument>
+            <argument>true</argument>
+          </service>
+        </argument>
+        <argument key="php" type="service">
+          <service class="Assetic\Factory\Loader\CachedFormulaLoader" public="false">
+            <tag name="assetic.formula_loader" alias="php"/>
+            <tag name="assetic.templating.php"/>
+            <argument type="service">
+              <service class="Symfony\Bundle\AsseticBundle\Factory\Loader\AsseticHelperFormulaLoader" public="false">
+                <tag name="assetic.templating.php"/>
+                <argument type="service" id="assetic.asset_factory"/>
               </service>
             </argument>
             <argument type="service">
@@ -2247,6 +2307,19 @@
         </argument>
         <argument>twig</argument>
       </call>
+      <call method="addResource">
+        <argument type="service">
+          <service class="Symfony\Bundle\AsseticBundle\Factory\Resource\DirectoryResource" public="false">
+            <tag name="assetic.templating.php"/>
+            <tag name="assetic.formula_resource" loader="php"/>
+            <argument type="service" id="templating.loader"/>
+            <argument></argument>
+            <argument>/Applications/MAMP/htdocs/doctorama/app/Resources/views</argument>
+            <argument>/\.[^.]+\.php$/</argument>
+          </service>
+        </argument>
+        <argument>php</argument>
+      </call>
     </service>
     <service id="assetic.asset_factory" class="Symfony\Bundle\AsseticBundle\Factory\AssetFactory" public="false">
       <argument type="service" id="kernel"/>
@@ -2264,6 +2337,15 @@
         </argument>
       </call>
     </service>
+    <service id="assetic.value_supplier.default" class="Symfony\Bundle\AsseticBundle\DefaultValueSupplier" public="false">
+      <argument type="service" id="service_container"/>
+    </service>
+    <service id="assetic.helper.dynamic" class="Symfony\Bundle\AsseticBundle\Templating\DynamicAsseticHelper">
+      <tag name="assetic.templating.php"/>
+      <tag name="templating.helper" alias="assetic"/>
+      <argument type="service" id="templating.helper.router"/>
+      <argument type="service" id="assetic.asset_factory"/>
+    </service>
     <service id="assetic.filter.cssrewrite" class="Assetic\Filter\CssRewriteFilter">
       <tag name="assetic.filter" alias="cssrewrite"/>
     </service>
@@ -2273,6 +2355,9 @@
       <argument type="service" id="assetic.cache"/>
       <argument>false</argument>
       <argument type="service" id="profiler" on-invalid="null"/>
+      <call method="setValueSupplier">
+        <argument type="service" id="assetic.value_supplier.default" on-invalid="ignore"/>
+      </call>
     </service>
     <service id="assetic.cache" class="Assetic\Cache\FilesystemCache" public="false">
       <argument>/Applications/MAMP/htdocs/doctorama/app/cache/dev/assetic/assets</argument>
@@ -2295,7 +2380,7 @@
       <argument>default</argument>
     </service>
     <service id="doctrine.dbal.logger.profiling.default" class="Doctrine\DBAL\Logging\DebugStack" public="false"/>
-    <service id="doctrine.dbal.default_connection" class="stdClass" factory-method="createConnection" factory-service="doctrine.dbal.connection_factory">
+    <service id="doctrine.dbal.default_connection" class="Doctrine\DBAL\Connection" factory-method="createConnection" factory-service="doctrine.dbal.connection_factory">
       <argument type="collection">
         <argument key="driver">pdo_mysql</argument>
         <argument key="host">127.0.0.1</argument>
@@ -2351,6 +2436,22 @@
       <tag name="validator.initializer"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="doctrine_cache.providers.doctrine.orm.default_metadata_cache" class="Doctrine\Common\Cache\ArrayCache">
+      <call method="setNamespace">
+        <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
+      </call>
+    </service>
+    <service id="doctrine_cache.providers.doctrine.orm.default_result_cache" class="Doctrine\Common\Cache\ArrayCache">
+      <call method="setNamespace">
+        <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
+      </call>
+    </service>
+    <service id="doctrine_cache.providers.doctrine.orm.default_query_cache" class="Doctrine\Common\Cache\ArrayCache">
+      <call method="setNamespace">
+        <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
+      </call>
+    </service>
+    <service id="doctrine.orm.default_entity_listener_resolver" class="Doctrine\ORM\Mapping\DefaultEntityListenerResolver"/>
     <service id="doctrine.orm.default_manager_configurator" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator">
       <argument type="collection"/>
       <argument type="collection"/>
@@ -2363,35 +2464,17 @@
             <argument type="collection"/>
           </call>
           <call method="setMetadataCacheImpl">
-            <argument type="service">
-              <service class="Doctrine\Common\Cache\ArrayCache" public="false">
-                <call method="setNamespace">
-                  <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
-                </call>
-              </service>
-            </argument>
+            <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
           </call>
           <call method="setQueryCacheImpl">
-            <argument type="service">
-              <service class="Doctrine\Common\Cache\ArrayCache" public="false">
-                <call method="setNamespace">
-                  <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
-                </call>
-              </service>
-            </argument>
+            <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_query_cache"/>
           </call>
           <call method="setResultCacheImpl">
-            <argument type="service">
-              <service class="Doctrine\Common\Cache\ArrayCache" public="false">
-                <call method="setNamespace">
-                  <argument>sf2orm_default_7870129781907655edeca4fa8f6193689b4b7f63b45486163759e95c485c9ebf</argument>
-                </call>
-              </service>
-            </argument>
+            <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_result_cache"/>
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\ORM\Mapping\Driver\DriverChain" public="false"/>
+              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false"/>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -2413,6 +2496,9 @@
             <argument type="service">
               <service class="Doctrine\ORM\Mapping\DefaultNamingStrategy" public="false"/>
             </argument>
+          </call>
+          <call method="setEntityListenerResolver">
+            <argument type="service" id="doctrine.orm.default_entity_listener_resolver"/>
           </call>
         </service>
       </argument>
@@ -2516,7 +2602,7 @@
         </argument>
         <argument key="data_collector.doctrine" type="collection">
           <argument>db</argument>
-          <argument>DoctrineBundle:Collector:db</argument>
+          <argument>@Doctrine/Collector/db.html.twig</argument>
         </argument>
       </argument>
       <argument>bottom</argument>
@@ -2671,18 +2757,6 @@
         <argument type="service" id="monolog.handler.debug"/>
       </call>
     </service>
-    <service id="monolog.logger.assetic" class="Symfony\Bridge\Monolog\Logger">
-      <argument>assetic</argument>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.debug"/>
-      </call>
-    </service>
     <service id="monolog.logger.doctrine" class="Symfony\Bridge\Monolog\Logger">
       <argument>doctrine</argument>
       <call method="pushHandler">
@@ -2734,16 +2808,14 @@
         </argument>
       </call>
     </service>
-    <service id="templating" class="Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine">
-      <argument type="service" id="twig"/>
-      <argument type="service" id="templating.name_parser"/>
-      <argument type="service" id="templating.locator"/>
-      <argument type="service" id="debug.stopwatch"/>
-      <call method="setDefaultEscapingStrategy">
-        <argument type="collection">
-          <argument type="service" id="templating"/>
-          <argument>guessDefaultEscapingStrategy</argument>
-        </argument>
+    <service id="templating" class="Symfony\Bundle\FrameworkBundle\Templating\DelegatingEngine">
+      <argument type="service" id="service_container"/>
+      <argument type="collection"/>
+      <call method="addEngine">
+        <argument type="service" id="debug.templating.engine.twig"/>
+      </call>
+      <call method="addEngine">
+        <argument type="service" id="debug.templating.engine.php"/>
       </call>
     </service>
     <service id="router" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
@@ -2762,7 +2834,6 @@
         <argument key="matcher_dumper_class">Symfony\Component\Routing\Matcher\Dumper\PhpMatcherDumper</argument>
         <argument key="matcher_cache_class">appDevUrlMatcher</argument>
         <argument key="strict_requirements">true</argument>
-        <argument key="resource_type">yaml</argument>
       </argument>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="monolog.logger.router" on-invalid="ignore"/>
@@ -2805,7 +2876,7 @@
         <argument>Swiftmailer</argument>
       </call>
       <call method="addPath">
-        <argument>/Applications/MAMP/htdocs/doctorama/vendor/doctrine/doctrine-bundle/Doctrine/Bundle/DoctrineBundle/Resources/views</argument>
+        <argument>/Applications/MAMP/htdocs/doctorama/vendor/doctrine/doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
@@ -2825,6 +2896,18 @@
       </call>
       <call method="addPath">
         <argument>/Applications/MAMP/htdocs/doctorama/vendor/symfony/symfony/src/Symfony/Bridge/Twig/Resources/views/Form</argument>
+      </call>
+    </service>
+    <service id="debug.templating.engine.twig" class="Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine">
+      <argument type="service" id="twig"/>
+      <argument type="service" id="templating.name_parser"/>
+      <argument type="service" id="templating.locator"/>
+      <argument type="service" id="debug.stopwatch"/>
+      <call method="setDefaultEscapingStrategy">
+        <argument type="collection">
+          <argument type="service" id="debug.templating.engine.twig"/>
+          <argument>guessDefaultEscapingStrategy</argument>
+        </argument>
       </call>
     </service>
     <service id="logger" class="Symfony\Bridge\Monolog\Logger">
@@ -2900,7 +2983,6 @@
     </service>
     <service id="event_dispatcher" alias="debug.event_dispatcher"/>
     <service id="session.storage" alias="session.storage.native"/>
-    <service id="debug.templating.engine.twig" alias="templating"/>
     <service id="swiftmailer.spool" alias="swiftmailer.mailer.default.spool"/>
     <service id="swiftmailer.transport.real" alias="swiftmailer.mailer.default.transport.real"/>
     <service id="swiftmailer.plugin.messagelogger" alias="swiftmailer.mailer.default.plugin.messagelogger"/>
@@ -2909,6 +2991,9 @@
     <service id="mailer" alias="swiftmailer.mailer.default"/>
     <service id="database_connection" alias="doctrine.dbal.default_connection"/>
     <service id="doctrine.orm.entity_manager" alias="doctrine.orm.default_entity_manager"/>
+    <service id="doctrine.orm.default_metadata_cache" alias="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
+    <service id="doctrine.orm.default_result_cache" alias="doctrine_cache.providers.doctrine.orm.default_result_cache"/>
+    <service id="doctrine.orm.default_query_cache" alias="doctrine_cache.providers.doctrine.orm.default_query_cache"/>
     <service id="sensio.distribution.webconfigurator" alias="sensio_distribution.webconfigurator"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>
   </services>

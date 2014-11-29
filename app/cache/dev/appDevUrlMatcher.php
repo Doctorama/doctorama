@@ -122,27 +122,10 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
-        // dt_platform_accueil
-        if (rtrim($pathinfo, '/') === '') {
-            if (substr($pathinfo, -1) !== '/') {
-                return $this->redirect($pathinfo.'/', 'dt_platform_accueil');
-            }
-
-            return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::indexAction',  '_route' => 'dt_platform_accueil',);
-        }
-
         if (0 === strpos($pathinfo, '/log')) {
-            if (0 === strpos($pathinfo, '/login')) {
-                // login
-                if ($pathinfo === '/login') {
-                    return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
-                }
-
-                // login_check
-                if ($pathinfo === '/login_check') {
-                    return array('_route' => 'login_check');
-                }
-
+            // login_check
+            if ($pathinfo === '/login_check') {
+                return array('_route' => 'login_check');
             }
 
             // logout
@@ -150,6 +133,30 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return array('_route' => 'logout');
             }
 
+        }
+
+        // dt_user_accueil
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'dt_user_accueil');
+            }
+
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::indexAction',  '_route' => 'dt_user_accueil',);
+        }
+
+        // login
+        if ($pathinfo === '/login') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
+        }
+
+        // dt_user_mes_doctorants
+        if ($pathinfo === '/mes_doctorants') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::mesDoctorantsAction',  '_route' => 'dt_user_mes_doctorants',);
+        }
+
+        // dt_user_doctorant_labo
+        if ($pathinfo === '/doctorant_labo') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::doctorantLaboAction',  '_route' => 'dt_user_doctorant_labo',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

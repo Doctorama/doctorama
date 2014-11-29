@@ -1,6 +1,6 @@
 <?php
 
-/* WebProfilerBundle:Profiler:base_js.html.twig */
+/* @WebProfiler/Profiler/base_js.html.twig */
 class __TwigTemplate_cea593eead4640de60c0290096dd4d4f5dd1f6edfba7da9bfb6059ebe21299e1 extends Twig_Template
 {
     public function __construct(Twig_Environment $env)
@@ -142,7 +142,7 @@ class __TwigTemplate_cea593eead4640de60c0290096dd4d4f5dd1f6edfba7da9bfb6059ebe21
 
     public function getTemplateName()
     {
-        return "WebProfilerBundle:Profiler:base_js.html.twig";
+        return "@WebProfiler/Profiler/base_js.html.twig";
     }
 
     public function getDebugInfo()

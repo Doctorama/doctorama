@@ -1,2 +1,10 @@
-/nbproject/private/
-/app/cache/
+nbproject/private
+app/cache
+vendor
+app/cache/dev/appDevDebugProjectContainer.xml
+
+
+nbproject/project.properties
+
+nbproject/project.xml
+

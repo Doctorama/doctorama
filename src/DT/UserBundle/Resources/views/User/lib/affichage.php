@@ -38,7 +38,7 @@ function afficheMenu()
 	// ajout fixed nav
 	echo'
 		<div class="Menu navmenu navmenu-default navmenu-fixed-left">
-			<img src="./img/logo.png" class="img-responsive center-block" style="margin-bottom:15px"/>
+			<img src="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/img/logo.png" class="img-responsive center-block" style="margin-bottom:15px"/>
 			<div class="well sidebar">
 				<ul class="nav nav-list">
 						<li class="nav-header">
@@ -72,17 +72,17 @@ function afficheMenu()
 
 function importCSS(){
 	echo'
-		<link href="css/jasny-bootstrap.min.css" rel="stylesheet">
-		<link href="css/bootstrap.css" rel="stylesheet">
-	    <link href="css/style.css" rel="stylesheet">';
+		<link href="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/css/jasny-bootstrap.min.css" rel="stylesheet">
+		<link href="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/css/bootstrap.css" rel="stylesheet">
+	    <link href="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/css/style.css" rel="stylesheet">';
 }
 
 function importJS(){
 	echo'
 		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	    <script src="./js/bootstrap.js"></script>
-	    <script src="./js/jasny-bootstrap.min.js"></script>
-	    <script src="./js/comportement.js"></script>
+	    <script src="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/js/bootstrap.js"></script>
+	    <script src="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/js/jasny-bootstrap.min.js"></script>
+	    <script src="http://localhost:8888/doctorama/src/DT/UserBundle/Resources/views/User/js/comportement.js"></script>
 	   ';
 }
 
