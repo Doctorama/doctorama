@@ -1,0 +1,142 @@
+﻿html, body {
+  height: 100%;
+	background:#f2f2f2;
+}
+
+a{
+	text-decoration:none;
+}
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+}
+
+.navmenu {
+  z-index: 1;
+}
+
+.canvas {
+  position: relative;
+  left: 0;
+  z-index: 2;
+  min-height: 100%;
+  padding: 50px 0 0 0;
+  background: #fff;
+}
+
+@media (min-width: 0) {
+  .navbar-toggle {
+    display: block; /* force showing the toggle */
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding: 0;
+  }
+  .navbar {
+    right: auto;
+    background: none;
+    border: none;
+  }
+  .canvas {
+    padding: 0;
+  }
+}
+
+
+/*------------------------------------------------------------*\
+modification du menu
+\*------------------------------------------------------------*/
+.Menu{
+	width:350px;
+	padding:15px;
+	padding-top:50px;
+	background:#fff;
+	
+}
+
+@media(min-width:1200px){
+	.Menu {
+		width:25%;
+	}
+}
+
+/*------------------------------------------------------------*\
+modification de l'en-tête
+\*------------------------------------------------------------*/
+.EnTete {
+	background-color:#207a9a;
+	color:white;
+	width:100%;
+	padding-left:15px;
+	padding-top:15px;
+}
+
+.ico-menu{
+	border:none;
+	margin-top:-6px;
+}
+
+.btn-user{
+	color:#207a9a;
+	background:#f2f2f2;
+}
+
+/*------------------------------------------------------------*\
+modification du conteneur
+\*------------------------------------------------------------*/
+.Conteneur {
+	background:#f2f2f2;
+	max-height:100%;
+	border-left:5px solid #207a9a;
+	overflow:auto;
+	padding:6%;
+	padding-top:60px;
+}
+
+/* ScrollBar */
+.Conteneur::-webkit-scrollbar {									
+	width: 8px;
+}
+
+.Conteneur::-webkit-scrollbar-track-piece {					
+	margin-top: 0px;
+	margin-bottom:0px;
+}
+
+.Conteneur::-webkit-scrollbar-thumb {							
+	border: solid 0 transparent;
+	background : #333;
+	
+}
+.Conteneur::-webkit-scrollbar-thumb:hover {						
+	background:#555;
+}
+
+.container{
+	width:100%;
+}
+
+.borderColor{
+	border-bottom: 1px solid #ccc;
+}
+
+@media (min-width: 992px) {
+	/* si la largeur de l'écran est supérieur à 992 on rajoute la bordure bleue */
+	.recherche{
+		margin-left:65%;
+		width:35%;
+		margin-bottom:25px;
+	}
+}
+
+.recherche{
+	margin-bottom:25px;
+}
+
+.border1px{
+	border:1px solid #d9d9d9;
+	margin-bottom:30px;
+}

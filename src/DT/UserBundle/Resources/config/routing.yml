@@ -1,11 +1,15 @@
-dt_platform_accueil:
+dt_user_accueil:
     pattern:   /
     defaults: { _controller: DTUserBundle:Security:index}
-
-#dt_utilisateur:
- #   resource: "@DTUtilisateurBundle/Resources/config/routing.yml"
-  #  prefix:   /utilisateur
 
 login:
     pattern: /login
     defaults: { _controller: DTUserBundle:Security:login}
+    
+dt_user_mes_doctorants:
+    pattern: /mes_doctorants
+    defaults: { _controller: DTUserBundle:User:mesDoctorants}
+    
+dt_user_doctorant_labo:
+    pattern: /doctorant_labo
+    defaults: { _controller: DTUserBundle:User:doctorantLabo}
