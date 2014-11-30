@@ -1,2 +1,2 @@
-/nbproject/private/
-/app/cache/
+/nbproject/**
+/app/cache/**
