@@ -21,4 +21,12 @@ class AdvertController extends Controller
     {
     	return new Response("Annonce slug '".$slug."', créée en ".$year." et au format ".$_format.".");
     }
+    
+    public function addAction()
+    {
+	    if (!$this->get('security.context')->isGranted('ROLE_AUTEUR')) {
+	      // Sinon on déclenche une exception « Accès interdit »
+	      throw new AccessDeniedException('Accès limité aux auteurs.');
+	    }
+    }
 }

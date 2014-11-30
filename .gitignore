@@ -1,12 +1,8 @@
-nbproject/private
-app/cache
-vendor
-app/cache/dev/appDevDebugProjectContainer.xml
+/nbproject/**
+/app/cache/**
 
+app/cache/.gitkeep
 
-nbproject/project.properties
+app/cache/.gitkeep
 
-nbproject/project.xml
-
-
-app/logs/dev.log
+app/cache/.gitkeep
