@@ -141,7 +141,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->redirect($pathinfo.'/', 'dt_user_accueil');
             }
 
-            return array (  '_controller' => 'DT\\UserBundle\\Controller\\SecurityController::indexAction',  '_route' => 'dt_user_accueil',);
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::indexAction',  '_route' => 'dt_user_accueil',);
         }
 
         // login
@@ -157,6 +157,26 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // dt_user_doctorant_labo
         if ($pathinfo === '/doctorant_labo') {
             return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::doctorantLaboAction',  '_route' => 'dt_user_doctorant_labo',);
+        }
+
+        // dt_user_agenda
+        if ($pathinfo === '/agenda') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::agendaAction',  '_route' => 'dt_user_agenda',);
+        }
+
+        // dt_user_statistiques
+        if ($pathinfo === '/statistiques') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::statistiquesAction',  '_route' => 'dt_user_statistiques',);
+        }
+
+        // dt_user_historique_doctorants
+        if ($pathinfo === '/historique_doctorants') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::historiqueDoctorantsAction',  '_route' => 'dt_user_historique_doctorants',);
+        }
+
+        // dt_user_index
+        if ($pathinfo === '/index') {
+            return array (  '_controller' => 'DT\\UserBundle\\Controller\\UserController::indexAction',  '_route' => 'dt_user_index',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

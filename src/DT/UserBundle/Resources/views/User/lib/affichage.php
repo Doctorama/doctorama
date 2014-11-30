@@ -48,7 +48,7 @@ function afficheMenu()
 							</legend>
 						</li>
 						<li class="active"><a href="#">Accueil</a></li>
-						<li><a href="#">Agenda</a></li>
+						<li><a href="#agenda" >Agenda</a></li>
 						<li><a href="#">Doctorants encadrés </a></li>
 						<li><a href="doctorant_labo.php">Doctorants du laboratoire </a></li>
 						<li><a href="#">Statistiques</a></li>
