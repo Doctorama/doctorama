@@ -5,6 +5,6 @@ logout:
     pattern: /logout
     
     
-dt_User:
-    resource: "@DTUserBundle/Resources/config/routing.yml"
+dt_Doctorama:
+    resource: "@DTDoctoramaBundle/Resources/config/routing.yml"
     prefix:   /
