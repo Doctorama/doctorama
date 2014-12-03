@@ -46,4 +46,6 @@ class UserController extends Controller {
         return $this->render('DTUserBundle::index.html.twig', array('title' => 'Accueil'));
     }
     
+    
+    
 }
