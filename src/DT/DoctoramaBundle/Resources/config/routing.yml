@@ -1,0 +1,32 @@
+dt_doctorama_accueil:
+    pattern:   /
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:index}
+    #defaults: { _controller: DTDoctoramaBundle:Security:index}
+
+login:
+    pattern: /login
+    defaults: { _controller: DTDoctoramaBundle:Security:login}
+    
+dt_doctorama_mes_doctorants:
+    pattern: /mes_doctorants
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:mesDoctorants}
+    
+dt_doctorama_doctorant_labo:
+    pattern: /doctorant_labo
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:doctorantLabo}
+
+dt_doctorama_agenda:
+    pattern: /agenda
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:agenda}
+    
+dt_doctorama_statistiques:
+    pattern: /statistiques
+    defaults: {  _controller: DTDoctoramaBundle:Doctorama:statistiques}
+
+dt_doctorama_historique_doctorants:
+    pattern: /historique_doctorants
+    defaults: {  _controller: DTDoctoramaBundle:Doctorama:historiqueDoctorants}
+    
+dt_doctorama_index:
+    pattern:   /index
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:index}
