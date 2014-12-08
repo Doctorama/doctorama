@@ -2,10 +2,6 @@ dt_doctorama_accueil:
     pattern:   /
     defaults: { _controller: DTDoctoramaBundle:Doctorama:index}
     #defaults: { _controller: DTDoctoramaBundle:Security:index}
-
-login:
-    pattern: /login
-    defaults: { _controller: DTDoctoramaBundle:Security:login}
     
 dt_doctorama_mes_doctorants:
     pattern: /mes_doctorants

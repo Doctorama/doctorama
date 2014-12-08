@@ -17,31 +17,24 @@ security:
                 users:
                     user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    directeur_these: { password: directeur, roles [ 'ROLE_DIRECTEUR'] }
+                    encadrant: { password: encadrant, roles: [ 'ROLE_ENCADRANT' ] }
+                    doctorant: { password: doctorant, roles: [ 'ROLE_DOCTORANT' ] }
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        main_login:
-            pattern: ^/login$
-            anonymous: true
-        main:
-            pattern:  ^/
-            anonymous: false
-            provider: in_memory
-            form_login: 
-                login_path: login
-                check_path: login_check
-            logout:
-                path: logout
-                target: /utilisateur	            
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+            form_login:
+                login_path:  /login
+                check_path:  /login_check           
 
 
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/doctorant_labo/, roles: ROLE_ENCADRANT, requires_channel: form_login }
