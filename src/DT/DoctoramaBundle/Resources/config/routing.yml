@@ -34,3 +34,12 @@ dt_doctorama_index:
 dt_doctorama_admin_dossier_suivis:
     pattern: /admin/dossier_suivis
     defaults: { _controller: DTDoctoramaBundle:Doctorama:adminDossierSuivis}
+    
+dt_doctorama_creer_dossier_suivis:
+    pattern: /doctorant_labo/creer_dossier_suivis
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:creerDossierSuivis}
+    
+dt_doctorama_modif_dossier_suivis:
+    pattern: /doctorant_labo/modif_dossier_suivis/{id_doctorant}
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:modifDossierSuivis}
+    
