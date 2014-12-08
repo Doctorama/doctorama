@@ -2,17 +2,13 @@ dt_doctorama_accueil:
     pattern:   /
     defaults: { _controller: DTDoctoramaBundle:Doctorama:index}
     #defaults: { _controller: DTDoctoramaBundle:Security:index}
-
-login:
-    pattern: /login
-    defaults: { _controller: DTDoctoramaBundle:Security:login}
     
 dt_doctorama_mes_doctorants:
-    pattern: /mes_doctorants
+    pattern: /encadrant/mes_doctorants
     defaults: { _controller: DTDoctoramaBundle:Doctorama:mesDoctorants}
     
 dt_doctorama_doctorant_labo:
-    pattern: /doctorant_labo
+    pattern: /encadrant/doctorant_labo
     defaults: { _controller: DTDoctoramaBundle:Doctorama:doctorantLabo}
 
 dt_doctorama_agenda:
@@ -24,7 +20,7 @@ dt_doctorama_statistiques:
     defaults: {  _controller: DTDoctoramaBundle:Doctorama:statistiques}
 
 dt_doctorama_historique_doctorants:
-    pattern: /historique_doctorants
+    pattern: /encadrant/historique_doctorants
     defaults: {  _controller: DTDoctoramaBundle:Doctorama:historiqueDoctorants}
     
 dt_doctorama_index:
@@ -32,5 +28,14 @@ dt_doctorama_index:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:index}
 
 dt_doctorama_admin_dossier_suivis:
-    pattern: /admin/dossier_suivis
+    pattern: /encadrant/dossier_suivis
     defaults: { _controller: DTDoctoramaBundle:Doctorama:adminDossierSuivis}
+    
+dt_doctorama_creer_dossier_suivis:
+    pattern: /encadrant/doctorant_labo/creer_dossier_suivis
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:creerDossierSuivis}
+    
+dt_doctorama_modif_dossier_suivis:
+    pattern: /encadrant/doctorant_labo/modif_dossier_suivis/{id_doctorant}
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:modifDossierSuivis}
+    

@@ -4,6 +4,8 @@ namespace DT\DoctoramaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+require_once __DIR__ . '/Personne.php';
+
 /**
  * Reunion
  *
@@ -29,15 +31,15 @@ class Reunion
     private $lieu;
 
     /**
-     * @var DateTime
+     * @var datetime
      *
-     * @ORM\Column(name="date", type="DateTime")
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
 	/**
-     * @ManyToMany(targetEntity="Personne", inversedBy="reunions")
-     * @JoinTable(name="per_reu")
+     * @ORM\ManyToMany(targetEntity="Personne", inversedBy="reunions")
+     * @ORM\JoinTable(name="per_reu")
      **/
     private $personnes;
 
@@ -81,10 +83,10 @@ class Reunion
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param \datetime $date
      * @return Reunion
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\datetime $date)
     {
         $this->date = $date;
 
@@ -94,7 +96,7 @@ class Reunion
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \datetime 
      */
     public function getDate()
     {
