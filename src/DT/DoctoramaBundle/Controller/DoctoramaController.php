@@ -48,13 +48,13 @@ class DoctoramaController extends Controller {
     
     public function adminDossierSuivisAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier suivis'));
+        return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier de suivis'));
     }
     
     
     public function creerDossierSuivisAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier suivis'));
+        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));
     }
     
     
@@ -62,6 +62,6 @@ class DoctoramaController extends Controller {
     {
         
         //il faudra charger les infos du doctorant concerné.
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Créer dossier suivis'));
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
     }
 }
