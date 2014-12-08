@@ -4,6 +4,8 @@ namespace DT\DoctoramaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+require_once __DIR__ . '/Personne.php';
+
 /**
  * Reunion
  *
