@@ -52,5 +52,16 @@ class DoctoramaController extends Controller {
     }
     
     
+    public function creerDossierSuivisAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier suivis'));
+    }
     
+    
+    public function modifDossierSuivisAction($id_doctorant, Request $request)
+    {
+        
+        //il faudra charger les infos du doctorant concerné.
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Créer dossier suivis'));
+    }
 }
