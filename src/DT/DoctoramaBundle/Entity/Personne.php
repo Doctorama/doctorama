@@ -100,8 +100,8 @@ class Personne
      */
     private $depDeNaissance;
 	
-	/**
-     * @ManyToMany(targetEntity="Reunion", mappedBy="personnes")
+    /**
+     * @ORM\ManyToMany(targetEntity="Reunion", mappedBy="personnes")
      **/
     private $reunions;
 	

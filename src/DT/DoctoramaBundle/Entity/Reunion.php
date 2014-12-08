@@ -38,8 +38,8 @@ class Reunion
     private $date;
 
 	/**
-     * @ManyToMany(targetEntity="Personne", inversedBy="reunions")
-     * @JoinTable(name="per_reu")
+     * @ORM\ManyToMany(targetEntity="Personne", inversedBy="reunions")
+     * @ORM\JoinTable(name="per_reu")
      **/
     private $personnes;
 
