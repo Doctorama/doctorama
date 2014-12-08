@@ -66,9 +66,9 @@ class Personne
     private $mail;
 
     /**
-     * @var DateTime
+     * @var datetime
      *
-     * @ORM\Column(name="dateDeNaissance", type="DateTime")
+     * @ORM\Column(name="dateDeNaissance", type="datetime")
      */
     private $dateDeNaissance;
 
@@ -126,6 +126,8 @@ class Personne
 	**/
 	public function setReunion($reunion){
 		$this->reunions = $reunion;
+		
+		return $this;
 	}
 	
 	/**
@@ -144,7 +146,7 @@ class Personne
 	**/
 	public function addReunion($reunion){
 		if(!$this->reunions->contains($reunion)){
-			$this->reunions[] = $reunion;
+			$this->reunions[] = ($reunion);
 		}
 	}
 
@@ -300,10 +302,10 @@ class Personne
     /**
      * Set dateDeNaissance
      *
-     * @param \DateTime $dateDeNaissance
+     * @param \datetime $dateDeNaissance
      * @return Personne
      */
-    public function setDateDeNaissance(\DateTime $dateDeNaissance)
+    public function setDateDeNaissance(\datetime $dateDeNaissance)
     {
         $this->dateDeNaissance = $dateDeNaissance;
     
@@ -313,7 +315,7 @@ class Personne
     /**
      * Get dateDeNaissance
      *
-     * @return \DateTime 
+     * @return \datetime 
      */
     public function getDateDeNaissance()
     {

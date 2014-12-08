@@ -4,13 +4,15 @@ namespace DT\DoctoramaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+require_once __DIR__ . '/Personne.php';
+
 /**
  * Doctorant
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Doctorant
+class Doctorant extends Personne
 {
     /**
      * @var integer
