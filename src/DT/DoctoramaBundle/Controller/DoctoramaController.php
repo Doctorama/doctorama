@@ -46,6 +46,11 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle::index.html.twig', array('title' => 'Accueil'));
     }
     
+    public function adminDossierSuivisAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier suivis'));
+    }
+    
     
     
 }
