@@ -25,6 +25,9 @@ security:
     # for specific sections of your app
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         secured_area:
             pattern:    ^/
             anonymous: ~
@@ -37,4 +40,9 @@ security:
     # of your application based on roles, ip, host or methods
     # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
     access_control:
-        - { path: ^/doctorant_labo/, roles: ROLE_ENCADRANT, requires_channel: form_login }
+        - { path: ^/login, roles:  IS_AUTHENTICATED_ANONYMOUSLY ,requires_channel: form_login } 
+        - { path: ^/doctorant, roles: ROLE_DOCTORANT ,requires_channel: form_login }
+        - { path: ^/encadrant, roles: ROLE_ENCADRANT ,requires_channel: form_login }
+        - { path: ^/, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR,ROLE_DOCTORANT] ,requires_channel: form_login }
+        
+        

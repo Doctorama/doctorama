@@ -19,7 +19,7 @@ class SecurityController extends Controller
     {
       // Si le visiteur est déjà identifié, on le redirige vers l'accueil
       if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-        return $this->redirect($this->generateUrl('dt_platform_accueil'));
+        return $this->redirect($this->generateUrl('dt_doctorama_accueil'));
       }
 
       $session = $request->getSession();
