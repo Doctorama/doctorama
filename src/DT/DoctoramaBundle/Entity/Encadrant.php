@@ -8,12 +8,12 @@ require_once __DIR__ . '/Personne.php';
 require_once __DIR__ . '/These.php';
 
 /**
- * Encandrant
+ * Encadrant
  *
  * @ORM\Table()
  * @ORM\Entity
  */
-class Encandrant extends Personne{
+class Encadrant extends Personne{
 	
 	/**
      * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")

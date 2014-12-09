@@ -67,9 +67,9 @@ class These
     private $axeScientifique;
 
     /**
-     * @var int
+     * @var integer
      *
-     * @ORM\Column(name="financement", type="int")
+     * @ORM\Column(name="financement", type="integer")
      */
     private $financement;
 
@@ -342,10 +342,10 @@ class These
     /**
      * Set financement
      *
-     * @param \int $financement
+     * @param \integer $financement
      * @return These
      */
-    public function setFinancement(\int $financement)
+    public function setFinancement($financement)
     {
         $this->financement = $financement;
     
@@ -355,7 +355,7 @@ class These
     /**
      * Get financement
      *
-     * @return \int 
+     * @return \integer
      */
     public function getFinancement()
     {
