@@ -11,6 +11,8 @@
 
 namespace Sensio\Bundle\DistributionBundle\Configurator\Step;
 
+use Symfony\Component\Form\Type\FormTypeInterface;
+
 /**
  * StepInterface.
  *
@@ -19,16 +21,16 @@ namespace Sensio\Bundle\DistributionBundle\Configurator\Step;
 interface StepInterface
 {
     /**
-     * Injects existing parameters (from parameters.yml).
+     * __construct
      *
      * @param array $parameters
      */
-    public function setParameters(array $parameters);
+    public function __construct(array $parameters);
 
     /**
      * Returns the form used for configuration.
      *
-     * @return \Symfony\Component\Form\FormTypeInterface
+     * @return FormTypeInterface
      */
     public function getFormType();
 
@@ -56,8 +58,7 @@ interface StepInterface
     /**
      * Updates form data parameters.
      *
-     * @param StepInterface $data
-     *
+     * @param  array $parameters
      * @return array
      */
     public function update(StepInterface $data);

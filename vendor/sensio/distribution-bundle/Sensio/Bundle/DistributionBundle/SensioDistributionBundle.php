@@ -11,21 +11,22 @@
 
 namespace Sensio\Bundle\DistributionBundle;
 
-use Sensio\Bundle\DistributionBundle\DependencyInjection\Compiler\StepsPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Sensio\Bundle\DistributionBundle\Configurator\Step\DoctrineStep;
+use Sensio\Bundle\DistributionBundle\Configurator\Step\SecretStep;
 
 /**
  * SensioDistributionBundle.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Marc Weistroff <marc.weistroff@sensio.com>
- * @author Jérôme Vieilledent <lolautruche@gmail.com>
  */
 class SensioDistributionBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function boot()
     {
-        $container->addCompilerPass(new StepsPass());
+        $configurator = $this->container->get('sensio_distribution.webconfigurator');
+        $configurator->addStep(new DoctrineStep($configurator->getParameters()));
+        $configurator->addStep(new SecretStep($configurator->getParameters()));
     }
 }
