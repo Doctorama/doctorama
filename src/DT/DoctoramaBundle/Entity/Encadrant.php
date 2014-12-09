@@ -15,7 +15,7 @@ require_once __DIR__ . '/Personne.php';
 class Encandrant extends Personne{
 	
 	/**
-     * @ORM\ManyToMany(targetEntity="theses", mappedBy="encandrants")
+     * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")
      * @ORM\JoinTable(name="enc_the")
      **/
     private $theses;
