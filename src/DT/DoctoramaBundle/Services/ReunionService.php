@@ -1,7 +1,7 @@
 <?php
 
 //ReunionService
-require_once __DIR__ . '/../Entity/Reunion.php';
+require_once __DIR__ . 'DT\DoctoramaBundle\Entity\Reunion.php';
 
 class ReunionService
 {
@@ -14,13 +14,6 @@ class ReunionService
 		$reunion->setLieu($lieu);
 		$reunion->setDate($date);
 		$reunion->setPersonnes($personnes);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
 		
 		$em->persist($reunion);
 		$em->flush();
@@ -28,7 +21,7 @@ class ReunionService
 	}
 	public function findReunionById($id)
 	{
-    $repository->find($id);
+    $reunion= $repository->find($id);
 
     if (!$reunion) {
         throw $this->createNotFoundException(
@@ -41,29 +34,29 @@ class ReunionService
 	public function findReunionByDate($date)
 	{
 
-		$reunion = $repository->findByDate($date);
+		$reunions = $repository->findByDate($date);
 
-		if (!$reunion) 
+		if (!$reunions) 
 		{
 			throw $this->createNotFoundException(
 			'Aucune réunion trouvée le : : '.$date
 		);
 		}
 		else
-			return $reunion;
+			return $reunions;
 	}
 	
 	public function findReunionByLieu($lieu)
 	{
     
-    $reunion = $repository->findByLieu($lieu);
-    if (!$reunion) {
+    $reunions = $repository->findByLieu($lieu);
+    if (!$reunions) {
         throw $this->createNotFoundException(
             'Aucune réunion trouvée à : : '.$lieu
         );
 					}
 	else
-		return $reunion;
+		return $reunions;
 	}
 	
 	public function findReunionByLieuAndDate($lieu, $date)
@@ -77,15 +70,15 @@ class ReunionService
 	)->setParameter(array('date' => $date,
 							'lieu' =>$lieu,));
 
-	$reunion = $query->getResult();
+	$reunions = $query->getResult();
 
-    if (!$reunion) {
+    if (!$reunions) {
         throw $this->createNotFoundException(
             'Aucune réunion trouvée'
         );
 					}
 	else
-		return $reunion;
+		return $reunions;
 	}
 	
 	public function findAll()
@@ -104,7 +97,7 @@ class ReunionService
 	public function updateReunion($id)
 	{
 		
-		$reunion = $em->getRepository('DT\DoctoramaBundle\Entity:Reunion')->find($id);
+		$reunion = $repository->find($id);
 
 		if (!$reunion) {
 			throw $this->createNotFoundException(
@@ -120,7 +113,7 @@ class ReunionService
 	public function updateLieuReunion($id,$nouveaulieu)
 	{
 	
-		$reunion = $em->getRepository('DT\DoctoramaBundle\Entity:Reunion')->find(id);
+		$reunion = $repository->find(id);
 
 		if (!$reunion) {
 			throw $this->createNotFoundException(
@@ -136,7 +129,7 @@ class ReunionService
 	public function updateDateReunion($id,$nouvelleDate)
 	{
 	
-		$reunion = $em->getRepository('DT\DoctoramaBundle\Entity:Reunion')->find(id);
+		$reunion = $repository->find(id);
 
 		if (!$reunion) {
 			throw $this->createNotFoundException(
@@ -152,7 +145,7 @@ class ReunionService
 	public function addPersonne($id,$nouvellePersonne)
 	{
 	
-		$reunion = $em->getRepository('DT\DoctoramaBundle\Entity:Reunion')->find(id);
+		$reunion = $repository->find(id);
 
 		if (!$reunion) {
 			throw $this->createNotFoundException(
@@ -168,7 +161,7 @@ class ReunionService
 	public function deleteReunion($id)
 	{
 	
-		$reunion = $em->getRepository('DT\DoctoramaBundle\Entity:Reunion')->find($id);
+		$reunion = $repository->find($id);
 
 		if (!$reunion) {
 			throw $this->createNotFoundException(
