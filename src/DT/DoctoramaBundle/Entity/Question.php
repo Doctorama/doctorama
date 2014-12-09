@@ -2,7 +2,7 @@
 
 namespace DT\DoctoramaBundle\Entity;
 require_once __DIR__ . '/Reponse.php';
-require_once __DIR__ . '/TemplateFicheDeSuivi.php';
+require_once __DIR__ . '/TemplateFicheSuivi.php';
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -36,17 +36,14 @@ class Question
 	protected $reponses;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="TemplateFicheDeSuivi", inversedBy="questions")
+	 * @ORM\ManyToMany(targetEntity="TemplateFicheSuivi", inversedBy="questions")
 	 * @ORM\JoinTable(name="Tem_Que")
 	 */
-	protected $titre;
+	protected $templateFicheSuivis;
 	
 	public function __construct() {
         $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-	
-	public function __construct() {
-        $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->templateFicheSuivis = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -102,17 +99,17 @@ class Question
 	}
 	
 	public function getTitre(){
-		return $this->titre;
+		return $this->templateFicheSuivis;
 	}
 	
-	public function setTitre($titre){
-		return $this->titre = $titre;
+	public function setTitre($ficheSuivi){
+		return $this->templateFicheSuivis = $ficheSuivi;
 	}
 	
-	public function addTitre($titre){
-		if($this->titre->contains($titre)){
-			$titre->addQuestions($this);
-			$this->titre[] = ($titre);
+	public function addTitre($ficheSuivi){
+		if($this->templateFicheSuivis->contains($ficheSuivi)){
+			$ficheSuivi->addQuestions($this);
+			$this->templateFicheSuivis[] = ($ficheSuivi);
 		}
 	}
 }

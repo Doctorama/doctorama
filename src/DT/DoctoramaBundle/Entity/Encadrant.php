@@ -5,6 +5,7 @@ namespace DT\DoctoramaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 require_once __DIR__ . '/Personne.php';
+require_once __DIR__ . '/These.php';
 
 /**
  * Encandrant
@@ -16,7 +17,7 @@ class Encandrant extends Personne{
 	
 	/**
      * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")
-     * @ORM\JoinTable(name="enc_the")
+	 * @ORM\JoinTable(name="enc_the")
      **/
     private $theses;
 

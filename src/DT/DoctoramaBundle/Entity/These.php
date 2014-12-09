@@ -102,26 +102,18 @@ class These
 	/**
 	*
 	* @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="theses")
-	* @ORM\JoinTable(name="enc_the")
 	*/
 	protected $encadrants;
 	
 	public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-	
-	public function __construct() {
-        $this->dossierDeSuivi = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->doctorants = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
 	/**
 	 * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="theses")
 	 */
 	protected $doctorants;
-	
-	public function __construct(){
-		$this->doctorants = new \Doctrine\Common\Collections\ArrayCollection();
-	}
 	
 	public function getDoctorant(){
 		return $this->doctorants;
@@ -196,17 +188,6 @@ class These
 		$this->dossierDeSuivi = $dossierDeSuivi;
 		
 		return $this;
-	}
-	
-	/**
-	* Add dossierDeSuivi
-	*
-	* @param DossierDeSuivi dossierDeSuivi
-	**/
-	public function addDossierDeSuivi($dossierDeSuivi){
-		if(!$this->dossierDeSuivi->contains($dossierDeSuivi)){
-			$this->dossierDeSuivi[] = ($dossierDeSuivi);
-		}
 	}
 
 

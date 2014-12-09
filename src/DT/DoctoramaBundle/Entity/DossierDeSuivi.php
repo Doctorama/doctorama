@@ -30,9 +30,9 @@ class DossierDeSuivi
     private $commentaires;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="commentaires")
+	 * @ORM\OneToOne(targetEntity="TemplateFicheSuivi", mappedBy="dossierDeSuivi")
 	 */
-	protected $titre;
+	protected $templateFicheSuivi;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="These", inversedBy="dossierdesuivi")
@@ -41,10 +41,6 @@ class DossierDeSuivi
 	
 	public function __construct() {
         $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-	
-	public function __construct() {
-        $this->these = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -80,18 +76,12 @@ class DossierDeSuivi
         return $this->commentaires;
     }
 	
-	public function getTitre(){
-		return $this->titre;
+	public function getTemplateFicheSuivi(){
+		return $this->templateFicheSuivi;
 	}
 	
-	public function setTitre($titre){
-		return $this->titre = $titre;
-	}
-	
-	public function addTitre($titre){
-		if(!$this->titre->contains($titre)){
-			$this->titre[] = ($titre);
-		}
+	public function setTemplateFicheSuivi($ficheSuivi){
+		return $this->templateFicheSuivi = $ficheSuivi;
 	}
 	
 	public function getThese(){
@@ -100,13 +90,6 @@ class DossierDeSuivi
 	
 	public function setThese($these){
 		return $this->these = $these;
-	}
-	
-	public function addThese($these){
-		if(!$this->these->contains($these)){
-			$these->addDossierDeSuivi($this);
-			$this->these[] = ($these);
-		}
 	}
 
 }

@@ -31,21 +31,17 @@ class TemplateFicheSuivi
     private $titre;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="DossierDeSuivi", inversedBy="titre")
+	 * @ORM\OneToOne(targetEntity="DossierDeSuivi", inversedBy="templateFicheSuivi")
 	 */
-	protected $commentaires;
+	protected $dossierDeSuivi;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="Question", mappedBy="titre")
+	 * @ORM\ManyToMany(targetEntity="Question", mappedBy="templateFicheSuivis")
 	 */
 	protected $questions;
 	
 	public function __construct() {
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-	
-	public function __construct() {
-        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -85,11 +81,11 @@ class TemplateFicheSuivi
 		return $this->questions;
 	}
 	
-	public function setQuestions($question){
-		return $this->questions = $question;
+	public function setQuestions($questions){
+		return $this->questions = $questions;
 	}
 	
-	public function addQuestions($question){
+	public function addQuestion($question){
 		if($this->questions->contains($question)){
 			$this->questions[] = ($question);
 		}
@@ -98,21 +94,14 @@ class TemplateFicheSuivi
 	
 	public function getCommentaires()
     {
-        return $this->commentaires;
+        return $this->templateFicheSuivi;
     }
 	
-	public function setCommentaires($commentaires)
+	public function setTemplateFicheSuivi($ficheSuivi)
     {
-        $this->commentaires = $commentaires;
+        $this->templateFicheSuivi = $ficheSuivi;
     
         return $this;
     }
-	
-	public function addCommentaires($commentaire){
-		if(!$this->commentaires->contains($commentaire)){
-			$commantaire->addTitre($this);
-			$this->commentaires[] = ($commentaire);
-		}
-	}
 
 }
