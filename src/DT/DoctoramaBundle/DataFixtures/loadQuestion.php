@@ -14,6 +14,7 @@ class loadQuestion implements FixtureInterface{
 		$question->setQuestion('Quel est la couleur du cheval blanc d\'henry 4 ?');
 		
 		$manager->persist($question);
+		
 		$manager->flush();
 	}
 
