@@ -30,8 +30,8 @@ class Reponse
     private $reponse;
 
 	/**
-	 * @ManyToMany(targetEntity="Question", inversedBy="reponses")
-	 * @JoinTable(name="Que_rep")
+	 * @ORM\ManyToMany(targetEntity="Question", inversedBy="reponses")
+	 * @ORM\JoinTable(name="Que_rep")
 	 */
 	protected $questions;
 	
@@ -74,8 +74,10 @@ class Reponse
 	
 	public function addQuestion($question)
 	{
-	if(!$this->questions->contains($question)){
-       		$this->questions[] = ($question); }
+		if(!$this->questions->contains($question)){
+			$reponse->addReponse($this);
+       		$this->questions[] = ($question); 
+		}
 	}
 	
 	public function deleteQuestion($question)

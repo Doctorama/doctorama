@@ -3,6 +3,7 @@
 namespace DT\DoctoramaBundle\Entity;
 require_once __DIR__ . '/DossierDeSuivi.php';
 require_once __DIR__ . '/Encadrant.php';
+require_once __DIR__ . '/Doctorant.php';
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -30,10 +31,6 @@ class These
      */
     private $titreThese;
 	
-	/**
-	 * @OneToOne(targetEntity="DossierDeSuivi")
-	 */
-	protected $dossierdesuivi
     /**
      * @var string
      *
@@ -77,14 +74,14 @@ class These
     private $financement;
 
     /**
-     * @var \DateTime
+     * @var \datetime
      *
      * @ORM\Column(name="dateDebut", type="date")
      */
     private $dateDebut;
 
     /**
-     * @var \DateTime
+     * @var \datetime
      *
      * @ORM\Column(name="dateDeSoutenance", type="date")
      */
@@ -96,6 +93,121 @@ class These
      * @ORM\Column(name="mention", type="string", length=255)
      */
     private $mention;
+	
+	/**
+	 * @ORM\OneToOne(targetEntity="DossierDeSuivi", mappedBy="these")
+	 */
+	protected $dossierdesuivi;
+	
+	/**
+	*
+	* @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="theses")
+	* @ORM\JoinTable(name="enc_the")
+	*/
+	protected $encadrants;
+	
+	public function __construct() {
+        $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
+	public function __construct() {
+        $this->dossierDeSuivi = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="theses")
+	 */
+	protected $doctorants;
+	
+	public function __construct(){
+		$this->doctorants = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+	
+	public function getDoctorant(){
+		return $this->doctorants;
+	}
+	
+	public function setDoctorant($doctorant){
+		$this->doctorants = $doctorant;
+		
+		return $this;
+	}
+	
+	public function deleteDoctorant($doctorant){
+		$this->doctorants->removeElement($docotrant);
+	}
+	
+	public function addDoctorant($doctorant){
+		if(!$this->doctorants->contains($doctorant)){
+			$doctorant->addThese($this);
+			$this->doctorants[] = ($doctorant);
+		}
+	}
+	
+	/**
+     * Get encadrant
+     *
+     * @return Encadrant 
+     */
+	public function getEncadrant(){
+		return $this->encadrants;
+	}
+	
+	/**
+     * Get encadrant
+     *
+	 $ @param Encadrant $encadrant
+     * @return These 
+     */
+	public function setEncadrant($encadrant){
+		$this->encadrants = $encadrant;
+		
+		return $this;
+	}
+	
+	/**
+	* Add encradrant
+	*
+	* @param Encadrant $encadrant
+	**/
+	public function addEncadrant($encadrant){
+		if(!$this->encadrants->contains($encadrant)){
+			$encadrant->addThese($this);
+			$this->theses[] = ($encadrant);
+		}
+	}
+	
+	/**
+     * Get dossierDeSuivi
+     *
+     * @return DossierDeSuivi 
+     */
+	public function getDossierDeSuivi(){
+		return $this->dossierDeSuivi;
+	}
+	
+	/**
+     * Get dossierDeSuivi
+     *
+	 $ @param DossierDeSuivi $dossierDeSuivi
+     * @return DossierDeSuivi 
+     */
+	public function setDossierDeSuivi($dossierDeSuivi){
+		$this->dossierDeSuivi = $dossierDeSuivi;
+		
+		return $this;
+	}
+	
+	/**
+	* Add dossierDeSuivi
+	*
+	* @param DossierDeSuivi dossierDeSuivi
+	**/
+	public function addDossierDeSuivi($dossierDeSuivi){
+		if(!$this->dossierDeSuivi->contains($dossierDeSuivi)){
+			$this->dossierDeSuivi[] = ($dossierDeSuivi);
+		}
+	}
 
 
     /**
@@ -272,7 +384,7 @@ class These
     /**
      * Set dateDebut
      *
-     * @param \DateTime $dateDebut
+     * @param \datetime $dateDebut
      * @return These
      */
     public function setDateDebut($dateDebut)
@@ -285,7 +397,7 @@ class These
     /**
      * Get dateDebut
      *
-     * @return \DateTime 
+     * @return \datetime 
      */
     public function getDateDebut()
     {
@@ -295,7 +407,7 @@ class These
     /**
      * Set dateDeSoutenance
      *
-     * @param \DateTime $dateDeSoutenance
+     * @param \datetime $dateDeSoutenance
      * @return These
      */
     public function setDateDeSoutenance($dateDeSoutenance)
@@ -308,7 +420,7 @@ class These
     /**
      * Get dateDeSoutenance
      *
-     * @return \DateTime 
+     * @return \datetime 
      */
     public function getDateDeSoutenance()
     {

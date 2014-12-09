@@ -31,17 +31,22 @@ class Question
     private $question;
 	
 	/**
-	 * @ManyToMany(targetEntity="Reponse", mappedBy="questions")
+	 * @ORM\ManyToMany(targetEntity="Reponse", mappedBy="questions")
 	 */
 	protected $reponses;
 	
 	/**
-	 * @ManyToMany(targetEntity="TemplateFicheDeSuivi", inversedBy="titre")
-	 * @JoinTable(name="TemQue")
+	 * @ORM\ManyToMany(targetEntity="TemplateFicheDeSuivi", inversedBy="questions")
+	 * @ORM\JoinTable(name="Tem_Que")
 	 */
 	protected $titre;
+	
 	public function __construct() {
         $this->reponses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
+	public function __construct() {
+        $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -80,7 +85,6 @@ class Question
 	public function addReponse($reponse)
 	{
 	if(!$this->reponse->contains($reponse)){
-			$reponse->addQuestion($this);
        		$this->reponses[] = ($reponse); }
 	}
 	
@@ -103,5 +107,12 @@ class Question
 	
 	public function setTitre($titre){
 		return $this->titre = $titre;
+	}
+	
+	public function addTitre($titre){
+		if($this->titre->contains($titre)){
+			$titre->addQuestions($this);
+			$this->titre[] = ($titre);
+		}
 	}
 }

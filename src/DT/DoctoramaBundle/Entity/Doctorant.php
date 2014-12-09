@@ -5,6 +5,7 @@ namespace DT\DoctoramaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 require_once __DIR__ . '/Personne.php';
+require_once __DIR__ . '/These.php';
 
 /**
  * Doctorant
@@ -120,6 +121,35 @@ class Doctorant extends Personne
      * @ORM\Column(name="anneeDernierDiplome", type="string", length=255)
      */
     private $anneeDernierDiplome;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="doctorants")
+	 */
+	protected $theses;
+	
+	public function __construct(){
+		$this->theses = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+	
+	public function getThese(){
+		return $this->theses;
+	}
+	
+	public function setThese($these){
+		$this->theses = $these;
+		
+		return $this;
+	}
+	
+	public function deleteThese($these){
+		$this->theses->removeElement($these);
+	}
+	
+	public function addThese($these){
+		if(!$this->theses->contains($these)){
+			$this->theses[] = ($these);
+		}
+	}
 
 
     /**

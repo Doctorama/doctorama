@@ -29,15 +29,24 @@ class TemplateFicheSuivi
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
+	
 	/**
-	 * @OneToMany(targetEntity="DossierDeSuivi", inversedBy="commentaires")
+	 * @ORM\OneToMany(targetEntity="DossierDeSuivi", inversedBy="titre")
 	 */
 	protected $commentaires;
 	
 	/**
-	 * @ManyToMany(targetEntity="Question", mappedBy="questions")
+	 * @ORM\ManyToMany(targetEntity="Question", mappedBy="titre")
 	 */
 	protected $questions;
+	
+	public function __construct() {
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
+	public function __construct() {
+        $this->commentaires = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 	
     /**
      * Get id
@@ -80,6 +89,13 @@ class TemplateFicheSuivi
 		return $this->questions = $question;
 	}
 	
+	public function addQuestions($question){
+		if($this->questions->contains($question)){
+			$this->questions[] = ($question);
+		}
+	}
+	
+	
 	public function getCommentaires()
     {
         return $this->commentaires;
@@ -91,5 +107,12 @@ class TemplateFicheSuivi
     
         return $this;
     }
+	
+	public function addCommentaires($commentaire){
+		if(!$this->commentaires->contains($commentaire)){
+			$commantaire->addTitre($this);
+			$this->commentaires[] = ($commentaire);
+		}
+	}
 
 }

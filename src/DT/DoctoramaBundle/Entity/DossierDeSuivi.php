@@ -28,15 +28,25 @@ class DossierDeSuivi
      * @ORM\Column(name="commentaires", type="string", length=255)
      */
     private $commentaires;
+	
 	/**
-	 * @OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="titre")
+	 * @ORM\OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="commentaires")
 	 */
 	protected $titre;
 	
 	/**
-	 * @OneToOne(targetEntity="These")
+	 * @ORM\OneToOne(targetEntity="These", inversedBy="dossierdesuivi")
 	 */
 	protected $these;
+	
+	public function __construct() {
+        $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
+	public function __construct() {
+        $this->these = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+	
     /**
      * Get id
      *
@@ -78,12 +88,25 @@ class DossierDeSuivi
 		return $this->titre = $titre;
 	}
 	
+	public function addTitre($titre){
+		if(!$this->titre->contains($titre)){
+			$this->titre[] = ($titre);
+		}
+	}
+	
 	public function getThese(){
 		return $this->these;
 	}
 	
-	public function setThese($titreThese){
+	public function setThese($these){
 		return $this->these = $these;
+	}
+	
+	public function addThese($these){
+		if(!$this->these->contains($these)){
+			$these->addDossierDeSuivi($this);
+			$this->these[] = ($these);
+		}
 	}
 
 }
