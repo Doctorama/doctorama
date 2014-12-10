@@ -1,0 +1,8 @@
+{# empty Twig template #}
+
+{% for reunion in reunions %}
+    <p>{{ reunion.lieu }} {{ reunion.date|date("m/d/Y") }}<p>
+    {% for participant in reunion.personnes %}
+        <p>{{ participant.nom }} {{ participant.prenom }}<p>
+    {% endfor %}
+{% endfor %}
