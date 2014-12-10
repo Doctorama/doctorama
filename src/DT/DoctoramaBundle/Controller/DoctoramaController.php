@@ -36,7 +36,21 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:mesDoctorants.html.twig');
+        $doctorant1 = new Doctorant();
+        $doctorant1->setNom("FOURNIER");
+        $doctorant1->setPrenom("Pierre");
+        $doctorant1->setSujetMaster("Les fleurs");
+        $doctorant1->setEncadrantsMaster(array("1"=>"Arnaud REVEL", "2"=>"Karel BERTET"));
+        
+        $doctorant2 = new Doctorant();
+        $doctorant2->setNom("NEILZ");
+        $doctorant2->setPrenom("Benjamin");
+        $doctorant2->setSujetMaster("Les arbres");
+        $doctorant1->setEncadrantsMaster(array("1"=>"Karel BERTET"));
+        
+        $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' =>$listDoctorant));
     }
     
     public function doctorantLaboAction(Request $request)
@@ -61,7 +75,7 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        return new Response("La page Statistiques est en cours de construction :)");
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil'));
     }
     
     public function historiqueDoctorantsAction(Request $request)
@@ -95,4 +109,10 @@ class DoctoramaController extends Controller {
     {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
+    
+    public function detailDoctorantAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Detail du doctorant', 'name'=> 'Mickaël Augereau'));
+    }
+
 }

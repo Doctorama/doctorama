@@ -26,14 +26,15 @@
 				<th>
 				</th>
 			</tr>
-			{% for user in users %}
+			{% for user in doctorants %}
 				<tr>
 					<td>{{ user.nom }}{{ user.prenom }}</td>
-					<td><a href="#">{{ user.sujet }}</a></td>
+					<td><a href="#">{{ user.sujetMaster }}</a></td>
+                                        
 					<td>
 						<ul>
 							<li>
-								{% for encadrant in users.encadrants %}
+								{% for encadrant in user.encadrantsMaster %}
 									{{ encadrant }}
 								{% endfor %}
 							</li>
