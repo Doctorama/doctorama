@@ -31,7 +31,8 @@ class Question
     private $question;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="Reponse", mappedBy="questions")
+	 * @var ArrayCollection $reponses 
+	 * @ORM\OneToMany(targetEntity="Reponse", mappedBy="questions")
 	 */
 	protected $reponses;
 	
@@ -79,31 +80,33 @@ class Question
         return $this->question;
     }
 	
-
-	
 	public function deleteReponse($reponse)
 	{
 		$this->reponses->removeElement($reponse);
 	}
 	
-
+	/**
+     * @param Reponse $reponses
+     */
 	public function addReponse($reponse)
 	{
+		$reponse->setQuestion($this);
+		// Si l'objet fait déjà partie de la collection on ne l'ajoute pas
 		if(!$this->reponse->contains($reponse)){
-	       		$this->reponses[] = ($reponse); }
+       		$this->reponses->add($reponse); 
+	    }
 	}
-
-	// Notez le pluriel, on récupère une liste de réponses
+	/**
+	 * Notez le pluriel, on récupère une liste de réponses
+     * @return ArrayCollection $reponses
+     */
+	 
 	public function getReponses(){
 		return $this->reponses;
 	}
 	
 	public function getTitre(){
 		return $this->templateFicheSuivis;
-	}
-	
-	public function setTitre($ficheSuivi){
-		return $this->templateFicheSuivis = $ficheSuivi;
 	}
 	
 	public function addTitre($ficheSuivi){

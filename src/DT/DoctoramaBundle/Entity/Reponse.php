@@ -1,5 +1,7 @@
 <?php
 
+// src/DT/DoctoramaBundle/Entity/Reponse.php
+
 namespace DT\DoctoramaBundle\Entity;
 require_once __DIR__ . '/Question.php';
 
@@ -30,7 +32,7 @@ class Reponse
     private $reponse;
 
     /**
-     * @ORM\OneToOne(targetEntity="Question")
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="questions", cascade={"persist", "merge"})
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      **/
 	protected $question;
@@ -68,11 +70,21 @@ class Reponse
         return $this->reponse;
     }
 
-
+    /**
+     * Set reponse
+     *
+     * @param integer $question
+     * @return Question
+     */
     public function setQuestion($question){
         return $this->question=$question;
     }
-	
+
+	/**
+     * Get reponse
+     *
+     * @return integer 
+     */
 	public function getQuestion(){
 		return $this->question;
 	}
