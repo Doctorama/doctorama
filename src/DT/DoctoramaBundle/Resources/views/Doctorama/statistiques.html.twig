@@ -50,7 +50,7 @@
 				<tr>
 					<td>{{ encadrant }}</td>
 					<td>
-						{% set progress += encadrant.progress %}
+						{% set progress = progress + encadrant.progress %}
 						<div class="progress">
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{encadrant.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{encadrant.progress}}%;">
 								{{encadrant.progress}}%
