@@ -26,7 +26,7 @@ class SecretStep implements StepInterface
      */
     public $secret;
 
-    public function setParameters(array $parameters)
+    public function __construct(array $parameters)
     {
         if (array_key_exists('secret', $parameters)) {
             $this->secret = $parameters['secret'];
@@ -37,6 +37,7 @@ class SecretStep implements StepInterface
         } else {
             $this->secret = $this->generateRandomSecret();
         }
+
     }
 
     private function generateRandomSecret()
