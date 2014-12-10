@@ -36,34 +36,16 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-        $doctorant1 = new Doctorant();
-        $doctorant1->setNom("FOURNIER");
-        $doctorant1->setPrenom("Pierre");
-        $doctorant1->setSujetMaster("Les fleurs");
-        $doctorant1->setEncadrantsMaster(array("1"=>"Arnaud REVEL", "2"=>"Karel BERTET"));
-        
-        $doctorant2 = new Doctorant();
-        $doctorant2->setNom("NEILZ");
-        $doctorant2->setPrenom("Benjamin");
-        $doctorant2->setSujetMaster("Les arbres");
-        $doctorant1->setEncadrantsMaster(array("1"=>"Karel BERTET"));
-        
-        $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
-        
+
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $listDoctorant = $DoctorantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' =>$listDoctorant));
     }
     
     public function doctorantLaboAction(Request $request)
     {
-        $doctorant1 = new Doctorant();
-        $doctorant1->setNom("FOURNIER");
-        $doctorant1->setPrenom("Pierre");
-        
-        $doctorant2 = new Doctorant();
-        $doctorant2->setNom("NEILZ");
-        $doctorant2->setPrenom("Benjami");
-        
-        $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $listDoctorant = $DoctorantRepository->findAll();
         
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant'=> $listDoctorant));
     }
