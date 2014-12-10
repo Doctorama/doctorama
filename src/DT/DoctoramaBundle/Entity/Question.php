@@ -79,23 +79,23 @@ class Question
         return $this->question;
     }
 	
-	public function addReponse($reponse)
-	{
-	if(!$this->reponse->contains($reponse)){
-       		$this->reponses[] = ($reponse); }
-	}
+
 	
 	public function deleteReponse($reponse)
 	{
 		$this->reponses->removeElement($reponse);
 	}
 	
+
+	public function addReponse($reponse)
+	{
+		if(!$this->reponse->contains($reponse)){
+	       		$this->reponses[] = ($reponse); }
+	}
+
+	// Notez le pluriel, on récupère une liste de réponses
 	public function getReponses(){
 		return $this->reponses;
-	}
-	
-	public function setReponses($reponse){
-		return $this->reponses = $reponse;
 	}
 	
 	public function getTitre(){

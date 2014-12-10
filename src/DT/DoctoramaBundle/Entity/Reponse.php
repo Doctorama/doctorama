@@ -29,16 +29,12 @@ class Reponse
      */
     private $reponse;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity="Question", inversedBy="reponses")
-	 * @ORM\JoinTable(name="Que_rep")
-	 */
-	protected $questions;
-	
-	public function __construct() {
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-	
+    /**
+     * @ORM\OneToOne(targetEntity="Question")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     **/
+	protected $question;
+
     /**
      * Get id
      *
@@ -71,25 +67,14 @@ class Reponse
     {
         return $this->reponse;
     }
+
+
+    public function setQuestion($question){
+        return $this->question=$question;
+    }
 	
-	public function addQuestion($question)
-	{
-		if(!$this->questions->contains($question)){
-			$reponse->addReponse($this);
-       		$this->questions[] = ($question); 
-		}
+	public function getQuestion(){
+		return $this->question;
 	}
 	
-	public function deleteQuestion($question)
-	{
-		$this->questions->removeElement($question);
-	}
-	
-	public function getQuestions(){
-		return $this->questions;
-	}
-	
-	public function setQuestions($question){
-		return $this->questions = $question;
-	}
 }
