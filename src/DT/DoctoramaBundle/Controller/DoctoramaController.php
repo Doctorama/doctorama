@@ -125,9 +125,10 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
     
-    public function detailDoctorantAction(Request $request)
+    public function detailDoctorantAction($id_doctorant, Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Detail du doctorant', 'name'=> 'Mickaël Augereau'));
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', 1);
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Detail du doctorant','doctorant'=>$doctorant));
     }
 
 }

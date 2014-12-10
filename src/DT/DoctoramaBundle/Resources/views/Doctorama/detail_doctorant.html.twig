@@ -133,10 +133,10 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="t6">
 				<div class="col-sm-8">
-					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="pdfExport.php?name={{name}}">
+					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="pdfExport.php?name={{doctorant.nom}}">
 						<input type="hidden" name="form" value="t+6" />
 						<legend>
-							Fiche de suivi de réunion du 11/11/11 du doctorant {{name}}
+							Fiche de suivi de réunion du 11/11/11 du doctorant {{doctorant.nom}} {{doctorant.prenom}}
 						</legend>
 						<div class="form-group">
 							<label for="directeur" class="col-sm-4 control-label">Question 1 :</label>

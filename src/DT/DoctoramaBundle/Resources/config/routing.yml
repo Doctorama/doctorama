@@ -44,5 +44,5 @@ dt_doctorama_importer_csv:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:importCsv}
 
 dt_detail_doctorant:
-    pattern: /detail_doctorant
+    pattern: /detail_doctorant/{id_doctorant}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:detailDoctorant}

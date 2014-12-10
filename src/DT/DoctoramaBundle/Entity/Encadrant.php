@@ -15,6 +15,15 @@ require_once __DIR__ . '/These.php';
  */
 class Encadrant extends Personne{
 	
+        /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
 	/**
      * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")
 	 * @ORM\JoinTable(name="enc_the")
