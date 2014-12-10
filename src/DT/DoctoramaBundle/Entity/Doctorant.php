@@ -123,13 +123,9 @@ class Doctorant extends Personne
     private $anneeDernierDiplome;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="doctorants")
+	 * @ORM\OneToOne(targetEntity="These")
 	 */
-	protected $theses;
-	
-	public function __construct(){
-		$this->theses = new \Doctrine\Common\Collections\ArrayCollection();
-	}
+	protected $these;
 	
 	public function getThese(){
 		return $this->theses;
@@ -139,16 +135,6 @@ class Doctorant extends Personne
 		$this->theses = $these;
 		
 		return $this;
-	}
-	
-	public function deleteThese($these){
-		$this->theses->removeElement($these);
-	}
-	
-	public function addThese($these){
-		if(!$this->theses->contains($these)){
-			$this->theses[] = ($these);
-		}
 	}
 
 
