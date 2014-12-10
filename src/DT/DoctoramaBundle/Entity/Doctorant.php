@@ -133,7 +133,7 @@ class Doctorant extends Personne
 	
 	public function setThese($these){
 		$this->these = $these;
-		
+		$these->setDoctorant($this);
 		return $this;
 	}
 

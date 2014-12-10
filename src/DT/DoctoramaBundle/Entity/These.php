@@ -120,11 +120,11 @@ class These
 	protected $doctorants;
 	
 	public function getDoctorant(){
-		return $this->doctorants;
+		return $this->doctorant;
 	}
 	
 	public function setDoctorant($doctorant){
-		$this->doctorants = $doctorant;
+		$this->doctorant = $doctorant;
 		
 		return $this;
 	}
