@@ -36,20 +36,16 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:mesDoctorants.html.twig');
+
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $listDoctorant = $DoctorantRepository->findAll();
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' =>$listDoctorant));
     }
     
     public function doctorantLaboAction(Request $request)
     {
-        $doctorant1 = new Doctorant();
-        $doctorant1->setName("FOURNIER");
-        $doctorant1->setPrenom("Pierre");
-        
-        $doctorant2 = new Doctorant();
-        $doctorant2->setName("NEILZ");
-        $doctorant2->setPrenom("Benjami");
-        
-        $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $listDoctorant = $DoctorantRepository->findAll();
         
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant'=> $listDoctorant));
     }
@@ -61,7 +57,7 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        return new Response("La page Statistiques est en cours de construction :)");
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil'));
     }
     
     public function historiqueDoctorantsAction(Request $request)
@@ -95,4 +91,10 @@ class DoctoramaController extends Controller {
     {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
+    
+    public function detailDoctorantAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Detail du doctorant', 'name'=> 'Mickaël Augereau'));
+    }
+
 }

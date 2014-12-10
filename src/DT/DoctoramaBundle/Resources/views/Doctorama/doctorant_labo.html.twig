@@ -3,7 +3,7 @@
 
 {% block DTDoctoramaBody %}
         <legend>
-            <h3>Liste des doctorants </h3>
+            <h3> {{title}} </h3>
         </legend>
         
          <section class="row" style="margin-bottom:15px;">
@@ -20,166 +20,89 @@
                     </span>
                 </div>
                 
-                <div class="input-group pull-right">
-                        <button type="button" class="btn btn-default" id="btn_grille">
-                          <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-default" id="btn_list" >
-                          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        </button>
+                <div class="btn-group pull-right">
+                  <button type="button" value="10" class="btn btn-default btn_nb_par_page active btn-info">
+                    10
+                  </button>
+                  <button type="button" value="25" class="btn btn-default btn_nb_par_page">
+                    25
+                  </button>
+                  <button type="button" value="50" class="btn btn-default btn_nb_par_page">
+                    50
+                  </button>
+                  
+                  <button type="button" class="btn btn-default" id="btn_grille">
+                    <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" class="btn btn-default" id="btn_list" >
+                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                  </button>
                 </div>
             </div>
         </section>
-       
-        <section class="row vue-liste-doctorant">
-            <div class="table-responsive">
-                <table class="table border1px table-striped">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Nom</th>
-                      <th>Prénom</th>
-                      <th>Sujet de thèse</th>
-                      <th>Progression</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td><a href="">Doctorant</a></td>
-                      <td>Num1</td>
-                      <td>Sujet de thèse du doctorant Num1</td>
-                      <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> 80 % </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><a href="">Doctorant</a></td>
-                      <td>Num2</td>
-                      <td>Sujet de thèse du doctorant Num2</td>
-                      <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="250" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> 250 % </div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td><a href="">Doctorant</a></td>
-                      <td>Num3</td>
-                      <td>Sujet de thèse du doctorant Num3</td>
-                      <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="110" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> 110 % </div>
-                        </div>
 
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><a href="">Doctorant</a></td>
-                      <td>Num4</td>
-                      <td>Sujet de thèse du doctorant Num4</td>
-                      <td>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-        </section>
-        
-        <section class="row vue-grille-doctorant">
-            <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <section class="row vue-liste-doctorant"><div class="table-responsive">
+          <table class="table border1px table-striped">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Sujet de thèse</th>
+              <th>Progression</th>
+              <th>  </th>
+            </tr>
+            </thead>
+            <tbody>
+              {% for key, doctorant in listDoctorant %}
+                <tr style="display">
+                  <td>{{key}}</td>
+                  <td> {{doctorant.nom}} </td>
+                  <td> {{doctorant.prenom}} </td>
+                  <td> Sujet de thèse du doctorant </td>
+                  <td>
+                  <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> 80 % </div>
                   </div>
+                  </td>
+                  <td >
+                    <a href="#" class=" pull-right btn btn-info" role="button">Détails</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </section>
+
+      <section class="row vue-grille-doctorant">
+        {% for doctorant in listDoctorant %}
+          <article class="col-sm-6 col-md-3" id="'.$enr['id'].'">
+            <div class="thumbnail">
+              <img style="max-height:200px;" src="./img/p.jpeg" alt="...">
+              <div class="caption">
+              <h3> {{doctorant.nom}} {{doctorant.prenom}}</h3>
+              <p>Sujet de thèse du doctorant </p>
+              <div class="progress">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
                 </div>
-              </div><div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p1.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="110" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> 110 % </div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                  </div>
-                </div>
-              </div><div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="250" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> 250 % </div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                  </div>
-                </div>
-              </div><div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p1.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50 %</div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                  </div>
-                </div>
-              </div><div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="250" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"> 250 % </div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                  </div>
-                </div>
-              </div><div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href=""><img style="max-height:200px;" src="./img/p1.jpeg" alt="Nom Prenom"></a>
-                  <div class="caption">
-                    <h3>Nom Prenom</h3>
-                    <p> Sujet de la thèse </p>
-                    <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
-                        </div>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                  </div>
-                </div>
+              <p><a href="#" class="btn btn-info" role="button">Détails</a></p>
               </div>
-              
-        </section>
-        
+            </div>
+          </article>
+        {% endfor %}
+      </section>
+
+
         
         <nav class="text-center">
             <ul class="pagination">
                 <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <!-- Calcul du nombre de page à avoir -->
+                {%set nb_doctorant = (listDoctorant|length/10)|round(0, 'ceil')  %}
+                {% for i in 1..nb_doctorant %}
+                     <li><a href="#" class="btn page"> {{i}} </a></li>
+                {% endfor %}
+
                 <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
             </ul>
         </nav>

@@ -30,12 +30,12 @@ class DossierDeSuivi
     private $commentaires;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="TemplateFicheSuivi", mappedBy="dossierDeSuivi")
+	 * @ORM\OneToOne(targetEntity="TemplateFicheSuivi")
 	 */
 	protected $templateFicheSuivi;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="These", inversedBy="dossierdesuivi")
+	 * @ORM\OneToOne(targetEntity="These")
 	 */
 	protected $these;
 	
