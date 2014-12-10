@@ -128,11 +128,11 @@ class Doctorant extends Personne
 	protected $these;
 	
 	public function getThese(){
-		return $this->theses;
+		return $this->these;
 	}
 	
 	public function setThese($these){
-		$this->theses = $these;
+		$this->these = $these;
 		
 		return $this;
 	}
