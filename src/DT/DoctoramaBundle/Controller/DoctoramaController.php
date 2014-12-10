@@ -73,14 +73,14 @@ class DoctoramaController extends Controller {
         
         
         $reunion1 = new Reunion;
-        $reunion1->setDate(new DateTime('2014-12-12'));
-        $reunion1->setLieu("Fac");
+        $reunion1->setDate(new DateTime('2014-12-12 08:00:00'));
+        $reunion1->setLieu("Pascal 135");
         $reunion1->addPersonne($personne1);
         $reunion1->addPersonne($personne3);
         
         $reunion2 = new Reunion;
-        $reunion2->setDate(new DateTime('2014-12-09'));
-        $reunion2->setLieu("Fac");
+        $reunion2->setDate(new DateTime('2014-12-09 10:00:00'));
+        $reunion2->setLieu("MSI 223");
         $reunion2->addPersonne($personne2);
         $reunion2->addPersonne($personne4);
         $reunions=array('1'=>$reunion1,'2'=>$reunion2);
