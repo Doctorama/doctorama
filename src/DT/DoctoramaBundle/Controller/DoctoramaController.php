@@ -42,11 +42,11 @@ class DoctoramaController extends Controller {
     public function doctorantLaboAction(Request $request)
     {
         $doctorant1 = new Doctorant();
-        $doctorant1->setName("FOURNIER");
+        $doctorant1->setNom("FOURNIER");
         $doctorant1->setPrenom("Pierre");
         
         $doctorant2 = new Doctorant();
-        $doctorant2->setName("NEILZ");
+        $doctorant2->setNom("NEILZ");
         $doctorant2->setPrenom("Benjami");
         
         $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
