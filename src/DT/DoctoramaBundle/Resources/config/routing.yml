@@ -39,3 +39,6 @@ dt_doctorama_modif_dossier_suivis:
     pattern: /encadrant/doctorant_labo/modif_dossier_suivis/{id_doctorant}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifDossierSuivis}
     
+dt_doctorama_importer_csv:
+    pattern: /encadrant/doctorant_labo/import_csv
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:importCsv}  
