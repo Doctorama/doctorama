@@ -1,0 +1,108 @@
+﻿{# src/DT/DoctoramaBundle/Resources/views/Doctorama/statistiques.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jqplot.pieRenderer.js')}}"></script>
+<link rel="stylesheet" href="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.css')}}">
+
+<legend>
+  <h3>Statistiques</h3>
+</legend>
+
+<section class="row">
+	<div class="col-md-3">
+		<p>
+			Durée moyenne d'une thèse :
+		</p>
+	</div>
+	<div class="col-md-2">
+		<p>
+			<strong>37 mois</strong>
+		</p>
+	</div>
+</section>
+<section class="row">
+	<div class="col-md-3">
+		<p>
+			Pourcentage thèse :
+		</p>
+	</div>
+	<div class="col-md-2">
+		<div id="chartdiv" style="height:300px;width:400px; "></div>
+	</div>
+</section>
+
+
+<section class="row-fluid">
+	<div class="table-responsive">
+		<table class="table border1px table-striped">
+		  <thead>
+			<tr>
+			  <th>Encadrant</th>
+			  <th>% de thèse encadré</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <td>Encadrant 1</td>
+			  <td>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;"> 10 % </div>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>Encadrant 2</td>
+			  <td>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"> 30 % </div>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>Encadrant 3</td>
+			  <td>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%;"> 15 % </div>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>Encadrant 4</td>
+			  <td>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"> 25 % </div>
+				</div>
+			  </td>
+			</tr>
+			<tr>
+			  <td>Total</td>
+			  <td>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> 80 % </div>
+				</div>
+			  </td>
+			</tr>
+		  </tbody>
+		</table>
+	</div>      
+</section>
+		
+<script>
+$(document).ready(function(){
+  var data = [
+    ['', 65],['', 35]
+  ];
+  var plot1 = jQuery.jqplot ('chartdiv', [data], 
+    { 
+		seriesColors:['#5cb85c', '#f0ad4e'],
+		seriesDefaults: {
+			renderer: jQuery.jqplot.PieRenderer, 
+		}, 
+    }
+  );
+});
+</script>
+{% endblock %}

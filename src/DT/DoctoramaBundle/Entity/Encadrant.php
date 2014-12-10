@@ -38,7 +38,7 @@ class Encadrant extends Personne{
 	/**
      * Get theses
      *
-	 $ @param $these
+	 * @param $these
      * @return These 
      */
 	public function setThese($these){

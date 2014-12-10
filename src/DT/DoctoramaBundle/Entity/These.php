@@ -148,7 +148,7 @@ class These
 	/**
      * Get encadrant
      *
-	 $ @param Encadrant $encadrant
+	 * @param Encadrant $encadrant
      * @return These 
      */
 	public function setEncadrant($encadrant){
@@ -181,7 +181,7 @@ class These
 	/**
      * Get dossierDeSuivi
      *
-	 $ @param DossierDeSuivi $dossierDeSuivi
+	 * @param DossierDeSuivi $dossierDeSuivi
      * @return DossierDeSuivi 
      */
 	public function setDossierDeSuivi($dossierDeSuivi){

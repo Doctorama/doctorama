@@ -81,9 +81,24 @@ cd $TARGET/swiftmailer/swiftmailer && rm -rf CHANGES README* build* docs notes t
 
 # Symfony
 cd $TARGET/symfony/symfony && rm -rf README.md phpunit.xml* tests *.sh vendor
-cd $TARGET/symfony/assetic-bundle/Symfony/Bundle/AsseticBundle && rm -rf Tests Resources/doc
-cd $TARGET/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle && rm -rf Tests Resources/doc
-cd $TARGET/symfony/monolog-bundle/Symfony/Bundle/MonologBundle && rm -rf Tests Resources/doc
+
+if [ -d $TARGET/symfony/assetic-bundle/Symfony/Bundle/AsseticBundle ]; then
+    cd $TARGET/symfony/assetic-bundle/Symfony/Bundle/AsseticBundle && rm -rf Tests Resources/doc
+else
+    cd $TARGET/symfony/assetic-bundle && rm -rf Tests Resources/doc
+fi
+
+if [ -d $TARGET/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle ]; then
+    cd $TARGET/symfony/swiftmailer-bundle/Symfony/Bundle/SwiftmailerBundle && rm -rf Tests Resources/doc
+else
+    cd $TARGET/symfony/swiftmailer-bundle && rm -rf Tests Resources/doc
+fi
+
+if [ -d $TARGET/symfony/monolog-bundle/Symfony/Bundle/MonologBundle ]; then
+    cd $TARGET/symfony/monolog-bundle/Symfony/Bundle/MonologBundle && rm -rf Tests Resources/doc
+else
+    cd $TARGET/symfony/monolog-bundle && rm -rf Tests Resources/doc
+fi
 
 # Twig
 cd $TARGET/twig/twig && rm -rf AUTHORS CHANGELOG README.markdown bin doc package.xml.tpl phpunit.xml* test

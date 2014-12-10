@@ -1,0 +1,192 @@
+﻿{# src/DT/DoctoramaBundle/Resources/views/Doctorama/detail_doctorant.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jqplot.pieRenderer.js')}}"></script>
+<link rel="stylesheet" href="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.css')}}">
+
+<legend>
+  <h3>Informations de Nom_PrénomDoc</h3>
+</legend>
+
+<section class="row-fluid">
+	<div role="tabpanel">
+	  <!-- Nav tabs -->
+	  <ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#detail" aria-controls="detail" role="tab" data-toggle="tab">Détails</a></li>
+		<li role="presentation"><a href="#t6" aria-controls="t6" role="tab" data-toggle="tab">T+6</a></li>
+	  </ul>
+
+	  <!-- Tab panes -->
+	  <div class="tab-content ">
+			<div role="tabpanel" class="tab-pane active" id="detail">
+				<ul class="nav nav-pills" role="tablist">
+					<li role="presentation" class="active"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
+					<li role="presentation"><a href="#master" aria-controls="master" role="tab" data-toggle="tab">Master</a></li>
+				</ul>
+				<form class="form-horizontal" role="form">
+					<div class="tab-content">
+						<div role="tabpanel" class="tab-pane active" id="doctorant">
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label for="titre" class="col-sm-4 control-label">Titre :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="titre" name="titre" value="titre de la thèse"readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="directeur" class="col-sm-4 control-label">Directeur :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="directeur" name="directeur" value="directeur" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="encadrantsDoctorant" class="col-sm-4 control-label">Encadrants :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="encadrantsDoctorant" name="encadrantsDoctorant" value="encadrantsDoctorant" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="thematique" class="col-sm-4 control-label">Axe Thèmatique :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="thematique" name="thematique" value="thematique" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="scientifique" class="col-sm-4 control-label">Axe Scientifique :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="scientifique" name="scientifique" value="scientifique" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="financement" class="col-sm-4 control-label">Financement :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="financement" name="financement" value="financement" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inscription" class="col-sm-4 control-label">Date de première inscription :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="inscription" name="dateinscription" value="date inscription" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="fin" class="col-sm-4 control-label">Date de fin prévue :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="fin" name="datefin" value="date fin" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="dcace" class="col-sm-4 control-label">DCACE :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="dcace" name="dcace" value="dcace" readonly>
+									</div>	
+								</div>												
+							</div>
+						</div>
+						<div role="tabpanel" class="tab-pane" id="master">
+							<div class="col-sm-8">
+								<div class="form-group">
+									<label for="formation" class="col-sm-4 control-label">Nom de la formation :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="formation" name="formation" value="formation" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="universite" class="col-sm-4 control-label">Université :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="universite" name="universite" value="universite" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sujet" class="col-sm-4 control-label">Sujet de Master :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="sujet" name="sujet" value="sujet" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="laboratoire" class="col-sm-4 control-label">Laboratoire d'accueil :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="laboratoire" name="laboratoire" value="laboratoire" readonly>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="encadrantsMaster" class="col-sm-4 control-label">Encadrant(s) :</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="encadrantsMaster" name="encadrantsMaster" value="encadrantsMaster" readonly>
+									</div>
+								</div>									
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div id="chartdiv"></div>							
+						</div>
+						<div class="col-sm-8"></div>
+						<div class="col-sm-4">
+							<button type="button" class="btn btn-warning">Modifier</button>
+							<button type="button" class="btn btn-danger">Supprimer</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="t6">
+				<div class="col-sm-8">
+					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="pdfExport.php?name={{name}}">
+						<input type="hidden" name="form" value="t+6" />
+						<legend>
+							Fiche de suivi de réunion du 11/11/11 du doctorant {{name}}
+						</legend>
+						<div class="form-group">
+							<label for="directeur" class="col-sm-4 control-label">Question 1 :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="question1" name="t+6[question1]" value="1" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="directeur" class="col-sm-4 control-label">Question 2 :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="question2" name="t+6[question2]" value="2" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="directeur" class="col-sm-4 control-label">Question 3 :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="question3" name="t+6[question3]" value="3" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="directeur" class="col-sm-4 control-label">Question 4 :</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="question4" name="t+6[question4]" value="4" readonly>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-4"></div>
+							<div class="col-sm-4">
+								<input type="submit" class="btn btn-info" id="export" name="export" value="Exporter">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+$(document).ready(function(){
+  var data = [
+    ['', 65],['', 35]
+  ];
+  var plot1 = jQuery.jqplot ('chartdiv', [data], 
+    { 
+		seriesColors:['#5cb85c', '#f0ad4e'],
+		seriesDefaults: {
+			renderer: jQuery.jqplot.PieRenderer, 
+		}, 
+    }
+  );
+});
+</script>
+{% endblock %}
