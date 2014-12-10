@@ -95,7 +95,7 @@ class These
     private $mention;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="DossierDeSuivi", mappedBy="these")
+	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
 	 */
 	protected $dossierdesuivi;
 	

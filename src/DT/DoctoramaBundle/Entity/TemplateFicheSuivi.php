@@ -31,7 +31,7 @@ class TemplateFicheSuivi
     private $titre;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="DossierDeSuivi", inversedBy="templateFicheSuivi")
+	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
 	 */
 	protected $dossierDeSuivi;
 	
