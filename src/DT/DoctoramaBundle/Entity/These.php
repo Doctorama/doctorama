@@ -105,9 +105,13 @@ class These
 	*/
 	protected $encadrants;
 	
+	/**
+	 * @ORM\OneToOne(targetEntity="Doctorant")
+	 */
+	protected $doctorant;
+	
 	public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->doctorants = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
 	/**
@@ -123,17 +127,6 @@ class These
 		$this->doctorants = $doctorant;
 		
 		return $this;
-	}
-	
-	public function deleteDoctorant($doctorant){
-		$this->doctorants->removeElement($docotrant);
-	}
-	
-	public function addDoctorant($doctorant){
-		if(!$this->doctorants->contains($doctorant)){
-			$doctorant->addThese($this);
-			$this->doctorants[] = ($doctorant);
-		}
 	}
 	
 	/**
