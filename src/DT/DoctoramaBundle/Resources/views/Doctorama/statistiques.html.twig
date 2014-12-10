@@ -8,9 +8,9 @@
 <link rel="stylesheet" href="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.css')}}">
 
 <legend>
-  <h3>Statistiques</h3>
+  <h3>{{title}}</h3>
 </legend>
-
+{{dump()}}
 <section class="row">
 	<div class="col-md-3">
 		<p>
@@ -19,7 +19,7 @@
 	</div>
 	<div class="col-md-2">
 		<p>
-			<strong>37 mois</strong>
+			<strong>{{dureeMoyenne}}</strong>
 		</p>
 	</div>
 </section>
@@ -45,6 +45,38 @@
 			</tr>
 		  </thead>
 		  <tbody>
+		  {% for encadrant in encadrants %}
+				<tr>
+					<td>{{ encadrant }}</td>
+					<td>
+						<div class="progress">
+							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+								60%
+							</div>
+						</div>
+					</td>
+                                        
+					<td>
+						<ul>
+							{% for encadrant in user.encadrantsMaster %}
+								<li>
+									{{ encadrant }}
+								</li>
+							{% endfor %}
+						</ul>
+					</td>
+					<td>
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+							60%
+						</div>
+					</div>
+				</td>
+				<td class="">
+					<a href="" class="pull-right btn btn-info">Détails</a>
+				</td>
+				</tr>
+			{% endfor %}
 			<tr>
 			  <td>Encadrant 1</td>
 			  <td>
