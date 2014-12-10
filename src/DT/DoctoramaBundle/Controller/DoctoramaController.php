@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
+use DT\DoctoramaBundle\Entity\Doctorant;
+
 /**
  * Description of DoctoramaController
  *
@@ -39,7 +41,17 @@ class DoctoramaController extends Controller {
     
     public function doctorantLaboAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire'));
+        $doctorant1 = new Doctorant();
+        $doctorant1->setName("FOURNIER");
+        $doctorant1->setPrenom("Pierre");
+        
+        $doctorant2 = new Doctorant();
+        $doctorant2->setName("NEILZ");
+        $doctorant2->setPrenom("Benjami");
+        
+        $listDoctorant = array("1"=>$doctorant1, "2"=>$doctorant2);
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant'=> $listDoctorant));
     }
     
     public function agendaAction(Request $request)
