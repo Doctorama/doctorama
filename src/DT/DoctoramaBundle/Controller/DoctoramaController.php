@@ -10,6 +10,9 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use DT\DoctoramaBundle\Entity\Doctorant;
 
+use DT\DoctoramaBundle\Entity\Reunion;
+use DT\DoctoramaBundle\Entity\Personne;
+use \DateTime;
 /**
  * Description of DoctoramaController
  *
@@ -52,7 +55,37 @@ class DoctoramaController extends Controller {
     
     public function agendaAction(Request $request)
     {
-        return new Response("La page Agenda est en cours de construction :)");
+        $personne1 = new Personne();
+        $personne1->setNom("NEILZ");
+        $personne1->setPrenom("Benjamin");
+        
+        $personne2 = new Personne();
+        $personne2->setNom("FOURNIER");
+        $personne2->setPrenom("Pierre");
+        
+        $personne3 = new Personne();
+        $personne3->setNom("REVEL");
+        $personne3->setPrenom("ARNAUD");
+        
+        $personne4 = new Personne();
+        $personne4->setNom("BERTER");
+        $personne4->setPrenom("Karel");
+        
+        
+        $reunion1 = new Reunion;
+        $reunion1->setDate(new DateTime('2014-12-12'));
+        $reunion1->setLieu("Fac");
+        $reunion1->addPersonne($personne1);
+        $reunion1->addPersonne($personne3);
+        
+        $reunion2 = new Reunion;
+        $reunion2->setDate(new DateTime('2014-12-09'));
+        $reunion2->setLieu("Fac");
+        $reunion2->addPersonne($personne2);
+        $reunion2->addPersonne($personne4);
+        $reunions=array('1'=>$reunion1,'2'=>$reunion2);
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
     }
     
     public function statistiquesAction(Request $request)
