@@ -56,4 +56,16 @@ $(document).ready(function(){
 		$("tr:nth-child(n+"+deb+"):nth-child(-n+"+fin+")").show();
 	});
 
+	$('#calendar').fullCalendar({
+			firstDay:1,
+			defaultDate: moment(),
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			eventSources : [{url:'/mydate.php'}],
+		});
+
+		$('[data-toggle="tooltip"]').popover({
+		    'placement': 'bottom'
+		});
+
 });

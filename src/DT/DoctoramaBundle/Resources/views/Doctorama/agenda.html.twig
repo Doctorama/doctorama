@@ -1,8 +1,53 @@
-{# empty Twig template #}
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/admin_dossier.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
 
-{% for reunion in reunions %}
-    <p>{{ reunion.lieu }} {{ reunion.date|date("m/d/Y") }}<p>
-    {% for participant in reunion.personnes %}
-        <p>{{ participant.nom }} {{ participant.prenom }}<p>
-    {% endfor %}
-{% endfor %}
+{% block DTDoctoramaBody %}
+
+	<div class="page-header borderColor">
+      <h2>Calendrier Réunions</h2>
+    </div>
+	
+	<section class="row" >
+		<div class="col-md-4">
+			Reunions pour le 
+			{{"now"|date("m/d/Y")}}
+				<div class="table-responsive">
+				<table class="table border1px table-striped">
+					<thead>
+						<tr>
+							  <th>#</th>
+							  <th>{{"now"|date("m/d")}} </th>
+							  <th>Participants</th>
+							  <th>Salle</th>
+						</tr>
+					</thead>
+					 <tbody>
+
+					 {% for reunion in reunions %}
+					    <tr>
+					    <td>1</td>
+					    <td>{{ reunion.date|date("H:i:s") }}</td>
+					    <td>
+					    {%set chaine = '' %}
+					   
+						    {% for participant in reunion.personnes %}
+						     {{ participant.nom  ~ " " ~   participant.prenom }}
+						   {% endfor %}
+						    <span class="pull-right glyphicon glyphicon-collapse-down" data-toggle="tooltip" data-content="{% for participant in reunion.personnes %}
+						     {{ participant.nom  ~  participant.prenom }}
+						   {% endfor %} "> </span></td>
+						   <td>{{reunion.lieu}} </td>
+
+						</tr>
+					{% endfor %}
+					 <div></div>	
+					</tbody>
+				</table>
+				</div>
+		</div>
+		<div class="col-md-8">
+			<div id='calendar'></div>
+		</div>
+	</section>
+
+{% endblock %}
