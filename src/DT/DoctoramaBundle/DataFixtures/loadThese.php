@@ -10,7 +10,7 @@ use DT\DoctoramaBundle\Entity\These;
 class loadThese implements FixtureInterface{
 
 	public function load(ObjectManager $manager){
-		$these = new These;
+		/*$these = new These;
 		
 		$these->setTitreThese('Une These');
 		$these->setSujetThese('un Sujet');
@@ -25,7 +25,7 @@ class loadThese implements FixtureInterface{
 		
 		$manager->persist($these);
 			
-		$manager->flush();
+		$manager->flush();*/
 	
 	}	
 }

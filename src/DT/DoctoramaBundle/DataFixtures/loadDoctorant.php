@@ -10,7 +10,7 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 class loadDoctorant implements FixtureInterface{
 
 	public function load(ObjectManager $manager){
-		$doctorant = new Doctorant;
+		/*$doctorant = new Doctorant;
 		
 		$doctorant->setNom('toto');
 		$doctorant->setPrenom('titi');
@@ -43,7 +43,7 @@ class loadDoctorant implements FixtureInterface{
 		
 		$manager->persist($doctorant);
 			
-		$manager->flush();
+		$manager->flush();*/
 		
 	}
 	
