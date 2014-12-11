@@ -102,6 +102,7 @@ class These
 	/**
 	*
 	* @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="theses")
+	* @ORM\JoinTable(name="enc_the")
 	*/
 	protected $encadrants;
 	

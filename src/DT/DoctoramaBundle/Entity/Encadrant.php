@@ -26,7 +26,6 @@ class Encadrant extends Personne{
     
 	/**
      * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")
-	 * @ORM\JoinTable(name="enc_the")
      **/
     private $theses;
 
