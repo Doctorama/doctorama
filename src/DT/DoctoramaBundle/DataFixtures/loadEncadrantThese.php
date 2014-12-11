@@ -31,7 +31,7 @@ class loadEncadrantThese implements FixtureInterface{
 		
 		$en = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These');
 		
-		$encadrant->addThese($en[0]);
+		$encadrant->addThese($en[sizeof($en)-1]);
 		
 		$manager->flush();
 		

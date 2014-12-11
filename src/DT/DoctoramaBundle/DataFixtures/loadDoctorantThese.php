@@ -64,7 +64,7 @@ class loadDoctorantThese implements FixtureInterface{
 		$manager->flush();
 		
 		$th = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These');
-		$doctorant->setThese($th[0]);
+		$doctorant->setThese($th[sizeof($th)-1]);
 		
 		$manager->flush();
 		
