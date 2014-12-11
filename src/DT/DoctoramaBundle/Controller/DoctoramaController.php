@@ -73,7 +73,8 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil'));
+        $encadrants = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil','dureeMoyenne'=>2, 'encadrants'=>$encadrants));
     }
     
     public function historiqueDoctorantsAction(Request $request)

@@ -48,14 +48,14 @@
 			{% set progress = 0 %}
 			{% for encadrant in encadrants %}
 				<tr>
-					<td>{{ encadrant }}</td>
+					<td>{{ encadrant.nom }} {{ encadrant.prenom }}</td>
 					<td>
-						{% set progress = progress + encadrant.progress %}
+						{#{% set progress = progress + encadrant.progress %}
 						<div class="progress">
 							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{encadrant.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{encadrant.progress}}%;">
 								{{encadrant.progress}}%
 							</div>
-						</div>
+						</div>#}
 					</td>
 				</tr>
 			{% endfor %}
