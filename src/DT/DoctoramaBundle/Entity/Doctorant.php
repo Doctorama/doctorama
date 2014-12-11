@@ -3,6 +3,7 @@
 namespace DT\DoctoramaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DT\SecurityBundle\Entity\Compte;
 
 require_once __DIR__ . '/Personne.php';
 require_once __DIR__ . '/These.php';
@@ -121,8 +122,24 @@ class Doctorant extends Personne
      * @ORM\Column(name="anneeDernierDiplome", type="string", length=255)
      */
     private $anneeDernierDiplome;
-	
-	/**
+    
+    /**
+     * @ORM\OneToOne(targetEntity="DT\SecurityBundle\Entity\Compte", mappedBy="doctorant")
+     **/
+    protected $compte;
+    
+    
+    function getCompte() {
+        return $this->compte;
+    }
+
+    function setCompte($compte) {
+        $this->compte = $compte;
+        
+        return $this;
+    }
+
+    	/**
 	 * @ORM\OneToOne(targetEntity="These")
 	 */
 	protected $these;

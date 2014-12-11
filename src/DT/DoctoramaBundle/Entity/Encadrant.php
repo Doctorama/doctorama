@@ -3,6 +3,7 @@
 namespace DT\DoctoramaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DT\SecurityBundle\Entity\Compte;
 
 require_once __DIR__ . '/Personne.php';
 require_once __DIR__ . '/These.php';
@@ -33,7 +34,40 @@ class Encadrant extends Personne{
         $this->theses = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
-	
+    /**
+     * @ORM\OneToOne(targetEntity="DT\SecurityBundle\Entity\Compte", mappedBy="encadrant")
+     **/
+    private $compte;
+    
+    
+    function getId() {
+        return $this->id;
+    }
+
+    function getTheses() {
+        return $this->theses;
+    }
+
+    function getCompte() {
+        return $this->compte;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
+
+    function setTheses($theses) {
+        $this->theses = $theses;
+        return $this;
+    }
+
+    function setCompte($compte) {
+        $this->compte = $compte;
+        return $this;
+    }
+
+    	
 	/**
      * Get theses
      *
