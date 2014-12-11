@@ -66,7 +66,7 @@
                   </div>
                   </td>
                   <td >
-                    <a href="{{ path('dt_detail_doctorant', {'id_doctorant' : doctorant.id}) }}" class=" pull-right btn btn-info" role="button">Détails</a>
+                    <a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class=" pull-right btn btn-info" role="button">Détails</a>
                   </td>
                 </tr>
               {% endfor %}
@@ -85,7 +85,7 @@
               <div class="progress">
                   <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
                 </div>
-              <p><a href="#" class="btn btn-info" role="button">Détails</a></p>
+              <p><a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class="btn btn-info" role="button">Détails</a></p>
               </div>
             </div>
           </article>
