@@ -10,6 +10,7 @@ use DT\DoctoramaBundle\Entity\These;
 
 class loadDoctorantThese implements FixtureInterface{
 	public function load(ObjectManager $manager){
+		/********************* Declaration Doctorant *************************/
 		$doctorant = new Doctorant;
 		
 		$doctorant->setNom('Dupond');
@@ -38,9 +39,7 @@ class loadDoctorantThese implements FixtureInterface{
 		$doctorant->setEtabDernierDiplome('ULR');
 		$doctorant->setPaysDernierDiplome('France');
 		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		/********************* Declaration Doctorant *************************/
-		
+		$doctorant->setAnneeDernierDiplome('2014-06-20');		
 		
 		/********************* Declaration These *************************/
 		$these = new These;
@@ -55,12 +54,19 @@ class loadDoctorantThese implements FixtureInterface{
 		$these->setDateDebut(new \DateTime('2014-01-01'));
 		$these->setDateDESoutenance(new \DateTime('2017-01-01'));
 		$these->setMention('Bien');
-		$th = $manager->getRepository('DTDoctoramaBundle:These')->find(2);
+		
 		/********************* Association Doctorant These *************************/
-		$doctorant->setThese($th);
+		
 		
 		$manager->persist($doctorant);
+		$manager->persist($these);
 		
 		$manager->flush();
+		
+		$th = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These');
+		$doctorant->setThese($th[0]);
+		
+		$manager->flush();
+		
 	}
 }
