@@ -20,23 +20,6 @@ use \DateTime;
  */
 class DoctoramaController extends Controller {
     
-    public function import_csvAction($file)
-    {
-    	$ligne = 2; // compteur de ligne
-		$fic = fopen($file, "a+");
-		while($tab=fgetcsv($fic,1024,';'))
-		{
-			$champs = count($tab);//nombre de champ dans la ligne en question	
-			echo "<b> Les " . $champs . " champs de la ligne " . $ligne . " sont :</b><br />";
-			$ligne ++;
-			//affichage de chaque champ de la ligne en question
-			for($i=0; $i<$champs; $i ++)
-			{
-				echo $tab[$i] . "<br />";
-			}
-		}
-    }
-    
     public function mesDoctorantsAction(Request $request)
     {
 
@@ -118,11 +101,6 @@ class DoctoramaController extends Controller {
         
         //il faudra charger les infos du doctorant concerné.
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
-    }
-    
-    public function importCsvAction(Request $request)
-    {
-        return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
     
     public function detailDoctorantAction($id_doctorant, Request $request)
