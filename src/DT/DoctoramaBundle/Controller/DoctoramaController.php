@@ -22,7 +22,11 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-
+        /*$user = $this->get('security.context')->getToken()->getUser();
+        
+        $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+        $theses = $theseRepository->findBy(array('encadrants'=>$user->getId()));*/
+        
         
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
@@ -39,6 +43,16 @@ class DoctoramaController extends Controller {
     
     public function agendaAction(Request $request)
     {
+        /* Toute les réunions : juste les dates(date début et fin) en json
+         * + Renvoi réunion 7 prochain par ordre croissant normale*/
+        $toutesLesReunions = array(
+                array('date'=>new DateTime('2014-15-12 08:00:00'),'lieu'=>'Pascal 135'),
+                array('date'=>new DateTime('2014-12-09 10:00:00'),'lieu'=>'MSI 223'),
+                array('date'=>new DateTime('2014-12-25 14:00:00'),'lieu'=>'Pascal 300'),
+                array('date'=>new DateTime('2014-12-27 10:00:00'),'lieu'=>'Pascal 400'),
+                array('date'=>new DateTime('2014-12-30 11:00:00'),'lieu'=>'Pascal 666')
+            );
+        
         $personne1 = new Personne();
         $personne1->setNom("NEILZ");
         $personne1->setPrenom("Benjamin");
@@ -69,7 +83,7 @@ class DoctoramaController extends Controller {
         $reunion2->addPersonne($personne4);
         $reunions=array('1'=>$reunion1,'2'=>$reunion2);
         
-        return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
+        return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions, 'toutesLesReunions'=>$toutesLesReunions));
     }
     
     public function statistiquesAction(Request $request)
