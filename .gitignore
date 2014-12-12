@@ -8,3 +8,5 @@ src/DT/DoctoramaBundle/Controller/DoctoramaController.php
 
 #Pour les fichiers temporaires de linux
 *.*~
+
+startFixtures.sh
