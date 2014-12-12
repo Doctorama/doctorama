@@ -26,7 +26,7 @@ class Encadrant extends Personne{
     protected $id;
     
 	/**
-     * @ORM\ManyToMany(targetEntity="These", mappedBy="encandrants")
+     * @ORM\ManyToMany(targetEntity="These", inversedBy="encandrants")
      **/
     private $theses;
 
