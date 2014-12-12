@@ -189,4 +189,61 @@ class DoctoramaController extends Controller {
 		));
     }
 
+    public function creationDossierAction(Request $request)
+    {
+        $requete = $this->get('request');
+        if($requete->getMethod() == 'POST')
+        {  
+            extract ($_POST);
+            //$nom_doct = htmlentities(str_replace('"','\"',$_POST['nom_doct']));
+
+            $em = $this->getDoctrine();;
+
+            $doctorant = new Doctorant();
+            $doctorant->setNom($nom_doct);
+            $doctorant->setPrenom($prenom_doct);
+            $doctorant->setDCACE($dcace);
+            $doctorant->setDateInscr1eThese($date_1er);
+
+            $doctorant->setNomFormationMaster($nom_mast);
+            $doctorant->setUniversiteMaster($univ);
+            $doctorant->setSujetMaster($sujet_mast);
+            $doctorant->setLaboratoireAcceuilMaster($labo_acc);
+            $doctorant->setEncadrantsMaster($enc_mast);
+
+            $em->persist($doctorant);
+            
+            
+            $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+
+            $these = new These();
+            $these->setSujetThese($sujet_th);
+            $these->setAxeThematique($axe_th);
+            $these->setAxeScientifique($axe_sc);
+            $these->setFinancement($finance);
+
+            $serviceEnc = new EncadrantService($em);
+
+            for($i=0; $i<sizeof($enc_th); $i++)
+            {
+                $nomEnc = explode(" ", $enc_th[$i]);
+                $encadrant = $serviceEnc->findEncadrantByNomEtPrenom($nomEnc[1], $nomEnc[0]);
+                $these->addEncadrant($encadrant);
+            }
+
+            $em->persist($these);
+
+            $DossierSuiviRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:DossierDeSuivi');
+
+            $dossierDeSuivi = new DossierDeSuivi();
+            $dossierDeSuivi->setThese($these);
+
+            $em->persist($dossierDeSuivi);
+            $em->flush();
+
+        }
+
+        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));
+    }
+
 }
