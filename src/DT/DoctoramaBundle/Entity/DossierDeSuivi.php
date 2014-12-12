@@ -89,7 +89,9 @@ class DossierDeSuivi
 	}
 	
 	public function setThese($these){
-		return $this->these = $these;
+		$this->these = $these;
+		$these->setDossierDeSuivi($this);
+		return $this;
 	}
 
 }
