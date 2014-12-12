@@ -196,9 +196,13 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$manager->persist($doctorant);
 		$manager->persist($these);
 		$manager->persist($doctorant2);
+                $manager->persist($doctorant3);
+                $manager->persist($doctorant4);
 		$manager->persist($these2);
 		$manager->persist($compte);
 		$manager->persist($compte2);
+                $manager->persist($compte3);
+                $manager->persist($compte4);
 		
 		$manager->flush();
 		
