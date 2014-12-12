@@ -56,16 +56,36 @@ $(document).ready(function(){
 		$("tr:nth-child(n+"+deb+"):nth-child(-n+"+fin+")").show();
 	});
 
+	
+	// Agenda
 	$('#calendar').fullCalendar({
-			firstDay:1,
-			defaultDate: moment(),
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			eventSources : [{url:'/mydate.php'}],
-		});
+		firstDay:1,
+		defaultDate: moment(),
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		eventSources : [{url:'/mydate.php'}],
+	});
 
-		$('[data-toggle="tooltip"]').popover({
-		    'placement': 'bottom'
-		});
+	$('[data-toggle="tooltip"]').popover({
+		'placement': 'bottom'
+	});
+	
+	//Graphique progression
+	var data = [
+		['65%', 65],['35%', 35]
+	];
+	var plot1 = jQuery.jqplot ('chartdiv', [data], 
+    { 
+		seriesColors:['#5cb85c', '#f0ad4e'],
+		seriesDefaults: {
+			renderer: jQuery.jqplot.PieRenderer, 
+			rendererOptions: {
+			  // Put data labels on the pie slices.
+			  // By default, labels show the percentage of the slice.
+			  showDataLabels: true
+			}
+		},
+    }
+  );
 
 });

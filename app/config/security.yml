@@ -35,7 +35,7 @@ security:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         secured_area:
-            pattern:    ^/
+            pattern: ^/
             anonymous: ~
             form_login:
                 provider: chain_provider

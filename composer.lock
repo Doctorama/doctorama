@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e7d65f5209f79aaeb02ac995740a3b3f",
+    "hash": "0f3a1adfa801d59e6d48d907db58c80e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -868,7 +868,7 @@
                     "FOS\\UserBundle\\": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
