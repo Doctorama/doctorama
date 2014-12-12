@@ -102,8 +102,7 @@ class These
 	
 	/**
 	*
-	* @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="theses")
-	* @ORM\JoinTable(name="enc_the")
+	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theses")
 	*/
 	protected $encadrants;
 	
@@ -160,8 +159,10 @@ class These
 	public function addEncadrant($encadrant){
 		if(!$this->encadrants->contains($encadrant)){
 			$encadrant->addThese($this);
-			$this->theses[] = ($encadrant);
+                        $this->items[] = $encadrant;
 		}
+                
+                return $this;
 	}
 	
 	/**

@@ -4,11 +4,11 @@
 {% block DTDoctoramaBody %}
 
     <legend>
-        <h3>Créer un dossier de suivi </h3>
+        <h3> {{title}} </h3>
     </legend>
     
     <section class="row">
-        <form class="border1px form-horizontal" style="padding:30px;" role="form">
+        <form action="{{ path('dt_formulaire_creation_dossier') }}" method="post" class="border1px form-horizontal" style="padding:30px;" role="form">
             <legend>
                 Information sur la thèse 
             </legend>
@@ -28,6 +28,12 @@
                 <label for="sujet_th" class="col-sm-3 control-label">Sujet de la thèse</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" name="sujet_th" placeholder="Sujet de la thèse">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="dir_th" class="col-sm-3 control-label">Directeur de la thèse</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="dir_th" placeholder="Directeur de la thèse">
                 </div>
             </div>
 

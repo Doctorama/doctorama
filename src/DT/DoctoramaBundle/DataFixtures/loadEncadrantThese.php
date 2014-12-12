@@ -68,6 +68,10 @@ class loadEncadrantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these->addEncadrant($encadrant);
 		$these2->addEncadrant($encadrant2);
 		
+                $manager->persist($these);
+                $manager->persist($these2);
+                
+                
 		$manager->flush();
 		
 	}

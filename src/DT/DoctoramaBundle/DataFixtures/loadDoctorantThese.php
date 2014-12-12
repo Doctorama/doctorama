@@ -72,9 +72,71 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant2->setPaysDernierDiplome('France');
 		$doctorant2->setLibelleDernierDiplome('ICONE');
 		$doctorant2->setAnneeDernierDiplome('2014-06-20');
-
+                
+                $doctorant3 = new Doctorant;
+		
+		$doctorant3->setNom('Fournier');
+		$doctorant3->setPrenom('Pierre');
+		$doctorant3->setNomUsage('Fournier');
+		$doctorant3->setCivilite('Monsieur');
+		$doctorant3->setAdresse('1 rue des roses');
+		$doctorant3->setMail('fournier@adresse.com');
+		$doctorant3->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$doctorant3->setNationalite('FR');
+		$doctorant3->setVilleDeNaissance('La Rochelle');
+		$doctorant3->setPaysDeNaissance('France');
+		$doctorant3->setDepDeNaissance('17');
+		
+		$doctorant3->setDepDernierDiplome('17');
+		
+		$doctorant3->setNumEtudiant('15526398958');
+		$doctorant3->setBourseEtExoneration(0);
+		$doctorant3->setDateInscr1eThese('2010-09-03');
+		$doctorant3->setDCACE('');
+		$doctorant3->setNomFormationMaster('ICONE');
+		$doctorant3->setUniversiteMaster('ULR');
+		$doctorant3->setSujetMaster('M1');
+		$doctorant3->setLaboratoireAcceuilMaster('L3I');
+		$doctorant3->setEncadrantsMaster('C. Demko');
+		$doctorant3->setEtabDernierDiplome('ULR');
+		$doctorant3->setPaysDernierDiplome('France');
+		$doctorant3->setLibelleDernierDiplome('ICONE');
+		$doctorant3->setAnneeDernierDiplome('2014-06-20');
+                
+                
+                $doctorant4 = new Doctorant;
+		
+		$doctorant4->setNom('Neilz');
+		$doctorant4->setPrenom('Benjamin');
+		$doctorant4->setNomUsage('Neilz');
+		$doctorant4->setCivilite('Monsieur');
+		$doctorant4->setAdresse('1 rue des roses');
+		$doctorant4->setMail('neilz@adresse.com');
+		$doctorant4->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$doctorant4->setNationalite('FR');
+		$doctorant4->setVilleDeNaissance('La Rochelle');
+		$doctorant4->setPaysDeNaissance('France');
+		$doctorant4->setDepDeNaissance('17');
+		
+		$doctorant4->setDepDernierDiplome('17');
+		
+		$doctorant4->setNumEtudiant('15526398958');
+		$doctorant4->setBourseEtExoneration(0);
+		$doctorant4->setDateInscr1eThese('2010-09-03');
+		$doctorant4->setDCACE('');
+		$doctorant4->setNomFormationMaster('ICONE');
+		$doctorant4->setUniversiteMaster('ULR');
+		$doctorant4->setSujetMaster('M1');
+		$doctorant4->setLaboratoireAcceuilMaster('L3I');
+		$doctorant4->setEncadrantsMaster('C. Demko');
+		$doctorant4->setEtabDernierDiplome('ULR');
+		$doctorant4->setPaysDernierDiplome('France');
+		$doctorant4->setLibelleDernierDiplome('ICONE');
+		$doctorant4->setAnneeDernierDiplome('2014-06-20');
+                
+                /********************* Declaration Compte *************************/
 		$compte = new Compte;
-		$compte->setUsername('TDupond');
+		$compte->setUsername('tdupond');
 		$compte->setPlainPassword('1234');
 		$compte->setEnabled(true);
 		$compte->setEmail('dupond@adresse.com');
@@ -86,6 +148,20 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$compte2->setEnabled(true);
 		$compte2->setEmail('durand@adresse.com');
 		$compte2->setDoctorant($doctorant2);
+                
+                $compte3 = new Compte;
+		$compte3->setUsername('pfourn');
+		$compte3->setPlainPassword('1234');
+		$compte3->setEnabled(true);
+		$compte3->setEmail('fournier@adresse.com');
+		$compte3->setDoctorant($doctorant3);
+                
+                $compte4 = new Compte;
+		$compte4->setUsername('bneilz');
+		$compte4->setPlainPassword('1234');
+		$compte4->setEnabled(true);
+		$compte4->setEmail('neilz@adresse.com');
+		$compte4->setDoctorant($doctorant4);
 		
 		/********************* Declaration These *************************/
 		$these = new These;

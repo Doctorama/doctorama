@@ -1,0 +1,74 @@
+﻿
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/admin_dossier.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+
+		<div class="page-header borderColor">
+          <h2>Historique des doctorants </h2>
+        </div>
+        <div class="recherche input-group">
+			<input type="text" class="form-control" placeholder="Rechercher un doctorant">
+	     	<span class="input-group-btn">
+	        	<button class="btn btn-default" type="button">Go!</button>
+	      	</span>
+	    </div>
+
+
+		<div class="table-responsive">
+			<table class="table border1px table-striped">
+			  <thead>
+				<tr>
+				  <th>Nom</th>
+				  <th>Prénom</th>
+				  <th>Sujet de thèse</th>
+				  <th></th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  
+				  <td>Doctorant</td>
+				  <td>Num1</td>
+				  <td>Sujet de thèse du doctorant Num1</td>
+				 <td class=""> <a class="btn btn-info pull-right" role="button" href="#">Details </a></td>
+				</tr>
+				<tr>
+				  
+				  <td>Doctorant</td>
+				  <td>Num2</td>
+				  <td>Sujet de thèse du doctorant Num2</td>
+				  <td class=""> <a class="btn btn-info pull-right" role="button" href="#">Details </a></td>
+				</tr>
+				<tr>
+				  
+				  <td>Doctorant</td>
+				  <td>Num3</td>
+				  <td>Sujet de thèse du doctorant Num3</td>
+				  <td class=""> <a class="btn btn-info pull-right" role="button" href="#">Details </a></td>
+				</tr>
+				<tr>
+				  
+				  <td>Doctorant</td>
+				  <td>Num4</td>
+				  <td>Sujet de thèse du doctorant Num4</td>
+				 <td class=""> <a class="btn btn-info pull-right" role="button" href="#">Details </a></td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+		
+		<nav class="text-center">
+			<ul class="pagination">
+				<li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+			</ul>
+		</nav>
+
+{% endblock %}

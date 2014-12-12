@@ -12,39 +12,58 @@
   {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
 
 <body>
-<!--login modal-->
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-  <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h1 class="text-center">Login</h1>
+		
+	<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"><img src="{{asset('bundles/doctorama/public/img/logo.png')}}" width="48%" style="margin-top:-10px;"></a>
+        </div>
       </div>
-      <div class="modal-body">
-          <form action="{{ path('login_check') }}" method="post" class="form col-md-12 center-block">
-            <div class="form-group">
-              <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control input-lg" placeholder="Utilisateur">
-            </div>
-            <div class="form-group">
-              <input type="password" id="password" name="_password" class="form-control input-lg" placeholder="Mot de passe">
-            </div>
-            <div class="form-group">
-              <button type="submit" value="Connexion" class="btn btn-primary btn-lg btn-block">Se connecter</button>
-              <span class="pull-right"><a href="#">S'enregistrer</a></span><span><a href="#">Besoin d'aide?</a></span>
-            </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-          <div class="col-md-12">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-		  </div>	
-      </div>
-  </div>
-  </div>
-</div>
-	<!-- script references -->
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="{{asset('bundles/doctorama/public/js/bootstrap.min.js')}}"></script>
+    </div>
+
+    <div class="container">
+
+        <div id="login-wraper" style="opacity:0.95;">
+            <form action="{{ path('login_check') }}" method="post" class="form login-form">
+                <legend>Accéder à <span class="blue">Doctor@ma</span></legend>
+            
+                <div class="body">
+                    <label>Utilisateur</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}">
+                    
+                    <label>Mot de passe</label>
+                    <input type="password" id="password" name="_password">
+                </div>
+            
+                <div class="footer">
+                    <label class="checkbox inline">
+                        <input type="checkbox" id="inlineCheckbox1" value="option1"> Se rappeler de moi
+                    </label>
+                                
+                    <button type="submit" value="Connexion" class="btn btn-success">Connexion</button>
+                </div>
+            
+            </form>
+        </div>
+
+    </div>
+
+	<footer class="white navbar-fixed-bottom">
+     
+    </footer>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{asset('bundles/doctorama/public/js/jquery.js')}}"></script>
+    <script src="{{asset('bundles/doctorama/public/js/bootstrap.js')}}"></script>
+    <script src="{{asset('bundles/doctorama/public/js/backstretch.min.js')}}"></script>
+    <script src="{{asset('bundles/doctorama/public/js/typica-login.js')}}"></script>
 </body>
 		
 {% endblock %}

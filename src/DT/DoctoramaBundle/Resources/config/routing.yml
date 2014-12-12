@@ -42,3 +42,7 @@ dt_doctorama_modif_dossier_suivis:
 dt_detail_doctorant:
     pattern: /detail_doctorant/{id_doctorant}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:detailDoctorant}
+
+dt_formulaire_creation_dossier:
+    pattern: /creation_dossier_suivis
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:creationDossier}
