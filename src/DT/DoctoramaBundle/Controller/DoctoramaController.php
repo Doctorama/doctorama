@@ -12,6 +12,7 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
+use DT\DoctoramaBundle\Repository\TheseRepository;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -39,15 +40,37 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $user = $this->get('security.context')->getToken()->getUser();
+        
+        //si c'est une connexion fait grâce à un utilisateur issu de l'objet compte
+        $listDoctorants = array();
+        if(method_exists($user,'getDoctorant'))
+        {
+            $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+            $theses = $theseRepository->findByEncadrant($user->getEncadrant()->getId());
+            
+            foreach($theses as $these)
+            {
+                array_push($listDoctorants, $these->getDoctorant());
+            }
+            
+        }
+        
+        else
+        {
+            $doctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+            $listDoctorants=$doctorantRepository->findAll();
+        }
+
+        /*$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
 		$TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 		$listThese = array(sizeof($listDoctorant));
 		for($i=0; $i<sizeof($listDoctorant); $i++){
 			$these = $TheseRepository->findById($listDoctorant[$i]->getId());
 			$listDoctorant[$i]->setThese($these[0]);
-		}
-        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorant));
+		}*/
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorants));
     }
     
     public function doctorantLaboAction(Request $request)
