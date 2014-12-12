@@ -97,7 +97,7 @@ class These
 	/**
 	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
 	 */
-	protected $dossierdesuivi;
+	protected $dossierDeSuivi;
 	
 	/**
 	*
