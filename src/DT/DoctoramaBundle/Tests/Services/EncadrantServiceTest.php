@@ -425,7 +425,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son département de naissance"
+	// Test "retrouver un encadrant par son nom et prenom"
 	public function testfindEncadrantByNomEtPrenom()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -454,6 +454,544 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->assertEquals(1, sizeof($en));
 		
 	}
+	
+	// Test "retrouver tous les encadrants"
+	public function testfindAll()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->findAll();
+		$this->assertEquals(2, sizeof($en));
+		
+	}
+	
+	// Test "mise à jour du nom d'un encadrant"
+	public function testupdateNomEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateNomEncadrant(2, 'Revel');
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals('Revel', $req->getNom());
+		
+	}
+	
+	// Test "mise à jour du nom d'usage d'un encadrant"
+	public function testupdateNomUsageEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateNomUsageEncadrant(2, 'Revel');
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals('Revel', $req->getNomUsage());
+		
+	}
+	
+	// Test "mise à jour du prenom d'un encadrant"
+	public function testupdatePrenomEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updatePrenomEncadrant(2, 'Revel');
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals('Revel', $req->getPrenom());
+		
+	}
+	
+	// Test "mise à jour de l'adresse d'un encadrant"
+	public function testupdateAdresseEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateAdresseEncadrant(2, '2 rue au pied');
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals('2 rue au pied', $req->getAdresse());
+		
+	}
+	
+	// Test "mise à jour du mail d'un encadrant"
+	public function testupdateMailEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateMailEncadrant(2, 'Revel@ad.fr');
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals('Revel@ad.fr', $req->getMail());
+		
+	}
+	
+	// Test "mise à jour de la date de naissance d'un encadrant"
+	public function testupdateDateDeNaissancEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateDateDeNaissancEncadrant(2, new \DateTime('2015-01-01'));
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals(new \DateTime('2015-01-01'), $req->getDateDeNaissance());
+		
+	}
+	
+	// Test "mise à jour de la nationalite d'un encadrant"
+	public function testupdateNationaliteEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateNationaliteEncadrant(2, "EN");
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals("EN", $req->getNationalite());
+		
+	}
+	
+	// Test "mise à jour de la ville de naissance d'un encadrant"
+	public function testupdateVilleDeNaissanceEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateVilleDeNaissanceEncadrant(2, "Niort");
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals("Niort", $req->getVilleDeNaissance());
+		
+	}
+	
+	// Test "mise à jour du pays de naissance d'un encadrant"
+	public function testupdatePaysDeNaissanceEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updatePaysDeNaissanceEncadrant(2, "Belgique");
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals("Belgique", $req->getPaysDeNaissance());
+		
+	}
+	
+	// Test "mise à jour du pays de naissance d'un encadrant"
+	public function testupdateDepDeNaissanceEncadrant()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko1');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->updateDepDeNaissanceEncadrant(2, "79000");
+		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
+
+		$this->assertEquals("79000", $req->getDepDeNaissance());
+		
+	}
+	
 }
 
 
