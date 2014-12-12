@@ -23,6 +23,7 @@ class DoctoramaController extends Controller {
     public function mesDoctorantsAction(Request $request)
     {
 
+        
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' =>$listDoctorant));
