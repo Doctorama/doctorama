@@ -40,7 +40,7 @@
 			</tr>
 		  </thead>
 		  <tbody>
-			{% set progress = 0 %}
+			{% set progression = 0 %}
 			{% if encadrants is defined %}
 				{% for encadrant in encadrants %}
 					<tr>
@@ -60,12 +60,13 @@
 									{{encadrant.progress}}%
 								</div>
 							{% else %}
-								{% set progress = random(100) %}
+								{% set progress = random(50) %}
+								
 								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
 									{{progress}}%
 								</div>
 							{%endif %}
-								
+							{% set progression = progression + progress %}	
 							</div>
 						</td>
 					</tr>
@@ -75,7 +76,7 @@
 			  <td>Total</td>
 			  <td>
 				<div class="progress">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;"> {{progress}} % </div>
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progression}}%;"> {{progression}} % </div>
 				</div>
 			  </td>
 			</tr>

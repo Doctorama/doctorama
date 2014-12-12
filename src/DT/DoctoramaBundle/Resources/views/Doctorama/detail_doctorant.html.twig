@@ -4,7 +4,7 @@
 {% block DTDoctoramaBody %}
 
 <legend>
-  <h3>{{title}}</h3>
+  <h3>{{title}} : {{doctorant.nom}} {{doctorant.prenom}}</h3>
 </legend>
 
 <section class="row-fluid">
@@ -133,10 +133,10 @@
 			</div>
 			<div role="tabpanel" class="tab-pane" id="t6">
 				<div class="col-sm-8">
-					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="pdfExport.php?name={{doctorant.nom}}">
+					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="">
 						<input type="hidden" name="form" value="t+6" />
 						<legend>
-							Fiche de suivi de réunion du 11/11/11 du doctorant {{doctorant.nom}} {{doctorant.prenom}}
+							Fiche de suivi de réunion du 11/11/11
 						</legend>
 						{% for question in  fiche%}
 						<div class="form-group">
@@ -146,25 +146,16 @@
 							</div>
 						</div>
 						{% endfor %}
+						<div class="form-group">
+								<div class="col-sm-4"></div>
+								<div class="col-sm-4">
+									<input type="submit" class="btn btn-info" id="export" name="export" value="Exporter">
+								</div>
+							</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-<script>
-$(document).ready(function(){
-  var data = [
-    ['', 65],['', 35]
-  ];
-  var plot1 = jQuery.jqplot ('chartdiv', [data], 
-    { 
-		seriesColors:['#5cb85c', '#f0ad4e'],
-		seriesDefaults: {
-			renderer: jQuery.jqplot.PieRenderer, 
-		}, 
-    }
-  );
-});
-</script>
 {% endblock %}

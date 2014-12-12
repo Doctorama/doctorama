@@ -12,7 +12,6 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
-use DT\DoctoramaBundle\Repository\TheseRepository;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -40,44 +39,32 @@ class DoctoramaController extends Controller {
     
     public function mesDoctorantsAction(Request $request)
     {
-        $user = $this->get('security.context')->getToken()->getUser();
-        
-        //si c'est une connexion fait grâce à un utilisateur issu de l'objet compte
-        $listDoctorants = array();
-        if(method_exists($user,'getDoctorant'))
-        {
-            $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
-            $theses = $theseRepository->findByEncadrant($user->getEncadrant()->getId());
-            
-            foreach($theses as $these)
-            {
-                array_push($listDoctorants, $these->getDoctorant());
-            }
-            
-        }
-        
-        else
-        {
-            $doctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-            $listDoctorants=$doctorantRepository->findAll();
-        }
-
-        /*$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
 		$TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 		$listThese = array(sizeof($listDoctorant));
 		for($i=0; $i<sizeof($listDoctorant); $i++){
 			$these = $TheseRepository->findById($listDoctorant[$i]->getId());
 			$listDoctorant[$i]->setThese($these[0]);
-		}*/
-        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorants));
+		}
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorant));
+    }
+	
+	public function ficheSuiviExportAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.twig');
     }
     
     public function doctorantLaboAction(Request $request)
     {
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
-        
+        $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+		$listThese = array(sizeof($listDoctorant));
+		for($i=0; $i<sizeof($listDoctorant); $i++){
+			$these = $TheseRepository->findById($listDoctorant[$i]->getId());
+			$listDoctorant[$i]->setThese($these[0]);
+		}
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant'=> $listDoctorant));
     }
     
@@ -118,10 +105,11 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques','dureeMoyenne'=>50,'encadrants'=>array(
-			array('nom'=>'toto','prenom'=>'tata','progress'=>40),
-			array('nom'=>'titi','prenom'=>'tutu','progress'=>20)
-		)
+		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
+        $listEncadrant = $EncadrantRepository->findAll();
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques',
+			'dureeMoyenne'=>'40 mois',
+			'encadrants'=> $listEncadrant
 		));
     }
     
@@ -157,22 +145,20 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
 	
-    public function detailDoctorantAction(Request $request)
+    public function detailDoctorantAction(Request $request, $id_doctorant)
     {
+		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $Doctorant = $DoctorantRepository->findById($id_doctorant);
+		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
+        $listEncadrant = $EncadrantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
-			'title'=>'Détails doctorant',
+			'title'=>'Détails',
+			//'doctorant'=>$Doctorant[0],
 			'titre' => 'Detail du doctorant', 
-			'doctorant'=>array('nom'=> 'Augereau', 'prenom'=>'Mickaël'),
+			'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
 			'titreThese'=>'titre',
 			'directeur'=>'dirlo',
-			'encadrantsDoctorant'=>array(
-				array(
-					'nom'=>'Nomtoto','prenom'=>'Prenomtiti'
-				),
-				array(
-					'nom'=>'Nomtata','prenom'=>'Prenomtutu'
-				)
-			),
+			'encadrantsDoctorant'=>$listEncadrant,
 			'axe_thematique'=>'thematique',
 			'axe_scientifique'=>'scientifique',
 			'financement'=>'financement',
@@ -185,10 +171,10 @@ class DoctoramaController extends Controller {
 			'laboratoire'=>'labo',
 			'encadrantsMaster'=>array(
 				array(
-					'nom'=>'Nomtotomaster','prenom'=>'Prenomtitimaster'
+					'nom'=>'Totomaster','prenom'=>'Titimaster'
 				),
 				array(
-					'nom'=>'Nomtatamaster','prenom'=>'Prenomtutumaster'
+					'nom'=>'Tatamaster','prenom'=>'Tutumaster'
 				)
 			),
 			'fiche'=>array(
