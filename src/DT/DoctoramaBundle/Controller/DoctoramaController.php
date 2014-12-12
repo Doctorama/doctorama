@@ -46,7 +46,7 @@ class DoctoramaController extends Controller {
         /* Toute les réunions : juste les dates(date début et fin) en json
          * + Renvoi réunion 7 prochain par ordre croissant normale*/
         $toutesLesReunions = array(
-                array('date'=>new DateTime('2014-15-12 08:00:00'),'lieu'=>'Pascal 135'),
+                array('date'=>new DateTime('2014-12-12 08:00:00'),'lieu'=>'Pascal 135'),
                 array('date'=>new DateTime('2014-12-09 10:00:00'),'lieu'=>'MSI 223'),
                 array('date'=>new DateTime('2014-12-25 14:00:00'),'lieu'=>'Pascal 300'),
                 array('date'=>new DateTime('2014-12-27 10:00:00'),'lieu'=>'Pascal 400'),
