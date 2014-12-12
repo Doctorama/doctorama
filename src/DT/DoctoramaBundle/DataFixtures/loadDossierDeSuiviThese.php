@@ -10,6 +10,10 @@ use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
 class loadDossierDeSuiviThese implements FixtureInterface{
 	public function load(ObjectManager $manager){
+		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 0;');
+		$manager->getConnection()->prepare('truncate table dossierdesuivi');
+		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 1;');
+		
 		$dossierDeSuivi = new DossierDeSuivi;
 		$dossierDeSuivi->setCommentaires('Un commentaire');
 		

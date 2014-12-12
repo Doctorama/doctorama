@@ -92,14 +92,14 @@ class TemplateFicheSuivi
 	}
 	
 	
-	public function getCommentaires()
+	public function getDossierDeSuivi()
     {
-        return $this->templateFicheSuivi;
+        return $this->dossierDeSuivi;
     }
 	
-	public function setTemplateFicheSuivi($ficheSuivi)
+	public function setDossierDeSuivi($dossierSuivi)
     {
-        $this->templateFicheSuivi = $ficheSuivi;
+        $this->dossierDeSuivi = $dossierSuivi;
     
         return $this;
     }
