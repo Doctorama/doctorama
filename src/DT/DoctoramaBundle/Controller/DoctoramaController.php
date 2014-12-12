@@ -95,7 +95,7 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil','dureeMoyenne'=>50,'encadrants'=>array(
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques','dureeMoyenne'=>50,'encadrants'=>array(
 			array('nom'=>'toto','prenom'=>'tata','progress'=>40),
 			array('nom'=>'titi','prenom'=>'tutu','progress'=>20)
 		)
