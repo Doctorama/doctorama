@@ -3,10 +3,6 @@
 
 {% block DTDoctoramaBody %}
 
-<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('bundles/doctorama/public/jqplot/jqplot.pieRenderer.js')}}"></script>
-<link rel="stylesheet" href="{{asset('bundles/doctorama/public/jqplot/jquery.jqplot.css')}}">
-
 <legend>
   <h3>{{title}}</h3>
 </legend>
@@ -46,20 +42,7 @@
 		  </thead>
 		  <tbody>
 			{% set progress = 0 %}
-			{% for encadrant in encadrants %}
-				<tr>
-					<td>{{ encadrant.nom }} {{ encadrant.prenom }}</td>
-					<td>
-						{#{% set progress = progress + encadrant.progress %}
-						<div class="progress">
-							<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{encadrant.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{encadrant.progress}}%;">
-								{{encadrant.progress}}%
-							</div>
-						</div>#}
-					</td>
-				</tr>
-			{% endfor %}
-			
+
 			<tr>
 			  <td>Total</td>
 			  <td>
@@ -73,20 +56,5 @@
 		</table>
 	</div>      
 </section>
-		
-<script>
-$(document).ready(function(){
-  var data = [
-    ['', 65],['', 35]
-  ];
-  var plot1 = jQuery.jqplot ('chartdiv', [data], 
-    { 
-		seriesColors:['#5cb85c', '#f0ad4e'],
-		seriesDefaults: {
-			renderer: jQuery.jqplot.PieRenderer, 
-		}, 
-    }
-  );
-});
-</script>
+
 {% endblock %}
