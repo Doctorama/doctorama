@@ -9,8 +9,7 @@
 	
 	<section class="row" >
 		<div class="col-lg-5 col-md-6">
-			Reunions pour le 
-			{{"now"|date("m/d/Y")}}
+		
 				<div class="table-responsive">
 				<table class="table border1px table-striped">
 					<thead>
@@ -22,11 +21,12 @@
 						</tr>
 					</thead>
 					 <tbody>
-
+					 {%set i = 0%}
 					 {% for reunion in reunions %}
+					 	{%set i = i+1%}
 					    <tr>
-					    <td>1</td>
-					    <td>{{ reunion.date|date("H:i:s") }}</td>
+					    <td>{{i}}</td>
+					    <td>{{ reunion.date|date("H:i") }}</td>
 					    <td>
 					    {%set chaine = '' %}
 					   
