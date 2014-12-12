@@ -57,6 +57,11 @@ class Encadrant extends Personne{
         return $this;
     }
 
+    function setTheses($theses) {
+        $this->theses = $theses;
+        return $this;
+    }
+
     function setCompte($compte) {
         $this->compte = $compte;
         return $this;
@@ -68,8 +73,20 @@ class Encadrant extends Personne{
      *
      * @return These 
      */
-	public function getTheses(){
+	public function getThese(){
 		return $this->theses;
+	}
+	
+	/**
+     * Get theses
+     *
+	 * @param $these
+     * @return These 
+     */
+	public function setThese($these){
+		$this->theses = $these;
+		
+		return $this;
 	}
 	
 	/**
