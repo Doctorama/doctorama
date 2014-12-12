@@ -4,13 +4,14 @@
 
 namespace DT\DoctoramaBundle\DataFixtures;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use DT\DoctoramaBundle\Entity\Reponse;
 use DT\DoctoramaBundle\Entity\Question;
 
-class loadQuestionReponse implements FixtureInterface{
+class loadQuestionReponse extends AbstractFixture implements OrderedFixtureInterface{
 
 	// dans l'argument de la méthode load , l'objet $manager est l'entityManager
 	public function load(ObjectManager $manager){
@@ -36,6 +37,10 @@ class loadQuestionReponse implements FixtureInterface{
 		$manager->persist($reponse1);	
 		$manager->flush();
 		
+	}
+	//fonction ordre des fixtures
+	public function getOrder(){
+		return 6;
 	}
 	
 }

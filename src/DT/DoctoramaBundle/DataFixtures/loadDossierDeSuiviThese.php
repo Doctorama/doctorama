@@ -2,13 +2,14 @@
 
 namespace DT\DoctoramaBundle\DataFixtures;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 
 use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
-class loadDossierDeSuiviThese implements FixtureInterface{
+class loadDossierDeSuiviThese extends AbstractFixture implements OrderedFixtureInterface{
 	public function load(ObjectManager $manager){
 		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 0;');
 		$manager->getConnection()->prepare('truncate table dossierdesuivi');
@@ -31,5 +32,9 @@ class loadDossierDeSuiviThese implements FixtureInterface{
 		$dossierDeSuivi2->setThese($dds2[sizeof($dds2)-1]);
 		
 		$manager->flush();
+	}
+	//fonction ordre des fixtures
+	public function getOrder(){
+		return 3;
 	}
 }
