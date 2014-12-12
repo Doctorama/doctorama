@@ -47,7 +47,8 @@ class DoctoramaController extends Controller {
          * + Renvoi réunion 7 prochain par ordre croissant normale*/
         $toutesLesReunions = array(
                 array('date'=>new DateTime('2014-12-12 08:00:00'),'lieu'=>'Pascal 135'),
-                array('date'=>new DateTime('2014-12-09 10:00:00'),'lieu'=>'MSI 223'),
+                array('date'=>new DateTime('2014-12-13 10:00:00'),'lieu'=>'MSI 223'),
+                array('date'=>new DateTime('2014-12-14 15:00:00'),'lieu'=>'MSI 200'),
                 array('date'=>new DateTime('2014-12-25 14:00:00'),'lieu'=>'Pascal 300'),
                 array('date'=>new DateTime('2014-12-27 10:00:00'),'lieu'=>'Pascal 400'),
                 array('date'=>new DateTime('2014-12-30 11:00:00'),'lieu'=>'Pascal 666')
@@ -71,17 +72,30 @@ class DoctoramaController extends Controller {
         
         
         $reunion1 = new Reunion;
-        $reunion1->setDate(new DateTime('2014-12-12 08:00:00'));
+        $reunion1->setDate(new DateTime('2014-12-1 08:00:00'));
         $reunion1->setLieu("Pascal 135");
         $reunion1->addPersonne($personne1);
         $reunion1->addPersonne($personne3);
         
         $reunion2 = new Reunion;
-        $reunion2->setDate(new DateTime('2014-12-09 10:00:00'));
+        $reunion2->setDate(new DateTime('2014-12-13 10:00:00'));
         $reunion2->setLieu("MSI 223");
         $reunion2->addPersonne($personne2);
         $reunion2->addPersonne($personne4);
-        $reunions=array('1'=>$reunion1,'2'=>$reunion2);
+        
+        $reunion3 = new Reunion;
+        $reunion3->setDate(new DateTime('2014-12-14 15:00:00'));
+        $reunion3->setLieu("MSI 200");
+        $reunion3->addPersonne($personne2);
+        $reunion3->addPersonne($personne4);
+        
+        $reunion4 = new Reunion;
+        $reunion4->setDate(new DateTime('2014-12-27 10:00:00'));
+        $reunion4->setLieu("MSI 400");
+        $reunion4->addPersonne($personne2);
+        $reunion4->addPersonne($personne4);
+        
+        $reunions=array('1'=>$reunion1,'2'=>$reunion2,'3'=>$reunion3, '4'=>$reunion4);
         
         return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions, 'toutesLesReunions'=>$toutesLesReunions));
     }
