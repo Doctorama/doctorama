@@ -129,7 +129,10 @@ class DoctoramaController extends Controller {
     
     public function historiqueDoctorantsAction(Request $request)
     {
-        return new Response("La page Historique Doctoratns est en cours de construction :)");
+        // return new Response("La page Historique Doctoratns est en cours de construction :)");
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+            $doctorants = $DoctorantRepository->findAll();
+         return $this->render('DTDoctoramaBundle:Doctorama:historique.html.twig', array('title' => 'Historique des doctorants','listDoctorant'=>$doctorants));
     }
     
     public function indexAction(Request $request)
