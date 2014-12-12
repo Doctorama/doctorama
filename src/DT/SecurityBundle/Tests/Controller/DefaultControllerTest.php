@@ -1,6 +1,6 @@
 <?php
 
-namespace DT\SecurityBundle\Tests\Controller;
+/*namespace DT\SecurityBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -14,4 +14,4 @@ class DefaultControllerTest extends WebTestCase
 
         $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
     }
-}
+}*/
