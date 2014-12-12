@@ -7,6 +7,6 @@ php app/console doctrine:database:create
 # Mise à jour des tables
 php app/console doctrine:schema:update --force
 # Utilisation des Fixtures pour les jeux de données
-php app/console doctrine:fixtures:load --fixtures=src/DT/DoctoramaBundle/DataFixtures 
+php app/console doctrine:fixtures:load --fixtures=src/DT/DoctoramaBundle/DataFixtures --append
 
 exit 0
