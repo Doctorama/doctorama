@@ -76,8 +76,10 @@ class DoctoramaController extends Controller {
         $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 		$listThese = array(sizeof($listDoctorant));
 		for($i=0; $i<sizeof($listDoctorant); $i++){
+                        
 			$these = $TheseRepository->findById($listDoctorant[$i]->getId());
-			$listDoctorant[$i]->setThese($these[0]);
+                        if(isset($these[0]))
+                            $listDoctorant[$i]->setThese($these[0]);
 		}
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant'=> $listDoctorant));
     }
