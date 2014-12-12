@@ -68,7 +68,7 @@ class Encadrant extends Personne{
      *
      * @return These 
      */
-	public function getTheses(){
+	public function getThese(){
 		return $this->theses;
 	}
 	
