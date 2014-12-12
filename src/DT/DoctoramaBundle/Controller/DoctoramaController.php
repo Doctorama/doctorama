@@ -20,12 +20,34 @@ use \DateTime;
  */
 class DoctoramaController extends Controller {
     
+    public function import_csvAction($file)
+    {
+    	$ligne = 2; // compteur de ligne
+		$fic = fopen($file, "a+");
+		while($tab=fgetcsv($fic,1024,';'))
+		{
+			$champs = count($tab);//nombre de champ dans la ligne en question	
+			echo "<b> Les " . $champs . " champs de la ligne " . $ligne . " sont :</b><br />";
+			$ligne ++;
+			//affichage de chaque champ de la ligne en question
+			for($i=0; $i<$champs; $i ++)
+			{
+				echo $tab[$i] . "<br />";
+			}
+		}
+    }
+    
     public function mesDoctorantsAction(Request $request)
     {
-
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->findAll();
-        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' =>$listDoctorant));
+		$TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+		$listThese = array(sizeof($listDoctorant));
+		for($i=0; $i<sizeof($listDoctorant); $i++){
+			$these = $TheseRepository->findById($listDoctorant[$i]->getId());
+			$listDoctorant[$i]->setThese($these[0]);
+		}
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorant));
     }
     
     public function doctorantLaboAction(Request $request)
@@ -73,8 +95,11 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-        $encadrants = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
-        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil','dureeMoyenne'=>2, 'encadrants'=>$encadrants));
+        return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Accueil','dureeMoyenne'=>50,'encadrants'=>array(
+			array('nom'=>'toto','prenom'=>'tata','progress'=>40),
+			array('nom'=>'titi','prenom'=>'tutu','progress'=>20)
+		)
+		));
     }
     
     public function historiqueDoctorantsAction(Request $request)
@@ -104,10 +129,55 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
     }
     
-    public function detailDoctorantAction($id_doctorant, Request $request)
+    public function importCsvAction(Request $request)
     {
-        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', 1);
-        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Detail du doctorant','doctorant'=>$doctorant));
+        return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
+    }
+	
+    public function detailDoctorantAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
+			'title'=>'Détails doctorant',
+			'titre' => 'Detail du doctorant', 
+			'doctorant'=>array('nom'=> 'Augereau', 'prenom'=>'Mickaël'),
+			'titreThese'=>'titre',
+			'directeur'=>'dirlo',
+			'encadrantsDoctorant'=>array(
+				array(
+					'nom'=>'Nomtoto','prenom'=>'Prenomtiti'
+				),
+				array(
+					'nom'=>'Nomtata','prenom'=>'Prenomtutu'
+				)
+			),
+			'axe_thematique'=>'thematique',
+			'axe_scientifique'=>'scientifique',
+			'financement'=>'financement',
+			'date_inscription'=>'premiere',
+			'date_fin'=>'fin prévue',
+			'dcace'=>'dcace',
+			'formation'=>'formation',
+			'universite'=>'univ',
+			'sujetMaster'=>'sujetMaster',
+			'laboratoire'=>'labo',
+			'encadrantsMaster'=>array(
+				array(
+					'nom'=>'Nomtotomaster','prenom'=>'Prenomtitimaster'
+				),
+				array(
+					'nom'=>'Nomtatamaster','prenom'=>'Prenomtutumaster'
+				)
+			),
+			'fiche'=>array(
+				array('question'=>'question1',
+					'reponse'=>'reponse1'
+				),array('question'=>'question2',
+					'reponse'=>'reponse2'
+				),array('question'=>'question3',
+					'reponse'=>'reponse3'
+				),
+			),
+		));
     }
 
 }

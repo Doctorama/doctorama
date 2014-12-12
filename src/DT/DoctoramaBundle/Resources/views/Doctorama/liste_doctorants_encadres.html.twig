@@ -6,7 +6,6 @@
 <legend>
   <h3>{{title}}</h3>
 </legend>
-
 <div class="container-fluid">
 	<div class="row">
 		<table class="table table-striped">
@@ -26,20 +25,34 @@
 				<th>
 				</th>
 			</tr>
-			{% for user in doctorants %}
+			{% for doctorant in doctorants %}
 				<tr>
-					<td>{{ user.nom }} {{ user.prenom }}</td>
-					<td><a href="#">{{ user.sujetMaster }}</a></td>
-                                        
 					<td>
+						{% if doctorant.nomUsage is defined  %}
+							{{ doctorant.nomUsage }} 
+						{% endif %}
+						 
+						{% if doctorant.prenom is defined %}
+							{{ doctorant.prenom }}
+						{% endif %}	
+					</td>
+					<td><a href="#">
+					{% if doctorant.these.titreThese is defined %}
+						{{doctorant.these.titreThese}}
+					{% endif %}
+					</a></td>
+                                      
+					<td>
+					{% if encadrants is defined %}
 						<ul>
-							{% for encadrant in user.encadrantsMaster %}
+							{% for encadrant in encadrants %}
 								<li>
-									{{ encadrant }}
+									{{ encadrant.nomUsage }} {{ encadrant.prenom }}
 								</li>
 							{% endfor %}
 						</ul>
 					</td>
+					{% endif %}
 					<td>
 					<div class="progress">
 						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
@@ -48,7 +61,7 @@
 					</div>
 				</td>
 				<td class="">
-					<a href="{{ path('dt_detail_doctorant', {'id_doctorant': user.id}) }}" class="pull-right btn btn-info">Détails</a>
+					<a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class="pull-right btn btn-info">Détails</a>
 				</td>
 				</tr>
 			{% endfor %}
