@@ -6,7 +6,6 @@
 <legend>
   <h3>{{title}}</h3>
 </legend>
-
 <section class="row">
 	<div class="col-md-3">
 		<p>
@@ -42,7 +41,36 @@
 		  </thead>
 		  <tbody>
 			{% set progress = 0 %}
-
+			{% if encadrants is defined %}
+				{% for encadrant in encadrants %}
+					<tr>
+						<td>
+							{% if encadrant.nom is defined %}
+								{{ encadrant.nom }}
+							{% endif %}
+							{% if encadrant.prenom is defined %}
+								{{ encadrant.prenom }}
+							{% endif %}
+						</td>
+						<td>
+							<div class="progress">
+							{% if encadrant.progress is defined %}
+								{% set progress = progress + encadrant.progress %}
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{encadrant.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{encadrant.progress}}%;">
+									{{encadrant.progress}}%
+								</div>
+							{% else %}
+								{% set progress = random(100) %}
+								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;">
+									{{progress}}%
+								</div>
+							{%endif %}
+								
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			{%endif %}
 			<tr>
 			  <td>Total</td>
 			  <td>
@@ -56,5 +84,4 @@
 		</table>
 	</div>      
 </section>
-
 {% endblock %}
