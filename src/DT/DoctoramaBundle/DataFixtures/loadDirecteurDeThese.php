@@ -38,7 +38,7 @@ class loadDirecteurDeThese extends AbstractFixture implements OrderedFixtureInte
 		
 		$dir = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These');
 		$these = $dir[sizeof($dir)-1];
-		$these->addDirecteurDeThese($directeur);
+		$these->addDirecteursDeThese($directeur);
         $manager->persist($these);
     
 		$manager->flush();

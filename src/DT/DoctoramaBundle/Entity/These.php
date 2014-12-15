@@ -113,13 +113,13 @@ class These
 	
 	/**
 	*
-	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theseDirecteur")
+	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
 	*/
-	protected $directeurdethese;
+	protected $directeursDeThese;
 	
 	public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->directeurdethese = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
 	/**
@@ -172,13 +172,13 @@ class These
                 return $this;
 	}
 	
-	public function getDirecteurDeThese(){
-		return $this->directeurdethese;
+	public function getDirecteursDeThese(){
+		return $this->directeursDeThese;
 	}
 	
-	public function addDirecteurDeThese($directeurdethese){
-		if(!$this->directeurdethese->contains($directeurdethese)){
-			$directeurdethese->addTheseDirecteur($this);
+	public function addDirecteursDeThese($directeurdethese){
+		if(!$this->directeursDeThese->contains($directeurdethese)){
+			$directeurdethese->addThesesDirecteur($this);
             $this->items[] = $directeurdethese;
 		}
         return $this;

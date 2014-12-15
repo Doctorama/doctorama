@@ -31,14 +31,14 @@ class Encadrant extends Personne{
     private $theses;
 	
 	/**
-     * @ORM\ManyToMany(targetEntity="These", inversedBy="directeurdethese")
+     * @ORM\ManyToMany(targetEntity="These", inversedBy="directeursDeThese")
 	 * @ORM\JoinTable(name="directeur_these")
      **/
-    private $theseDirecteur;
+    private $thesesDirecteur;
 
 	public function __construct() {
         $this->theses = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->theseDirecteur = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->thesesDirecteur = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -90,13 +90,13 @@ class Encadrant extends Personne{
 		}
 	}
 	
-	public function getTheseDirecteur(){
-		return $this->theseDirecteur;
+	public function getThesesDirecteur(){
+		return $this->thesesDirecteur;
 	}
 	
-	public function addTheseDirecteur($thesedirecteur){
-		if(!$this->theseDirecteur->contains($thesedirecteur)){
-			$this->theseDirecteur[] = ($thesedirecteur);
+	public function addThesesDirecteur($thesedirecteur){
+		if(!$this->thesesDirecteur->contains($thesedirecteur)){
+			$this->thesesDirecteur[] = ($thesedirecteur);
 		}
 	}
 }
