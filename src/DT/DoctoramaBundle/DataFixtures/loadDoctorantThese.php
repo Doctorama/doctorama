@@ -104,7 +104,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant3->setAnneeDernierDiplome('2014-06-20');
                 
                 
-                $doctorant4 = new Doctorant;
+        $doctorant4 = new Doctorant;
 		
 		$doctorant4->setNom('Neilz');
 		$doctorant4->setPrenom('Benjamin');
@@ -196,13 +196,13 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$manager->persist($doctorant);
 		$manager->persist($these);
 		$manager->persist($doctorant2);
-                $manager->persist($doctorant3);
-                $manager->persist($doctorant4);
+        $manager->persist($doctorant3);
+        $manager->persist($doctorant4);
 		$manager->persist($these2);
 		$manager->persist($compte);
 		$manager->persist($compte2);
-                $manager->persist($compte3);
-                $manager->persist($compte4);
+        $manager->persist($compte3);
+        $manager->persist($compte4);
 		
 		$manager->flush();
 		

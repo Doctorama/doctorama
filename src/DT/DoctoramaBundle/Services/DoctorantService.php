@@ -1,12 +1,19 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //DoctorantService
-require_once __DIR__ . 'DT\DoctoramaBundle\Entity\Doctorant.php';
+use DT\DoctoramaBundle\Entity\Doctorant;
 
 class DoctorantService
 {
-	$repository = $this->getDoctrine()->getRepository('DT\DoctoramaBundle\Entity:Doctorant')
-	$em = $this->getDoctrine()->getManager();
+	private $em;
+	
+	private $repository;
+	
+	public function __construct($em)
+	{
+		$this->em = $em;
+		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Doctorant');
+	}
 	
 	public function createDoctorant($nom, $nomUsage, $civilite, $prenom, $adresse, $mail,
 	$dateDeNaissance, $nationalite, $villeDeNaissance, $paysDeNaissance, $depDeNaissance,
@@ -33,257 +40,363 @@ class DoctorantService
 		$doctorant->setNomFormationMaster($nomFormationMaster);
 		$doctorant->setUniversiteMaster($universiteMaster);
 		$doctorant->setSujetMaster($sujetMaster);
-		$doctorant->setLaboratoireAccueilMaster($laboratoireAccueilMaster);
-		$doctorant->setEncadrantMaster($encadrantMaster);
+		$doctorant->setLaboratoireAcceuilMaster($laboratoireAccueilMaster);
+		$doctorant->setEncadrantsMaster($encadrantMaster);
 		$doctorant->setEtabDernierDiplome($etabDernierDiplome);
 		$doctorant->setDepDernierDiplome($depDernierDiplome);
 		$doctorant->setPaysDernierDiplome($paysDernierDiplome);
 		$doctorant->setLibelleDernierDiplome($libelleDernierDiplome);
 		$doctorant->setAnneeDernierDiplome($anneeDernierDiplome);
 		
-		$em->persist($doctorant);
-		$em->flush();
-		return new Response('Id du doctorant créé : '.$doctorant->getId());
+		$this->em->persist($doctorant);
+		$this->em->flush();
+		return $doctorant;
 	}
+	
 	public function findDoctorantById($id)
 	{
     
-        $doctorant = $repository->find($id);
-
-    if (!$doctorant) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$id
-        );
-					}
-	else
-		return $doctorant;
+        $doctorant = $this->repository->find($id);
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
+	
 	public function findDoctorantByNom($nom)
 	{
 
-		$doctorants = $repository->findByNom($nom);
+		$doctorant = $this->repository->findByNom($nom);
 
-		if (!$doctorants) 
-		{
-			throw $this->createNotFoundException(
-			'Aucun doctorant trouvé par : : '.$nom
-		);
+		if (!$doctorant) {
+			return null;
 		}
 		else
-			return $doctorants;
+			return $doctorant;
 	}
 	
 	public function findDoctorantByNomUsage($nomUsage)
 	{
 
-    $doctorants = $repository->findByNomUsage($nomUsage);
+		$doctorant = $this->repository->findByNomUsage($nomUsage);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$nomUsage
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByCivilite($civilite)
 	{
 
-    $doctorants = $repository->findByCivilite($civilite);
+		$doctorant = $this->repository->findByCivilite($civilite);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$civilite
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByPrenom($prenom)
 	{
 
-    $doctorants = $repository->findByPrenom($prenom);
+		$doctorant = $this->repository->findByPrenom($prenom);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$prenom
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByAdresse($adresse)
 	{
 
-    $doctorants = $repository->findByAdresse($adresse);
+		$doctorant = $this->repository->findByAdresse($adresse);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$adresse
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByMail($mail)
 	{
 
-    $doctorant = $repository->findByMail($mail);
+		$doctorant = $this->repository->findByMail($mail);
 
-    if (!$doctorant) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$mail
-        );
-					}
-	else
-		return $doctorant;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByDateDeNaissance($dateDeNaissance)
 	{
 
-    $doctorants = $repository->findByDateDeNaissance($dateDeNaissance);
+		$doctorant = $this->repository->findByDateDeNaissance($dateDeNaissance);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$dateDeNaissance
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByNationalite($nationalite)
 	{
 
-    $doctorants = $repository->findByNationalite($nationalite);
+		$doctorant = $this->repository->findByNationalite($nationalite);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$nationalite
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByVilleDeNaissance($villeDeNaissance)
 	{
 
-    $doctorants = $repository->findByVilleDeNaissance($villeDeNaissance);
+		$doctorant = $this->repository->findByVilleDeNaissance($villeDeNaissance);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$villeDeNaissance
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByPaysDeNaissance($paysDeNaissance)
 	{
 
-    $doctorants = $repository->findByPaysDeNaissance($paysDeNaissance);
+		$doctorant = $this->repository->findByPaysDeNaissance($paysDeNaissance);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$paysDeNaissance
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByDepDeNaissance($depDeNaissance)
 	{
 
-    $doctorants = $repository->findByDepDeNaissance($depDeNaissance);
+		$doctorant = $this->repository->findByDepDeNaissance($depDeNaissance);
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$depDeNaissance
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByNumEtudiant($numEtudiant)
 	{
 
-    $doctorant = $repository->findByNumEtudiant($numEtudiant);
+		$doctorant = $this->repository->findByNumEtudiant($numEtudiant);
 
-    if (!$doctorant) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé par : : '.$numEtudiant
-        );
-					}
-	else
-		return $doctorant;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByBourseEtExoneration($bourseEtExo)
+	{
+
+		$doctorant = $this->repository->findByBourseEtExoneration($bourseEtExo);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByDateInscr1eThese($dateInscr1eThese)
+	{
+
+		$doctorant = $this->repository->findByDateInscr1eThese($dateInscr1eThese);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByDcace($dcace)
+	{
+
+		$doctorant = $this->repository->findByDcace($dcace);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByNomFormationMaster($nomFormationMaster)
+	{
+
+		$doctorant = $this->repository->findByNomFormationMaster($nomFormationMaster);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByUniversiteMaster($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByUniversiteMaster($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantBySujetMaster($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findBySujetMaster($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByLaboratoireAcceuilMaster($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByLaboratoireAcceuilMaster($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByEncadrantsMaster($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByEncadrantsMaster($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByEtabDernierDiplome($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByEtabDernierDiplome($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByPaysDernierDiplome($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByPaysDernierDiplome($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByLibelleDernierDiplome($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByLibelleDernierDiplome($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByAnneeDernierDiplome($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByAnneeDernierDiplome($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
+	}
+	
+	public function findDoctorantByDepDernierDiplome($numEtudiant)
+	{
+
+		$doctorant = $this->repository->findByDepDernierDiplome($numEtudiant);
+
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
 	
 	public function findDoctorantByNomEtPrenom($prenom, $nom)
 	{
-    $query = $em->createQuery(
-		'SELECT d
-		FROM DTDoctoramaBundleEntity:Doctorant d
-		WHERE d.prenom = '$date'
-		AND d.nom = :nom'
-	)->setParameter(array('prenom' => $prenom, 'nom' => $nom));
+    
+		$query = $this->em->getConnection()->prepare('SELECT *	FROM Doctorant d WHERE d.prenom = "'.$prenom.'" AND d.nom = "'.$nom.'";')->execute();
 
-	$encadrants = $query->getResult();
+		$encadrants = $query->getResult();
 
-    if (!$doctorants) {
-        throw $this->createNotFoundException(
-            'Aucun doctorant trouvé'
-        );
-					}
-	else
-		return $doctorants;
+		if (!$doctorant) {
+			return null;
+		}
+		else
+			return $doctorant;
 	}
-	
-	
 	
 	public function findAll()
 	{
 
-		$doctorants = $repository->findAll();
+		$doctorant = $this->repository->findAll();
 
-		if (!$doctorants) {
+		if (!$doctorant) {
 			throw $this->createNotFoundException(
 				'Aucun doctorant trouvé'
 			);
 						}
 		else
-			return $doctorants;
-	}
-	public function updateDoctorant($id)
-	{
-	
-		$doctorant = $repository->find($id);
-
-		if (!$doctorant) {
-			throw $this->createNotFoundException(
-				'Aucun doctorant trouvé pour cet id : '.$id
-			);
-		}
-
-		$doctorant->setName('doctorant!');
-		$em->flush();
-
-		return $doctorant;
+			return $doctorant;
 	}
 	
-	public function updateNomDoctorant($id,$nouveauNom)
+	public function updateNom($id,$nouveauNom)
 	{
 	
 		
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -291,16 +404,16 @@ class DoctorantService
 			);
 		}
 
-		$nom->setNom($nouveauNom);
-		$em->flush();
+		$doctorant->setNom($nouveauNom);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateNomUsageDoctorant($id,$nouveauNomUsage)
+	public function updateNomUsage($id,$nouveauNomUsage)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -308,16 +421,16 @@ class DoctorantService
 			);
 		}
 
-		$nomUsage->setNomUsage($nouveauNomUsage);
-		$em->flush();
+		$doctorant->setNomUsage($nouveauNomUsage);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateCiviliteDoctorant($id,$nouveauCivilite)
+	public function updateCivilite($id,$nouveauCivilite)
 	{
 
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -325,16 +438,16 @@ class DoctorantService
 			);
 		}
 
-		$civilite->setCivilite($nouveauCivilite);
-		$em->flush();
+		$doctorant->setCivilite($nouveauCivilite);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updatePrenomDoctorant($id,$nouveauPrenom)
+	public function updatePrenom($id,$nouveauPrenom)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -342,16 +455,16 @@ class DoctorantService
 			);
 		}
 
-		$prenom->setPrenom($nouveauPrenom);
-		$em->flush();
+		$doctorant->setPrenom($nouveauPrenom);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateAdresseDoctorant($id,$nouveauAdresse)
+	public function updateAdresse($id,$nouveauAdresse)
 	{
 
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -359,16 +472,16 @@ class DoctorantService
 			);
 		}
 
-		$adresse->setAdresse($nouveauAdresse);
-		$em->flush();
+		$doctorant->setAdresse($nouveauAdresse);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateMailDoctorant($id,$nouveauMail)
+	public function updateMail($id,$nouveauMail)
 	{
 
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -376,16 +489,16 @@ class DoctorantService
 			);
 		}
 
-		$mail->setMail($nouveauMai);
-		$em->flush();
+		$doctorant->setMail($nouveauMail);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateDateDeNaissancDoctorant($id,$nouveauDateDeNaissance)
+	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
 	{
 
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -393,16 +506,16 @@ class DoctorantService
 			);
 		}
 
-		$dateDeNaissance->setDateDeNaissance($nouveauDateDeNaissance);
-		$em->flush();
+		$doctorant->setDateDeNaissance($nouveauDateDeNaissance);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateNationaliteDoctorant($id,$nouveauNationalite)
+	public function updateNationalite($id,$nouveauNationalite)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -410,16 +523,16 @@ class DoctorantService
 			);
 		}
 
-		$nationalite->setNationalite($nouveauNationalite);
-		$em->flush();
+		$doctorant->setNationalite($nouveauNationalite);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateVilleDeNaissanceDoctorant($id,$nouveauVilleDeNaissance)
+	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -427,16 +540,16 @@ class DoctorantService
 			);
 		}
 
-		$villeDeNaissance->setVilleDeNaissance($nouveauVilleDeNaissance);
-		$em->flush();
+		$doctorant->setVilleDeNaissance($nouveauVilleDeNaissance);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updatePaysDeNaissanceDoctorant($id,$nouveauPaysDeNaissance)
+	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -444,16 +557,16 @@ class DoctorantService
 			);
 		}
 
-		$paysDeNaissance->setPaysDeNaissance($nouveauPaysDeNaissance);
-		$em->flush();
+		$doctorant->setPaysDeNaissance($nouveauPaysDeNaissance);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateDepDeNaissanceDoctorant($id,$nouveauDepDeNaissance)
+	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -461,16 +574,16 @@ class DoctorantService
 			);
 		}
 
-		$depDeNaissance->setDepDeNaissance($nouveauDepDeNaissance);
-		$em->flush();
+		$doctorant->setDepDeNaissance($nouveauDepDeNaissance);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateNumEtudiantDoctorant($id,$nouveauNumEtudiant)
+	public function updateNumEtudiant($id,$nouveauNumEtudiant)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -478,16 +591,16 @@ class DoctorantService
 			);
 		}
 
-		$numEtudiant->setNumEtudiant($nouveauNumEtudiant);
-		$em->flush();
+		$doctorant->setNumEtudiant($nouveauNumEtudiant);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateBourseEtExonerationDoctorant($id,$nouveauBourseEtExoneration)
+	public function updateBourseEtExoneration($id,$nouveauBourseEtExoneration)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -495,16 +608,16 @@ class DoctorantService
 			);
 		}
 
-		$bourseEtExoneration->setBourseEtExoneration($nouveauBourseEtExoneration);
-		$em->flush();
+		$doctorant->setBourseEtExoneration($nouveauBourseEtExoneration);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateDateInscr1eTheseDoctorant($id,$nouveauDateInscr1eThese)
+	public function updateDateInscr1eThese($id,$nouveauDateInscr1eThese)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -512,16 +625,16 @@ class DoctorantService
 			);
 		}
 
-		$dateInscr1eThese->setDateInscr1eThese($nouveauDateInscr1eThese);
-		$em->flush();
+		$doctorant->setDateInscr1eThese($nouveauDateInscr1eThese);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateDcaceDoctorant($id,$nouveauDcace)
+	public function updateDcace($id,$nouveauDcace)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -529,8 +642,8 @@ class DoctorantService
 			);
 		}
 
-		$dcace->setDcace($nouveauDcace);
-		$em->flush();
+		$doctorant->setDcace($nouveauDcace);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -538,7 +651,7 @@ class DoctorantService
 	public function updateNomFormationMaster($id,$nouveauNomFormationMaster)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -546,8 +659,8 @@ class DoctorantService
 			);
 		}
 
-		$nomFormationMaster->setNomFormationMaster($nouveauNomFormationMaster);
-		$em->flush();
+		$doctorant->setNomFormationMaster($nouveauNomFormationMaster);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -555,7 +668,7 @@ class DoctorantService
 	public function updateUniversiteMaster($id,$nouveauUniversiteMaster)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -563,8 +676,8 @@ class DoctorantService
 			);
 		}
 
-		$universiteMaster->setUniversiteMaster($nouveauUniversiteMaster);
-		$em->flush();
+		$doctorant->setUniversiteMaster($nouveauUniversiteMaster);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -572,7 +685,7 @@ class DoctorantService
 	public function updateSujetMaster($id,$nouveauSujetMaster)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -580,8 +693,8 @@ class DoctorantService
 			);
 		}
 
-		$sujetMaster->setSujetMaster($nouveauSujetMaster);
-		$em->flush();
+		$doctorant->setSujetMaster($nouveauSujetMaster);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -589,7 +702,7 @@ class DoctorantService
 	public function updateLaboratoireAccueilMaster($id,$nouveauLaboratoireAccueilMaster)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -597,16 +710,16 @@ class DoctorantService
 			);
 		}
 
-		$laboratoireAccueilMaster->setLaboratoireAccueilMaster($nouveauLaboratoireAccueilMaster);
-		$em->flush();
+		$doctorant->setLaboratoireAcceuilMaster($nouveauLaboratoireAccueilMaster);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function updateEncadrantMaster($id,$nouveauEncadrantMaster)
+	public function updateEncadrantsMaster($id,$nouveauEncadrantMaster)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -614,8 +727,8 @@ class DoctorantService
 			);
 		}
 
-		$encadrantMaster->setEncadrantMaster($nouveauEncadrantMaster);
-		$em->flush();
+		$doctorant->setEncadrantsMaster($nouveauEncadrantMaster);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -623,7 +736,7 @@ class DoctorantService
 	public function updateEtabDernierDiplome($id,$nouveauEtabDernierDiplome)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -631,8 +744,8 @@ class DoctorantService
 			);
 		}
 
-		$etabDernierDiplome->setEtabDernierDiplome($nouveauEtabDernierDiplome);
-		$em->flush();
+		$doctorant->setEtabDernierDiplome($nouveauEtabDernierDiplome);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -640,7 +753,7 @@ class DoctorantService
 	public function updateDepDernierDiplome($id,$nouveauDepDernierDiplome)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -648,8 +761,8 @@ class DoctorantService
 			);
 		}
 
-		$depDernierDiplome->setDepDernierDiplome($nouveauDepDernierDiplome);
-		$em->flush();
+		$doctorant->setDepDernierDiplome($nouveauDepDernierDiplome);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -657,7 +770,7 @@ class DoctorantService
 	public function updatePaysDernierDiplome($id,$nouveauPaysDernierDiplome)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -665,8 +778,8 @@ class DoctorantService
 			);
 		}
 
-		$paysDernierDiplome->setPaysDernierDiplome($nouveauPaysDernierDiplome);
-		$em->flush();
+		$doctorant->setPaysDernierDiplome($nouveauPaysDernierDiplome);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -674,7 +787,7 @@ class DoctorantService
 	public function updateLibelleDernierDiplome($id,$nouveauLibelleDernierDiplome)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -682,8 +795,8 @@ class DoctorantService
 			);
 		}
 
-		$libelleDernierDiplome->setLibelleDernierDiplome($nouveauLibelleDernierDiplome);
-		$em->flush();
+		$doctorant->setLibelleDernierDiplome($nouveauLibelleDernierDiplome);
+		$this->em->flush();
 
 		return $doctorant;
 	}
@@ -691,7 +804,7 @@ class DoctorantService
 	public function updateAnneeDernierDiplome($id,$nouveauAnneeDernierDiplome)
 	{
 	
-		$doctorant = $repository->find(id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -699,16 +812,16 @@ class DoctorantService
 			);
 		}
 
-		$anneeDernierDiplome->setAnneeDernierDiplome($nouveauAnneeDernierDiplome);
-		$em->flush();
+		$doctorant->setAnneeDernierDiplome($nouveauAnneeDernierDiplome);
+		$this->em->flush();
 
 		return $doctorant;
 	}
 	
-	public function deleteDoctorant($id)
+	public function delete($id)
 	{
 	
-		$doctorant = $repository->find($id);
+		$doctorant = $this->repository->find($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -716,8 +829,8 @@ class DoctorantService
 			);
 		}
 
-		$em->remove($doctorant);
-		$em->flush();
+		$this->em->remove($doctorant);
+		$this->em->flush();
 
 		return True;
 	}

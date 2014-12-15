@@ -1,11 +1,11 @@
 <?php
 namespace DT\DoctoramaBundle\Tests;
-// src/Acme/StoreBundle/Tests/Entity/ProductRepositoryFunctionalTest.php
+
 use DT\DoctoramaBundle\Services\EncadrantService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use DT\DoctoramaBundle\Entity\Encadrant;
 
-class ProductRepositoryFunctionalTest extends WebTestCase
+class EncadrantServiceTest extends WebTestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -19,7 +19,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
-
+/*
 	// Test création encadrant
     public function testcreateEncadrant()
     {
@@ -503,7 +503,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour du nom d'un encadrant"
-	public function testupdateNomEncadrant()
+	public function testupdateNom()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -544,7 +544,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateNomEncadrant(2, 'Revel');
+		$en = $es->updateNom(2, 'Revel');
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals('Revel', $req->getNom());
@@ -552,7 +552,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour du nom d'usage d'un encadrant"
-	public function testupdateNomUsageEncadrant()
+	public function testupdateNomUsage()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -593,7 +593,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateNomUsageEncadrant(2, 'Revel');
+		$en = $es->updateNomUsage(2, 'Revel');
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals('Revel', $req->getNomUsage());
@@ -601,7 +601,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour du prenom d'un encadrant"
-	public function testupdatePrenomEncadrant()
+	public function testupdatePrenom()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -642,7 +642,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updatePrenomEncadrant(2, 'Revel');
+		$en = $es->updatePrenom(2, 'Revel');
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals('Revel', $req->getPrenom());
@@ -650,7 +650,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour de l'adresse d'un encadrant"
-	public function testupdateAdresseEncadrant()
+	public function testupdateAdresse()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -691,7 +691,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateAdresseEncadrant(2, '2 rue au pied');
+		$en = $es->updateAdresse(2, '2 rue au pied');
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals('2 rue au pied', $req->getAdresse());
@@ -699,7 +699,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour du mail d'un encadrant"
-	public function testupdateMailEncadrant()
+	public function testupdateMail()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -740,7 +740,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateMailEncadrant(2, 'Revel@ad.fr');
+		$en = $es->updateMail(2, 'Revel@ad.fr');
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals('Revel@ad.fr', $req->getMail());
@@ -748,7 +748,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour de la date de naissance d'un encadrant"
-	public function testupdateDateDeNaissancEncadrant()
+	public function testupdateDateDeNaissance()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -789,7 +789,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateDateDeNaissancEncadrant(2, new \DateTime('2015-01-01'));
+		$en = $es->updateDateDeNaissance(2, new \DateTime('2015-01-01'));
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals(new \DateTime('2015-01-01'), $req->getDateDeNaissance());
@@ -797,7 +797,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour de la nationalite d'un encadrant"
-	public function testupdateNationaliteEncadrant()
+	public function testupdateNationalite()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -838,7 +838,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateNationaliteEncadrant(2, "EN");
+		$en = $es->updateNationalite(2, "EN");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals("EN", $req->getNationalite());
@@ -846,7 +846,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour de la ville de naissance d'un encadrant"
-	public function testupdateVilleDeNaissanceEncadrant()
+	public function testupdateVilleDeNaissance()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -887,7 +887,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateVilleDeNaissanceEncadrant(2, "Niort");
+		$en = $es->updateVilleDeNaissance(2, "Niort");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals("Niort", $req->getVilleDeNaissance());
@@ -895,7 +895,7 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 	}
 	
 	// Test "mise à jour du pays de naissance d'un encadrant"
-	public function testupdatePaysDeNaissanceEncadrant()
+	public function testupdatePaysDeNaissance()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -936,15 +936,15 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updatePaysDeNaissanceEncadrant(2, "Belgique");
+		$en = $es->updatePaysDeNaissance(2, "Belgique");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals("Belgique", $req->getPaysDeNaissance());
 		
 	}
 	
-	// Test "mise à jour du pays de naissance d'un encadrant"
-	public function testupdateDepDeNaissanceEncadrant()
+	// Test "mise à jour du département de naissance d'un encadrant"
+	public function testupdateDepDeNaissance()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
@@ -985,14 +985,44 @@ class ProductRepositoryFunctionalTest extends WebTestCase
 		$this->em->persist($encadrant);
 		$this->em->flush();
 		
-		$en = $es->updateDepDeNaissanceEncadrant(2, "79000");
+		$en = $es->updateDepDeNaissance(2, "79000");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Encadrant")->findOneById(2);
 
 		$this->assertEquals("79000", $req->getDepDeNaissance());
 		
 	}
 	
+	// Test "effacer un encadrant"
+	public function testdelete()
+	{
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
+		$this->em->getConnection()->prepare("TRUNCATE TABLE Encadrant")->execute();
+		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$es = new EncadrantService($this->em);
+		
+		$encadrant = new Encadrant;
+		
+		$encadrant->setNom('Demko');
+		$encadrant->setPrenom('Christophe');
+		$encadrant->setNomUsage('Demko2');
+		$encadrant->setCivilite('Monsieur');
+		$encadrant->setAdresse('1 rue des roses');
+		$encadrant->setMail('Demko@adresse.com');
+		$encadrant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$encadrant->setNationalite('FR');
+		$encadrant->setVilleDeNaissance('La Rochelle');
+		$encadrant->setPaysDeNaissance('France');
+		$encadrant->setDepDeNaissance('17');
+		
+		$this->em->persist($encadrant);
+		$this->em->flush();
+		
+		$en = $es->delete(1);
+		
+		$en = $this->em->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
+		$this->assertEquals(0, sizeof($en));
+	}
 }
-
+*/
 
 ?>

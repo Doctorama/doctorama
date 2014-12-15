@@ -49,9 +49,9 @@ class Doctorant extends Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="DCACE", type="string", length=255)
+     * @ORM\Column(name="dcace", type="string", length=255)
      */
-    private $DCACE;
+    private $dcace;
 
     /**
      * @var string
@@ -235,26 +235,26 @@ class Doctorant extends Personne
     }
 
     /**
-     * Set DCACE
+     * Set dcace
      *
-     * @param string $dCACE
+     * @param string $dcace
      * @return Doctorant
      */
-    public function setDCACE($dCACE)
+    public function setDcace($dcace)
     {
-        $this->DCACE = $dCACE;
+        $this->dcace = $dcace;
     
         return $this;
     }
 
     /**
-     * Get DCACE
+     * Get dcace
      *
      * @return string 
      */
-    public function getDCACE()
+    public function getDcace()
     {
-        return $this->DCACE;
+        return $this->dcace;
     }
 
     /**

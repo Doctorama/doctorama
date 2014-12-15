@@ -44,10 +44,8 @@ class EncadrantService
 		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$id
-			);
-						}
+			return null;
+		}
 		else
 			return $encadrant;
 	}
@@ -55,70 +53,59 @@ class EncadrantService
 	public function findEncadrantByNom($nom)
 	{
 
-		$encadrants = $this->repository->findByNom($nom);
+		$encadrant = $this->repository->findByNom($nom);
 
-		if (!$encadrants) 
-		{
-			throw $this->createNotFoundException(
-			'Aucun encadrant trouvé par : : '.$nom
-		);
+		if (!$encadrant) {
+			return null;
 		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByNomUsage($nomUsage)
 	{
-		$encadrants = $this->repository->findByNomUsage($nomUsage);
+		$encadrant = $this->repository->findByNomUsage($nomUsage);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$nomUsage
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 		
 	public function findEncadrantByCivilite($civilite)
 	{
 
-		$encadrants = $this->repository->findByCivilite($civilite);
+		$encadrant = $this->repository->findByCivilite($civilite);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$civilite
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByPrenom($prenom)
 	{
-		$encadrants = $this->repository->findByPrenom($prenom);
+		$encadrant = $this->repository->findByPrenom($prenom);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$prenom
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 		
 	public function findEncadrantByAdresse($adresse)
 	{
 
-		$encadrants = $this->repository->findByAdresse($adresse);
+		$encadrant = $this->repository->findByAdresse($adresse);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$adresse
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByMail($mail)
@@ -127,10 +114,8 @@ class EncadrantService
 		$encadrant = $this->repository->findByMail($mail);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$mail
-			);
-						}
+			return null;
+		}
 		else
 			return $encadrant;
 	}
@@ -138,304 +123,290 @@ class EncadrantService
 	public function findEncadrantByDateDeNaissance($dateDeNaissance)
 	{
 
-		$encadrants = $this->repository->findByDateDeNaissance($dateDeNaissance);
+		$encadrant = $this->repository->findByDateDeNaissance($dateDeNaissance);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$dateDeNaissance
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByNationalite($nationalite)
 	{
 
-		$encadrants = $this->repository->findByNationalite($nationalite);
+		$encadrant = $this->repository->findByNationalite($nationalite);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$nationalite
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByVilleDeNaissance($villeDeNaissance)
 	{
 
-		$encadrants = $this->repository->findByVilleDeNaissance($villeDeNaissance);
+		$encadrant = $this->repository->findByVilleDeNaissance($villeDeNaissance);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$villeDeNaissance
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByPaysDeNaissance($paysDeNaissance)
 	{
 
-		$encadrants = $this->repository->findByPaysDeNaissance($paysDeNaissance);
+		$encadrant = $this->repository->findByPaysDeNaissance($paysDeNaissance);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$paysDeNaissance
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByDepDeNaissance($depDeNaissance)
 	{
 
-		$encadrants = $this->repository->findByDepDeNaissance($depDeNaissance);
+		$encadrant = $this->repository->findByDepDeNaissance($depDeNaissance);
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé par : : '.$depDeNaissance
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findEncadrantByNomEtPrenom($prenom, $nom)
 	{
 
-		$encadrants = $this->em->getConnection()->prepare('SELECT *	FROM Encadrant e WHERE e.prenom = "'.$prenom.'" AND e.nom = "'.$nom.'";')->execute();
+		$encadrant = $this->em->getConnection()->prepare('SELECT *	FROM Encadrant e WHERE e.prenom = "'.$prenom.'" AND e.nom = "'.$nom.'";')->execute();
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé'
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	public function findAll()
 	{
 
-		$encadrants = $this->repository->findAll();
+		$encadrant = $this->repository->findAll();
 
-		if (!$encadrants) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé'
-			);
-						}
+		if (!$encadrant) {
+			return null;
+		}
 		else
-			return $encadrants;
+			return $encadrant;
 	}
 	
 	
-	public function updateNomEncadrant($id,$nouveauNom)
+	public function updateNom($id,$nouveauNom)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setNom($nouveauNom);
+			$this->em->flush();
 
-		$encadrant->setNom($nouveauNom);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateNomUsageEncadrant($id,$nouveauNomUsage)
+	public function updateNomUsage($id,$nouveauNomUsage)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setNomUsage($nouveauNomUsage);
+			$this->em->flush();
 
-		$encadrant->setNomUsage($nouveauNomUsage);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateCiviliteEncadrant($id,$nouveauCivilite)
+	public function updateCivilite($id,$nouveauCivilite)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setCivilite($nouveauCivilite);
+			$this->em->flush();
 
-		$encadrant->setCivilite($nouveauCivilite);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updatePrenomEncadrant($id,$nouveauPrenom)
+	public function updatePrenom($id,$nouveauPrenom)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setPrenom($nouveauPrenom);
+			$this->em->flush();
 
-		$encadrant->setPrenom($nouveauPrenom);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateAdresseEncadrant($id,$nouveauAdresse)
+	public function updateAdresse($id,$nouveauAdresse)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setAdresse($nouveauAdresse);
+			$this->em->flush();
 
-		$encadrant->setAdresse($nouveauAdresse);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateMailEncadrant($id,$nouveauMail)
+	public function updateMail($id,$nouveauMail)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setMail($nouveauMail);
+			$this->em->flush();
 
-		$encadrant->setMail($nouveauMail);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateDateDeNaissancEncadrant($id,$nouveauDateDeNaissance)
+	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setDateDeNaissance($nouveauDateDeNaissance);
+			$this->em->flush();
 
-		$encadrant->setDateDeNaissance($nouveauDateDeNaissance);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateNationaliteEncadrant($id,$nouveauNationalite)
+	public function updateNationalite($id,$nouveauNationalite)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setNationalite($nouveauNationalite);
+			$this->em->flush();
 
-		$encadrant->setNationalite($nouveauNationalite);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateVilleDeNaissanceEncadrant($id,$nouveauVilleDeNaissance)
+	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setVilleDeNaissance($nouveauVilleDeNaissance);
+			$this->em->flush();
 
-		$encadrant->setVilleDeNaissance($nouveauVilleDeNaissance);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updatePaysDeNaissanceEncadrant($id,$nouveauPaysDeNaissance)
+	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setPaysDeNaissance($nouveauPaysDeNaissance);
+			$this->em->flush();
 
-		$encadrant->setPaysDeNaissance($nouveauPaysDeNaissance);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function updateDepDeNaissanceEncadrant($id,$nouveauDepDeNaissance)
+	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
 	{
 	
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id: '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$encadrant->setDepDeNaissance($nouveauDepDeNaissance);
+			$this->em->flush();
 
-		$encadrant->setDepDeNaissance($nouveauDepDeNaissance);
-		$this->em->flush();
-
-		return $encadrant;
+			return $encadrant;
+		}
 	}
 	
-	public function deleteEncadrant($id)
+	public function delete($id)
 	{
 
 		$encadrant = $this->repository->find($id);
 
 		if (!$encadrant) {
-			throw $this->createNotFoundException(
-				'Aucun encadrant trouvé pour cet id : '.$id
-			);
+			return null;
 		}
+		else
+		{
+			$this->em->remove($encadrant);
+			$this->em->flush();
 
-		$em->remove($encadrant);
-		$this->em->flush();
-
-		return True;
+			return True;
+		}
 	}
 }
 
