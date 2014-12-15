@@ -29,14 +29,14 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="nomUsage", type="string", length=255)
+     * @ORM\Column(name="nomUsage", type="string", length=255, nullable=true)
      */
     protected $nomUsage;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="civilite", type="string", length=255)
+     * @ORM\Column(name="civilite", type="string", length=255, nullable=true)
      */
     protected $civilite;
 
@@ -50,7 +50,7 @@ class Personne
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     protected $adresse;
 
@@ -64,35 +64,35 @@ class Personne
     /**
      * @var datetime
      *
-     * @ORM\Column(name="dateDeNaissance", type="datetime")
+     * @ORM\Column(name="dateDeNaissance", type="datetime", nullable=true)
      */
     protected $dateDeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nationalite", type="string", length=255)
+     * @ORM\Column(name="nationalite", type="string", length=255, nullable=true)
      */
     private $nationalite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="villeDeNaissance", type="string", length=255)
+     * @ORM\Column(name="villeDeNaissance", type="string", length=255, nullable=true)
      */
     protected $villeDeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="paysDeNaissance", type="string", length=255)
+     * @ORM\Column(name="paysDeNaissance", type="string", length=255, nullable=true)
      */
     protected $paysDeNaissance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="depDeNaissance", type="string", length=255)
+     * @ORM\Column(name="depDeNaissance", type="string", length=255, nullable=true)
      */
     protected $depDeNaissance;
 	

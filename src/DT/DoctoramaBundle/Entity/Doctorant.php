@@ -28,98 +28,98 @@ class Doctorant extends Personne
     /**
      * @var integer
      *
-     * @ORM\Column(name="numEtudiant", type="integer")
+     * @ORM\Column(name="numEtudiant", type="integer", nullable=true)
      */
     private $numEtudiant;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="bourseEtExoneration", type="integer")
+     * @ORM\Column(name="bourseEtExoneration", type="integer", nullable=true)
      */
     private $bourseEtExoneration;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dateInscr1eThese", type="string")
+     * @ORM\Column(name="dateInscr1eThese", type="string", nullable=true)
      */
     private $dateInscr1eThese;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="dcace", type="string", length=255)
+     * @ORM\Column(name="dcace", type="string", length=255, nullable=true)
      */
     private $dcace;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomFormationMaster", type="string", length=255)
+     * @ORM\Column(name="nomFormationMaster", type="string", length=255, nullable=true)
      */
     private $nomFormationMaster;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="universiteMaster", type="string", length=255)
+     * @ORM\Column(name="universiteMaster", type="string", length=255, nullable=true)
      */
     private $universiteMaster;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sujetMaster", type="string", length=255)
+     * @ORM\Column(name="sujetMaster", type="string", length=255, nullable=true)
      */
     private $sujetMaster;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="laboratoireAcceuilMaster", type="string", length=255)
+     * @ORM\Column(name="laboratoireAcceuilMaster", type="string", length=255, nullable=true)
      */
     private $laboratoireAcceuilMaster;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="encadrantsMaster", type="string", length=255)
+     * @ORM\Column(name="encadrantsMaster", type="string", length=255, nullable=true)
      */
     private $encadrantsMaster;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="etabDernierDiplome", type="string", length=255)
+     * @ORM\Column(name="etabDernierDiplome", type="string", length=255, nullable=true)
      */
     private $etabDernierDiplome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="depDernierDiplome", type="string", length=255)
+     * @ORM\Column(name="depDernierDiplome", type="string", length=255, nullable=true)
      */
     private $depDernierDiplome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="paysDernierDiplome", type="string", length=255)
+     * @ORM\Column(name="paysDernierDiplome", type="string", length=255, nullable=true)
      */
     private $paysDernierDiplome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="libelleDernierDiplome", type="string", length=255)
+     * @ORM\Column(name="libelleDernierDiplome", type="string", length=255, nullable=true)
      */
     private $libelleDernierDiplome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="anneeDernierDiplome", type="string", length=255)
+     * @ORM\Column(name="anneeDernierDiplome", type="string", length=255, nullable=true)
      */
     private $anneeDernierDiplome;
     

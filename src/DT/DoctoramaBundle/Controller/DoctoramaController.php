@@ -9,10 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use DT\DoctoramaBundle\Entity\Doctorant;
-
+use DT\DoctoramaBundle\Services\EncadrantService;
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
 use DT\DoctoramaBundle\Entity\These;
+use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -236,11 +237,12 @@ class DoctoramaController extends Controller {
             extract ($_POST);
             //$nom_doct = htmlentities(str_replace('"','\"',$_POST['nom_doct']));
 
-            $em = $this->getDoctrine();;
+            $em = $this->getDoctrine()->getManager();
 
             $doctorant = new Doctorant();
             $doctorant->setNom($nom_doct);
             $doctorant->setPrenom($prenom_doct);
+            $doctorant->setMail("email@enDurDansLeControleur.com");
             $doctorant->setDCACE($dcace);
             $doctorant->setDateInscr1eThese($date_1er);
 
@@ -249,14 +251,14 @@ class DoctoramaController extends Controller {
             $doctorant->setSujetMaster($sujet_mast);
             $doctorant->setLaboratoireAcceuilMaster($labo_acc);
             $doctorant->setEncadrantsMaster($enc_mast);
-            $this->getDoctrine()->getManager()->persist($doctorant);
+            $em->persist($doctorant);
             
-            //$em;
             
             
             $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 
             $these = new These();
+            $these->setTitreThese("Titre de la these en dur dans le controleur");
             $these->setSujetThese($sujet_th);
             $these->setAxeThematique($axe_th);
             $these->setAxeScientifique($axe_sc);
@@ -264,20 +266,20 @@ class DoctoramaController extends Controller {
 
             $serviceEnc = new EncadrantService($em);
 
-            for($i=0; $i<sizeof($enc_th); $i++)
+            /*for($i=0; $i<sizeof($enc_th); $i++)
             {
                 $nomEnc = explode(" ", $enc_th[$i]);
                 $encadrant = $serviceEnc->findEncadrantByNomEtPrenom($nomEnc[1], $nomEnc[0]);
                 $these->addEncadrant($encadrant);
-            }
-
+            }*/
+            
+            
             $em->persist($these);
 
             $DossierSuiviRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:DossierDeSuivi');
 
             $dossierDeSuivi = new DossierDeSuivi();
             $dossierDeSuivi->setThese($these);
-
             $em->persist($dossierDeSuivi);
             $em->flush();
 

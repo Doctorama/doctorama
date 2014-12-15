@@ -42,56 +42,56 @@ class These
     /**
      * @var string
      *
-     * @ORM\Column(name="specialite", type="string", length=255)
+     * @ORM\Column(name="specialite", type="string", length=255, nullable=true)
      */
     private $specialite;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="laboratoire", type="string", length=255)
+     * @ORM\Column(name="laboratoire", type="string", length=255, nullable=true)
      */
     private $laboratoire;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="axeThematique", type="string", length=255)
+     * @ORM\Column(name="axeThematique", type="string", length=255, nullable=true)
      */
     private $axeThematique;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="axeScientifique", type="string", length=255)
+     * @ORM\Column(name="axeScientifique", type="string", length=255, nullable=true)
      */
     private $axeScientifique;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="financement", type="integer")
+     * @ORM\Column(name="financement", type="integer", nullable=true)
      */
     private $financement;
 
     /**
      * @var \datetime
      *
-     * @ORM\Column(name="dateDebut", type="date")
+     * @ORM\Column(name="dateDebut", type="date", nullable=true)
      */
     private $dateDebut;
 
     /**
      * @var \datetime
      *
-     * @ORM\Column(name="dateDeSoutenance", type="date")
+     * @ORM\Column(name="dateDeSoutenance", type="date", nullable=true)
      */
     private $dateDeSoutenance;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mention", type="string", length=255)
+     * @ORM\Column(name="mention", type="string", length=255, nullable=true)
      */
     private $mention;
 	
