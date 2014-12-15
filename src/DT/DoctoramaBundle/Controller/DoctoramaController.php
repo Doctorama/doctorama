@@ -44,10 +44,11 @@ class DoctoramaController extends Controller {
 		$typeExport = htmlentities(str_replace('"','\"',$_POST['export']));
 		if(!strcmp($typeExport,"CSV") || !strcmp($typeExport,"PDF")){
 			$response = new Response();
-			if(!strcmp($typeExport,"PDF"))
+			if(!strcmp($typeExport,"PDF")){
 				$response->headers->set('Content-Type', 'application/pdf');
+			}
 			elseif(!strcmp($typeExport,"CSV")){
-				$response->headers->set('Content-Type', 'text/html');
+				$response->headers->set('Content-Type', 'text/csv');
 				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['form'].'.csv');
 			}
 			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport), $response);

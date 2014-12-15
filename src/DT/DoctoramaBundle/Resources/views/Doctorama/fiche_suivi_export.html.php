@@ -1,11 +1,11 @@
 <?php
 
 if(!strcmp($_POST['export'],"CSV")){
-	echo "#;Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['form'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
+	echo "Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['form'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
 	$formContent = $_POST[htmlentities(str_replace('"','\"',$_POST['form']))];
 	$i=0;
 	foreach($formContent as $key => $value){
-		echo ++$i.";".htmlentities(str_replace('"','\"',$key)).";".htmlentities(str_replace('"','\"',$value))."\n";
+		echo htmlentities(str_replace('"','\"',$key)).";".htmlentities(str_replace('"','\"',$value))."\n";
 	}
 
 }elseif(!strcmp($_POST['export'],"PDF")){
