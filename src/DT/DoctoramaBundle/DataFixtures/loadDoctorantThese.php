@@ -32,7 +32,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant->setNumEtudiant('15526398958');
 		$doctorant->setBourseEtExoneration(0);
 		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDCACE('');
+		$doctorant->setDcace('');
 		$doctorant->setNomFormationMaster('ICONE');
 		$doctorant->setUniversiteMaster('ULR');
 		$doctorant->setSujetMaster('M1');
@@ -62,7 +62,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant2->setNumEtudiant('15526398958');
 		$doctorant2->setBourseEtExoneration(0);
 		$doctorant2->setDateInscr1eThese('2010-09-03');
-		$doctorant2->setDCACE('');
+		$doctorant2->setDcace('');
 		$doctorant2->setNomFormationMaster('ICONE');
 		$doctorant2->setUniversiteMaster('ULR');
 		$doctorant2->setSujetMaster('M1');
@@ -92,7 +92,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant3->setNumEtudiant('15526398958');
 		$doctorant3->setBourseEtExoneration(0);
 		$doctorant3->setDateInscr1eThese('2010-09-03');
-		$doctorant3->setDCACE('');
+		$doctorant3->setDcace('');
 		$doctorant3->setNomFormationMaster('ICONE');
 		$doctorant3->setUniversiteMaster('ULR');
 		$doctorant3->setSujetMaster('M1');
@@ -123,7 +123,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant4->setNumEtudiant('15526398958');
 		$doctorant4->setBourseEtExoneration(0);
 		$doctorant4->setDateInscr1eThese('2010-09-03');
-		$doctorant4->setDCACE('');
+		$doctorant4->setDcace('');
 		$doctorant4->setNomFormationMaster('ICONE');
 		$doctorant4->setUniversiteMaster('ULR');
 		$doctorant4->setSujetMaster('M1');

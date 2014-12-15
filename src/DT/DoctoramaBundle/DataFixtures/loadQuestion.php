@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 
 use DT\DoctoramaBundle\Entity\Question;
+use DT\DoctoramaBundle\Entity\TemplateFicheSuivi;
 
 class loadQuestion extends AbstractFixture implements OrderedFixtureInterface{
 
@@ -17,6 +18,14 @@ class loadQuestion extends AbstractFixture implements OrderedFixtureInterface{
 		
 		$manager->persist($question);
 			
+		$manager->flush();
+		
+		$tfs = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findByTitre('Un Template');
+		$template = $tfs[sizeof($tfs)-1];
+		$template->addQuestions($question);
+		
+		$manager->persist($template);
+		
 		$manager->flush();
 	}
 	//fonction ordre des fixtures

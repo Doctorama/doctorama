@@ -11,9 +11,9 @@ use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
 class loadDossierDeSuiviThese extends AbstractFixture implements OrderedFixtureInterface{
 	public function load(ObjectManager $manager){
-		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 0;');
-		$manager->getConnection()->prepare('truncate table dossierdesuivi');
-		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 1;');
+		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 0;')->execute();
+		$manager->getConnection()->prepare('truncate table dossierdesuivi')->execute();
+		$manager->getConnection()->prepare('set FOREIGN_KEY_CHECKS = 1;')->execute();
 		
 		$dossierDeSuivi = new DossierDeSuivi;
 		$dossierDeSuivi->setCommentaires('Un commentaire');
