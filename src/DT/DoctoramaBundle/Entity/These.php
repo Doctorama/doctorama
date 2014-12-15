@@ -111,8 +111,15 @@ class These
 	 */
 	protected $doctorant;
 	
+	/**
+	*
+	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theseDirecteur")
+	*/
+	protected $directeurdethese;
+	
 	public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->directeurdethese = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
 	/**
@@ -163,6 +170,18 @@ class These
 		}
                 
                 return $this;
+	}
+	
+	public function getDirecteurDeThese(){
+		return $this->directeurdethese;
+	}
+	
+	public function addDirecteurDeThese($directeurdethese){
+		if(!$this->directeurdethese->contains($directeurdethese)){
+			$directeurdethese->addTheseDirecteur($this);
+            $this->items[] = $directeurdethese;
+		}
+        return $this;
 	}
 	
 	/**
