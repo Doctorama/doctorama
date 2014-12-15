@@ -110,9 +110,9 @@ class Question
 	
 	public function addTemplateFicheSuivi($ficheSuivi){
 		if($this->templateFicheSuivis->contains($ficheSuivi)){
-			$this->templateFicheSuivis[] = $ficheSuivi;
-			//$ficheSuivi->addQuestions($this);
-			//$this->items[] = ($ficheSuivi);
+			//$this->templateFicheSuivis[] = $ficheSuivi;
+			$ficheSuivi->addQuestions($this);
+			$this->items[] = ($ficheSuivi);
 		}
 	}
 }

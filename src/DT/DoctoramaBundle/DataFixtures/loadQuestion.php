@@ -16,15 +16,15 @@ class loadQuestion extends AbstractFixture implements OrderedFixtureInterface{
 		$question = new Question;
 		$question->setQuestion('Quel est la couleur du cheval blanc d\'henry 4 ?');
 		
-		$manager->persist($question);
-			
-		$manager->flush();
+		
 		
 		$tfs = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findByTitre('Un Template');
 		$template = $tfs[sizeof($tfs)-1];
 		$template->addQuestions($question);
 		
 		$manager->persist($template);
+		$manager->persist($question);
+			
 		
 		$manager->flush();
 	}

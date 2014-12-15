@@ -86,10 +86,10 @@ class TemplateFicheSuivi
 	}
 	
 	public function addQuestions($question){
-		if($this->questions->contains($question)){
-			//$this->questions[] = ($question);
-			$question->addTemplateFicheSuivi($this);
-			$this->items[] = ($question);
+		if(!$this->questions->contains($question)){
+			$this->questions[] = ($question);
+			//$question->addTemplateFicheSuivi($this);
+			//$this->items[] = ($question);
 		}
 	}
 	

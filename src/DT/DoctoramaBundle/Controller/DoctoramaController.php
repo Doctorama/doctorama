@@ -12,6 +12,7 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
+use DT\DoctoramaBundle\Entity\These;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -234,8 +235,9 @@ class DoctoramaController extends Controller {
             $doctorant->setSujetMaster($sujet_mast);
             $doctorant->setLaboratoireAcceuilMaster($labo_acc);
             $doctorant->setEncadrantsMaster($enc_mast);
-
-            $em->persist($doctorant);
+            $this->getDoctrine()->getManager()->persist($doctorant);
+            
+            //$em;
             
             
             $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
