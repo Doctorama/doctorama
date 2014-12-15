@@ -37,8 +37,7 @@ class Question
 	protected $reponses;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="TemplateFicheSuivi", inversedBy="questions")
-	 * @ORM\JoinTable(name="Tem_Que")
+	 * @ORM\ManyToMany(targetEntity="TemplateFicheSuivi", mappedBy="questions")
 	 */
 	protected $templateFicheSuivis;
 	
@@ -105,14 +104,15 @@ class Question
 		return $this->reponses;
 	}
 	
-	public function getTitre(){
+	public function getTemplateFicheSuivi(){
 		return $this->templateFicheSuivis;
 	}
 	
-	public function addTitre($ficheSuivi){
+	public function addTemplateFicheSuivi($ficheSuivi){
 		if($this->templateFicheSuivis->contains($ficheSuivi)){
-			$ficheSuivi->addQuestions($this);
-			$this->templateFicheSuivis[] = ($ficheSuivi);
+			$this->templateFicheSuivis[] = $ficheSuivi;
+			//$ficheSuivi->addQuestions($this);
+			//$this->items[] = ($ficheSuivi);
 		}
 	}
 }

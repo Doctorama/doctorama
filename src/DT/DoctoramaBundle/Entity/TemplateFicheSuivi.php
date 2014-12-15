@@ -36,7 +36,7 @@ class TemplateFicheSuivi
 	protected $dossierDeSuivi;
 	
 	/**
-	 * @ORM\ManyToMany(targetEntity="Question", mappedBy="templateFicheSuivis")
+	 * @ORM\ManyToMany(targetEntity="Question", inversedBy="templateFicheSuivis")
 	 */
 	protected $questions;
 	
@@ -85,9 +85,11 @@ class TemplateFicheSuivi
 		return $this->questions = $questions;
 	}
 	
-	public function addQuestion($question){
+	public function addQuestions($question){
 		if($this->questions->contains($question)){
-			$this->questions[] = ($question);
+			//$this->questions[] = ($question);
+			$question->addTemplateFicheSuivi($this);
+			$this->items[] = ($question);
 		}
 	}
 	
@@ -100,7 +102,7 @@ class TemplateFicheSuivi
 	public function setDossierDeSuivi($dossierSuivi)
     {
         $this->dossierDeSuivi = $dossierSuivi;
-    
+		$dossierSuivi->setTemplateFicheSuivi($this);
         return $this;
     }
 
