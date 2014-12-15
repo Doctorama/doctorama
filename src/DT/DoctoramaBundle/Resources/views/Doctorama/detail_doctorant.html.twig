@@ -12,7 +12,7 @@
 	  <!-- Nav tabs -->
 	  <ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#detail" aria-controls="detail" role="tab" data-toggle="tab">Détails</a></li>
-		<li role="presentation"><a href="#t6" aria-controls="t6" role="tab" data-toggle="tab">T+6</a></li>
+		<li role="presentation"><a href="#T6" aria-controls="T6" role="tab" data-toggle="tab">T+6</a></li>
 	  </ul>
 
 	  <!-- Tab panes -->
@@ -131,20 +131,22 @@
 					</div>
 				</form>
 			</div>
-			<div role="tabpanel" class="tab-pane" id="t6">
+			<div role="tabpanel" class="tab-pane" id="T6">
 				<div class="col-sm-8">
-					<form id="t+6" name="form1" class="form-horizontal" role="form" method="post" action="">
-						<input type="hidden" name="form" value="t+6" />
+					<form id="T+6" name="form1" class="form-horizontal" role="form" method="post" action="{{path('dt_export_fiche_pdf')}}?nom={{doctorant.nom}} {{doctorant.prenom}}">
+						<input type="hidden" name="form" value="T+6" />
 						<legend>
 							Fiche de suivi de réunion du 11/11/11
 						</legend>
+						{%set id=0 %}
 						{% for question in  fiche%}
-						<div class="form-group">
-							<label for="directeur" class="col-sm-4 control-label">{{question.question}} :</label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="question1" name="t+6[question1]" value="{{question.reponse}}" readonly>
+							{%set id = id+1 %}
+							<div class="form-group">
+								<label for="directeur" class="col-sm-4 control-label">{{question.question}} :</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="question{{id}}" name="T+6[question{{id}}]" value="{{question.reponse}}" readonly>
+								</div>
 							</div>
-						</div>
 						{% endfor %}
 						<div class="form-group">
 								<div class="col-sm-4"></div>

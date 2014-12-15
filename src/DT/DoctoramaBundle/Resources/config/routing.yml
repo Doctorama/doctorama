@@ -54,3 +54,11 @@ dt_detail_doctorant:
 dt_formulaire_creation_dossier:
     pattern: /creation_dossier_suivis
     defaults: { _controller: DTDoctoramaBundle:Doctorama:creationDossier}
+
+dt_export_fiche_pdf:
+    pattern: /export_fiche_pdf
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFichePdf}
+
+dt_export_fiche_csv:
+    pattern: /export_fiche_csv
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFicheCsv}

@@ -38,6 +38,20 @@ class DoctoramaController extends Controller {
 		}
     }
     
+	public function exportFichePdfAction(Request $request)
+    {
+		$response = new Response();
+		$response->headers->set('Content-Type', 'application/pdf');
+		return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export_pdf.html.php', array('title' => 'Export fichier pdf'), $response);
+    }
+	
+	public function exportFicheCsvAction(Request $request)
+    {
+		$response = new Response();
+		$response->headers->set('Content-Type', 'application/csv');
+		return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export_csv.html.php', array('title' => 'Export fichier csv'), $response);
+    }
+	
     public function mesDoctorantsAction(Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
