@@ -190,46 +190,15 @@ class DoctoramaController extends Controller {
 	
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
-		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $Doctorant = $DoctorantRepository->findById($id_doctorant);
-		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
-        $listEncadrant = $EncadrantRepository->findAll();
+        //On récupére le doctorant
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $doctorant = $DoctorantRepository->find($id_doctorant);
+        
         return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
 			'title'=>'Détails',
 			//'doctorant'=>$Doctorant[0],
-			'titre' => 'Detail du doctorant', 
-			'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
-			'titreThese'=>'titre',
-			'directeur'=>'dirlo',
-			'encadrantsDoctorant'=>$listEncadrant,
-			'axe_thematique'=>'thematique',
-			'axe_scientifique'=>'scientifique',
-			'financement'=>'financement',
-			'date_inscription'=>'premiere',
-			'date_fin'=>'fin prévue',
-			'dcace'=>'dcace',
-			'formation'=>'formation',
-			'universite'=>'univ',
-			'sujetMaster'=>'sujetMaster',
-			'laboratoire'=>'labo',
-			'encadrantsMaster'=>array(
-				array(
-					'nom'=>'Totomaster','prenom'=>'Titimaster'
-				),
-				array(
-					'nom'=>'Tatamaster','prenom'=>'Tutumaster'
-				)
-			),
-			'fiche'=>array(
-				array('question'=>'question1',
-					'reponse'=>'reponse1'
-				),array('question'=>'question2',
-					'reponse'=>'reponse2'
-				),array('question'=>'question3',
-					'reponse'=>'reponse3'
-				),
-			),
-		));
+			'titre' => 'Detail du doctorant',
+                        'doctorant' => $doctorant));                 
     }
 
     public function creationDossierAction(Request $request)
@@ -255,7 +224,6 @@ class DoctoramaController extends Controller {
             $doctorant->setLaboratoireAcceuilMaster($labo_acc);
             $doctorant->setEncadrantsMaster($enc_mast);
             $em->persist($doctorant);
-            
             
             
             $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');

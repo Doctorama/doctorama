@@ -35,51 +35,53 @@
 								<div class="form-group">
 									<label for="directeur" class="col-sm-4 control-label">Directeur :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="directeur" name="directeur" value="{{directeur}}" readonly>
+										<input type="text" class="form-control" id="directeur" name="directeur" value="{%if directeur is defined%}{{directeur}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="encadrantsDoctorant" class="col-sm-4 control-label">Encadrants :</label>
 									<div class="col-sm-8">
-										{% for encadrant in encadrantsDoctorant %}
-											<input type="text" class="form-control" id="encadrantsDoctorant" name="encadrantsDoctorant" value="{{encadrant.nom}} {{encadrant.prenom}}" readonly>
-										{% endfor %}
+                                                                                {%if doctorant.these.encadrants is defined%}
+                                                                                    {% for encadrant in doctorant.these.encadrants %}
+                                                                                            <input type="text" class="form-control" id="encadrantsDoctorant" name="encadrantsDoctorant" value="{{encadrant.nom}} {{encadrant.prenom}}" readonly>
+                                                                                    {% endfor %}
+                                                                                {%endif%}
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="thematique" class="col-sm-4 control-label">Axe Thèmatique :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="thematique" name="thematique" value="{{axe_thematique}}" readonly>
+										<input type="text" class="form-control" id="thematique" name="thematique" value="{%if doctorant.these.axeThematique is defined%}{{doctorant.these.axeThematique}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="scientifique" class="col-sm-4 control-label">Axe Scientifique :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="scientifique" name="scientifique" value="{{axe_scientifique}}" readonly>
+										<input type="text" class="form-control" id="scientifique" name="scientifique" value="{%if doctorant.these.axeScientifique is defined%}{{doctorant.these.axeScientifique}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="financement" class="col-sm-4 control-label">Financement :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="financement" name="financement" value="{{financement}}" readonly>
+										<input type="text" class="form-control" id="financement" name="financement" value="{%if doctorant.these.financement is defined%}{{doctorant.these.financement}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="inscription" class="col-sm-4 control-label">Date de première inscription :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inscription" name="dateinscription" value="{{date_inscription}}" readonly>
+										<input type="text" class="form-control" id="inscription" name="dateinscription" value="{%if doctorant.these.dateDebut is defined %}{{doctorant.these.dateDebut|date("d-m-Y")}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="fin" class="col-sm-4 control-label">Date de fin prévue :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="fin" name="datefin" value="{{date_fin}}" readonly>
+										<input type="text" class="form-control" id="fin" name="datefin" value="{%if doctorant.these.dateDeSoutenance is defined%}{{doctorant.these.dateDeSoutenance|date("d-m-Y")}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="dcace" class="col-sm-4 control-label">DCACE :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="dcace" name="dcace" value="{{dcace}}" readonly>
+										<input type="text" class="form-control" id="dcace" name="dcace" value="{%if doctorant.dcace is defined %}{{doctorant.dcace}}{%endif%}" readonly>
 									</div>	
 								</div>												
 							</div>
@@ -89,33 +91,33 @@
 								<div class="form-group">
 									<label for="formation" class="col-sm-4 control-label">Nom de la formation :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="formation" name="formation" value="{{formation}}" readonly>
+										<input type="text" class="form-control" id="formation" name="formation" value="{%if doctorant.nomFormationMaster is defined %}{{doctorant.nomFormationMaster}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="universite" class="col-sm-4 control-label">Université :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="universite" name="universite" value="{{universite}}" readonly>
+										<input type="text" class="form-control" id="universite" name="universite" value="{%if doctorant.universiteMaster is defined %}{{doctorant.universiteMaster}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="sujet" class="col-sm-4 control-label">Sujet de Master :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="sujet" name="sujet" value="{{sujetMaster}}" readonly>
+										<input type="text" class="form-control" id="sujet" name="sujet" value="{%if doctorant.sujetMaster is defined %}{{doctorant.sujetMaster}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="laboratoire" class="col-sm-4 control-label">Laboratoire d'accueil :</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" id="laboratoire" name="laboratoire" value="{{laboratoire}}" readonly>
+										<input type="text" class="form-control" id="laboratoire" name="laboratoire" value="{%if doctorant.laboratoireAcceuilMaster is defined %}{{doctorant.laboratoireAcceuilMaster}}{%endif%}" readonly>
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="encadrantsMaster" class="col-sm-4 control-label">Encadrant(s) :</label>
 									<div class="col-sm-8">
-										{% for encadrant in encadrantsMaster %}
-											<input type="text" class="form-control" id="encadrantsMaster" name="encadrantsMaster" value="{{encadrant.nom}} {{encadrant.prenom}}" readonly>
-										{% endfor %}
+                                                                            {%if doctorant.encadrantsMaster is defined %}
+											<input type="text" class="form-control" id="encadrantsMaster" name="encadrantsMaster" value="{{doctorant.encadrantsMaster}}" readonly>
+                                                                            {%endif%}
 									</div>
 								</div>									
 							</div>
@@ -139,6 +141,7 @@
 							Fiche de suivi de réunion du 11/11/11
 						</legend>
 						{%set id=0 %}
+                                                {%if fiche is defined %}
 						{% for question in  fiche%}
 							{%set id = id+1 %}
 							<div class="form-group">
@@ -148,6 +151,7 @@
 								</div>
 							</div>
 						{% endfor %}
+                                                {%endif%}
 						<div class="form-group">
 								<div class="col-sm-4"></div>
 								<div class="col-sm-4">

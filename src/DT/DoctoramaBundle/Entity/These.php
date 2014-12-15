@@ -142,7 +142,7 @@ class These
      *
      * @return Encadrant 
      */
-	public function getEncadrant(){
+	public function getEncadrants(){
 		return $this->encadrants;
 	}
 	
@@ -152,8 +152,8 @@ class These
 	 * @param Encadrant $encadrant
      * @return These 
      */
-	public function setEncadrant($encadrant){
-		$this->encadrants = $encadrant;
+	public function setEncadrants($encadrants){
+		$this->encadrants = $encadrants;
 		
 		return $this;
 	}
