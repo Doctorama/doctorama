@@ -39,18 +39,21 @@ class DoctoramaController extends Controller {
 		}
     }
     
-	public function exportFichePdfAction(Request $request)
+	public function exportFicheAction(Request $request)
     {
-		$response = new Response();
-		$response->headers->set('Content-Type', 'application/pdf');
-		return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export_pdf.html.php', array('title' => 'Export fichier pdf'), $response);
-    }
-	
-	public function exportFicheCsvAction(Request $request)
-    {
-		$response = new Response();
-		$response->headers->set('Content-Type', 'application/csv');
-		return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export_csv.html.php', array('title' => 'Export fichier csv'), $response);
+		$typeExport = htmlentities(str_replace('"','\"',$_POST['export']));
+		if(!strcmp($typeExport,"CSV") || !strcmp($typeExport,"PDF")){
+			$response = new Response();
+			if(!strcmp($typeExport,"PDF"))
+				$response->headers->set('Content-Type', 'application/pdf');
+			elseif(!strcmp($typeExport,"CSV")){
+				$response->headers->set('Content-Type', 'text/html');
+				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['form'].'.csv');
+			}
+			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport), $response);
+		}else{
+			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
+		}
     }
 	
     public function mesDoctorantsAction(Request $request)
