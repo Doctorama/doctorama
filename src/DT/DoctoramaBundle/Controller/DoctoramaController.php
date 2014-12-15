@@ -178,9 +178,11 @@ class DoctoramaController extends Controller {
     
     public function modifDossierSuivisAction($id_doctorant, Request $request)
     {
+        //On récupére le doctorant
+        $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $doctorant = $DoctorantRepository->find($id_doctorant);
         
-        //il faudra charger les infos du doctorant concerné.
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis', 'doctorant'=>$doctorant));
     }
     
     public function importCsvAction(Request $request)
