@@ -135,6 +135,21 @@ class DoctoramaController extends Controller {
         $reunion2->addPersonne($personne4);
         $reunions=array('1'=>$reunion1,'2'=>$reunion2);
         
+       // Ecriture des dates dans le format json pour le calendrier en js
+        foreach ($reunions as $reunion){
+            $events[] = array(
+                'title'=>$reunion->getLieu(),
+                'start'=>$reunion->getDate()->format('Y-m-d H:i:s'));
+        }
+        if(!($fp = fopen("my_date.php", "w+"))){
+            exit;
+        }
+        else{
+            echo json_encode($events);
+            fwrite($fp, "<?php echo'".json_encode($events)."';");
+            fclose($fp);
+        }
+        
         return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
     }
     
@@ -265,5 +280,31 @@ class DoctoramaController extends Controller {
     {
         return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles'));
     }
+	
+	public function modifInfoPersoAction(Request $request)
+    {
+        $requete = $this->get('request');
+        if($requete->getMethod() == 'POST')
+        {  
+            extract ($_POST);
+            //$nom_doct = htmlentities(str_replace('"','\"',$_POST['nom_doct']));
+
+            //traitement formulaire à faire
+
+        }
+
+        return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Information Personnelles'));
+    }
+	
+	/*
+    public function notifAction(Request $request)
+    {
+        $message = Swift_Message::newInstance()
+        ->setSubject('le sujet de mon mail')
+        ->setFrom(array('mail@expediteur.fr' => 'Nom de l expediteur'))
+        ->setTo($aMailsDest)
+        ->setBody($body);
+    }
+	*/
 
 }

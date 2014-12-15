@@ -63,7 +63,8 @@ $(document).ready(function(){
 		defaultDate: moment(),
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
-		eventSources : [{url:'/mydate.php'}],
+		//eventSources : [{url:'/my_date.php'}]
+		events : [{url:'/my_date.php'}]
 	});
 
 	$('[data-toggle="tooltip"]').popover({

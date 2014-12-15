@@ -58,3 +58,7 @@ dt_formulaire_creation_dossier:
 dt_export_fiche:
     pattern: /export_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFiche}
+
+dt_formulaire_modif_info_perso:
+    pattern: /modif_info_perso
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:modifInfoPerso}
