@@ -30,6 +30,14 @@ dt_doctorama_index:
 dt_doctorama_admin_dossier_suivis:
     pattern: /encadrant/dossier_suivis
     defaults: { _controller: DTDoctoramaBundle:Doctorama:adminDossierSuivis}
+
+dt_doctorama_admin_utilisateur:
+    pattern: /encadrant/admin_utilisateur
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:adminUtilisateur}
+
+dt_doctorama_info_perso:
+    pattern: /info_perso
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:infoPerso}
     
 dt_doctorama_creer_dossier_suivis:
     pattern: /encadrant/doctorant_labo/creer_dossier_suivis

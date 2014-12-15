@@ -146,6 +146,11 @@ class DoctoramaController extends Controller {
     {
         return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier de suivis'));
     }
+
+    public function adminUtilisateurAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:admin_utilisateur.html.twig', array('title' => 'Gestion des utilisateurs'));
+    }
     
     public function creerDossierSuivisAction(Request $request)
     {
@@ -263,6 +268,11 @@ class DoctoramaController extends Controller {
         }
 
         return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));
+    }
+
+    public function infoPersoAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles'));
     }
 
 }

@@ -1,0 +1,138 @@
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/admin_utilisateur.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+    <legend>
+      <h3> {{title}} </h3>
+    </legend>
+
+    <section class="row">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#SansRole" aria-controls="sansrole" role="tab" data-toggle="tab">Nouveaux Utilisateurs</a>
+            </li>
+            <li role="presentation">
+                <a href="#AvecRole" aria-controls="avecrole" role="tab" data-toggle="tab">Modifier un utilisateur</a>
+            </li>
+        </ul>
+
+        <section class="tab-content">
+            <article role="tabpanel" class="tab-pane active" id="SansRole">
+                <form action="" method="post">
+                
+                    <section class="table-responsive col-xs-12 col-md-push-1 col-md-7 border1px" style="margin-top:15px;" >
+                        <table class="table table-striped ">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th> </th>
+                              <th> Login </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <input type="checkbox" name="login[]" value="log1">
+                                </td>
+                                <td>log1</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <input type="checkbox" name="login[]" value="log2">
+                                </td>
+                                <td>log2</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <input type="checkbox" name="login[]" value="log3">
+                                </td>
+                                <td>log3</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                   <input type="checkbox" name="login[]" value="log4">
+                                </td>
+                                <td>log4</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </section>
+
+                    <section class="col-xs-12 col-md-push-1 col-md-2" style="margin-top:15px;" >
+                        <h4> Attribuer le rôle : </h4>
+                        <p> <button type="submit" class="btn btn-success">Doctorant</button> </p>
+                        <p> <button type="submit" class="btn btn-success">Encadrant</button> </p>
+                        <p> <button type="submit" class="btn btn-success">Directeur de thèse</button> </p>
+                    </section>
+                </form>
+
+            </article>
+            <article role="tabpanel" class="tab-pane" id="AvecRole">
+                <section class="table-responsive col-xs-12 col-md-push-1 col-md-10 border1px" style="margin-top:15px;" >
+                        <table class="table table-striped ">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th> Nom </th>
+                              <th> Prenom </th>
+                              <th> Rôle </th>
+                              <th> </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Nom1</td>
+                                <td>Prenom1</td>
+                                <td>Doctorant</td>
+                                <td class="pull-right"> 
+                                    <a class="btn btn-default" href="{{ path('dt_doctorama_info_perso') }}" role="button"> Modifier </a> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Nom2</td>
+                                <td>Prenom1</td>
+                                <td>Doctorant</td>
+                                <td class="pull-right"> 
+                                     <a class="btn btn-default" href="{{ path('dt_doctorama_info_perso') }}" role="button"> Modifier </a>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Nom3</td>
+                                <td>Prenom1</td>
+                                <td>Encadrant</td>
+                                <td class="pull-right"> 
+                                     <a class="btn btn-default" href="{{ path('dt_doctorama_info_perso') }}" role="button"> Modifier </a>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Nom4</td>
+                                <td>Prenom1</td>
+                                <td>Directeur de thèse</td>
+                                <td class="pull-right"> 
+                                     <a class="btn btn-default" href="{{ path('dt_doctorama_info_perso') }}" role="button"> Modifier </a>  
+                                </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </section>
+
+            </article>
+        </section>
+    </section>
+
+<!--
+
+        
+    </section>
+-->
+    
+{% endblock %}
