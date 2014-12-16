@@ -47,7 +47,7 @@ class Compte extends BaseUser
     private $encadrant;
     
     /**
-     * @ORM\OneToOne(targetEntity="DT\DoctoramaBundle\Entity\DirecteurDeThese", inversedBy="compte")
+     * @ORM\OneToOne(targetEntity="DT\DoctoramaBundle\Entity\DirecteurDeLaboratoire", inversedBy="compte")
      * @ORM\JoinColumn(name="directeur_id", referencedColumnName="id")
      **/
     private $directeur;

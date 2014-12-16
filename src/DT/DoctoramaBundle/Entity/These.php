@@ -127,10 +127,6 @@ class These
 	 */
 	protected $doctorants;
 	
-	public function getDoctorant(){
-		return $this->doctorant;
-	}
-	
 	/**
 	* Get doctorant
 	*
