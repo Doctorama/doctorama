@@ -419,10 +419,9 @@ class DoctoramaController extends Controller {
     public function parseCsvAction(Request $request)
     {
     	$reponse;
-    	if (!file_exists("bundles/doctorama/uploads")) {
-			//$reponse = 'Directory not exist';       
-		}
+    	
     	$uploads_dir = "bundles/doctorama/uploads/";
+
 		$tmp_name = $_FILES["file"]["tmp_name"];
         $name = $_FILES["file"]["name"];
 
@@ -434,7 +433,6 @@ class DoctoramaController extends Controller {
 		{ 
 			//$reponse = 'Echec de l\'upload. '; 
 		} 
-		
 		
     	$ligne = 1; // compteur de ligne
 		$fic = fopen("$uploads_dir/$name", "a+");
