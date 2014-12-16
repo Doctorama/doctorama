@@ -48,15 +48,17 @@ class DoctoramaController extends Controller {
         
         //si c'est une connexion fait grâce à un utilisateur issu de l'objet compte
         $listDoctorants = array();
-        if(method_exists($user,'getDoctorant'))
+        if(method_exists($user,'getEncadrant'))
         {
-            $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+            /*$theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
             $theses = $theseRepository->findByEncadrant($user->getEncadrant()->getId());
             
             foreach($theses as $these)
             {
                 array_push($listDoctorants, $these->getDoctorant());
-            }
+            }*/
+            
+            $listDoctorants = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant')->theseNonArchivee($user->getEncadrant()->getId());
             
         }
         
@@ -77,7 +79,7 @@ class DoctoramaController extends Controller {
     public function doctorantLaboAction(Request $request)
     {
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $listDoctorant = $DoctorantRepository->findAll();
+        $listDoctorant = $DoctorantRepository->theseNonArchivee();
         $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 		$listThese = array(sizeof($listDoctorant));
 		for($i=0; $i<sizeof($listDoctorant); $i++){

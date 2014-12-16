@@ -13,6 +13,7 @@ require_once __DIR__ . '/These.php';
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DT\DoctoramaBundle\Repository\DoctorantRepository")
  */
 class Doctorant extends Personne
 {
