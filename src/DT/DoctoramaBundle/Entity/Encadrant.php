@@ -37,6 +37,7 @@ class Encadrant extends Personne{
     private $thesesDirecteur;
 
 	public function __construct() {
+		$this->reunions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->theses = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->thesesDirecteur = new \Doctrine\Common\Collections\ArrayCollection();
     }

@@ -56,7 +56,7 @@ class DoctorantService
 	public function findDoctorantById($id)
 	{
     
-        $doctorant = $this->repository->find($id);
+        $doctorant = $this->repository->findById($id);
 		if (!$doctorant) {
 			return null;
 		}
