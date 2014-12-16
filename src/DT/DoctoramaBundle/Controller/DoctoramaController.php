@@ -205,31 +205,41 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:admin_utilisateur.html.twig', array('title' => 'Gestion des utilisateurs'));
     }
     
+    public function persisterDossierSuivis($doctorant)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        foreach($doctorant->getThese()->getEncadrants() as $encadrant)
+        {
+            $encadrant->addThese($doctorant->getThese());
+            
+            $em->persist($encadrant);
+        }
+        $em->persist($doctorant->getThese());
+        $em->persist($doctorant);
+        $em->flush();
+    }
+    
+    
     public function creerDossierSuivisAction(Request $request)
     {
         $doctorant = new Doctorant();
 
         $formDoctorant = $this->createForm(new DoctorantType(), $doctorant);
         $formDoctorant->add('save',      'submit');
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        
         $formDoctorant->handleRequest($request);
                
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        
         if ($formDoctorant->isValid()) {
         
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($doctorant->getThese());
-            $em->persist($doctorant);
-            $em->persist($doctorant->getThese()->getEncadrants());
-            $em->flush();
+            
+            $this->persisterDossierSuivis($doctorant);
 
-          $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
 
-          // On redirige vers la page de visualisation de l'annonce nouvellement créée
-          return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
+            
+            return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis','formDoctorant' => $formDoctorant->createView()));
 
@@ -242,27 +252,16 @@ class DoctoramaController extends Controller {
         
         $formDoctorant->add('save',      'submit');
         
-        
         $formDoctorant->handleRequest($request);  
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+    
         if ($formDoctorant->isValid()) {
-        
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($doctorant->getThese());
-            $em->persist($doctorant);
-            foreach($doctorant->getThese()->getEncadrants() as $encadrant)
-            {
-                $em->persist($encadrant);
-            }
+
+            $this->persisterDossierSuivis($doctorant);
             
-            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Le dossier a bien était modifié.');
 
-          $request->getSession()->getFlashBag()->add('notice', 'Le dossier a bien était modifié.');
-
-          // On redirige vers la page de visualisation de l'annonce nouvellement créée
-          return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
         }
         
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis','formDoctorant' => $formDoctorant->createView()));
