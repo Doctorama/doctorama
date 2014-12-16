@@ -1,0 +1,34 @@
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/modif_dossier.html.twig #}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+    <legend>
+        <h3>Modifier dossier de suivi </h3>
+    </legend>
+
+    <section class="row">
+        <div>
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
+                    <li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
+                </ul>
+                {{ include("DTDoctoramaBundle:Template:template_dossierSuivis.html.twig") }}
+                    <legend> </legend>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <!--<button type="submit" class="btn btn-success">Valider</button>
+                            <button type="submit" class="btn btn-danger">Annuler</button>-->
+                        </div>
+                    </div>
+                </div>
+                {{form_rest(formDoctorant)}}
+                {{ form_widget(formDoctorant.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                {{form_end(formDoctorant)}}
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
