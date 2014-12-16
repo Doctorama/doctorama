@@ -246,8 +246,8 @@ class DoctoramaController extends Controller {
         $formDoctorant->add('save',      'submit');
         // On fait le lien Requête <-> Formulaire
         // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
-        $formDoctorant->handleRequest($request);
-        //$formDoctorant->bind($request);
+        //$formDoctorant->handleRequest($request);
+        $formDoctorant->bind($request);
         // On vérifie que les valeurs entrées sont correctes
         // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($formDoctorant->isValid()) {
@@ -263,19 +263,8 @@ class DoctoramaController extends Controller {
           // On redirige vers la page de visualisation de l'annonce nouvellement créée
           return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
         }
-        /*$errors = $this->get('validator')->validate( $user );
-
-        $result = '';
-
-        // iterate on it
-        foreach( $errors as $error )
-        {
-            // Do stuff with:
-            //   $error->getPropertyPath() : the field that caused the error
-            //   $error->getMessage() : the error message
-        }
-       $string = (string) $formDoctorant->getErrors(true, false);
-       echo "<script>alert(\"Formulaire non valide : ".$string."\")</script>";*/
+        
+        echo "<script>alert(\"Formulaire non valide : \")</script>";
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis','formDoctorant' => $formDoctorant->createView()));
     }
     
@@ -287,14 +276,14 @@ class DoctoramaController extends Controller {
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
 		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $Doctorant = $DoctorantRepository->findById($id_doctorant);
+        $doctorant = $DoctorantRepository->find($id_doctorant);
 		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', 
 			array(
 				'title'=>'Détails',
 				'titre' => 'Detail du doctorant', 
-				'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
+				'doctorant'=>$doctorant,
 				'titreThese'=>'titre',
 				'directeur'=>'dirlo',
 				'encadrantsDoctorant'=>$listEncadrant,
