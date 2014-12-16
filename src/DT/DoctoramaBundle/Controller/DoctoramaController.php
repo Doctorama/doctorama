@@ -272,7 +272,13 @@ class DoctoramaController extends Controller {
 	
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
-		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant, array('method' => 'GET','read_only'=>true));
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Détails du doctorant','formDoctorant' => $formDoctorant->createView(), 'doctorant'=>$doctorant));
+    
+        
+	/*	$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $doctorant = $DoctorantRepository->find($id_doctorant);
 		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
@@ -359,7 +365,7 @@ class DoctoramaController extends Controller {
 					),
 				),
 			)
-		);
+		);*/
     }
 
     public function creationDossierAction(Request $request)

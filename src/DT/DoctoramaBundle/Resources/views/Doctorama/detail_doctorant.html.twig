@@ -3,168 +3,282 @@
 
 {% block DTDoctoramaBody %}
 
-<legend>
-	<h3>{{title}} : {{doctorant.nom}} {{doctorant.prenom}}</h3>
-</legend>
+    <legend>
+        <h3>{{title}} : {{doctorant.nom}} {{doctorant.prenom}}</h3>
+    </legend>
 
-<section class="row-fluid">
-	<div role="tabpanel">
-		<!-- Nav tabs -->
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#detail" aria-controls="detail" role="tab" data-toggle="tab">Détails</a></li>
-			{% for ficheId, ficheContent in fiches %}
-				<li role="presentation"><a href="#{{ficheId}}" aria-controls="{{ficheId}}" role="tab" data-toggle="tab">{{ficheContent.label}}</a></li>
-			{% endfor %}
-		</ul>
-
-		<!-- Tab panes -->
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="detail">
-				<ul class="nav nav-pills" role="tablist">
-					<li role="presentation" class="active"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
-					<li role="presentation"><a href="#master" aria-controls="master" role="tab" data-toggle="tab">Master</a></li>
+    <section class="row-fluid">
+        <div role="tabpanel">
+            
+        <ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
+					<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
 				</ul>
-				<form class="form-horizontal" role="form">
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="doctorant">
-							<div class="col-sm-8">
-								<div class="form-group">
-									<label for="titre" class="col-sm-4 control-label">Titre :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="titre" name="titre" value="{{titre}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="directeur" class="col-sm-4 control-label">Directeur :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="directeur" name="directeur" value="{{directeur}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="encadrantsDoctorant" class="col-sm-4 control-label">Encadrants :</label>
-									<div class="col-sm-8">
-										{% for encadrant in encadrantsDoctorant %}
-											<input type="text" class="form-control" id="encadrantsDoctorant" name="encadrantsDoctorant" value="{{encadrant.nom}} {{encadrant.prenom}}" readonly>
-										{% endfor %}
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="thematique" class="col-sm-4 control-label">Axe Thèmatique :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="thematique" name="thematique" value="{{axe_thematique}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="scientifique" class="col-sm-4 control-label">Axe Scientifique :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="scientifique" name="scientifique" value="{{axe_scientifique}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="financement" class="col-sm-4 control-label">Financement :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="financement" name="financement" value="{{financement}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="inscription" class="col-sm-4 control-label">Date de première inscription :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="inscription" name="dateinscription" value="{{date_inscription}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="fin" class="col-sm-4 control-label">Date de fin prévue :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="fin" name="datefin" value="{{date_fin}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="dcace" class="col-sm-4 control-label">DCACE :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="dcace" name="dcace" value="{{dcace}}" readonly>
-									</div>	
-								</div>												
+				{{ form_start(formDoctorant, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_widget(formDoctorant._token) }}
+				{# Les erreurs générales du formulaire. #}
+				{{ form_errors(formDoctorant) }}
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="these">
+						<legend>
+							Informations sur la thèse 
+						</legend>
+						
+						<div class="form-group">
+							{{ form_label(formDoctorant.nom,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.nom,{'attr': {'class': 'form-control'} }) }}
+							</div>
+							
+						</div >
+						<div class="form-group">
+							{{ form_label(formDoctorant.prenom,"Prénom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.prenom,{'attr': {'class': 'form-control'} }) }}
 							</div>
 						</div>
-						<div role="tabpanel" class="tab-pane" id="master">
-							<div class="col-sm-8">
-								<div class="form-group">
-									<label for="formation" class="col-sm-4 control-label">Nom de la formation :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="formation" name="formation" value="{{formation}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="universite" class="col-sm-4 control-label">Université :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="universite" name="universite" value="{{universite}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="sujet" class="col-sm-4 control-label">Sujet de Master :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="sujet" name="sujet" value="{{sujetMaster}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="laboratoire" class="col-sm-4 control-label">Laboratoire d'accueil :</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control" id="laboratoire" name="laboratoire" value="{{laboratoire}}" readonly>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="encadrantsMaster" class="col-sm-4 control-label">Encadrant(s) :</label>
-									<div class="col-sm-8">
-										{% for encadrant in encadrantsMaster %}
-											<input type="text" class="form-control" id="encadrantsMaster" name="encadrantsMaster" value="{{encadrant.nom}} {{encadrant.prenom}}" readonly>
-										{% endfor %}
-									</div>
-								</div>									
+						 <div class="form-group">
+							{{ form_label(formDoctorant.mail,"Email",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.mail,{'attr': {'class': 'form-control'} }) }}
+							</div>
+							
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.titreThese,"Titre These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.titreThese,{'attr': {'class': 'form-control'} }) }}
 							</div>
 						</div>
-						<div class="col-sm-4">
-							<div id="chartdiv"></div>							
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.sujetThese,"Sujet These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.sujetThese,{'attr': {'class': 'form-control'} }) }}
+							</div>
 						</div>
-						<div class="col-sm-8"></div>
-						<div class="col-sm-4">
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.axeThematique,"Axe Thèmatique",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.axeThematique,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.axeScientifique,"Axe Scientifique",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.axeScientifique,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+						   {{ form_label(formDoctorant.these.financement,"Financement",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.financement,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dateInscr1eThese,"1ère inscription en thèse",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dateInscr1eThese,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dcace,"DCACE",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dcace,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="doctorant">
+						<legend>
+							Informations sur le Master 
+						</legend>
+						<div class="form-group">
+							{{ form_label(formDoctorant.nomFormationMaster,"Nom formation",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.nomFormationMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.universiteMaster,"Université",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.universiteMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.sujetMaster,"Sujet de Master",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.sujetMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.laboratoireAcceuilMaster,"Laboratoire d'accueil",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.laboratoireAcceuilMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.encadrantsMaster,"Encadrant(s)",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.encadrantsMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.numEtudiant,"Num Étudiant",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.numEtudiant,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.bourseEtExoneration,"Bourse et éxonération",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.bourseEtExoneration,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.etabDernierDiplome,"Établ. dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.etabDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.depDernierDiplome,"Dép. dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.depDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.paysDernierDiplome,"Pays dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.paysDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.libelleDernierDiplome,"Libellé dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.libelleDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.anneeDernierDiplome,"Année dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.anneeDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.nomUsage,"Libellé dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.nomUsage,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.civilite,"Civilité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.civilite,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.adresse,"Adresse",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.adresse,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dateDeNaissance,"Date de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dateDeNaissance) }}
+							</div>
+						</div><div class="form-group">
+							{{ form_label(formDoctorant.villeDeNaissance,"Ville de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.villeDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.paysDeNaissance,"Pays de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.paysDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.depDeNaissance,"Dép. de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.depDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.specialite,"Spécialité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.specialite,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.laboratoire,"Laboratoire",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.laboratoire,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.dateDebut,"Date début",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.dateDebut) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.dateDeSoutenance,"Date de soutenance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.dateDeSoutenance) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.mention,"Mention",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.mention,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+					</div>
+					<legend> </legend>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
 							<a href="{{ path('dt_doctorama_modif_dossier_suivis', {'id_doctorant': doctorant.id}) }}" class="btn btn-warning" role="button">Modifier</a>
 							<button type="button" class="btn btn-danger">Archiver</button>
+						
 						</div>
 					</div>
-				</form>
-			</div>
-			{% for ficheId, ficheContent in fiches %}
-				<div role="tabpanel" class="tab-pane" id="{{ficheId}}">
-					<div class="col-sm-8">
-						<form name="form" class="form-horizontal" role="form" method="post" action="{{path('dt_export_fiche')}}?nom={{doctorant.nom}} {{doctorant.prenom}}">
-							<input type="hidden" name="ficheId" value="{{ficheId}}" />
-							<input type="hidden" name="ficheLabel" value="{{ficheContent.label}}" />
-							<legend>
-								Fiche de suivi de réunion du {{ficheContent.date_reunion}}
-							</legend>
-							{%set id=0 %}
-							{% for question in ficheContent.questions %}
-								{% set id = id+1 %}
-								<div class="form-group">
-									<label class="col-sm-4 control-label">{{question.question}} :</label>
-									<div class="col-sm-8">
-										<input type="hidden" name="{{ficheId}}[question{{id}}]" value="{{question.question}}"/>
-										<input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly>
-									</div>
-								</div>
-							{% endfor %}
-							<div class="form-group">
-									<div class="col-sm-4"></div>
-									<div class="col-sm-4">
-										<input type="submit" class="btn btn-info" id="exportPDF" name="export" value="PDF">
-										<input type="submit" class="btn btn-info" id="exportCSV" name="export" value="CSV">
-									</div>
-								</div>
-						</form>
-					</div>
 				</div>
-			{% endfor %}
-		</div>
-	</div>
-</section>
+				{{form_end(formDoctorant)}}
+        
+            {#</div>
+                {% for ficheId, ficheContent in fiches %}
+                    <div role="tabpanel" class="tab-pane" id="{{ficheId}}">
+                        <div class="col-sm-8">
+                            <form name="form" class="form-horizontal" role="form" method="post" action="{{path('dt_export_fiche')}}?nom={{doctorant.nom}} {{doctorant.prenom}}">
+                                <input type="hidden" name="ficheId" value="{{ficheId}}" />
+                                <input type="hidden" name="ficheLabel" value="{{ficheContent.label}}" />
+                                <legend>
+                                    Fiche de suivi de réunion du {{ficheContent.date_reunion}}
+                                </legend>
+                                {%set id=0 %}
+                                {% for question in ficheContent.questions %}
+                                    {% set id = id+1 %}
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">{{question.question}} :</label>
+                                        <div class="col-sm-8">
+                                            <input type="hidden" name="{{ficheId}}[question{{id}}]" value="{{question.question}}"/>
+                                            <input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <div class="col-sm-4"></div>
+                                    <div class="col-sm-4">
+                                        <input type="submit" class="btn btn-info" id="exportPDF" name="export" value="PDF">
+                                        <input type="submit" class="btn btn-info" id="exportCSV" name="export" value="CSV">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>#}
+        </div>
+    </section>
 {% endblock %}
