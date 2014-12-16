@@ -93,7 +93,7 @@ class DoctoramaController extends Controller {
     
     public function agendaAction(Request $request)
     {
-        $personne1 = new Personne();
+        /*$personne1 = new Personne();
         $personne1->setNom("NEILZ");
         $personne1->setPrenom("Benjamin");
         
@@ -136,16 +136,28 @@ class DoctoramaController extends Controller {
         $reunion4->addPersonne($personne2);
         $reunion4->addPersonne($personne4);
 
-        $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4);
+        $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4);*/
         
-    
-
+        $user = $this->get('security.context')->getToken()->getUser();
+        $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
+        $reunions=array();
+        if(method_exists($user,'getEncadrant'))
+        {
+            $reunions=$user->getEncadrant()->getReunion();
+        }
+        
+        
+        else{
+            $reunions=$reunionRepository->findAll();
+        }
+        
+        
         foreach ($reunions as $reunion) {
              $event[]=array(
                     'start'=>$reunion->getDate()->format('Y-m-d H:i:s'),
                     'title'=>$reunion->getLieu());
         }
-          
+
 
 
         if (!$fp = fopen("../../mydate.php", 'w+')) {
