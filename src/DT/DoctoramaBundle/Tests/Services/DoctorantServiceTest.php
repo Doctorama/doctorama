@@ -147,7 +147,7 @@ class DoctorantServiceTest extends WebTestCase
         $this->assertEquals(1, sizeof($en));
 	}
 	
-	public function testfindDoctorantByNom()
+	/*public function testfindDoctorantByNom()
 	{
 		$this->viderTable();		
 		$this->creer1Doctorant();
@@ -737,6 +737,6 @@ class DoctorantServiceTest extends WebTestCase
 		$en = $this->em->getRepository('DTDoctoramaBundle:Doctorant')->findById(2);
 		$this->assertEquals(1, sizeof($en));
 	}
-	
+	*/
 }
 ?>

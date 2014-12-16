@@ -135,4 +135,5 @@ class Reunion
 	{
        	$this->personnes->removeElement($personne);
 	}
+	
 }

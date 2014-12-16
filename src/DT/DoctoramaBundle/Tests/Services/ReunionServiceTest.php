@@ -54,7 +54,7 @@ class ReunionServiceTest extends WebTestCase
 		return $encadrant;
 	}
 
-	public function testcreateReunion()
+	/*public function testcreateReunion()
 	{
 		$this->viderTable();
 		
@@ -103,7 +103,7 @@ class ReunionServiceTest extends WebTestCase
 		$rs->addPersonne(1, $enc2);
 		
 		$tab = $reu->getPersonnes();
-		assert(2, count($tab));
+		$this->assertEquals(2, count($tab));
 	}
 	
 	public function testgetPersonnes()
@@ -120,6 +120,85 @@ class ReunionServiceTest extends WebTestCase
 		$reu->addPersonne($enc2);
 		
 		$tab = $rs->getPersonnes(1);
-		assert(2, count($tab));
+		$this->assertEquals(2, count($tab));
+	}
+	
+	public function testdeletePersonne()
+	{
+		$this->viderTable();
+		
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		
+		$enc1 = $this->creer1Encadrant();
+		$enc2 = $this->creer1Encadrant();
+		
+		$reu->addPersonne($enc1);
+		$reu->addPersonne($enc2);
+		
+		$reurep = $rs->deletePersonne(1, 2);
+		$tabpers = $reurep->getPersonnes();
+		$this->assertEquals(1, count($tabpers));
+	}
+	
+	public function testsetDate()
+	{
+		$this->viderTable();
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		
+		$rs->setDate(1, new \DateTime('2000-05-01'));
+		
+		$this->assertEquals(new \DateTime('2000-05-01'), $reu->getDate());
+	}
+	
+	public function testgetDate()
+	{
+		$this->viderTable();
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+				
+		$this->assertEquals(new \DateTime('2000-01-01'), $rs->getDate(1));
+	}
+	
+	public function testgetLieu()
+	{
+		$this->viderTable();
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+				
+		$this->assertEquals("135", $rs->getLieu(1));
+	}
+	
+	public function testsetLieu()
+	{
+		$this->viderTable();
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		
+		$rs->setLieu(1, "015");
+		
+		$this->assertEquals("015", $reu->getLieu());
+	}
+	*/
+	public function testfindReunionByPersonne()
+	{
+		$this->viderTable();
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		$reu = $rs->createReunion("136", new \DateTime('2000-01-01'));
+		
+		$enc1 = $this->creer1Encadrant();
+		$enc2 = $this->creer1Encadrant();
+		$enc3 = $this->creer1Encadrant();
+		$enc4 = $this->creer1Encadrant();
+		
+		$rs->addPersonne(1, $enc1);
+		$rs->addPersonne(1, $enc2);
+		$rs->addPersonne(2, $enc2);
+		$rs->addPersonne(1, $enc3);
+		$rs->addPersonne(1, $enc4);
+		
+		$rs->findReunionByPersonne(1);
 	}
 }
