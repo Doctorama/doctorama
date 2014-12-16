@@ -458,6 +458,4 @@ class These
     {
         return $this->mention;
     }
-	
-
 }
