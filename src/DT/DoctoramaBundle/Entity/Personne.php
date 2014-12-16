@@ -301,7 +301,7 @@ class Personne
      * @param \datetime $dateDeNaissance
      * @return Personne
      */
-    public function setDateDeNaissance(\datetime $dateDeNaissance)
+    public function setDateDeNaissance($dateDeNaissance)
     {
         $this->dateDeNaissance = $dateDeNaissance;
     

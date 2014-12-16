@@ -14,6 +14,8 @@ use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
 use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
+use DT\DoctoramaBundle\Form\DoctorantType;
+use DT\DoctoramaBundle\Form\TheseType;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -174,7 +176,31 @@ class DoctoramaController extends Controller {
     
     public function creerDossierSuivisAction(Request $request)
     {
-        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));
+        $doctorant = new Doctorant();
+
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant);
+        $formDoctorant->add('save',      'submit');
+        // On fait le lien Requête <-> Formulaire
+        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        $formDoctorant->handleRequest($request);
+            
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($formDoctorant->isValid()) {
+        
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($doctorant->getThese());
+            $em->persist($doctorant);
+            $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
+
+          // On redirige vers la page de visualisation de l'annonce nouvellement créée
+          return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
+        }
+        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis','formDoctorant' => $formDoctorant->createView()));
+
     }
     
     public function modifDossierSuivisAction($id_doctorant, Request $request)
@@ -235,7 +261,8 @@ class DoctoramaController extends Controller {
 
     public function creationDossierAction(Request $request)
     {
-        $requete = $this->get('request');
+        
+        /*$requete = $this->get('request');
         if($requete->getMethod() == 'POST')
         {  
             extract ($_POST);
@@ -270,12 +297,12 @@ class DoctoramaController extends Controller {
 
             $serviceEnc = new EncadrantService($em);
 
-            /*for($i=0; $i<sizeof($enc_th); $i++)
-            {
-                $nomEnc = explode(" ", $enc_th[$i]);
-                $encadrant = $serviceEnc->findEncadrantByNomEtPrenom($nomEnc[1], $nomEnc[0]);
-                $these->addEncadrant($encadrant);
-            }*/
+           //for($i=0; $i<sizeof($enc_th); $i++)
+            //{
+            //    $nomEnc = explode(" ", $enc_th[$i]);
+            //    $encadrant = $serviceEnc->findEncadrantByNomEtPrenom($nomEnc[1], $nomEnc[0]);
+            //    $these->addEncadrant($encadrant);
+            //}
             
             
             $em->persist($these);
@@ -289,7 +316,7 @@ class DoctoramaController extends Controller {
 
         }
 
-        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));
+        return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis'));*/
     }
 
     public function infoPersoAction(Request $request)
