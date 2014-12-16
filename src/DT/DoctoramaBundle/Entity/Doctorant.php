@@ -127,27 +127,48 @@ class Doctorant extends Personne
      * @ORM\OneToOne(targetEntity="DT\SecurityBundle\Entity\Compte", mappedBy="doctorant")
      **/
     protected $compte;
+	
+	/**
+	 * @ORM\OneToOne(targetEntity="These")
+	 */
+	protected $these;
     
-    
+    /**
+	* Get compte
+	*
+	* @return Compte
+	**/
     function getCompte() {
         return $this->compte;
     }
-
+	
+	/**
+	* Set compte
+	*
+	* @param Compte $compte
+	* @return Compte
+	**/
     function setCompte($compte) {
         $this->compte = $compte;
         
         return $this;
     }
-
-    	/**
-	 * @ORM\OneToOne(targetEntity="These")
-	 */
-	protected $these;
 	
+	/**
+	* Get these
+	*
+	* @return These
+	**/
 	public function getThese(){
 		return $this->these;
 	}
 	
+	/**
+	* Set these
+	*
+	* @param These $these
+	* @return These
+	**/
 	public function setThese($these){
 		$this->these = $these;
 		$these->setDoctorant($this);

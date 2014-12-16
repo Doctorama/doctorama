@@ -76,18 +76,40 @@ class DossierDeSuivi
         return $this->commentaires;
     }
 	
+	/**
+	* Get templateFicheSuivi
+	*
+	* @return TemplateFicheSuivi
+	**/
 	public function getTemplateFicheSuivi(){
 		return $this->templateFicheSuivi;
 	}
 	
+	/**
+	* Set templateFicheSuivi
+	*
+	* @param TemplateFicheSuivi $ficheSuivi
+	* @return TemplateFicheSuivi
+	**/
 	public function setTemplateFicheSuivi($ficheSuivi){
 		return $this->templateFicheSuivi = $ficheSuivi;
 	}
 	
+	/**
+	* Get these
+	*
+	* @return These
+	**/
 	public function getThese(){
 		return $this->these;
 	}
 	
+	/**
+	* Set these
+	*
+	* @param These $these
+	* @return These
+	**/
 	public function setThese($these){
 		$this->these = $these;
 		$these->setDossierDeSuivi($this);

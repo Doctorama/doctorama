@@ -79,14 +79,21 @@ class Question
         return $this->question;
     }
 	
+	/**
+	* Delete reponse
+	*
+	* @param Reponse $reponse
+	**/
 	public function deleteReponse($reponse)
 	{
 		$this->reponses->removeElement($reponse);
 	}
 	
 	/**
-     * @param Reponse $reponses
-     */
+	* Add reponse
+	*
+    * @param Reponse $reponses
+    */
 	public function addReponse($reponse)
 	{
 		$reponse->setQuestion($this);
@@ -96,21 +103,31 @@ class Question
 	    }
 	}
 	/**
-	 * Notez le pluriel, on récupère une liste de réponses
-     * @return ArrayCollection $reponses
+	 * Get reponse
+	 *
+     * @return ArrayCollection Reponses
      */
 	 
 	public function getReponses(){
 		return $this->reponses;
 	}
 	
+	/**
+	* Get templateFicheSuivi
+	*
+	* @return TemplateFicheSuivi
+	**/
 	public function getTemplateFicheSuivi(){
 		return $this->templateFicheSuivis;
 	}
 	
+	/**
+	* Add templateFicheSuivi
+	*
+	* @param TemplateFicheSuivi $ficheSuivi
+	**/
 	public function addTemplateFicheSuivi($ficheSuivi){
 		if($this->templateFicheSuivis->contains($ficheSuivi)){
-			//$this->templateFicheSuivis[] = $ficheSuivi;
 			$ficheSuivi->addQuestions($this);
 			$this->items[] = ($ficheSuivi);
 		}

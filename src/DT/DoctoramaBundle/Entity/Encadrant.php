@@ -47,30 +47,44 @@ class Encadrant extends Personne{
      **/
     private $compte;
     
-    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
     function getId() {
         return $this->id;
     }
 
-    function getTheses() {
-        return $this->theses;
+	/**
+	* Set id
+	*
+	* @param id $id
+	* @return id
+	**/
+    function setId($id) {
+        $this->id = $id;
+        return $this;
     }
 
     function getCompte() {
         return $this->compte;
     }
 
-    function setId($id) {
-        $this->id = $id;
-        return $this;
-    }
-
     function setCompte($compte) {
         $this->compte = $compte;
         return $this;
     }
-
-    	
+	
+	/**
+	* Get theses
+	*
+	* @return ArrayCollection These
+	**/
+	function getTheses() {
+        return $this->theses;
+    }
+	
 	/**
      * Get theses
      *
@@ -83,7 +97,7 @@ class Encadrant extends Personne{
 	/**
 	* Add These
 	*
-	* @param
+	* @param These $these
 	**/
 	public function addThese($these){
 		if(!$this->theses->contains($these)){
@@ -91,10 +105,20 @@ class Encadrant extends Personne{
 		}
 	}
 	
+	/**
+	* Get thesesDirecteur
+	*
+	* @return ArrayCollection ThesesDirecteur
+	*/
 	public function getThesesDirecteur(){
 		return $this->thesesDirecteur;
 	}
 	
+	/**
+	* Add thesesDirecteur
+	*
+	* @param ThesesDirecteur $theseDirecteur
+	**/
 	public function addThesesDirecteur($thesedirecteur){
 		if(!$this->thesesDirecteur->contains($thesedirecteur)){
 			$this->thesesDirecteur[] = ($thesedirecteur);

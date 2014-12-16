@@ -103,18 +103,21 @@ class Reunion
         return $this->date;
     }
     
+    /**
+	* Get personnes
+	*
+	* @return ArrayCollection Personne
+	**/
     public function getPersonnes()
     {
         return $this->personnes;
     }
-    
-    public function setPersonnes($personnes)
-    {
-    	$this->personnes = $personnes;
-    	
-        return $this;
-    }
-
+	
+	/**
+	* Add personne
+	*
+	* @param Personne $personne
+	**/
 	public function addPersonne($personne)
 	{
 		if(!$this->personnes->contains($personne)){
@@ -122,7 +125,12 @@ class Reunion
        		$this->personnes[] = ($personne);
 		}
 	}
-
+	
+	/**
+	* Delete personne
+	*
+	* @param Personne $personne
+	*/
 	public function deletePersonne($personne)
 	{
        	$this->personnes->removeElement($personne);

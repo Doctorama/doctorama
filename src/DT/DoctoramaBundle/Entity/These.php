@@ -131,19 +131,25 @@ class These
 		return $this->doctorant;
 	}
 	
+	/**
+	* Get doctorant
+	*
+	* @return Doctorant
+	**/
+	public function getDoctorant(){
+		return $this->doctorant;
+	}
+	
+	/**
+	* Set doctorant
+	*
+	* @param Doctorant $doctorant
+    * @return Doctorant
+	**/
 	public function setDoctorant($doctorant){
 		$this->doctorant = $doctorant;
 		
 		return $this;
-	}
-	
-	/**
-     * Get encadrant
-     *
-     * @return Encadrant 
-     */
-	public function getEncadrant(){
-		return $this->encadrants;
 	}
 	
 	/**
@@ -172,14 +178,25 @@ class These
                 return $this;
 	}
 	
+	/**
+	* Get directeursDeThese
+	*
+	* @return DirecteurDeThese
+	**/
 	public function getDirecteursDeThese(){
 		return $this->directeursDeThese;
 	}
 	
-	public function addDirecteursDeThese($directeurdethese){
-		if(!$this->directeursDeThese->contains($directeurdethese)){
-			$directeurdethese->addThesesDirecteur($this);
-            $this->items[] = $directeurdethese;
+	/**
+	* Add directeurDeThese
+	*
+	* @param DirecteursDeThese $directeurDeThese
+	* @return ArrayCollection DirecteursDeThese
+	**/
+	public function addDirecteursDeThese($directeurDeThese){
+		if(!$this->directeursDeThese->contains($directeurDeThese)){
+			$directeurDeThese->addThesesDirecteur($this);
+            $this->items[] = $directeurDeThese;
 		}
         return $this;
 	}

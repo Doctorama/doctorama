@@ -108,28 +108,16 @@ class Personne
 	/**
 	* Get Reunion
 	*
-	* @return Reunion
+	* @return ArrayCollection Reunion
 	*/
 	public function getReunion(){
 		return $this->reunions;
 	}
 	
 	/**
-	* Set Reunion
-	*
-	* @param Reunion $reunion
-	* @return Reunion
-	**/
-	public function setReunion($reunion){
-		$this->reunions = $reunion;
-		
-		return $this;
-	}
-	
-	/**
 	* Delete Reunion
 	*
-	* @param $reunion
+	* @param Reunion $reunion
 	**/
 	public function deleteReunion($reunion){
 		$this->reunions->removeElement($reunion);
@@ -138,7 +126,7 @@ class Personne
 	/**
 	* Add Reunion
 	*
-	* @param $reunion
+	* @param Reunion $reunion
 	**/
 	public function addReunion($reunion){
 		if(!$this->reunions->contains($reunion)){
