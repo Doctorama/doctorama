@@ -1,7 +1,7 @@
 <?php
-
-//ResponseService
-require_once __DIR__ . '/../Entity/Reponse.php';
+namespace DT\DoctoramaBundle\Services;
+//ReponseService
+use DT\DoctoramaBundle\Entity\Reponse;
 
 class ReponseService
 {

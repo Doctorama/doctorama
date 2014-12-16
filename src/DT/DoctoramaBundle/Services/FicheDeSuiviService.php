@@ -1,58 +1,52 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //FicheDeSuiviService
-require_once __DIR__ . '/../Entity/FicheDeSuivi.php';
+use DT\DoctoramaBundle\Entity\FicheDeSuivi;
 
 class FicheDeSuiviService
 {
-	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:FicheDeSuivi');
-	$em = $this->getDoctrine()->getManager();
-    
 
-	public function createFicheDeSuivi($idType, $titre)
+	private $em;
+	
+	private $repository;
+	
+	public function __construct($em)
+	{
+		$this->em = $em;
+		$this->repository = $this->em->getRepository('DTDoctoramaBundle:templatefichedesuivi');
+	}
+	
+	public function createTemplateFicheDeSuivi($idType, $titre)
 	{
 		$ficheDeSuivi = new FicheDeSuivi();
 		$ficheDeSuivi->setIdType($idType);
 		$ficheDeSuivi->setTitre($titre);
 		
-		//$reunion->setPersonnes($personnes);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
-		
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($ficheDeSuivi);
-		$em->flush();
+		$this->em = $this->getDoctrine()->getManager();
+		$this->em->persist($ficheDeSuivi);
+		$this->em->flush();
 	}
 
 
 	public function findbyId($id)
-	{
-   		
-        $these = $repository->find($id);
+	{		
+        $these = $this->repository->findById($id);
 
    		if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
+			return null;
     	}
     }
 	
     public function findByIdType($idType)
 	{
 
-		$these = $repository->find($idType);
+		$these = $this->repository->findById($idType);
 
 		if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun element trouvé pour : '.$idType );
-    	}
+			return null;
+		}
     	else {
-    		$ficheDeSuivi = $repository->findByIdType($idType);
+    		$ficheDeSuivi = $this->repository->findByIdType($idType);
     	}
 
 	}
@@ -60,65 +54,58 @@ class FicheDeSuiviService
 	public function findByTitre($titre)
 	{
 
-		$these = $repository->find($titre);
+		$these = $this->repository->findById($titre);
   	    
 		if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun element trouvé pour : '.$titre );
-    	}
+			return null;
+		}
     	else {
-    		$ficheDeSuivi = $repository->findByTitre($titre);
+    		$ficheDeSuivi = $this->repository->findByTitre($titre);
     	}
 	}
 
 	public function updateIdType($id, $newIdType)
 	{
-    
-    $ficheDeSuivi = $em->getRepository('DT/DoctoramaBundle/Entity:FicheDeSuivi')->find($id);
+		
+		$ficheDeSuivi = $this->repository->findById($id);
 
-    if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
+		if (!$ficheDeSuivi) {
+			return null;
+		}
 
-    $ficheDeSuivi->setIdType($newIdType);
-    $em->flush();
+		$ficheDeSuivi->setIdType($newIdType);
+		$em->flush();
 
-    return $this->redirect($this->generateUrl('homepage'));
+		return $this->redirect($this->generateUrl('homepage'));
 	}
 
 	public function updateTitle($id, $newTitre)
 	{
 
-     $ficheDeSuivi = $em->getRepository('DT/DoctoramaBundle/Entity:FicheDeSuivi')->find($id);
+		$ficheDeSuivi = $this->repository->findById($id);
 
-    if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
+		if (!$ficheDeSuivi) {
+			return null;
+		}
 
-    $ficheDeSuivi->setTitre($newTitre);
-    $em->flush();
+		$ficheDeSuivi->setTitre($newTitre);
+		$this->em->flush();
 
-    return $this->redirect($this->generateUrl('homepage'));
+		return $this->redirect($this->generateUrl('homepage'));
 	}
 
 	public function deleteFicheDeSuivi($id)
 	{
 
-    $ficheDeSuivi = $em->getRepository('DT/DoctoramaBundle/Entity:FicheDeSuivi')->find($id);
+		$ficheDeSuivi = $this->repository->findById($id);
 
-    if (!$ficheDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
-    $em->remove($ficheDeSuivi);
-	$em->flush();
-	
-	return $ficheDeSuivi;
+		if (!$ficheDeSuivi) {
+			return null;
+		}
+		$this->em->remove($ficheDeSuivi);
+		$this->em->flush();
+		
+		return $ficheDeSuivi;
 	}
 	
 }

@@ -19,7 +19,7 @@ class DoctorantServiceTest extends WebTestCase
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
-	/*
+	
 	public function testcreateDoctorant()
     {
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -106,7 +106,7 @@ class DoctorantServiceTest extends WebTestCase
         $this->assertEquals(1, sizeof($en));
 	}
 	
-	public function testfindDoctorantByNom()
+	/*public function testfindDoctorantByNom()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();

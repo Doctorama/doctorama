@@ -1,92 +1,79 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //DossierDeSuiviService
-require_once __DIR__ . '/../Entity/DossierDeSuivi.php';
+use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
 class DossierDeSuiviService
 {
-	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:DossierDeSuivi');
-	$em = $this->getDoctrine()->getManager();
+	private $em;
+	
+	private $repository;
+	
+	public function __construct($em)
+	{
+		$this->em = $em;
+		$this->repository = $this->em->getRepository('DTDoctoramaBundle:DossierDeSuivi');
+	}
 
-
-	public function createDossierDeSuivi($coms)
+	public function createDossierDeSuivi($idFiche, $idTemplate, $commentaires)
 	{
 		$dossierDeSuivi = new DossierDeSuivi();
-		$dossierDeSuivi->setComs($coms);
+			
+		$dossierDeSuivi->setCommentaires($commentaires);
 		
-		//$reunion->setPersonnes($personnes);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
-		
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($dossierDeSuivi);
-		$em->flush();
+		$this->em->persist($dossierDeSuivi);
+		$this->em->flush();
 	}
 
 	public function findbyId($id)
 	{
-   		$these = $repository->find($id);
+   		$these = $this->repository->findById($id);
 
    		if (!$dossierDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
+			return null;
     	}
     }
 	
-    public function findByComs($coms)
+    public function findByCommentaires($commentaires)
 	{
 
-		$these = $repository->find($id);
-
-		$dossierDeSuivi = $repository->findByComs($coms);
+		$dossierDeSuivi = $this->repository->findByCommentaires($commentaires);
 
 		if (!$dossierDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun element trouvé pour :'.$coms
-        );
-
+			return null;
     	}
 
 	}
 
-	public function updateComs($id, $ncoms)
+	public function updateCommentaires($id, $commentaires)
 	{
 
-    $dossierDeSuivi = $em->getRepository('DT/DoctoramaBundle/Entity:dossierDeSuivi')->find($id);
+		$dossierDeSuivi = $this->repository->findById($id);
 
 
-    if (!$dossierDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
+		if (!$dossierDeSuivi) {
+			return null;
+    	}
 
-    $dossierDeSuivi->setComs($ncoms);
-    $em->flush();
+		$dossierDeSuivi->setCommentaires($commentaires);
+		$this->em->flush();
 
-    return $this->redirect($this->generateUrl('homepage'));
+		return $this->redirect($this->generateUrl('homepage'));
 	}
 
 	public function deleteDossierDeSuivi($id)
     {
-    $dossierDeSuivi = $em->getRepository('DT/DoctoramaBundle/Entity:DossierDeSuivi')->find($id);
+		$dossierDeSuivi = $this->repository->findById($id);
 
 
-    if (!$dossierDeSuivi) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
-    $em->remove($dossierDeSuivi);
-    $em->flush();
+		if (!$dossierDeSuivi) {
+			return null;
+    	}
+		
+		$em->remove($dossierDeSuivi);
+		$em->flush();
 
-    return $dossierDeSuivi;
+		return $dossierDeSuivi;
     }
 
 

@@ -1,7 +1,7 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //TheseService
-require_once __DIR__ . '/../Entity/These.php';
+use DT\DoctoramaBundle\Entity\These;
 
 class TheseService
 {

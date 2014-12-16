@@ -19,7 +19,7 @@ class EncadrantServiceTest extends WebTestCase
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
-/*
+
 	// Test création encadrant
     public function testcreateEncadrant()
     {
@@ -65,7 +65,7 @@ class EncadrantServiceTest extends WebTestCase
         $this->assertEquals(1, sizeof($en));
     }
 	
-	// Test "retrouver un encadrant par son id"
+	/*// Test "retrouver un encadrant par son id"
 	public function testfindEncadrantById()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -1022,7 +1022,8 @@ class EncadrantServiceTest extends WebTestCase
 		$en = $this->em->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
 		$this->assertEquals(0, sizeof($en));
 	}
+	*/
 }
-*/
+
 
 ?>

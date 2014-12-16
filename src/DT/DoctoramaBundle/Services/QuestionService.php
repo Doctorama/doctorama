@@ -1,7 +1,7 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //QuestionService
-require_once __DIR__ . '/../Entity/Question.php';
+use DT\DoctoramaBundle\Entity\Question;
 
 class QuestionService
 {

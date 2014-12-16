@@ -1,54 +1,135 @@
 <?php
-
+namespace DT\DoctoramaBundle\Services;
 //ReunionService
-require_once __DIR__ . '/../Entity/Reunion.php';
+use DT\DoctoramaBundle\Entity\Reunion;
 
 class ReunionService
 {
-	public function createReunion($lieu, $date, $personnes)
+	private $em;
+	
+	private $repository;
+	
+	public function __construct($em)
 	{
-		$reunion = new Reunion();
-		$reunion->setLieu($lieu);
-		$reunion->setDate($date);
-		$reunion->setPersonnes($personnes);
-
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($product);
-		$em->flush();
+		$this->em = $em;
+		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Reunion');
 	}
-}
-
-
-//Importation fichier CSV service
-class CSV_service
-{
-	public function ImportData($file)
+	
+	public function createReunion($lieu, $date)
 	{
-		$ligne = 1; //compteur de ligne
-		$fic = fopen($file, "a+");
-		while($tab=fgetcsv($fic,1024,';'))
-		{
-			$champs = count($tab); //nombre de champ dans la ligne en question	
-			if ($ligne>1) //affichage de chaque champ de la ligne en question
-			{
-				for($i=0; $i<$champs; $i ++)
-				{
-					echo $tab[$i] . "<br />";
-				}
-			}
-			$ligne ++;
-		}
-		
-		/*
 		$reunion = new Reunion();
 		$reunion->setLieu($lieu);
 		$reunion->setDate($date);
-		
-		$reunion->setPersonnes($personnes);
 
-		$em = $this->getDoctrine()->getManager();
-		$em->persist($product);
-		$em->flush();
-		*/
+		$this->em->persist($reunion);
+		$this->em->flush();
+
+		return $reunion;
+	}
+	
+	public function addPersonne($id, $personne)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			$rep->addPersonne($personne);
+			return $rep;
+		}
+	}
+	
+	public function deletePersonne($id, $personne)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			$rep->deletePersonne($personne);
+			return $rep;
+		}
+	}
+	
+	public function getPersonnes($id)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->getPersonnes();
+		}
+	}
+	
+	public function setlistePersonne($id, $personnes)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->setPersonnes($personnes);
+		}
+	}
+	
+	public function getDate($id)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->getDate();
+		}
+	}
+	
+	public function setDate($id, $date)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->setDate($date);
+		}
+	}
+	
+	public function getLieu($id)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->getLieu();
+		}
+	}
+	
+	public function setLieu($id, $lieu)
+	{
+		$rep = $this->repository->findById($id);
+		if(!rep)
+		{
+			return null;
+		}
+		else
+		{
+			return $rep->setLieu($lieu);
+		}
 	}
 }
