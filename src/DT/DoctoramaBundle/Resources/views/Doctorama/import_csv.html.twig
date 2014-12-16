@@ -30,7 +30,7 @@
   }
 </style>
 
-<form method="post" enctype="multipart/form-data" action="">
+<form method="post" enctype="multipart/form-data" action="{{ path('dt_doctorama_parse_csv') }}">
 <input type="file" id="files" name="file"/ accept="text/csv">
 <div id="progress_bar"><div class="percent">0%</div></div>
 <input type="submit" name="submit" value="Envoyer">

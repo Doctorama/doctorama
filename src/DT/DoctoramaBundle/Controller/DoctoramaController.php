@@ -411,9 +411,49 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles'));
     }
     
-        public function importCsvAction(Request $request)
+    public function importCsvAction(Request $request)
     {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
+    }
+    
+    public function parseCsvAction(Request $request)
+    {
+    	$reponse;
+    	if (!file_exists("bundles/doctorama/uploads")) {
+			//$reponse = 'Directory not exist';       
+		}
+    	$uploads_dir = "bundles/doctorama/uploads/";
+		$tmp_name = $_FILES["file"]["tmp_name"];
+        $name = $_FILES["file"]["name"];
+
+		if(move_uploaded_file($tmp_name, "$uploads_dir/$name")) 
+		{ 
+			//$reponse = 'Upload effectué avec succès pour le fichier '; 
+		} 
+		else 
+		{ 
+			//$reponse = 'Echec de l\'upload. '; 
+		} 
+		
+		
+    	$ligne = 1; // compteur de ligne
+		$fic = fopen("$uploads_dir/$name", "a+");
+		while($tab=fgetcsv($fic,1024,';'))
+		{
+			$champs = count($tab);//nombre de champ dans la ligne en question	
+			//affichage de chaque champ de la ligne en question
+			if ($ligne>1)
+			{
+				for($i=0; $i<$champs; $i ++)
+				{		
+					$reponse = $reponse . $tab[$i] . "<br />";
+				}
+			}
+			$ligne ++;
+		}
+    	
+        return new Response($reponse);
+
     }
 
 }
