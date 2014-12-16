@@ -35,5 +35,13 @@ class DoctorantRepository extends EntityRepository{
 
         return $results;
     }
+    
+    function theseArchivee()
+    {
+        $query = $this->_em->createQuery('SELECT d, t FROM DTDoctoramaBundle:Doctorant d JOIN d.these t WHERE t.mention is not NULL');
+        $results = $query->getResult();
+        
+        return $results;
+    }
 }
 
