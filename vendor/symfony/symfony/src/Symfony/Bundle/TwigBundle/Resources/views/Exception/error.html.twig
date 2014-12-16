@@ -9,26 +9,25 @@ body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAA
 </style>
 
 
-
     <head>
         <meta charset="UTF-8" />
         <title>An Error Occurred: {{ status_text }}</title>
+        <link href="{{asset('bundles/doctorama/public/css/bootstrap.css')}}" rel="stylesheet">
+        <link href="{{asset('bundles/doctorama/public/css/bootstrap.min.css')}}" rel="stylesheet">
     </head>
     <body>        
         
-        
-        
-<center>
-<IMG SRC="{{asset('bundles/doctorama/public/img/logo.png')}}">
-</center>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="error-template">
+            	<center>
+					<IMG SRC="{{asset('bundles/doctorama/public/img/logo2.png')}}">
+				</center>
                 <h1>
                     Oops!</h1>
                 <h2>
-                    Le serveur a retourné une "{{ status_code }} {{ status_text }}".</h2>
+                    Le serveur a retourné une erreur "{{ status_code }} {{ status_text }}".</h2>
                 <div class="error-details">
                     Quelque chose est cassé. S'il vous plaît laissez-nous savoir ce que vous faisiez lorsque cette erreur s'est produite. Nous allons y remédier dès que possible. Désolé pour la gêne occasionnée.
                 </div>
@@ -41,4 +40,8 @@ body { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAA
     </div>
 </div>
     </body>
+    
+        <script src="{{asset('bundles/doctorama/public/js/jquery.min.js')}}"></script>
+        <script src="{{asset('bundles/doctorama/public/js/bootstrap.js')}}"></script>
+        <script src="{{asset('bundles/doctorama/public/js/bootstrap.min.js')}}"></script>
 </html>
