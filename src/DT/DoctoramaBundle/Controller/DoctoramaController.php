@@ -132,14 +132,48 @@ class DoctoramaController extends Controller {
         $reunion1->addPersonne($personne3);
         
         $reunion2 = new Reunion;
-        $reunion2->setDate(new DateTime('2014-12-09 10:00:00'));
+        $reunion2->setDate(new DateTime('2014-12-19 10:00:00'));
         $reunion2->setLieu("MSI 223");
         $reunion2->addPersonne($personne2);
         $reunion2->addPersonne($personne4);
-        $reunions=array('1'=>$reunion1,'2'=>$reunion2);
+      
+
+            $reunion3 = new Reunion;
+        $reunion3->setDate(new DateTime('2014-12-15 10:00:00'));
+        $reunion3->setLieu("MSI 20");
+        $reunion3->addPersonne($personne2);
+        $reunion3->addPersonne($personne4);
+   
+
+            $reunion4 = new Reunion;
+        $reunion4->setDate(new DateTime('2014-12-15 10:00:00'));
+        $reunion4->setLieu("MSI 4000");
+        $reunion4->addPersonne($personne2);
+        $reunion4->addPersonne($personne4);
+
+        $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4);
         
+    
+
+        foreach ($reunions as $reunion) {
+             $event[]=array(
+                    'start'=>$reunion->getDate()->format('Y-m-d H:i:s'),
+                    'title'=>$reunion->getLieu());
+        }
+          
+
+
+        if (!$fp = fopen("../../mydate.php", 'w+')) {
+            echo "Echec de l'ouverture du fichier";
+            exit;
+        } else {
+            fwrite($fp, "<?php echo '".json_encode($event)."';") ;
+            fclose($fp);
+        }
+
+
         return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
-    }
+ }
     
     public function statistiquesAction(Request $request)
     {

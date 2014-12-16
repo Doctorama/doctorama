@@ -1,4 +1,4 @@
-{# src/DT/DoctoramaBundle/Resources/views/Doctorama/agenda.html.twig#}
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/admin_dossier.html.twig#}
 {% extends "DTDoctoramaBundle::index.html.twig" %}
 
 {% block DTDoctoramaBody %}
@@ -9,41 +9,52 @@
 	
 	<section class="row" >
 		<div class="col-lg-5 col-md-6">
-		
+
+				{% for j in 0..7 %}
+						 {%set i = 0%}
+					 
 				<div class="table-responsive">
 				<table class="table border1px table-striped">
-					<thead>
-						<tr>
-							  <th>#</th>
-							  <th>{{"now"|date("m/d")}} </th>
-							  <th>Participants</th>
-							  <th>Salle</th>
-						</tr>
-					</thead>
-					 <tbody>
-					 {%set i = 0%}
-					 {% for reunion in reunions %}
-					 	{%set i = i+1%}
-					    <tr>
-					    <td>{{i}}</td>
-					    <td>{{ reunion.date|date("H:i") }}</td>
-					    <td>
-					    {%set chaine = '' %}
-					   
-						    {% for participant in reunion.personnes %}
-						     {{ participant.nom  ~ " " ~   participant.prenom }}
-						   {% endfor %}
-						    <span class="pull-right glyphicon glyphicon-collapse-down" data-toggle="tooltip" data-content="{% for participant in reunion.personnes %}
-						     {{ participant.nom  ~  participant.prenom }}
-						   {% endfor %} "> </span></td>
-						   <td>{{reunion.lieu}} </td>
+						{%set b = 0%}
+						{% for reunion in reunions %}
+						{%if date(reunion.date)|date("d/m") == ("now"|date_modify("+" ~ j ~ "day")|date("d/m"))  %}   
+					 	  {%set i = i+1%}
 
-						</tr>
-					{% endfor %}
-					 <div></div>	
-					</tbody>
+					 	  {%if b == 0%}
+							 	<thead>
+									<tr>
+										  <th>#</th>
+										  <th>{{"now"|date_modify("+" ~ j ~ "day")|date("d/m")}} </th>
+										  <th>Participants</th>
+										  <th>Salle</th>
+									</tr>
+								</thead>
+								{%set b = 1%}
+							{% endif %}
+
+						 <tbody>
+						    <tr>
+						    <td>   {{i}}   </td>
+						    <td>{{ reunion.date|date("H:i") }}</td>
+						    <td>
+						    {%set chaine = '' %}
+						   
+							    {% for participant in reunion.personnes %}
+							     {{ participant.nom  ~ " " ~   participant.prenom }}
+							   {% endfor %}
+							    <span class="pull-right glyphicon glyphicon-collapse-down" data-toggle="tooltip" data-content="{% for participant in reunion.personnes %}
+							     {{ participant.nom  ~  participant.prenom }}
+							   {% endfor %} "> </span></td>
+							   <td>{{reunion.lieu}} </td>
+
+							</tr>
+						 </tbody>
+					 	{% endif %}
+					 {% endfor %}
+					
 				</table>
 				</div>
+				{% endfor %}
 		</div>
 		<div class="col-lg-7 col-md-6 ">
 			<div id='calendar'></div>

@@ -61,9 +61,9 @@ $(document).ready(function(){
 	$('#calendar').fullCalendar({
 		firstDay:1,
 		defaultDate: moment(),
-		editable: true,
+		editable: false,
 		eventLimit: true, // allow "more" link when too many events
-		eventSources : [{url:'/mydate.php'}],
+		eventSources : [{url:'/mydate.php'}]
 	});
 
 	$('[data-toggle="tooltip"]').popover({
