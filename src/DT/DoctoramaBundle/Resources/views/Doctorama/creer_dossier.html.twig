@@ -17,7 +17,7 @@
 					<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
 				</ul>
 				{{ form_start(formDoctorant, {'attr': {'class': 'form-horizontal'}}) }}
-
+                                {{ form_widget(formDoctorant._token) }}
 				{# Les erreurs générales du formulaire. #}
 				{{ form_errors(formDoctorant) }}
 				<div class="tab-content">

@@ -240,18 +240,16 @@ class DoctoramaController extends Controller {
     public function modifDossierSuivisAction($id_doctorant, Request $request)
     {
         $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
-        //$doctorant = new Doctorant();
-        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant);
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant, array('method' => 'PUT'));
         
         $formDoctorant->add('save',      'submit');
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
-        //$formDoctorant->handleRequest($request);
-        $formDoctorant->bind($request);
+        
+        
+        $formDoctorant->handleRequest($request);  
         // On vérifie que les valeurs entrées sont correctes
         // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($formDoctorant->isValid()) {
-            echo "<script>alert(\"Formulaire valide \")</script>";
+        
             // On l'enregistre notre objet $advert dans la base de données, par exemple
             $em = $this->getDoctrine()->getManager();
             $em->persist($doctorant->getThese());
@@ -264,7 +262,6 @@ class DoctoramaController extends Controller {
           return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
         }
         
-        echo "<script>alert(\"Formulaire non valide : \")</script>";
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis','formDoctorant' => $formDoctorant->createView()));
     }
     

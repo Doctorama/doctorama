@@ -16,7 +16,7 @@ class TheseType extends AbstractType
     {
         $builder
             ->add('titreThese','text')
-            ->add('sujetThese', 'text', array('required' => false))
+            ->add('sujetThese', 'text')
             ->add('specialite', 'text', array('required' => false))
             ->add('laboratoire', 'text', array('required' => false))
             ->add('axeThematique', 'text', array('required' => false))

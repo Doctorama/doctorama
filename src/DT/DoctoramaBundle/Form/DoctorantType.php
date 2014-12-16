@@ -47,9 +47,8 @@ class DoctorantType extends AbstractType
             ->add('paysDeNaissance', 'text', array('required' => false))
             ->add('depDeNaissance', 'text', array('required' => false))
             ->add('these', new TheseType(),array(
-                            'data_class' => 'DT\DoctoramaBundle\Entity\These'
+                            'data_class' => 'DT\DoctoramaBundle\Entity\These'))
 
-                    ))
         ;
     }
     

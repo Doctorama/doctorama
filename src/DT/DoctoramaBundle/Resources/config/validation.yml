@@ -1,0 +1,7 @@
+# DT/DoctoramaBundle/Resources/config/validation.yml
+DT\DoctoramaBundle\Entity\Doctorant:
+    properties:
+        nom:
+            - NotBlank: ~
+        prenom:
+            - NotBlank: ~
