@@ -9,135 +9,244 @@
     
     <section class="row">
         <!--<form action="{{ path('dt_formulaire_creation_dossier') }}" method="post" class="border1px form-horizontal" style="padding:30px;" role="form">-->
-        <div>    
-            <legend>
-                Information sur la thèse 
-            </legend>
-            {{ form_start(formDoctorant, {'attr': {'class': 'form-horizontal'}}) }}
+        <div>
+			<div role="tabpanel">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
+					<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
+				</ul>
+				{{ form_start(formDoctorant, {'attr': {'class': 'form-horizontal'}}) }}
 
-            {# Les erreurs générales du formulaire. #}
-            {{ form_errors(formDoctorant) }}
-            <div class="form-group">
-                {{ form_label(formDoctorant.nom,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formDoctorant.nom,{'attr': {'class': 'form-control'} }) }}
-                </div>
-                
-            </div >
-            <div class="form-group">
-                {{ form_label(formDoctorant.prenom,"Prénom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formDoctorant.prenom,{'attr': {'class': 'form-control'} }) }}
-                </div>
-            </div>
-             <div class="form-group">
-                {{ form_label(formDoctorant.mail,"Email",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formDoctorant.mail,{'attr': {'class': 'form-control'} }) }}
-                </div>
-                
-            </div>
-            <div class="form-group">
-                {{ form_label(formDoctorant.these.titreThese,"Titre These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formDoctorant.these.titreThese,{'attr': {'class': 'form-control'} }) }}
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form_label(formDoctorant.these.sujetThese,"Sujet These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-                <div class="col-sm-9">
-                    {{ form_widget(formDoctorant.these.sujetThese,{'attr': {'class': 'form-control'} }) }}
-                </div>
-            </div>
-             <div class="form-group">
-                <label for="dir_th" class="col-sm-3 control-label">Directeur de la thèse</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="dir_th" placeholder="Directeur de la thèse">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="enc_th" class="col-sm-3 control-label">Encadrant</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="enc_th[]" placeholder="Encadrant de la thèse">
-                    <p id="plus_enc"> Ajouter un autre encadrant<b> + </b> </p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="axe_th" class="col-sm-3 control-label">Axe thématique</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="axe_th" placeholder="Axe thématique">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="axe_sc" class="col-sm-3 control-label">Axe scientifique</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="axe_sc" placeholder="Axe scientifique">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="finance" class="col-sm-3 control-label">Financement</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="finance" placeholder="Financement">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="date_1er" class="col-sm-3 control-label">1ère inscription en thèse</label>
-                <div class="col-sm-9">
-                    <input type="date" class="form-control" name="date_1er" placeholder="Date de 1ère inscription en thèse">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="dcace" class="col-sm-3 control-label">DCACE ?</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="dcace" placeholder="DCACE?">
-                </div>
-            </div>
-
-            <legend>
-                Information sur le Master 
-            </legend>
-            <div class="form-group">
-                <label for="nom_mast" class="col-sm-3 control-label">Nom formation</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="nom_mast" placeholder="Nom de la formation">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="univ" class="col-sm-3 control-label">Université</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="univ" placeholder="Université">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="sujet_mast" class="col-sm-3 control-label">Sujet de Master</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="sujet_mast" placeholder="Sujet de Master">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="labo_acc" class="col-sm-3 control-label">Laboratoire d'accueil</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="labo_acc" placeholder="Laboratoire d'accueil">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="enc_mast" class="col-sm-3 control-label">Encadrant(s)</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" name="enc_mast" placeholder="Encadrant(s)">
-                </div>
-            </div>
-            
-            <legend> </legend>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    {{ form_widget(formDoctorant.save, {'attr': {'class': 'btn btn-primary'}}) }}
-                    <!--<button type="submit" class="btn btn-success">Valider</button>
-                    <button type="submit" class="btn btn-danger">Annuler</button>-->
-                </div>
-            </div>
-            {{ form_end(formDoctorant) }}
+				{# Les erreurs générales du formulaire. #}
+				{{ form_errors(formDoctorant) }}
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="these">
+						<legend>
+							Informations sur la thèse 
+						</legend>
+						
+						<div class="form-group">
+							{{ form_label(formDoctorant.nom,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.nom,{'attr': {'class': 'form-control'} }) }}
+							</div>
+							
+						</div >
+						<div class="form-group">
+							{{ form_label(formDoctorant.prenom,"Prénom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.prenom,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						 <div class="form-group">
+							{{ form_label(formDoctorant.mail,"Email",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.mail,{'attr': {'class': 'form-control'} }) }}
+							</div>
+							
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.titreThese,"Titre These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.titreThese,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.sujetThese,"Sujet These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.sujetThese,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.axeThematique,"Axe Thèmatique",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+								{{ form_widget(formDoctorant.these.axeThematique,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.axeScientifique,"Axe Scientifique",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.axeScientifique,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+						   {{ form_label(formDoctorant.these.financement,"Financement",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.financement,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dateInscr1eThese,"1ère inscription en thèse",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dateInscr1eThese,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dcace,"DCACE",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dcace,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="doctorant">
+						<legend>
+							Informations sur le Master 
+						</legend>
+						<div class="form-group">
+							{{ form_label(formDoctorant.nomFormationMaster,"Nom formation",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.nomFormationMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.universiteMaster,"Université",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.universiteMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.sujetMaster,"Sujet de Master",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.sujetMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.laboratoireAcceuilMaster,"Laboratoire d'accueil",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.laboratoireAcceuilMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.encadrantsMaster,"Encadrant(s)",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.encadrantsMaster,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.numEtudiant,"Num Étudiant",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.numEtudiant,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.bourseEtExoneration,"Bourse et éxonération",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.bourseEtExoneration,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.etabDernierDiplome,"Établ. dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.etabDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.depDernierDiplome,"Dép. dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.depDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.paysDernierDiplome,"Pays dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.paysDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.libelleDernierDiplome,"Libellé dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.libelleDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.anneeDernierDiplome,"Année dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.anneeDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.nomUsage,"Libellé dernier diplôme",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.nomUsage,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.civilite,"Civilité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.civilite,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.adresse,"Adresse",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.adresse,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.dateDeNaissance,"Date de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.dateDeNaissance) }}
+							</div>
+						</div><div class="form-group">
+							{{ form_label(formDoctorant.villeDeNaissance,"Ville de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.villeDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.paysDeNaissance,"Pays de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.paysDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.depDeNaissance,"Dép. de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.depDeNaissance,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.specialite,"Spécialité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.specialite,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.laboratoire,"Laboratoire",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.laboratoire,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.dateDebut,"Date début",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.dateDebut) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.dateDeSoutenance,"Date de soutenance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.dateDeSoutenance) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ form_label(formDoctorant.these.mention,"Mention",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+							<div class="col-sm-9">
+							   {{ form_widget(formDoctorant.these.mention,{'attr': {'class': 'form-control'} }) }}
+							</div>
+						</div>
+					</div>
+					<legend> </legend>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+							<!--<button type="submit" class="btn btn-success">Valider</button>
+							<button type="submit" class="btn btn-danger">Annuler</button>-->
+						</div>
+					</div>
+				</div>
+				{{ form_widget(formDoctorant.save, {'attr': {'class': 'btn btn-primary'}}) }}
+			</div>
         </div>
         <!--</form>-->
     </section>

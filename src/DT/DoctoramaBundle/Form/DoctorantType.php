@@ -42,7 +42,7 @@ class DoctorantType extends AbstractType
             ->add('prenom','text')
             ->add('adresse', 'text', array('required' => false))
             ->add('mail','text')
-            ->add('dateDeNaissance','datetime', array('required' => false))
+            ->add('dateDeNaissance','date', array('required' => false))
             ->add('villeDeNaissance', 'text', array('required' => false))
             ->add('paysDeNaissance', 'text', array('required' => false))
             ->add('depDeNaissance', 'text', array('required' => false))
