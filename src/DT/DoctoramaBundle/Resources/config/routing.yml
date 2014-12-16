@@ -58,3 +58,7 @@ dt_formulaire_creation_dossier:
 dt_export_fiche:
     pattern: /export_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFiche}
+    
+dt_doctorama_importCsv:
+    pattern: /importation_csv
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:importCsv}

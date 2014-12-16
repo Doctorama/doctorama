@@ -410,5 +410,10 @@ class DoctoramaController extends Controller {
     {
         return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles'));
     }
+    
+        public function importCsvAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
+    }
 
 }
