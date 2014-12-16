@@ -51,9 +51,9 @@ class DoctoramaController extends Controller {
 			}
 			elseif(!strcmp($typeExport,"CSV")){
 				$response->headers->set('Content-Type', 'text/csv');
-				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['form'].'.csv');
+				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['ficheLabel'].'.csv');
 			}
-			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport), $response);
+			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport, 'export'=>$typeExport), $response);
 		}else{
 			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
 		}
@@ -286,47 +286,94 @@ class DoctoramaController extends Controller {
 	
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
-
 		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $doctorant = $DoctorantRepository->find($id_doctorant);
+        $Doctorant = $DoctorantRepository->findById($id_doctorant);
 		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
-        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
-			'title'=>'Détails',
-			//'doctorant'=>$Doctorant[0],
-			'titre' => 'Detail du doctorant', 
-			'doctorant'=>$doctorant,
-			'titreThese'=>'titre',
-			'directeur'=>'dirlo',
-			'encadrantsDoctorant'=>$listEncadrant,
-			'axe_thematique'=>'thematique',
-			'axe_scientifique'=>'scientifique',
-			'financement'=>'financement',
-			'date_inscription'=>'premiere',
-			'date_fin'=>'fin prévue',
-			'dcace'=>'dcace',
-			'formation'=>'formation',
-			'universite'=>'univ',
-			'sujetMaster'=>'sujetMaster',
-			'laboratoire'=>'labo',
-			'encadrantsMaster'=>array(
-				array(
-					'nom'=>'Totomaster','prenom'=>'Titimaster'
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', 
+			array(
+				'title'=>'Détails',
+				'titre' => 'Detail du doctorant', 
+				'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
+				'titreThese'=>'titre',
+				'directeur'=>'dirlo',
+				'encadrantsDoctorant'=>$listEncadrant,
+				'axe_thematique'=>'thematique',
+				'axe_scientifique'=>'scientifique',
+				'financement'=>'financement',
+				'date_inscription'=>'premiere',
+				'date_fin'=>'fin prévue',
+				'dcace'=>'dcace',
+				'formation'=>'formation',
+				'universite'=>'univ',
+				'sujetMaster'=>'sujetMaster',
+				'laboratoire'=>'labo',
+				'encadrantsMaster'=>array(
+					array(
+						'nom'=>'Totomaster','prenom'=>'Titimaster'
+					),
+					array(
+						'nom'=>'Tatamaster','prenom'=>'Tutumaster'
+					)
 				),
-				array(
-					'nom'=>'Tatamaster','prenom'=>'Tutumaster'
-				)
-			),
-			'fiche'=>array(
-				array('question'=>'question1',
-					'reponse'=>'reponse1'
-				),array('question'=>'question2',
-					'reponse'=>'reponse2'
-				),array('question'=>'question3',
-					'reponse'=>'reponse3'
+				'fiches'=>array(
+					'T6'=>array(
+						'label'=>'T+6',
+						'date_reunion'=>'16-1-14',
+						'questions'=>array(
+							array(
+								'question'=>'question1',
+								'reponse'=>'reponse1'
+							),
+							array(
+								'question'=>'question2',
+								'reponse'=>'reponse2'
+							),
+							array(
+								'question'=>'question3',
+								'reponse'=>'reponse3'
+							),
+						),
+					),
+					'T9'=>array(
+						'label'=>'T+9',
+						'date_reunion'=>'16-9-14',
+						'questions'=>array(
+							array(
+								'question'=>'question10',
+								'reponse'=>'reponse10'
+							),
+							array(
+								'question'=>'question20',
+								'reponse'=>'reponse20'
+							),
+							array(
+								'question'=>'question30',
+								'reponse'=>'reponse30'
+							),
+						),
+					),
+					'T12'=>array(
+						'label'=>'T+12',
+						'date_reunion'=>'16-12-14',
+						'questions'=>array(
+							array(
+								'question'=>'question100',
+								'reponse'=>'reponse100'
+							),
+							array(
+								'question'=>'question200',
+								'reponse'=>'reponse200'
+							),
+							array(
+								'question'=>'question300',
+								'reponse'=>'reponse300'
+							),
+						),
+					),
 				),
-			),
-		));
+			)
+		);
     }
 
     public function creationDossierAction(Request $request)
