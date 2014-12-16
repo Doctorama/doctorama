@@ -208,7 +208,7 @@ class EncadrantService
 	public function updateNom($id,$nouveauNom)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -225,7 +225,7 @@ class EncadrantService
 	public function updateNomUsage($id,$nouveauNomUsage)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -242,7 +242,7 @@ class EncadrantService
 	public function updateCivilite($id,$nouveauCivilite)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -259,7 +259,7 @@ class EncadrantService
 	public function updatePrenom($id,$nouveauPrenom)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -276,7 +276,7 @@ class EncadrantService
 	public function updateAdresse($id,$nouveauAdresse)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -293,7 +293,7 @@ class EncadrantService
 	public function updateMail($id,$nouveauMail)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -310,7 +310,7 @@ class EncadrantService
 	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -327,7 +327,7 @@ class EncadrantService
 	public function updateNationalite($id,$nouveauNationalite)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -344,7 +344,7 @@ class EncadrantService
 	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -361,7 +361,7 @@ class EncadrantService
 	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -378,7 +378,7 @@ class EncadrantService
 	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
 	{
 	
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;
@@ -395,7 +395,7 @@ class EncadrantService
 	public function delete($id)
 	{
 
-		$encadrant = $this->repository->find($id);
+		$encadrant = $this->repository->findById($id);
 
 		if (!$encadrant) {
 			return null;

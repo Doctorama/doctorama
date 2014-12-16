@@ -396,7 +396,7 @@ class DoctorantService
 	{
 	
 		
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -413,7 +413,7 @@ class DoctorantService
 	public function updateNomUsage($id,$nouveauNomUsage)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -430,7 +430,7 @@ class DoctorantService
 	public function updateCivilite($id,$nouveauCivilite)
 	{
 
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -447,7 +447,7 @@ class DoctorantService
 	public function updatePrenom($id,$nouveauPrenom)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -464,7 +464,7 @@ class DoctorantService
 	public function updateAdresse($id,$nouveauAdresse)
 	{
 
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -481,7 +481,7 @@ class DoctorantService
 	public function updateMail($id,$nouveauMail)
 	{
 
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -498,7 +498,7 @@ class DoctorantService
 	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
 	{
 
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -515,7 +515,7 @@ class DoctorantService
 	public function updateNationalite($id,$nouveauNationalite)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -532,7 +532,7 @@ class DoctorantService
 	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -549,7 +549,7 @@ class DoctorantService
 	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -566,7 +566,7 @@ class DoctorantService
 	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -583,7 +583,7 @@ class DoctorantService
 	public function updateNumEtudiant($id,$nouveauNumEtudiant)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -600,7 +600,7 @@ class DoctorantService
 	public function updateBourseEtExoneration($id,$nouveauBourseEtExoneration)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -617,7 +617,7 @@ class DoctorantService
 	public function updateDateInscr1eThese($id,$nouveauDateInscr1eThese)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -634,7 +634,7 @@ class DoctorantService
 	public function updateDcace($id,$nouveauDcace)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -651,7 +651,7 @@ class DoctorantService
 	public function updateNomFormationMaster($id,$nouveauNomFormationMaster)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -668,7 +668,7 @@ class DoctorantService
 	public function updateUniversiteMaster($id,$nouveauUniversiteMaster)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -685,7 +685,7 @@ class DoctorantService
 	public function updateSujetMaster($id,$nouveauSujetMaster)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -702,7 +702,7 @@ class DoctorantService
 	public function updateLaboratoireAccueilMaster($id,$nouveauLaboratoireAccueilMaster)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -719,7 +719,7 @@ class DoctorantService
 	public function updateEncadrantsMaster($id,$nouveauEncadrantMaster)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -736,7 +736,7 @@ class DoctorantService
 	public function updateEtabDernierDiplome($id,$nouveauEtabDernierDiplome)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -753,7 +753,7 @@ class DoctorantService
 	public function updateDepDernierDiplome($id,$nouveauDepDernierDiplome)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -770,7 +770,7 @@ class DoctorantService
 	public function updatePaysDernierDiplome($id,$nouveauPaysDernierDiplome)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -787,7 +787,7 @@ class DoctorantService
 	public function updateLibelleDernierDiplome($id,$nouveauLibelleDernierDiplome)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -804,7 +804,7 @@ class DoctorantService
 	public function updateAnneeDernierDiplome($id,$nouveauAnneeDernierDiplome)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
@@ -821,7 +821,7 @@ class DoctorantService
 	public function delete($id)
 	{
 	
-		$doctorant = $this->repository->find($id);
+		$doctorant = $this->repository->findById($id);
 
 		if (!$doctorant) {
 			throw $this->createNotFoundException(
