@@ -22,7 +22,7 @@ class DoctoramaTwigExtensions extends \Twig_Extension{
         //echo "<script>alert(\" : progressionDoctorantFilter \")</script>";
         /*$today = date("m.d.y");
         $tempsEcoule = $today->diff($dateDebut->format("m.d.y"));*/
-        $tempsTotal = $dateFin->diff($dateDebut);
+        //$tempsTotal = $dateFin->diff($dateDebut);
         //var_dump($tempsTotal);
         //echo "<script>alert(\" dateDebut :".$dateDebut->format("d/M/Y")."Date fin : ".$dateFin->format("d/M/Y").".tempsTotal : ".$tempsTotal->format('%d')." \")</script>";
         //$resultat = $tempsEcoule/$tempsTotal;
