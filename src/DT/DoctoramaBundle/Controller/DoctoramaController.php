@@ -223,6 +223,7 @@ class DoctoramaController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($doctorant->getThese());
             $em->persist($doctorant);
+            $em->persist($doctorant->getThese()->getEncadrants());
             $em->flush();
 
           $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
@@ -251,6 +252,11 @@ class DoctoramaController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($doctorant->getThese());
             $em->persist($doctorant);
+            foreach($doctorant->getThese()->getEncadrants() as $encadrant)
+            {
+                $em->persist($encadrant);
+            }
+            
             $em->flush();
 
           $request->getSession()->getFlashBag()->add('notice', 'Le dossier a bien était modifié.');

@@ -15,12 +15,7 @@ class DoctorantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
-        /*$builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('mail')
-            ->add('numEtudiant')
-            ->add('save',      'submit');*/
+        
         $builder
             ->add('numEtudiant', 'text', array('required' => false))
             ->add('bourseEtExoneration', 'text', array('required' => false))

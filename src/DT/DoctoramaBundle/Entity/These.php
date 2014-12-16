@@ -149,16 +149,26 @@ class These
 	}
 	
 	/**
-     * Get encadrant
+     * Set encadrant
      *
 	 * @param Encadrant $encadrant
-     * @return These 
+     * @return encadrant 
      */
-	public function setEncadrant($encadrant){
-		$this->encadrants = $encadrant;
+	public function setEncadrants($encadrants){
+		$this->encadrants = $encadrants;
 		
 		return $this;
 	}
+        
+        /**
+        * Get encadrant
+        *
+        * @return encadrant 
+        */
+        public function getEncadrants()
+        {
+            return $this->encadrants;
+        }
 	
 	/**
 	* Add encradrant

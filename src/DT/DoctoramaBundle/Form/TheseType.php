@@ -26,7 +26,12 @@ class TheseType extends AbstractType
             ->add('dateDeSoutenance','date', array('required' => false))
             ->add('mention', 'text', array('required' => false))
             //->add('dossierDeSuivi')
-            //->add('encadrants')
+            ->add('encadrants','entity', array(
+                'class'    => 'DTDoctoramaBundle:Encadrant',
+                'property' => 'nom',
+                'multiple' => true,
+                'expanded' => true
+              ))
             //->add('doctorant')
             //->add('directeursDeThese')
             //->add('doctorants')
