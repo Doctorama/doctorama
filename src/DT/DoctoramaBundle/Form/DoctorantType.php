@@ -36,18 +36,20 @@ class DoctorantType extends AbstractType
             ->add('paysDernierDiplome', 'text', array('required' => false))
             ->add('libelleDernierDiplome', 'text', array('required' => false))
             ->add('anneeDernierDiplome', 'text', array('required' => false))
-            ->add('nom')
+            ->add('nom','text')
             ->add('nomUsage', 'text', array('required' => false))
             ->add('civilite', 'text', array('required' => false))
-            ->add('prenom')
+            ->add('prenom','text')
             ->add('adresse', 'text', array('required' => false))
-            ->add('mail')
+            ->add('mail','text')
             ->add('dateDeNaissance','datetime', array('required' => false))
             ->add('villeDeNaissance', 'text', array('required' => false))
             ->add('paysDeNaissance', 'text', array('required' => false))
             ->add('depDeNaissance', 'text', array('required' => false))
-            ->add('compte', 'text', array('required' => false))
-            ->add('these', new TheseType())
+            ->add('these', new TheseType(),array(
+                            'data_class' => 'DT\DoctoramaBundle\Entity\These'
+
+                    ))
         ;
     }
     
@@ -57,7 +59,8 @@ class DoctorantType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'DT\DoctoramaBundle\Entity\Doctorant'
+            'data_class' => 'DT\DoctoramaBundle\Entity\Doctorant',
+            //'csrf_protection'   => false,
         ));
     }
 

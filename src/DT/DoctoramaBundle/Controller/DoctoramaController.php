@@ -217,7 +217,7 @@ class DoctoramaController extends Controller {
         // On fait le lien Requête <-> Formulaire
         // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
         $formDoctorant->handleRequest($request);
-            
+               
         // On vérifie que les valeurs entrées sont correctes
         // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($formDoctorant->isValid()) {
@@ -239,9 +239,44 @@ class DoctoramaController extends Controller {
     
     public function modifDossierSuivisAction($id_doctorant, Request $request)
     {
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+        //$doctorant = new Doctorant();
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant);
         
-        //il faudra charger les infos du doctorant concerné.
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
+        $formDoctorant->add('save',      'submit');
+        // On fait le lien Requête <-> Formulaire
+        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        $formDoctorant->handleRequest($request);
+        //$formDoctorant->bind($request);
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($formDoctorant->isValid()) {
+            echo "<script>alert(\"Formulaire valide \")</script>";
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($doctorant->getThese());
+            $em->persist($doctorant);
+            $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Le dossier a bien était modifié.');
+
+          // On redirige vers la page de visualisation de l'annonce nouvellement créée
+          return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
+        }
+        /*$errors = $this->get('validator')->validate( $user );
+
+        $result = '';
+
+        // iterate on it
+        foreach( $errors as $error )
+        {
+            // Do stuff with:
+            //   $error->getPropertyPath() : the field that caused the error
+            //   $error->getMessage() : the error message
+        }
+       $string = (string) $formDoctorant->getErrors(true, false);
+       echo "<script>alert(\"Formulaire non valide : ".$string."\")</script>";*/
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis','formDoctorant' => $formDoctorant->createView()));
     }
     
     public function importCsvAction(Request $request)
@@ -251,15 +286,16 @@ class DoctoramaController extends Controller {
 	
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
+
 		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $Doctorant = $DoctorantRepository->findById($id_doctorant);
+        $doctorant = $DoctorantRepository->find($id_doctorant);
 		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
 			'title'=>'Détails',
 			//'doctorant'=>$Doctorant[0],
 			'titre' => 'Detail du doctorant', 
-			'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
+			'doctorant'=>$doctorant,
 			'titreThese'=>'titre',
 			'directeur'=>'dirlo',
 			'encadrantsDoctorant'=>$listEncadrant,

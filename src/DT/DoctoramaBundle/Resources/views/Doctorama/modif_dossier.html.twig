@@ -8,26 +8,44 @@
         </legend>
         
         <section class="row">
-            <form class="border1px form-horizontal" style="padding:30px;" role="form">
+            <div>
                 <legend>
                     Information sur la thèse 
                 </legend>
+                {{ form_start(formDoctorant, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_widget(formDoctorant._token) }}
+                {# Les erreurs générales du formulaire. #}
+                 {{ form_errors(formDoctorant) }} 
                 <div class="form-group">
-                    <label for="nom_doct" class="col-sm-3 control-label">Nom</label>
+                {{ form_label(formDoctorant.nom,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                <div class="col-sm-9">
+                    {{ form_widget(formDoctorant.nom,{'attr': {'class': 'form-control'} }) }}
+                </div>
+                
+                </div >
+                <div class="form-group">
+                    {{ form_label(formDoctorant.prenom,"Prénom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="nom_doct" placeholder="Nom">
+                        {{ form_widget(formDoctorant.prenom,{'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    {{ form_label(formDoctorant.mail,"Email",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(formDoctorant.mail,{'attr': {'class': 'form-control'} }) }}
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    {{ form_label(formDoctorant.these.titreThese,"Titre These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                    <div class="col-sm-9">
+                        {{ form_widget(formDoctorant.these.titreThese,{'attr': {'class': 'form-control'} }) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="prenom_doct" class="col-sm-3 control-label">Prénom</label>
+                    {{ form_label(formDoctorant.these.sujetThese,"Sujet These",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="prenom_doct" placeholder="Prénom">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sujet_th" class="col-sm-3 control-label">Sujet de la thèse</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" name="sujet_th" placeholder="Sujet de la thèse">
+                        {{ form_widget(formDoctorant.these.sujetThese,{'attr': {'class': 'form-control'} }) }}
                     </div>
                 </div>
 
@@ -99,11 +117,13 @@
                 <legend> </legend>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-success">Valider</button>
+                        {{ form_widget(formDoctorant.save, {'attr': {'class': 'btn btn-primary'}}) }}
                         <button type="submit" class="btn btn-danger">Annuler</button>
                     </div>
                 </div>
-            </form>
+                {{ form_rest(formDoctorant) }}
+                {{ form_end(formDoctorant) }}
+            </div>
         </section>
     
 {% endblock %}

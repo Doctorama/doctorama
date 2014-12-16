@@ -15,7 +15,7 @@ class TheseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titreThese')
+            ->add('titreThese','text')
             ->add('sujetThese', 'text', array('required' => false))
             ->add('specialite', 'text', array('required' => false))
             ->add('laboratoire', 'text', array('required' => false))
@@ -39,7 +39,8 @@ class TheseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'DT\DoctoramaBundle\Entity\These'
+            'data_class' => 'DT\DoctoramaBundle\Entity\These',
+            //'csrf_protection'   => false,
         ));
     }
 
