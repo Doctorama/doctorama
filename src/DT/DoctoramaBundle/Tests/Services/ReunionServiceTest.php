@@ -91,5 +91,35 @@ class ReunionServiceTest extends WebTestCase
 	
 	public function testaddPersonne()
 	{
+		$this->viderTable();
+		
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		
+		$enc1 = $this->creer1Encadrant();
+		$enc2 = $this->creer1Encadrant();
+		
+		$rs->addPersonne(1, $enc1);
+		$rs->addPersonne(1, $enc2);
+		
+		$tab = $reu->getPersonnes();
+		assert(2, count($tab));
+	}
+	
+	public function testgetPersonnes()
+	{
+		$this->viderTable();
+		
+		$rs = new ReunionService($this->em);
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'));
+		
+		$enc1 = $this->creer1Encadrant();
+		$enc2 = $this->creer1Encadrant();
+		
+		$reu->addPersonne($enc1);
+		$reu->addPersonne($enc2);
+		
+		$tab = $rs->getPersonnes(1);
+		assert(2, count($tab));
 	}
 }

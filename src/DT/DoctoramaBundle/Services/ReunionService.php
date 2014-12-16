@@ -29,8 +29,8 @@ class ReunionService
 	
 	public function addPersonne($id, $personne)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -43,8 +43,8 @@ class ReunionService
 	
 	public function deletePersonne($id, $personne)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -57,8 +57,8 @@ class ReunionService
 	
 	public function getPersonnes($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -70,8 +70,8 @@ class ReunionService
 	
 	public function setlistePersonne($id, $personnes)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -83,8 +83,8 @@ class ReunionService
 	
 	public function getDate($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -96,8 +96,8 @@ class ReunionService
 	
 	public function setDate($id, $date)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -109,8 +109,8 @@ class ReunionService
 	
 	public function getLieu($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -122,8 +122,8 @@ class ReunionService
 	
 	public function setLieu($id, $lieu)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
