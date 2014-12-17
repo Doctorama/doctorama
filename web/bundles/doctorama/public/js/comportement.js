@@ -56,6 +56,30 @@ $(document).ready(function(){
 		$("tr:nth-child(n+"+deb+"):nth-child(-n+"+fin+")").show();
 	});
 
+	//Modification template fiche de suivi
+	$('#add_question_t6').click(function(){
+		var question = $('#add_input_question_t6').val();
+		var html = '';
+		if(question!=''){
+			html+='<tr><input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td></tr>';
+		}
+		$("#t6").append(html);
+		$('#add_input_question_t6').val('');
+	});
+
+	$(document).on('click','.modif_question',function(){
+		var tr = $(this).parent().parent();
+		var question = tr.find('td:first').html();
+		$('#add_input_question_t6').val(question);
+		tr.html('');
+		tr.hide();
+	});
+
+	$(document).on('click','.sup_question',function(){
+		var tr = $(this).parent().parent();
+		tr.html('');
+		tr.hide();
+	});
 	
 	// Agenda
 	$('#calendar').fullCalendar({

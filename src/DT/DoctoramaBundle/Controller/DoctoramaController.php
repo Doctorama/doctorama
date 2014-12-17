@@ -384,7 +384,7 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
 
-public function parseCsvAction(Request $request)
+    public function parseCsvAction(Request $request)
     {
     	$reponse;
     	$tab_intitule = array(); 
@@ -575,7 +575,7 @@ public function parseCsvAction(Request $request)
 
 
 
-        public function creationReunionAction(Request $request){
+    public function creationReunionAction(Request $request){
 
        $reunion = new Reunion();
 
@@ -602,4 +602,13 @@ public function parseCsvAction(Request $request)
         return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Creation reunion','formReunion' => $formReunion->createView()));
     }
 
+    public function modifFicheAction(Request $request){
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
+    }
+
+    public function modifFicheFormAction(Request $request){
+        var_dump($_POST);
+        exit;
+       //return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
+    }
 }
