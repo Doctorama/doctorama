@@ -1,0 +1,165 @@
+
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/doctorant_labo.html.twig #}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+
+{% block DTDoctoramaBody %}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <legend>
+          <h3>Importer votre fichier CSV </h3>
+        </legend>
+
+		
+<style>
+#progress_bar {
+    margin: 10px 0;
+    padding: 3px;
+    border: 1px solid #000;
+    font-size: 14px;
+    clear: both;
+    opacity: 0;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    -webkit-transition: opacity 1s linear;
+}
+
+#progress_bar.loading {
+    opacity: 1.0;
+}
+#progress_bar .percent {
+	background-color: #99ccff;
+    height: auto;
+    width: 0;
+} 
+  
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+</style>
+
+<form method="post" enctype="multipart/form-data" action="{{ path('dt_doctorama_parse_csv') }}">
+<div class="input-group">
+	<span class="input-group-btn">
+		<span class="btn btn-primary btn-file">
+			Parcourir&hellip; <input type="file" id="files" name="file" accept="text/csv">
+		</span>
+	</span>
+    <input type="text" class="form-control" readonly>
+		</div>
+			<span class="help-block">
+                Sélectionnez un fichier CSV
+                <div id="progress_bar"><div class="percent">0%</div></div>
+                
+            </span>
+            <span class="btn btn-primary btn-file">
+            Envoyer <input type="submit" name="submit">
+            </span>
+        </div>
+</div>
+</form>
+
+
+<script>
+
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+
+  var reader;
+  var progress = document.querySelector('.percent');
+
+  function errorHandler(evt) {
+    switch(evt.target.error.code) {
+      case evt.target.error.NOT_FOUND_ERR:
+        alert('File Not Found!');
+        break;
+      case evt.target.error.NOT_READABLE_ERR:
+        alert('File is not readable');
+        break;
+      case evt.target.error.ABORT_ERR:
+        break; // noop
+      default:
+        alert('An error occurred reading this file.');
+    };
+  }
+
+  function updateProgress(evt) {
+    // evt is an ProgressEvent.
+    if (evt.lengthComputable) {
+      var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+      // Increase the progress bar length.
+      if (percentLoaded < 100) {
+        progress.style.width = percentLoaded + '%';
+        progress.textContent = percentLoaded + '%';
+      }
+    }
+  }
+
+  function handleFileSelect(evt) {
+    // Reset progress indicator on new file selection.
+    progress.style.width = '0%';
+    progress.textContent = '0%';
+
+    reader = new FileReader();
+    reader.onerror = errorHandler;
+    reader.onprogress = updateProgress;
+    reader.onabort = function(e) {
+      alert('File read cancelled');
+    };
+    reader.onloadstart = function(e) {
+      document.getElementById('progress_bar').className = 'loading';
+    };
+    reader.onload = function(e) {
+      // Ensure that the progress bar displays 100% at the end.
+      progress.style.width = '100%';
+      progress.textContent = '100%';
+      setTimeout("document.getElementById('progress_bar').className='';", 2000);
+    }
+
+    // Read in the image file as a binary string.
+    reader.readAsBinaryString(evt.target.files[0]);
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
+
+{% endblock %}

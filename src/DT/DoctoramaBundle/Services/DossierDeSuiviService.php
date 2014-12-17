@@ -27,7 +27,7 @@ class DossierDeSuiviService
 
 	public function findbyId($id)
 	{
-   		$these = $this->repository->findById($id);
+   		$these = $this->repository->findOneById($id);
 
    		if (!$dossierDeSuivi) {
 			return null;
@@ -48,7 +48,7 @@ class DossierDeSuiviService
 	public function updateCommentaires($id, $commentaires)
 	{
 
-		$dossierDeSuivi = $this->repository->findById($id);
+		$dossierDeSuivi = $this->repository->findOneById($id);
 
 
 		if (!$dossierDeSuivi) {
@@ -63,7 +63,7 @@ class DossierDeSuiviService
 
 	public function deleteDossierDeSuivi($id)
     {
-		$dossierDeSuivi = $this->repository->findById($id);
+		$dossierDeSuivi = $this->repository->findOneById($id);
 
 
 		if (!$dossierDeSuivi) {

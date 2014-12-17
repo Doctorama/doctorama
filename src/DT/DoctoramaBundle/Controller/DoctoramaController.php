@@ -25,23 +25,6 @@ use \DateTime;
  */
 class DoctoramaController extends Controller {
     
-    public function import_csvAction($file)
-    {
-    	$ligne = 2; // compteur de ligne
-		$fic = fopen($file, "a+");
-		while($tab=fgetcsv($fic,1024,';'))
-		{
-			$champs = count($tab);//nombre de champ dans la ligne en question	
-			echo "<b> Les " . $champs . " champs de la ligne " . $ligne . " sont :</b><br />";
-			$ligne ++;
-			//affichage de chaque champ de la ligne en question
-			for($i=0; $i<$champs; $i ++)
-			{
-				echo $tab[$i] . "<br />";
-			}
-		}
-    }
-    
 	public function exportFicheAction(Request $request)
     {
 		$typeExport = htmlentities(str_replace('"','\"',$_POST['export']));
@@ -52,9 +35,9 @@ class DoctoramaController extends Controller {
 			}
 			elseif(!strcmp($typeExport,"CSV")){
 				$response->headers->set('Content-Type', 'text/csv');
-				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['form'].'.csv');
+				$response->headers->set('Content-disposition','attachment;filename='.$_GET['nom'].' '.$_POST['ficheLabel'].'.csv');
 			}
-			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport), $response);
+			return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier '.$typeExport, 'export'=>$typeExport), $response);
 		}else{
 			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
 		}
@@ -66,15 +49,17 @@ class DoctoramaController extends Controller {
         
         //si c'est une connexion fait grâce à un utilisateur issu de l'objet compte
         $listDoctorants = array();
-        if(method_exists($user,'getDoctorant'))
+        if(method_exists($user,'getEncadrant'))
         {
-            $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+            /*$theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
             $theses = $theseRepository->findByEncadrant($user->getEncadrant()->getId());
             
             foreach($theses as $these)
             {
                 array_push($listDoctorants, $these->getDoctorant());
-            }
+            }*/
+            
+            $listDoctorants = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant')->theseNonArchivee($user->getEncadrant()->getId());
             
         }
         
@@ -95,7 +80,7 @@ class DoctoramaController extends Controller {
     public function doctorantLaboAction(Request $request)
     {
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $listDoctorant = $DoctorantRepository->findAll();
+        $listDoctorant = $DoctorantRepository->theseNonArchivee();
         $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
 		$listThese = array(sizeof($listDoctorant));
 		for($i=0; $i<sizeof($listDoctorant); $i++){
@@ -109,7 +94,7 @@ class DoctoramaController extends Controller {
     
     public function agendaAction(Request $request)
     {
-        $personne1 = new Personne();
+        /*$personne1 = new Personne();
         $personne1->setNom("NEILZ");
         $personne1->setPrenom("Benjamin");
         
@@ -152,16 +137,28 @@ class DoctoramaController extends Controller {
         $reunion4->addPersonne($personne2);
         $reunion4->addPersonne($personne4);
 
-        $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4);
+        $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4);*/
         
-    
-
+        $user = $this->get('security.context')->getToken()->getUser();
+        $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
+        $reunions=array();
+        if(method_exists($user,'getEncadrant'))
+        {
+            $reunions=$user->getEncadrant()->getReunion();
+        }
+        
+        
+        else{
+            $reunions=$reunionRepository->findAll();
+        }
+        
+        
         foreach ($reunions as $reunion) {
              $event[]=array(
                     'start'=>$reunion->getDate()->format('Y-m-d H:i:s'),
                     'title'=>$reunion->getLieu());
         }
-          
+
 
 
         if (!$fp = fopen("../../mydate.php", 'w+')) {
@@ -190,7 +187,7 @@ class DoctoramaController extends Controller {
     {
         // return new Response("La page Historique Doctoratns est en cours de construction :)");
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-            $doctorants = $DoctorantRepository->findAll();
+            $doctorants = $DoctorantRepository->theseArchivee();
          return $this->render('DTDoctoramaBundle:Doctorama:historique.html.twig', array('title' => 'Historique des doctorants','listDoctorant'=>$doctorants));
     }
     
@@ -209,30 +206,48 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:admin_utilisateur.html.twig', array('title' => 'Gestion des utilisateurs'));
     }
     
+    public function persisterDossierSuivis($doctorant)
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        foreach($doctorant->getThese()->getEncadrants() as $encadrant)
+        {
+            $encadrant->addThese($doctorant->getThese());
+            
+            $em->persist($encadrant);
+        }
+        
+        foreach($doctorant->getThese()->getDirecteursDeThese() as $directeur)
+        {
+            $directeur->addThesesDirecteur($doctorant->getThese());
+            
+            $em->persist($directeur);
+        }
+        $em->persist($doctorant->getThese());
+        $em->persist($doctorant);
+        $em->flush();
+    }
+    
+    
     public function creerDossierSuivisAction(Request $request)
     {
         $doctorant = new Doctorant();
 
         $formDoctorant = $this->createForm(new DoctorantType(), $doctorant);
         $formDoctorant->add('save',      'submit');
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        
         $formDoctorant->handleRequest($request);
-            
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+               
+        
         if ($formDoctorant->isValid()) {
         
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($doctorant->getThese());
-            $em->persist($doctorant);
-            $em->flush();
+            
+            $this->persisterDossierSuivis($doctorant);
 
-          $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
 
-          // On redirige vers la page de visualisation de l'annonce nouvellement créée
-          return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
+            
+            return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:creer_dossier.html.twig', array('title' => 'Créer dossier de suivis','formDoctorant' => $formDoctorant->createView()));
 
@@ -240,58 +255,122 @@ class DoctoramaController extends Controller {
     
     public function modifDossierSuivisAction($id_doctorant, Request $request)
     {
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant, array('method' => 'PUT'));
         
-        //il faudra charger les infos du doctorant concerné.
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis'));
-    }
+        $formDoctorant->add('save',      'submit');
+        
+        $formDoctorant->handleRequest($request);  
     
-    public function importCsvAction(Request $request)
-    {
-        return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
+        if ($formDoctorant->isValid()) {
+
+            $this->persisterDossierSuivis($doctorant);
+            
+            $request->getSession()->getFlashBag()->add('notice', 'Le dossier a bien était modifié.');
+
+            // On redirige vers la page de visualisation de l'annonce nouvellement créée
+            return $this->redirect($this->generateUrl('dt_detail_doctorant', array('id_doctorant'=>$id_doctorant)));
+        }
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis','formDoctorant' => $formDoctorant->createView()));
     }
 	
     public function detailDoctorantAction(Request $request, $id_doctorant)
     {
-		$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-        $Doctorant = $DoctorantRepository->findById($id_doctorant);
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+        $formDoctorant = $this->createForm(new DoctorantType(), $doctorant, array('method' => 'GET','read_only'=>true));
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Détails du doctorant','formDoctorant' => $formDoctorant->createView(), 'doctorant'=>$doctorant));
+    
+        
+	/*	$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
+        $doctorant = $DoctorantRepository->find($id_doctorant);
 		$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
-        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
-			'title'=>'Détails',
-			//'doctorant'=>$Doctorant[0],
-			'titre' => 'Detail du doctorant', 
-			'doctorant'=>array('nom'=> $Doctorant[0]->getNom(), 'prenom'=>$Doctorant[0]->getPrenom()),
-			'titreThese'=>'titre',
-			'directeur'=>'dirlo',
-			'encadrantsDoctorant'=>$listEncadrant,
-			'axe_thematique'=>'thematique',
-			'axe_scientifique'=>'scientifique',
-			'financement'=>'financement',
-			'date_inscription'=>'premiere',
-			'date_fin'=>'fin prévue',
-			'dcace'=>'dcace',
-			'formation'=>'formation',
-			'universite'=>'univ',
-			'sujetMaster'=>'sujetMaster',
-			'laboratoire'=>'labo',
-			'encadrantsMaster'=>array(
-				array(
-					'nom'=>'Totomaster','prenom'=>'Titimaster'
+        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', 
+			array(
+				'title'=>'Détails',
+				'titre' => 'Detail du doctorant', 
+				'doctorant'=>$doctorant,
+				'titreThese'=>'titre',
+				'directeur'=>'dirlo',
+				'encadrantsDoctorant'=>$listEncadrant,
+				'axe_thematique'=>'thematique',
+				'axe_scientifique'=>'scientifique',
+				'financement'=>'financement',
+				'date_inscription'=>'premiere',
+				'date_fin'=>'fin prévue',
+				'dcace'=>'dcace',
+				'formation'=>'formation',
+				'universite'=>'univ',
+				'sujetMaster'=>'sujetMaster',
+				'laboratoire'=>'labo',
+				'encadrantsMaster'=>array(
+					array(
+						'nom'=>'Totomaster','prenom'=>'Titimaster'
+					),
+					array(
+						'nom'=>'Tatamaster','prenom'=>'Tutumaster'
+					)
 				),
-				array(
-					'nom'=>'Tatamaster','prenom'=>'Tutumaster'
-				)
-			),
-			'fiche'=>array(
-				array('question'=>'question1',
-					'reponse'=>'reponse1'
-				),array('question'=>'question2',
-					'reponse'=>'reponse2'
-				),array('question'=>'question3',
-					'reponse'=>'reponse3'
+				'fiches'=>array(
+					'T6'=>array(
+						'label'=>'T+6',
+						'date_reunion'=>'16-1-14',
+						'questions'=>array(
+							array(
+								'question'=>'question1',
+								'reponse'=>'reponse1'
+							),
+							array(
+								'question'=>'question2',
+								'reponse'=>'reponse2'
+							),
+							array(
+								'question'=>'question3',
+								'reponse'=>'reponse3'
+							),
+						),
+					),
+					'T9'=>array(
+						'label'=>'T+9',
+						'date_reunion'=>'16-9-14',
+						'questions'=>array(
+							array(
+								'question'=>'question10',
+								'reponse'=>'reponse10'
+							),
+							array(
+								'question'=>'question20',
+								'reponse'=>'reponse20'
+							),
+							array(
+								'question'=>'question30',
+								'reponse'=>'reponse30'
+							),
+						),
+					),
+					'T12'=>array(
+						'label'=>'T+12',
+						'date_reunion'=>'16-12-14',
+						'questions'=>array(
+							array(
+								'question'=>'question100',
+								'reponse'=>'reponse100'
+							),
+							array(
+								'question'=>'question200',
+								'reponse'=>'reponse200'
+							),
+							array(
+								'question'=>'question300',
+								'reponse'=>'reponse300'
+							),
+						),
+					),
 				),
-			),
-		));
+			)
+		);*/
     }
 
     public function creationDossierAction(Request $request)
@@ -357,6 +436,49 @@ class DoctoramaController extends Controller {
     public function infoPersoAction(Request $request)
     {
         return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles'));
+    }
+    
+    public function importCsvAction(Request $request)
+    {
+        return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
+    }
+    
+    public function parseCsvAction(Request $request)
+    {
+    	$reponse;
+    	
+    	$uploads_dir = "bundles/doctorama/uploads/";
+
+		$tmp_name = $_FILES["file"]["tmp_name"];
+        $name = $_FILES["file"]["name"];
+
+		if(move_uploaded_file($tmp_name, "$uploads_dir/$name")) 
+		{ 
+			//$reponse = 'Upload effectué avec succès pour le fichier '; 
+		} 
+		else 
+		{ 
+			//$reponse = 'Echec de l\'upload. '; 
+		} 
+		
+    	$ligne = 1; // compteur de ligne
+		$fic = fopen("$uploads_dir/$name", "a+");
+		while($tab=fgetcsv($fic,1024,';'))
+		{
+			$champs = count($tab);//nombre de champ dans la ligne en question	
+			//affichage de chaque champ de la ligne en question
+			if ($ligne>1)
+			{
+				for($i=0; $i<$champs; $i ++)
+				{		
+					$reponse = $reponse . $tab[$i] . "<br />";
+				}
+			}
+			$ligne ++;
+		}
+    	
+        return new Response($reponse);
+
     }
 
 

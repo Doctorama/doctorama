@@ -30,9 +30,9 @@ class DossierDeSuivi
     private $commentaires;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="TemplateFicheSuivi")
+	 * @ORM\OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="dossierDeSuivi")
 	 */
-	protected $templateFicheSuivi;
+	protected $templatesFicheSuivi;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="These")
@@ -41,6 +41,7 @@ class DossierDeSuivi
 	
 	public function __construct() {
         $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->templatesFicheSuivi = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -76,18 +77,44 @@ class DossierDeSuivi
         return $this->commentaires;
     }
 	
+	/**
+	* Get templateFicheSuivi
+	*
+	* @return TemplateFicheSuivi
+	**/
 	public function getTemplateFicheSuivi(){
-		return $this->templateFicheSuivi;
+		return $this->templatesFicheSuivi;
 	}
 	
-	public function setTemplateFicheSuivi($ficheSuivi){
-		return $this->templateFicheSuivi = $ficheSuivi;
+	/**
+	* Set templateFicheSuivi
+	*
+	* @param TemplateFicheSuivi $ficheSuivi
+	* @return TemplateFicheSuivi
+	**/
+	public function addTemplateFicheSuivi($ficheSuivi){
+		if(!$this->templatesFicheSuivi->contains($ficheSuivi)){
+			//$ficheSuivi->addDossierDeSuivi($this);
+			$this->items[] = ($ficheSuivi);
+		}
+		return $this;
 	}
 	
+	/**
+	* Get these
+	*
+	* @return These
+	**/
 	public function getThese(){
 		return $this->these;
 	}
 	
+	/**
+	* Set these
+	*
+	* @param These $these
+	* @return These
+	**/
 	public function setThese($these){
 		$this->these = $these;
 		$these->setDossierDeSuivi($this);

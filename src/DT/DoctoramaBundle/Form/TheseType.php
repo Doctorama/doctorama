@@ -15,8 +15,8 @@ class TheseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titreThese')
-            ->add('sujetThese', 'text', array('required' => false))
+            ->add('titreThese','text')
+            ->add('sujetThese', 'text')
             ->add('specialite', 'text', array('required' => false))
             ->add('laboratoire', 'text', array('required' => false))
             ->add('axeThematique', 'text', array('required' => false))
@@ -26,9 +26,18 @@ class TheseType extends AbstractType
             ->add('dateDeSoutenance','date', array('required' => false))
             ->add('mention', 'text', array('required' => false))
             //->add('dossierDeSuivi')
-            //->add('encadrants')
+            ->add('encadrants','entity', array(
+                'class'    => 'DTDoctoramaBundle:Encadrant',
+                'property' => 'nom',
+                'multiple' => true,
+                'expanded' => true
+              ))
             //->add('doctorant')
-            //->add('directeursDeThese')
+            ->add('directeursDeThese','entity', array(
+                'class'    => 'DTDoctoramaBundle:Encadrant',
+                'property' => 'nom',
+                'multiple' => true,
+                'expanded' => true))
             //->add('doctorants')
         ;
     }
@@ -39,7 +48,8 @@ class TheseType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'DT\DoctoramaBundle\Entity\These'
+            'data_class' => 'DT\DoctoramaBundle\Entity\These',
+            //'csrf_protection'   => false,
         ));
     }
 

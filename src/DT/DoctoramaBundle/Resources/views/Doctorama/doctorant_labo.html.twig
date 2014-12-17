@@ -2,113 +2,133 @@
 {% extends "DTDoctoramaBundle::index.html.twig" %}
 
 {% block DTDoctoramaBody %}
-        <legend>
-            <h3> {{title}} </h3>
-        </legend>
-        
-         <section class="row" style="margin-bottom:15px;">
-            <div class="col-xs-6">
-                <div class="fr btn-group" style="margin-right:15px;">
-                    <a href="{{ path('dt_doctorama_creer_dossier_suivis') }}" class="btn btn-success" role="button">Créer un nouveau dossier</a>
-                </div>
+    <legend>
+        <h3> {{title}} </h3>
+    </legend>
+
+    <section class="row" style="margin-bottom:15px;">
+        <div class="col-xs-6">
+            <div class="fr btn-group" style="margin-right:15px;">
+                <a href="{{ path('dt_doctorama_creer_dossier_suivis') }}" class="btn btn-success" role="button">Créer un nouveau dossier</a>
             </div>
-            <div class="col-xs-6">
-                <div class="recherche input-group">
-                    <input type="text" class="form-control" placeholder="Rechercher un doctorant">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                </div>
-                
-                <div class="btn-group pull-right">
-                  <button type="button" value="10" class="btn btn-default btn_nb_par_page active btn-info">
+        </div>
+        <div class="col-xs-6">
+            <div class="recherche input-group">
+                <input type="text" class="form-control" placeholder="Rechercher un doctorant">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                </span>
+            </div>
+
+            <div class="btn-group pull-right">
+                <button type="button" value="10" class="btn btn-default btn_nb_par_page active btn-info">
                     10
-                  </button>
-                  <button type="button" value="25" class="btn btn-default btn_nb_par_page">
+                </button>
+                <button type="button" value="25" class="btn btn-default btn_nb_par_page">
                     25
-                  </button>
-                  <button type="button" value="50" class="btn btn-default btn_nb_par_page">
+                </button>
+                <button type="button" value="50" class="btn btn-default btn_nb_par_page">
                     50
-                  </button>
-                  
-                  <button type="button" class="btn btn-default" id="btn_grille">
+                </button>
+
+                <button type="button" class="btn btn-default" id="btn_grille">
                     <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                  </button>
-                  <button type="button" class="btn btn-default" id="btn_list" >
+                </button>
+                <button type="button" class="btn btn-default" id="btn_list" >
                     <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                  </button>
-                </div>
+                </button>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="row vue-liste-doctorant"><div class="table-responsive">
-          <table class="table border1px table-striped">
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Nom</th>
-              <th>Prénom</th>
-              <th>Sujet de thèse</th>
-              <th>Progression</th>
-              <th>  </th>
-            </tr>
-            </thead>
-            <tbody>
-              {% for key, doctorant in listDoctorant %}
-                <tr style="display">
-                  <td> {{doctorant.id}} </td>
-                  <td> {{doctorant.nom}} </td>
-                  <td> {{doctorant.prenom}} </td>
-                  <td> {%if doctorant.these.titreThese is defined  %}
-                        {{doctorant.these.titreThese}}
-                      {% endif%}
-                  </td>
-                  <td>
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> 80 % </div>
-                  </div>
-                  </td>
-                  <td >
-                    <a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class=" pull-right btn btn-info" role="button">Détails</a>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-      </section>
+    <section class="row vue-liste-doctorant"><div class="table-responsive">
+            <table class="table border1px table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Sujet de thèse</th>
+                        <th>Progression</th>
+                        <th>  </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, doctorant in listDoctorant %}
+                        <tr style="display">
+                            <td> {{doctorant.id}} </td>
+                            <td> {{doctorant.nom}} </td>
+                            <td> {{doctorant.prenom}} </td>
+                            <td> {%if doctorant.these.titreThese is defined  %}
+                                {{doctorant.these.titreThese}}
+                                {% endif%}
+                                </td>
+                                <td>
+                                    <div class="progress">
+                                        <!--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"> 80 % </div>-->
+                                        {%if doctorant.these.dateDebut is defined and doctorant.these.dateDeSoutenance is defined%}
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}" aria-valuemin="0" aria-valuemax="100" style="width: {{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}%;">
+                                                {{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}%
+                                            </div>
 
-      <section class="row vue-grille-doctorant">
-        {% for doctorant in listDoctorant %}
-          <article class="col-sm-6 col-md-3" id="'.$enr['id'].'">
-            <div class="thumbnail">
-              <img style="max-height:200px;" src="{{asset('bundles/doctorama/public/img/avatar_def.png')}}" alt="...">
-              <div class="caption">
-              <h3> {{doctorant.nom}} {{doctorant.prenom}}</h3>
-              <p> 
-                  {%if doctorant.these.titreThese is defined  %}{{doctorant.these.titreThese}} {% endif%} </p>
-              <div class="progress">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>
-                </div>
-              <p><a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class="btn btn-info" role="button">Détails</a></p>
-              </div>
-            </div>
-          </article>
-        {% endfor %}
-      </section>
+                                        {%else%}
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1O" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                                                <FONT color="black">10%</FONT>
+                                            </div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td >
+                                    <a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class=" pull-right btn btn-info" role="button">Détails</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </section>
+
+                <section class="row vue-grille-doctorant">
+                    {% for doctorant in listDoctorant %}
+                        <article class="col-sm-6 col-md-3" id="'.$enr['id'].'">
+                            <div class="thumbnail">
+                                <img style="max-height:200px;" src="{{asset('bundles/doctorama/public/img/avatar_def.png')}}" alt="...">
+                                <div class="caption">
+                                    <h3> {{doctorant.nom}} {{doctorant.prenom}}</h3>
+                                    <p> 
+                                        {%if doctorant.these.titreThese is defined  %}{{doctorant.these.titreThese}} {% endif%} </p>
+                                    <div class="progress">
+                                        <!--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>-->
+                                        {%if doctorant.these.dateDebut is defined and doctorant.these.dateDeSoutenance is defined%}
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}" aria-valuemin="0" aria-valuemax="100" style="width: {{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}%;">
+                                                {{doctorant.these.dateDebut|progressionDoctorant( doctorant.these.dateDeSoutenance )}}%
+                                            </div>
+
+                                        {%else%}
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1O" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">
+                                                <FONT color="black">10%</FONT>
+                                            </div>
+                                        {%endif%}
+                                    </div>
+                                    <p><a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class="btn btn-info" role="button">Détails</a></p>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </section>
 
 
-        
-        <nav class="text-center">
-            <ul class="pagination">
-                <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                <!-- Calcul du nombre de page à avoir -->
-                {%set nb_doctorant = (listDoctorant|length/10)|round(0, 'ceil')  %}
-                {% for i in 1..nb_doctorant %}
-                     <li><a href="#" class="btn page"> {{i}} </a></li>
-                {% endfor %}
 
-                <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
-            </ul>
-        </nav>
+                <nav class="text-center">
+                    <ul class="pagination">
+                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        <!-- Calcul du nombre de page à avoir -->
+                        {%set nb_doctorant = (listDoctorant|length/10)|round(0, 'ceil')  %}
+                        {% for i in 1..nb_doctorant %}
+                            <li><a href="#" class="btn page"> {{i}} </a></li>
+                            {% endfor %}
 
-{% endblock %}
+                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+                    </ul>
+                </nav>
+
+                {% endblock %}

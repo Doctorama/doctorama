@@ -29,8 +29,8 @@ class ReunionService
 	
 	public function addPersonne($id, $personne)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -41,24 +41,31 @@ class ReunionService
 		}
 	}
 	
-	public function deletePersonne($id, $personne)
+	public function deletePersonne($id, $idpersonne)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
 		else
 		{
-			$rep->deletePersonne($personne);
+			$tab = $rep->getPersonnes();
+			foreach($tab as $pers)
+			{
+				if($pers->getId() == $idpersonne)
+				{
+					$rep->deletePersonne($pers);
+				}
+			}
 			return $rep;
 		}
 	}
 	
 	public function getPersonnes($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -68,23 +75,10 @@ class ReunionService
 		}
 	}
 	
-	public function setlistePersonne($id, $personnes)
-	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
-		{
-			return null;
-		}
-		else
-		{
-			return $rep->setPersonnes($personnes);
-		}
-	}
-	
 	public function getDate($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -96,8 +90,8 @@ class ReunionService
 	
 	public function setDate($id, $date)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -109,8 +103,8 @@ class ReunionService
 	
 	public function getLieu($id)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
@@ -122,14 +116,39 @@ class ReunionService
 	
 	public function setLieu($id, $lieu)
 	{
-		$rep = $this->repository->findById($id);
-		if(!rep)
+		$rep = $this->repository->findOneById($id);
+		if(!$rep)
 		{
 			return null;
 		}
 		else
 		{
 			return $rep->setLieu($lieu);
+		}
+	}
+	
+	public function findReunionByPersonne($idpers)
+	{
+		$rep = $this->repository->findAll();
+		if(!$rep)
+		{
+			return null;
+		}
+		else
+		{
+			$tabpers = array();
+			foreach($rep as $reu)
+			{
+				$tab = $reu->getPersonnes();
+				foreach($tab as $pers)
+				{
+					if($pers->getId() == $idpers)
+					{
+						array_push($tabpers, array('personne' => $pers, 'reunion' => $reu));
+					}
+				}
+			}
+			return $tabpers;
 		}
 	}
 }

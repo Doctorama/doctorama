@@ -31,7 +31,7 @@ class TemplateFicheSuivi
     private $titre;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
+	 * @ORM\ManyToOne(targetEntity="DossierDeSuivi", inversedBy="templatesFicheSuivi")
 	 */
 	protected $dossierDeSuivi;
 	
@@ -77,33 +77,47 @@ class TemplateFicheSuivi
         return $this->titre;
     }
 	
+	/**
+	* Get questions
+	*
+	* @return Question
+	**/
 	public function getQuestions(){
 		return $this->questions;
 	}
 	
-	public function setQuestions($questions){
-		return $this->questions = $questions;
-	}
-	
+	/**
+	* Add questions
+	*
+	* @param Question $question
+	**/
 	public function addQuestions($question){
 		if(!$this->questions->contains($question)){
 			$this->questions[] = ($question);
-			//$question->addTemplateFicheSuivi($this);
-			//$this->items[] = ($question);
 		}
 	}
 	
-	
+	/**
+	* Get dossierDeSuivi
+	*
+	* @return DossierDeSuivi
+	**/
 	public function getDossierDeSuivi()
     {
         return $this->dossierDeSuivi;
     }
 	
+	/**
+	* Set dossierDeSuivi
+	*
+	* @param DossierDeSuivi $dossierSuivi
+	* @return DossierDeSuivi
+	*/
 	public function setDossierDeSuivi($dossierSuivi)
     {
-        $this->dossierDeSuivi = $dossierSuivi;
-		$dossierSuivi->setTemplateFicheSuivi($this);
-        return $this;
+		$this->dossierDeSuivi = $dossierSuivi;
+		$dossierSuivi->addTemplateFicheSuivi($this);
+		return $this;
     }
 
 }

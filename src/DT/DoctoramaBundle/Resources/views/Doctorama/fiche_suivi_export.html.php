@@ -1,16 +1,15 @@
 <?php
 
-if(!strcmp($_POST['export'],"CSV")){
-	echo "Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['form'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
-	$formContent = $_POST[htmlentities(str_replace('"','\"',$_POST['form']))];
+if(!strcmp($export,"CSV")){
+	echo "Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['ficheLabel'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
+	$formContent = $_POST[$_POST['ficheId']];
 	$i=0;
 	foreach($formContent as $key => $value){
 		echo htmlentities(str_replace('"','\"',$key)).";".htmlentities(str_replace('"','\"',$value))."\n";
 	}
 
-}elseif(!strcmp($_POST['export'],"PDF")){
+}elseif(!strcmp($export,"PDF")){
 	require_once('/../../../../../../vendor/html2pdf/html2pdf.class.php');
-
 	$content = "<page>
 		<style>
 			table{
@@ -39,28 +38,35 @@ if(!strcmp($_POST['export'],"CSV")){
 		</tr>
 		<tr>
 			<td>
-				<h1>Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['form']))."</h1>
+				<h1>Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['ficheId']))."</h1>
 			</td>
 			<td>
 				<h1>".htmlentities(str_replace('"','\"',$_GET['nom']))."</h1>
 			</td>
 		</tr>";
-	$formContent = $_POST[htmlentities(str_replace('"','\"',$_POST['form']))];
-	foreach($formContent as $key => $value){
+	$formContent = $_POST[$_POST['ficheId']];
+	$i=0;
+	foreach($formContent as $value){
+		if($i==0){
 		$content .= "<tr class='data'>
 						<td>
-							<p>".htmlentities(str_replace('"','\"',$key))." : </p>
-						</td>
-						<td>
+							<p>".htmlentities(str_replace('"','\"',$value))." :</p>
+						</td>";
+			$i=1;
+		}
+		elseif($i==1){
+		$content .= "<td>
 							<p>".htmlentities(str_replace('"','\"',$value))."</p>
 						</td>
-					</tr>";		
+					</tr>";	
+			$i=0;
+		}
 	}
 	$content .= "</table></page>";
 	 
 	$html2pdf = new \HTML2PDF('P','A4','fr');
 	$html2pdf->pdf->SetDisplayMode('fullpage');
 	$html2pdf->writeHTML($content);
-	$html2pdf->Output(htmlentities(str_replace('"','\"',$_GET['nom'])).'_'.htmlentities(str_replace('"','\"',$_POST['form'])).'.pdf');
+	$html2pdf->Output(htmlentities(str_replace('"','\"',$_GET['nom'])).'_'.htmlentities(str_replace('"','\"',$_POST['ficheLabel'])).'.pdf');
 }
 ?>

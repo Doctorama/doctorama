@@ -29,7 +29,7 @@ class loadTemplateDossierDeSuivi extends AbstractFixture implements OrderedFixtu
 		
 		$manager->flush();
 	}
-	//focntion ordre des fixtures
+	//fonction ordre des fixtures
 	public function getOrder(){
 		return 4;
 	}

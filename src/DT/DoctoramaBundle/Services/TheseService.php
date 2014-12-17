@@ -45,7 +45,7 @@ class TheseService
 	public function findbyId($id)
 	{
    		
-        $these = $repository->find($id);
+        $these = $repository->findById($id);
 
    		if (!$these) {
         throw $this->createNotFoundException(
@@ -220,7 +220,7 @@ class TheseService
 	public function updateTitreThese($id, $newTitreThese)
 	{
     
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -237,7 +237,7 @@ class TheseService
 	public function updateSujetThese($id, $newSujetThese)
 	{
     
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -254,7 +254,7 @@ class TheseService
 	public function updateSpecialite($id, $newSpecialite)
 	{
    
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -271,7 +271,7 @@ class TheseService
 	public function updateLaboratoire($id, $newlaboratoire)
 	{
    
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -288,7 +288,7 @@ class TheseService
 	public function updateFinancement($id, $newFinancement)
 	{
   
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -305,7 +305,7 @@ class TheseService
 	public function updatedateDebut($id, $newdateDebut)
 	{
    
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -322,7 +322,7 @@ class TheseService
 	public function updatedateDeSoutenance($id, $newdateDeSoutenance)
 	{
  
-	$these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+	$these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$These) {
         throw $this->createNotFoundException(
@@ -339,7 +339,7 @@ class TheseService
 	public function updateMention($id, $newMention)
 	{
  
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(
@@ -359,7 +359,7 @@ class TheseService
 	public function deleteThese($id)
 	{
  
-    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->find($id);
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
     if (!$these) {
         throw $this->createNotFoundException(

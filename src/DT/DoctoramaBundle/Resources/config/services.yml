@@ -2,3 +2,7 @@ services:
 #    dt_doctorama.example:
 #        class: DT\DoctoramaBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    dt.twig.doctoramatwigextension:
+            class: DT\DoctoramaBundle\Twig\DoctoramaTwigExtensions
+            tags:
+                - { name: twig.extension }

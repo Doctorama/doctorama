@@ -20,11 +20,52 @@ class DoctorantServiceTest extends WebTestCase
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 	
-	public function testcreateDoctorant()
-    {
+	private function viderTable()
+	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
 		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+	}
+	
+	private function creer1Doctorant()
+	{
+		$doctorant = new Doctorant();
+		
+		$doctorant->setNom('Demko');
+		$doctorant->setPrenom('Christophe');
+		$doctorant->setNomUsage('Demko2');
+		$doctorant->setCivilite('Monsieur');
+		$doctorant->setAdresse('1 rue des roses');
+		$doctorant->setMail('Demko@adresse.com');
+		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
+		$doctorant->setNationalite('FR');
+		$doctorant->setVilleDeNaissance('La Rochelle');
+		$doctorant->setPaysDeNaissance('France');
+		$doctorant->setDepDeNaissance('17');
+		$doctorant->setNumEtudiant('123456');
+		$doctorant->setBourseEtExoneration('0');
+		$doctorant->setDateInscr1eThese('2010-09-03');
+		$doctorant->setDcace('rr');
+		$doctorant->setNomFormationMaster('ICONE');
+		$doctorant->setUniversiteMaster('ULR');
+		$doctorant->setSujetMaster('M1');
+		$doctorant->setLaboratoireAcceuilMaster('L3I');
+		$doctorant->setEncadrantsMaster('C. Demko');
+		$doctorant->setEtabDernierDiplome('ULR');
+		$doctorant->setDepDernierDiplome('17');
+		$doctorant->setPaysDernierDiplome('France');
+		$doctorant->setLibelleDernierDiplome('ICONE');
+		$doctorant->setAnneeDernierDiplome('2014-06-20');
+		
+		$this->em->persist($doctorant);
+		$this->em->flush();
+		
+		return $doctorant;
+	}
+	
+	public function testcreateDoctorant()
+    {
+		$this->viderTable();
 		
 		
 		$ds = new DoctorantService($this->em);
@@ -108,41 +149,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	/*public function testfindDoctorantByNom()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByNom('Demko');
 		$this->assertEquals(1, sizeof($en));
@@ -150,41 +159,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByNomUsage()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByNomUsage('Demko2');
 		$this->assertEquals(1, sizeof($en));
@@ -193,41 +170,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByCivilite()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByCivilite('Monsieur');
 		$this->assertEquals(1, sizeof($en));
@@ -236,41 +181,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByPrenom()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByPrenom('Christophe');
 		$this->assertEquals(1, sizeof($en));
@@ -279,41 +192,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByMail()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByMail('Demko@adresse.com');
 		$this->assertEquals(1, sizeof($en));
@@ -322,41 +203,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByDateDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByDateDeNaissance(new \DateTime('2000-01-01'));
 		$this->assertEquals(1, sizeof($en));
@@ -365,41 +214,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByNationalite()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByNationalite('FR');
 		$this->assertEquals(1, sizeof($en));
@@ -408,41 +225,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByVilleDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByVilleDeNaissance('La Rochelle');
 		$this->assertEquals(1, sizeof($en));
@@ -451,41 +236,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByPaysDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByPaysDeNaissance('France');
 		$this->assertEquals(1, sizeof($en));
@@ -494,41 +247,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByDepDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByDepDeNaissance('17');
 		$this->assertEquals(1, sizeof($en));
@@ -537,41 +258,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByNumEtudiant()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByNumEtudiant('123456');
 		$this->assertEquals(1, sizeof($en));
@@ -580,41 +269,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByBourseEtExoneration()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByBourseEtExoneration('0');
 		$this->assertEquals(1, sizeof($en));
@@ -623,41 +280,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByDateInscr1eThese()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByDateInscr1eThese('2010-09-03');
 		$this->assertEquals(1, sizeof($en));
@@ -666,41 +291,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByDcace()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByDcace('rr');
 		$this->assertEquals(1, sizeof($en));
@@ -709,41 +302,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByNomFormationMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByNomFormationMaster('ICONE');
 		$this->assertEquals(1, sizeof($en));
@@ -752,41 +313,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByUniversiteMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByUniversiteMaster('ULR');
 		$this->assertEquals(1, sizeof($en));
@@ -795,41 +324,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantBySujetMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantBySujetMaster('M1');
 		$this->assertEquals(1, sizeof($en));
@@ -838,41 +335,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByLaboratoireAcceuilMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByLaboratoireAcceuilMaster('L3I');
 		$this->assertEquals(1, sizeof($en));
@@ -881,41 +346,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByEncadrantsMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByEncadrantsMaster('C. Demko');
 		$this->assertEquals(1, sizeof($en));
@@ -924,41 +357,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByEtabDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByEtabDernierDiplome('ULR');
 		$this->assertEquals(1, sizeof($en));
@@ -967,41 +368,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByPaysDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByPaysDernierDiplome('France');
 		$this->assertEquals(1, sizeof($en));
@@ -1010,41 +379,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByLibelleDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByLibelleDernierDiplome('ICONE');
 		$this->assertEquals(1, sizeof($en));
@@ -1053,41 +390,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByAnneeDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByAnneeDernierDiplome('2014-06-20');
 		$this->assertEquals(1, sizeof($en));
@@ -1096,41 +401,9 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindDoctorantByDepDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findDoctorantByDepDernierDiplome('17');
 		$this->assertEquals(1, sizeof($en));
@@ -1139,72 +412,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testfindAll()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->findAll();
 		$this->assertEquals(2, sizeof($en));
@@ -1213,72 +424,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateNom()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateNom(2, "Demko123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1287,72 +436,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateNomUsage()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateNomUsage(2, "Demko123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1361,72 +448,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateCivilite()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateCivilite(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1435,72 +460,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdatePrenom()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updatePrenom(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1509,72 +472,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateAdresse()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateAdresse(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1583,72 +484,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateMail()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateMail(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1657,72 +496,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateDateDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateDateDeNaissance(2, new \DateTime('2000-01-02'));
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1731,72 +508,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateNationalite()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateNationalite(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1805,72 +520,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateVilleDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateVilleDeNaissance(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1879,72 +532,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdatePaysDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updatePaysDeNaissance(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -1953,72 +544,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateDepDeNaissance()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateDepDeNaissance(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2027,72 +556,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateNumEtudiant()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateNumEtudiant(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2101,72 +568,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateBourseEtExoneration()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateBourseEtExoneration(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2175,72 +580,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateDateInscr1eThese()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateDateInscr1eThese(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2249,72 +592,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateDcace()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateDcace(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2323,72 +604,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateNomFormationMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateNomFormationMaster(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2397,72 +616,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateUniversiteMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateUniversiteMaster(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2471,72 +628,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateSujetMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateSujetMaster(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2545,72 +640,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateLaboratoireAccueilMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateLaboratoireAccueilMaster(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2619,72 +652,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateEncadrantsMaster()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateEncadrantsMaster(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2693,72 +664,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateEtabDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateEtabDernierDiplome(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2767,72 +676,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateDepDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateDepDernierDiplome(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2841,72 +688,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdatePaysDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updatePaysDernierDiplome(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2915,72 +700,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateLibelleDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateLibelleDernierDiplome(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -2989,72 +712,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testupdateAnneeDernierDiplome()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->updateAnneeDernierDiplome(2, "test123");
 		$req = $this->em->getRepository("DTDoctoramaBundle:Doctorant")->findOneById(2);
@@ -3063,72 +724,10 @@ class DoctorantServiceTest extends WebTestCase
 	
 	public function testdelete()
 	{
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
-		$this->em->getConnection()->prepare("TRUNCATE TABLE Doctorant")->execute();
-		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
+		$this->viderTable();		
+		$this->creer1Doctorant();
+		$this->creer1Doctorant();
 		$es = new DoctorantService($this->em);
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
-		
-		$doctorant = new Doctorant;
-		
-		$doctorant->setNom('Demko');
-		$doctorant->setPrenom('Christophe');
-		$doctorant->setNomUsage('Demko2');
-		$doctorant->setCivilite('Monsieur');
-		$doctorant->setAdresse('1 rue des roses');
-		$doctorant->setMail('Demko@adresse.com');
-		$doctorant->setDateDeNaissance(new \DateTime('2000-01-01'));
-		$doctorant->setNationalite('FR');
-		$doctorant->setVilleDeNaissance('La Rochelle');
-		$doctorant->setPaysDeNaissance('France');
-		$doctorant->setDepDeNaissance('17');
-		$doctorant->setNumEtudiant('123456');
-		$doctorant->setBourseEtExoneration('0');
-		$doctorant->setDateInscr1eThese('2010-09-03');
-		$doctorant->setDcace('rr');
-		$doctorant->setNomFormationMaster('ICONE');
-		$doctorant->setUniversiteMaster('ULR');
-		$doctorant->setSujetMaster('M1');
-		$doctorant->setLaboratoireAcceuilMaster('L3I');
-		$doctorant->setEncadrantsMaster('C. Demko');
-		$doctorant->setEtabDernierDiplome('ULR');
-		$doctorant->setDepDernierDiplome('17');
-		$doctorant->setPaysDernierDiplome('France');
-		$doctorant->setLibelleDernierDiplome('ICONE');
-		$doctorant->setAnneeDernierDiplome('2014-06-20');
-		
-		$this->em->persist($doctorant);
-		$this->em->flush();
 		
 		$en = $es->delete(1);
 		

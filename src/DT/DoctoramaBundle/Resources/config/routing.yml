@@ -63,3 +63,13 @@ dt_export_fiche:
 dt_modif_reunion:
     pattern: /modifier_reunion
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifReunion}
+
+    
+dt_doctorama_importCsv:
+    pattern: /importation_csv
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:importCsv}
+    
+dt_doctorama_parse_csv:
+    pattern: /parse_csv
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:parseCsv}	
+

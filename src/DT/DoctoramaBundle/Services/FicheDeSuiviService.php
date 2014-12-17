@@ -30,7 +30,7 @@ class FicheDeSuiviService
 
 	public function findbyId($id)
 	{		
-        $these = $this->repository->findById($id);
+        $these = $this->repository->findOneById($id);
 
    		if (!$ficheDeSuivi) {
 			return null;
@@ -40,7 +40,7 @@ class FicheDeSuiviService
     public function findByIdType($idType)
 	{
 
-		$these = $this->repository->findById($idType);
+		$these = $this->repository->find($idType);
 
 		if (!$ficheDeSuivi) {
 			return null;
