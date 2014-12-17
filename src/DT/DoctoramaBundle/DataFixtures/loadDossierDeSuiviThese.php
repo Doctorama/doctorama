@@ -21,8 +21,16 @@ class loadDossierDeSuiviThese extends AbstractFixture implements OrderedFixtureI
 		$dossierDeSuivi2 = new DossierDeSuivi;
 		$dossierDeSuivi2->setCommentaires('Un commentaire');
 		
+		$dossierDeSuivi3 = new DossierDeSuivi;
+		$dossierDeSuivi3->setCommentaires('Un commentaire');
+		
+		$dossierDeSuivi4 = new DossierDeSuivi;
+		$dossierDeSuivi4->setCommentaires('Un commentaire');
+		
 		$manager->persist($dossierDeSuivi);
 		$manager->persist($dossierDeSuivi2);
+		$manager->persist($dossierDeSuivi3);
+		$manager->persist($dossierDeSuivi4);
 		$manager->flush();
 		
 		$dds = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These');
@@ -30,6 +38,12 @@ class loadDossierDeSuiviThese extends AbstractFixture implements OrderedFixtureI
 		
 		$dossierDeSuivi->setThese($dds[sizeof($dds)-1]);
 		$dossierDeSuivi2->setThese($dds2[sizeof($dds2)-1]);
+		
+		$dds3 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These3');
+		$dds4 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These4');
+		
+		$dossierDeSuivi3->setThese($dds3[sizeof($dds3)-1]);
+		$dossierDeSuivi4->setThese($dds4[sizeof($dds4)-1]);
 		
 		$manager->flush();
 	}

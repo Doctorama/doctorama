@@ -190,6 +190,32 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these2->setDateDESoutenance(new \DateTime('2017-01-01'));
 		$these2->setMention('Bien');
 		
+		$these3 = new These;
+		
+		$these3->setTitreThese('Une These3');
+		$these3->setSujetThese('un Sujet');
+		$these3->setSpecialite('Informatique');
+		$these3->setLaboratoire('L3I');
+		$these3->setAxeThematique('info');
+		$these3->setAxeScientifique('aaa');
+		$these3->setFinancement('Une societe');
+		$these3->setDateDebut(new \DateTime('2014-01-01'));
+		$these3->setDateDESoutenance(new \DateTime('2017-01-01'));
+		$these3->setMention('');
+		
+		$these4 = new These;
+		
+		$these4->setTitreThese('Une These4');
+		$these4->setSujetThese('un Sujet');
+		$these4->setSpecialite('Informatique');
+		$these4->setLaboratoire('L3I');
+		$these4->setAxeThematique('info');
+		$these4->setAxeScientifique('aaa');
+		$these4->setFinancement('Une societe');
+		$these4->setDateDebut(new \DateTime('2014-01-01'));
+		$these4->setDateDESoutenance(new \DateTime('2017-01-01'));
+		$these4->setMention('');
+		
 		/********************* Association Doctorant These *************************/
 		
 		
@@ -199,6 +225,8 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
         $manager->persist($doctorant3);
         $manager->persist($doctorant4);
 		$manager->persist($these2);
+		$manager->persist($these3);
+		$manager->persist($these4);
 		$manager->persist($compte);
 		$manager->persist($compte2);
         $manager->persist($compte3);
@@ -210,6 +238,11 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant->setThese($th[sizeof($th)-1]);
 		$th2 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These2');
 		$doctorant2->setThese($th2[sizeof($th2)-1]);
+		
+		$th3 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These3');
+		$doctorant3->setThese($th3[sizeof($th3)-1]);
+		$th4 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These4');
+		$doctorant4->setThese($th4[sizeof($th4)-1]);
 		
 		$manager->flush();
 		

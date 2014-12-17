@@ -2,54 +2,55 @@
 {% extends "DTDoctoramaBundle::index.html.twig" %}
 
 {% block DTDoctoramaBody %}
+	
+	<legend>
+      <h3>Calendrier Réunions</h3>
 
-	<div class="page-header borderColor">
-      <h2>Calendrier Réunions</h2>
-    </div>
+    </legend>
 	
 	<section class="row" >
+		
 		<div class="col-lg-5 col-md-6">
-
+		  <a href="{{ path('dt_creation_reunion') }}" style="margin-bottom:15px;" class="btn  btn-success" role="button">Création Réunion</a>	
 				{% for j in 0..7 %}
-						 {%set i = 0%}
+					{%set i = 0%}
 					 
-				<div class="table-responsive">
-				<table class="table border1px table-striped">
-						{%set b = 0%}
-						{% for reunion in reunions %}
-						{%if date(reunion.date)|date("d/m") == ("now"|date_modify("+" ~ j ~ "day")|date("d/m"))  %}   
-					 	  {%set i = i+1%}
-
-					 	  {%if b == 0%}
+					<div class="table-responsive">
+					<table class="table border1px table-striped">
+					{%set b = 0%}
+					{% for reu in reunions %}
+						{%if date(reu.reunion.date)|date("d/m") == ("now"|date_modify("+" ~ j ~ "day")|date("d/m"))  %}   
+					 	  	{%set i = i+1%}
+					 	  	{%if b == 0%}
 							 	<thead>
 									<tr>
 										  <th>#</th>
 										  <th>{{"now"|date_modify("+" ~ j ~ "day")|date("d/m")}} </th>
 										  <th>Participants</th>
 										  <th>Salle</th>
+										  <th> </th>
 									</tr>
 								</thead>
 								{%set b = 1%}
 							{% endif %}
-						 <tbody>
-						    <tr>
-						    <td>   {{i}}   </td>
-						    <td>{{ reunion.date|date("H:i") }}</td>
-						    <td>
-						    {%set chaine = '' %}
-						   
-							    {% for participant in reunion.personnes %}
-							     {{ participant.nom  ~ " " ~   participant.prenom }}
-							   {% endfor %}
-							    <span class="pull-right glyphicon glyphicon-collapse-down" data-toggle="tooltip" data-content="{% for participant in reunion.personnes %}
-							     {{ participant.nom  ~  participant.prenom }}
-							   {% endfor %} "> </span></td>
-							   <td>{{reunion.lieu}} </td>
-							</tr>
-						 </tbody>
+						 	<tbody>
+							    <tr>
+								    <td>   {{i}}   </td>
+								    <td>{{ reu.reunion.date|date("H:i") }}</td>
+								    <td>
+								    {%set chaine = '' %}
+								     		{{ reu.participants[0].nom  ~ " " ~   reu.participants[0].prenom }}
+
+									   <span class="pull-right glyphicon glyphicon-collapse-down" data-toggle="tooltip" data-content="{% for participant in reu.participants %}
+								     		{{ participant.nom  ~ " " ~   participant.prenom }}
+									   	{% endfor %}"> </span>
+									</td>
+									 <td>{{reu.reunion.lieu}} </td>
+									 <td class=" pull-right"><a href="{{ path('dt_modif_reunion', {'id_reunion': reu.reunion.id}) }}" class="btn btn-xs btn-info" role="button">Détails</a></td>
+								</tr>
+							</tbody>
 					 	{% endif %}
-					 {% endfor %}
-					
+				 	{% endfor %}
 				</table>
 				</div>
 				{% endfor %}

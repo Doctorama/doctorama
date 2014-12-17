@@ -1,5 +1,4 @@
 <?php
-
 if(!strcmp($export,"CSV")){
 	echo "Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['ficheLabel'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
 	$formContent = $_POST[$_POST['ficheId']];
@@ -7,7 +6,6 @@ if(!strcmp($export,"CSV")){
 	foreach($formContent as $key => $value){
 		echo htmlentities(str_replace('"','\"',$key)).";".htmlentities(str_replace('"','\"',$value))."\n";
 	}
-
 }elseif(!strcmp($export,"PDF")){
 	require_once('/../../../../../../vendor/html2pdf/html2pdf.class.php');
 	$content = "<page>
@@ -63,7 +61,6 @@ if(!strcmp($export,"CSV")){
 		}
 	}
 	$content .= "</table></page>";
-	 
 	$html2pdf = new \HTML2PDF('P','A4','fr');
 	$html2pdf->pdf->SetDisplayMode('fullpage');
 	$html2pdf->writeHTML($content);

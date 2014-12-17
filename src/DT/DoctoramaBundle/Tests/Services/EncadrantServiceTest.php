@@ -50,7 +50,7 @@ class EncadrantServiceTest extends WebTestCase
 	}
 	
 	// Test création encadrant
-    public function testcreateEncadrant()
+    /*public function testcreateEncadrant()
     {
 		$this->viderTable();
 		
@@ -92,7 +92,7 @@ class EncadrantServiceTest extends WebTestCase
         $this->assertEquals(1, sizeof($en));
     }
 	
-	/*// Test "retrouver un encadrant par son id"
+	// Test "retrouver un encadrant par son id"
 	public function testfindEncadrantById()
 	{
 		$this->viderTable();	
@@ -423,8 +423,8 @@ class EncadrantServiceTest extends WebTestCase
 		
 		$en = $this->em->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
 		$this->assertEquals(1, sizeof($en));
-	}*/
-	
+	}
+	*/
 }
 
 

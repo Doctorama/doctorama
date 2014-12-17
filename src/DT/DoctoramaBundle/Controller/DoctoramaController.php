@@ -84,68 +84,43 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant' => $listDoctorant));
     }
 
-    public function agendaAction(Request $request) {
-        /* $personne1 = new Personne();
-          $personne1->setNom("NEILZ");
-          $personne1->setPrenom("Benjamin");
+    
+    public function agendaAction(Request $request)
+    {
+         $user = $this->get('security.context')->getToken()->getUser();
+        if(method_exists($user,'getEncadrant'))
+        {
+            $reu = $user->getEncadrant()->getReunions();
 
-          $personne2 = new Personne();
-          $personne2->setNom("FOURNIER");
-          $personne2->setPrenom("Pierre");
-
-          $personne3 = new Personne();
-          $personne3->setNom("REVEL");
-          $personne3->setPrenom("ARNAUD");
-
-          $personne4 = new Personne();
-          $personne4->setNom("BERTER");
-          $personne4->setPrenom("Karel");
-
-
-          $reunion1 = new Reunion;
-          $reunion1->setDate(new DateTime('2014-12-12 08:00:00'));
-          $reunion1->setLieu("Pascal 135");
-          $reunion1->addPersonne($personne1);
-          $reunion1->addPersonne($personne3);
-
-          $reunion2 = new Reunion;
-          $reunion2->setDate(new DateTime('2014-12-19 10:00:00'));
-          $reunion2->setLieu("MSI 223");
-          $reunion2->addPersonne($personne2);
-          $reunion2->addPersonne($personne4);
-
-
-          $reunion3 = new Reunion;
-          $reunion3->setDate(new DateTime('2014-12-15 10:00:00'));
-          $reunion3->setLieu("MSI 20");
-          $reunion3->addPersonne($personne2);
-          $reunion3->addPersonne($personne4);
-
-
-          $reunion4 = new Reunion;
-          $reunion4->setDate(new DateTime('2014-12-15 10:00:00'));
-          $reunion4->setLieu("MSI 4000");
-          $reunion4->addPersonne($personne2);
-          $reunion4->addPersonne($personne4);
-
-          $reunions=array('1'=>$reunion1,'2'=>$reunion2, '3'=>$reunion3, '4'=>$reunion4); */
-
-        $user = $this->get('security.context')->getToken()->getUser();
-        $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
-        $reunions = array();
-        if (method_exists($user, 'getEncadrant')) {
-            $reunions = $user->getEncadrant()->getReunion();
-        } else {
-            $reunions = $reunionRepository->findAll();
         }
-
-
-        foreach ($reunions as $reunion) {
-            $event[] = array(
-                'start' => $reunion->getDate()->format('Y-m-d H:i:s'),
-                'title' => $reunion->getLieu());
+        else if(method_exists($user, 'getDoctorant'))
+        {
+            $reu=$user->getDoctorant()->getReunions();
         }
+        else
+        {
+            $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
+            $reu=$reunionRepository->findAll();
+        }
+        
+        foreach ($reu as $reunion) 
+        {
+            $pers[] = array('nom'=>$reunion->getDoctorant()->getNom(),
+                    'prenom'=>$reunion->getDoctorant()->getPrenom());
 
+            foreach ($reunion->getEncadrants() as $personnes) {
+                $pers[] = array('nom'=>$personnes->getNom(),
+                    'prenom'=>$personnes->getPrenom());
+            }
+            
+            $reunions[]=array(
+                    'reunion'=>$reunion, 
+                    'participants'=>$pers);
+
+            $event[]=array(
+                    'start'=>$reunion->getDate()->format('Y-m-d H:i:s'),
+                    'title'=>$reunion->getLieu());
+        }
 
 
         if (!$fp = fopen("../../mydate.php", 'w+')) {
@@ -156,12 +131,19 @@ class DoctoramaController extends Controller {
             fclose($fp);
         }
 
+        // var_dump($reunions);
 
-        return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda', 'reunions' => $reunions));
+
+        return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
+
+
+        
     }
+    
+    public function statistiquesAction(Request $request)
+    {
+	$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
 
-    public function statistiquesAction(Request $request) {
-        $EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
         $listEncadrant = $EncadrantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques',
                     'dureeMoyenne' => '40 mois',
@@ -251,102 +233,41 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis', 'formDoctorant' => $formDoctorant->createView()));
     }
 
-    public function detailDoctorantAction(Request $request, $id_doctorant) {
-        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
-        $formDoctorant = $this->createForm(new DoctorantType(true), $doctorant, array('method' => 'GET', 'read_only' => true));
-
-        return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Détails du doctorant', 'formDoctorant' => $formDoctorant->createView(), 'doctorant' => $doctorant));
-
-
-        /* 	$DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-          $doctorant = $DoctorantRepository->find($id_doctorant);
-          $EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
-          $listEncadrant = $EncadrantRepository->findAll();
-          return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig',
-          array(
-          'title'=>'Détails',
-          'titre' => 'Detail du doctorant',
-          'doctorant'=>$doctorant,
-          'titreThese'=>'titre',
-          'directeur'=>'dirlo',
-          'encadrantsDoctorant'=>$listEncadrant,
-          'axe_thematique'=>'thematique',
-          'axe_scientifique'=>'scientifique',
-          'financement'=>'financement',
-          'date_inscription'=>'premiere',
-          'date_fin'=>'fin prévue',
-          'dcace'=>'dcace',
-          'formation'=>'formation',
-          'universite'=>'univ',
-          'sujetMaster'=>'sujetMaster',
-          'laboratoire'=>'labo',
-          'encadrantsMaster'=>array(
-          array(
-          'nom'=>'Totomaster','prenom'=>'Titimaster'
-          ),
-          array(
-          'nom'=>'Tatamaster','prenom'=>'Tutumaster'
-          )
-          ),
-          'fiches'=>array(
-          'T6'=>array(
-          'label'=>'T+6',
-          'date_reunion'=>'16-1-14',
-          'questions'=>array(
-          array(
-          'question'=>'question1',
-          'reponse'=>'reponse1'
-          ),
-          array(
-          'question'=>'question2',
-          'reponse'=>'reponse2'
-          ),
-          array(
-          'question'=>'question3',
-          'reponse'=>'reponse3'
-          ),
-          ),
-          ),
-          'T9'=>array(
-          'label'=>'T+9',
-          'date_reunion'=>'16-9-14',
-          'questions'=>array(
-          array(
-          'question'=>'question10',
-          'reponse'=>'reponse10'
-          ),
-          array(
-          'question'=>'question20',
-          'reponse'=>'reponse20'
-          ),
-          array(
-          'question'=>'question30',
-          'reponse'=>'reponse30'
-          ),
-          ),
-          ),
-          'T12'=>array(
-          'label'=>'T+12',
-          'date_reunion'=>'16-12-14',
-          'questions'=>array(
-          array(
-          'question'=>'question100',
-          'reponse'=>'reponse100'
-          ),
-          array(
-          'question'=>'question200',
-          'reponse'=>'reponse200'
-          ),
-          array(
-          'question'=>'question300',
-          'reponse'=>'reponse300'
-          ),
-          ),
-          ),
-          ),
-          )
-          ); */
-    }
+	
+    public function detailDoctorantAction(Request $request, $id_doctorant)
+	{
+		$doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+		$formDoctorant = $this->createForm(new DoctorantType(true), $doctorant, array('method' => 'GET','read_only'=>true));
+		$em = $this->getDoctrine()->getManager();
+		$reponses = array();
+		$fiches = array();
+		foreach($doctorant->getReunions() as $reunion){
+			$templateFicheSuivi = $doctorant->getThese()->getDossierDeSuivi()->getTemplateFicheSuivi();
+			$fiches[$reunion->getLibelle()] = array(
+				'label'=>$reunion->getLibelle(),
+				'date_reunion'=>$reunion->getDate()->format('m/d/Y'),
+				'questions'=>array()
+			);
+			foreach($templateFicheSuivi as $template){
+				foreach($template->getQuestions() as $question){
+					$query = $em->createQuery("SELECT r FROM DTDoctoramaBundle:Reponse r WHERE r.question= :id")->setParameter('id',$question->getId());
+					$fiche = $query->getResult();
+					$reponse = $query->getResult();
+					array_push($fiches[$reunion->getLibelle()]['questions'], array(
+						'question' => $question->getQuestion(),
+						'reponse' => $reponse[0]->getReponse(),
+					));
+				}
+			}
+		}
+		return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array(
+				'title' => 'Détails du doctorant',
+				'formDoctorant' => $formDoctorant->createView(),
+				'doctorant' => $doctorant,
+				'fiches' => $fiches,
+			)
+		);
+	}
 
     public function creationDossierAction(Request $request) {
 
@@ -517,6 +438,35 @@ class DoctoramaController extends Controller {
             return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion', 'formReunion' => $formReunion->createView()));
+    }
+
+
+
+        public function creationReunionAction(Request $request){
+
+       $reunion = new Reunion();
+
+        $formReunion = $this->createForm(new ReunionType(), $reunion);
+        $formReunion->add('save',      'submit');
+        // On fait le lien Requête <-> Formulaire
+        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        $formReunion->handleRequest($request);
+            
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($formReunion->isValid()) {
+        
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reunion);
+            $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Reunion crée');
+
+          // On redirige vers la page de visualisation de l'annonce nouvellement créée
+          return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
+        }
+        return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Creation reunion','formReunion' => $formReunion->createView()));
     }
 
 }

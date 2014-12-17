@@ -20,17 +20,29 @@ class loadTemplateDossierDeSuivi extends AbstractFixture implements OrderedFixtu
 		$template3 = new TemplateFicheSuivi;
 		$template3->setTitre('Un template2');
 		
+		$template4 = new TemplateFicheSuivi;
+		$template4->setTitre('Un template2');
+		
+		$template5 = new TemplateFicheSuivi;
+		$template5->setTitre('Un template2');
+		
 		$manager->persist($template);
 		$manager->persist($template2);
 		$manager->persist($template3);
+		$manager->persist($template4);
+		$manager->persist($template5);
 		$manager->flush();
 		
 		$t = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(1);
 		$t2 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(2);
+		$t3 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(3);
+		$t4 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(4);
 		
 		$template->setDossierDeSuivi($t[0]);
 		$template2->setDossierDeSuivi($t2[0]);
 		$template3->setDossierDeSuivi($t2[0]);
+		$template4->setDossierDeSuivi($t3[0]);
+		$template5->setDossierDeSuivi($t4[0]);
 		
 		$manager->flush();
 	}
