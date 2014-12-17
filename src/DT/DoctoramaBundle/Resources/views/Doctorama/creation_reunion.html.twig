@@ -20,27 +20,27 @@
         </legend>
 
         <div class="form-group">
-            {{ form_label(formReunion.lieu,"Lieu",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-            <div class="col-sm-6">
+            {{ form_label(formReunion.lieu,"lieu",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            <div class="col-sm-9">
                 {{ form_widget(formReunion.lieu,{'attr': {'class': 'form-control'} }) }}
             </div>
 
         </div >
         <div class="form-group">
-            {{ form_label(formReunion.date,"Date",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            {{ form_label(formReunion.date,"date",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
             <div class="col-sm-9">
                 {{ form_widget(formReunion.date) }}
             </div>
         </div>
          <div class="form-group">
-            {{ form_label(formReunion.encadrants,"Encadrant",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            {{ form_label(formReunion.encadrants,"Personne",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
             <div class="col-sm-9">
                 {{ form_widget(formReunion.encadrants) }}
             </div>
 
         </div>
             <div class="form-group">
-            {{ form_label(formReunion.doctorant,"Doctorant",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            {{ form_label(formReunion.doctorant,"Personne",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
             <div class="col-sm-9">
                 {{ form_widget(formReunion.doctorant) }}
             </div>
@@ -49,7 +49,7 @@
              </div>
             <div class="form-group">
             {{ form_label(formReunion.libelle,"Libelle",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 {{ form_widget(formReunion.libelle) }}
             </div>
         </div>

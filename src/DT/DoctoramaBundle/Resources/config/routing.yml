@@ -73,3 +73,8 @@ dt_doctorama_parse_csv:
     pattern: /parse_csv
     defaults: { _controller: DTDoctoramaBundle:Doctorama:parseCsv}	
 
+    
+dt_creation_reunion:
+    pattern: /creation_reunion
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:creationReunion}
+
