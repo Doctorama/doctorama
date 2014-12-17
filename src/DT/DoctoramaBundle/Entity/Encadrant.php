@@ -29,6 +29,12 @@ class Encadrant extends Personne {
      * @ORM\ManyToMany(targetEntity="These", inversedBy="encandrants")
      * */
     private $theses;
+	
+	/**
+     * @ORM\ManyToMany(targetEntity="These", inversedBy="directeursDeThese")
+     * @ORM\JoinTable(name="directeur_these")
+     * */
+    private $thesesDirecteur;
 
     public function __construct() {
         $this->reunions = new \Doctrine\Common\Collections\ArrayCollection();
