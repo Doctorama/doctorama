@@ -180,7 +180,7 @@ class ReunionServiceTest extends WebTestCase
 		
 		$this->assertEquals("015", $reu->getLieu());
 	}
-	*/
+	
 	public function testfindReunionByPersonne()
 	{
 		$this->viderTable();
@@ -199,6 +199,6 @@ class ReunionServiceTest extends WebTestCase
 		$rs->addPersonne(1, $enc3);
 		$rs->addPersonne(1, $enc4);
 		
-		$rs->findReunionByPersonne(1);
-	}
+		$rs->findReunionByPersonne(2);
+	}*/
 }
