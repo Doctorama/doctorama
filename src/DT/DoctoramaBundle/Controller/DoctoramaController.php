@@ -88,12 +88,12 @@ class DoctoramaController extends Controller {
     public function agendaAction(Request $request)
     {
          $user = $this->get('security.context')->getToken()->getUser();
-        if(method_exists($user,'getEncadrant'))
+        if(method_exists($user,'getEncadrant') && $user->getEncadrant()!= null)
         {
             $reu = $user->getEncadrant()->getReunions();
 
         }
-        else if(method_exists($user, 'getDoctorant'))
+        else if(method_exists($user, 'getDoctorant') && $user->getDoctorant()!= null)
         {
             $reu=$user->getDoctorant()->getReunions();
         }
