@@ -29,7 +29,7 @@ class These {
     /**
      * @var string
      *
-     * @ORM\Column(name="titreThese", type="string", length=255)
+     * @ORM\Column(name="titreThese", type="string", length=255, nullable=true)
      */
     private $titreThese;
 
@@ -106,21 +106,21 @@ class These {
      * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theses")
      */
     protected $encadrants;
-	
-	/**
-     *
-     * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
-     */
-    protected $directeursDeThese;
 
     /**
      * @ORM\OneToOne(targetEntity="Doctorant")
      */
     protected $doctorant;
 
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
+     */
+    protected $directeursDeThese;
+
     public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

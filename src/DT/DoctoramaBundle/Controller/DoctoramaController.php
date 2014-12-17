@@ -384,33 +384,163 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
 
-    public function parseCsvAction(Request $request) {
-        $reponse;
-
-        $uploads_dir = "bundles/doctorama/uploads/";
-
-        $tmp_name = $_FILES["file"]["tmp_name"];
+public function parseCsvAction(Request $request)
+    {
+    	$reponse;
+    	$tab_intitule = array(); 
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	$uploads_dir = "bundles/doctorama/uploads/";
+		$tmp_name = $_FILES["file"]["tmp_name"];
         $name = $_FILES["file"]["name"];
-
-        if (move_uploaded_file($tmp_name, "$uploads_dir/$name")) {
-            //$reponse = 'Upload effectué avec succès pour le fichier '; 
-        } else {
-            //$reponse = 'Echec de l\'upload. '; 
-        }
-
-        $ligne = 1; // compteur de ligne
-        $fic = fopen("$uploads_dir/$name", "a+");
-        while ($tab = fgetcsv($fic, 1024, ';')) {
-            $champs = count($tab); //nombre de champ dans la ligne en question	
-            //affichage de chaque champ de la ligne en question
-            if ($ligne > 1) {
-                for ($i = 0; $i < $champs; $i ++) {
-                    $reponse = $reponse . $tab[$i] . "<br />";
-                }
-            }
-            $ligne ++;
-        }
-
+		if(move_uploaded_file($tmp_name, "$uploads_dir/$name")) 
+		{ 
+			$ligne = 1; // compteur de ligne
+			$fic = fopen("$uploads_dir/$name", "a+");
+			while($tab=fgetcsv($fic,1024,';')) {
+				
+				//Création des enregistrements:
+				$doctorant = new Doctorant();
+    			$these = new These();
+    			
+				//nombre de champ dans la ligne en question
+				$champs = count($tab);	
+				
+				//Récupération des entités du fichier CSV dans un tableau
+				if ($ligne==1) {
+					for($i=0; $i<$champs; $i ++) {
+						$tab_intitule[$i] = $tab[$i];
+					}
+				}
+				
+				//affichage de chaque champ de la ligne en question
+					if ($ligne>1) {
+						if (!$tab[0] == "") {
+							for($i=0; $i<$champs; $i ++) {	
+								
+								switch ($i) {
+		    						case 0:
+		        						$doctorant->setNumEtudiant($tab[$i]);
+						        		break;
+						    		case 1:
+						        		$doctorant->setCivilite($tab[$i]);
+						        		break;
+						    		case 2:
+						    			$doctorant->setNom($tab[$i]);
+						    			$reponse = $tab[$i];
+						        		break;
+						    		case 3:
+						    			$doctorant->setNomUsage($tab[$i]);
+						        		break;
+		    						case 4:
+		        						$doctorant->setPrenom($tab[$i]);
+						        		break;
+						    		case 5:
+						    			//Faut changer la date
+						        		$doctorant->setDateDeNaissance(new \DateTime($tab[$i]));
+						        		break;
+						    		case 6:
+						        		$doctorant->setNationalite($tab[$i]);
+						        		break;
+						    		case 7:
+						        		$doctorant->setVilleDeNaissance($tab[$i]);
+						        		break;
+						    		case 8:
+						        		$doctorant->setPaysDeNaissance($tab[$i]);
+						        		break;
+						    		case 9:
+						    			$doctorant->setDepDeNaissance($tab[$i]);
+						        		break;
+						    		case 10:
+						    			$doctorant->setUniversiteMaster($tab[$i]);
+						        		break;
+		    						case 11:
+		        						$doctorant->setEtabDernierDiplome($tab[$i]);
+						        		break;
+						    		case 12:
+						        		$doctorant->setSujetMaster($tab[$i]);
+						        		break;
+						    		case 13:
+						        		break;
+						    		case 14:
+						        		$doctorant->setLibelleDernierDiplome($tab[$i]);
+						        		break;
+						    		case 15:
+						        		$doctorant->setAnneeDernierDiplome($tab[$i]);
+						        		break;
+		    						case 16:
+						        		break;
+						    		case 17:
+						        		break;
+						    		case 18:
+						        		break;
+						    		case 19:
+						        		break;
+		    						case 20:
+		        						$doctorant->setAdresse($tab[$i]);
+						        		break;
+						    		case 21:
+						        		$doctorant->setMail($tab[$i]);
+						        		break;
+						    		case 22:
+						        		break;
+						    		case 23:
+						        		break;
+						    		case 24:
+						        		break;
+						    		case 25:
+						    			$doctorant->setBourseEtExoneration($tab[$i]);
+						        		break;
+						    		case 26:
+						    			$these->setSujetThese($tab[$i]);
+						        		break;
+		    						case 27:
+		        						$these->setSpecialite($tab[$i]);
+						        		break;
+						    		case 28:
+						        		$these->setLaboratoire($tab[$i]);
+						        		break;
+						    		case 29:
+						        		//$doctorant->setIdPers($tab[$i]);
+						        		break;
+						    		case 30:
+						        		break;
+						    		case 31:
+						        		break;
+						    		case 32:
+						        		$these->setFinancement($tab[$i]);
+						        		break;
+						    		case 33:
+						        		$doctorant->setDateInscr1ethese($tab[$i]);
+						        		break;
+						    		case 34:
+						    		//Faut changer la date
+						    			$these->setDateDeSoutenance(new \DateTime($tab[$i]));
+						        		break;
+						    		case 35:
+						        		break;
+		    						case 36:
+						        		break;
+						    		case 37:
+						        		$these->setMention($tab[$i]);
+						        		break;
+								}
+								//$reponse = $reponse . $tab[$i] . "<br />";
+							}
+							$doctorant->setThese($these);
+							$em->persist($doctorant);
+							$em->persist($these);
+						}	
+					}
+				$ligne ++;
+			}
+			$reponse = "Le fichier est Uploadé et enregistré dans la base de données";
+		} 
+		else 
+		{ 
+			$reponse = 'Echec de l\'upload du fichier CSV. '; 
+		} 
+        $em->flush();
         return new Response($reponse);
     }
 
