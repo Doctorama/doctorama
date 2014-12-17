@@ -110,7 +110,7 @@ class Personne
 	*
 	* @return ArrayCollection Reunion
 	*/
-	public function getReunion(){
+	public function getReunions(){
 		return $this->reunions;
 	}
 	
