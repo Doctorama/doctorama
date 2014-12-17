@@ -58,3 +58,8 @@ dt_formulaire_creation_dossier:
 dt_export_fiche:
     pattern: /export_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFiche}
+
+ 
+dt_modif_reunion:
+    pattern: /modifier_reunion
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:modifReunion}
