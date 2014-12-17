@@ -414,30 +414,33 @@ class DoctoramaController extends Controller {
         return new Response($reponse);
     }
 
-    public function modifReunionAction(Request $request) {
 
-        $reunion = new Reunion();
+
+    public function modifReunionAction($id_reunion , Request $request){
+
+        $reunion = $this->getDoctrine()->getManager()->find("DTDoctoramaBundle:Reunion", $id_reunion);
+
         $formReunion = $this->createForm(new ReunionType(), $reunion);
-        $formReunion->add('save', 'submit');
+        $formReunion->add('save',  'submit');
         // On fait le lien Requête <-> Formulaire
         // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
         $formReunion->handleRequest($request);
-
+            
         // On vérifie que les valeurs entrées sont correctes
         // (Nous verrons la validation des objets en détail dans le prochain chapitre)
         if ($formReunion->isValid()) {
-
+        
             // On l'enregistre notre objet $advert dans la base de données, par exemple
             $em = $this->getDoctrine()->getManager();
             $em->persist($reunion);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Reunion modifié.');
+          $request->getSession()->getFlashBag()->add('notice', 'Reunion modifié.');
 
-            // On redirige vers la page de visualisation de l'annonce nouvellement créée
-            return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
+          // On redirige vers la page de visualisation de l'annonce nouvellement créée
+          return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion', 'formReunion' => $formReunion->createView()));
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion','formReunion' => $formReunion->createView()));
     }
 
 

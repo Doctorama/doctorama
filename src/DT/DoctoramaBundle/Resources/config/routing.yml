@@ -61,7 +61,7 @@ dt_export_fiche:
 
  
 dt_modif_reunion:
-    pattern: /modifier_reunion
+    pattern: /modifier_reunion/{id_reunion}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifReunion}
 
     
