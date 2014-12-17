@@ -68,10 +68,16 @@ class loadEncadrantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these->addEncadrant($encadrant);
 		$these2->addEncadrant($encadrant2);
 		
-                $manager->persist($these);
-                $manager->persist($these2);
-                
-                
+		$en3 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These3');
+		$en4 = $manager->getRepository('DTDoctoramaBundle:These')->findByTitreThese('Une These4');
+		$these3 = $en4[sizeof($en3)-1];
+		$these4 = $en4[sizeof($en2)-1];
+		$these3->addEncadrant($encadrant);
+		$these4->addEncadrant($encadrant2);
+		
+        $manager->persist($these);
+        $manager->persist($these2);
+     
 		$manager->flush();
 		
 	}
