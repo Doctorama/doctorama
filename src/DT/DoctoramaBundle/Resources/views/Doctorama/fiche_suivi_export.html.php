@@ -4,7 +4,13 @@ if(!strcmp($export,"CSV")){
 	$formContent = $_POST[$_POST['ficheId']];
 	$i=0;
 	foreach($formContent as $key => $value){
-		echo htmlentities(str_replace('"','\"',$key)).";".htmlentities(str_replace('"','\"',$value))."\n";
+		if($i==0){
+			echo htmlentities(str_replace('"','\"',$value)).";";
+			$i=1;
+		}
+		elseif($i==1){
+			echo htmlentities(str_replace('"','\"',$value))."\n";
+		}
 	}
 }elseif(!strcmp($export,"PDF")){
 	require_once('/../../../../../../vendor/html2pdf/html2pdf.class.php');
