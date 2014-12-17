@@ -48,7 +48,7 @@ class Encadrant extends Personne {
     private $compte;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Reunion", mappedBy="encandrants")
+     * @ORM\ManyToMany(targetEntity="Reunion", mappedBy="encadrants")
      * */
     private $reunions;
 
@@ -67,7 +67,7 @@ class Encadrant extends Personne {
      * 
      */
     public function addReunion($reunion) {
-        if (!$this->reunions > contains($reunion)) {
+        if (!$this->reunions-> contains($reunion)) {
             $reunion->addEncadrant($this);
             $this->items[] = $reunion;
         }

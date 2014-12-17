@@ -54,6 +54,10 @@ class Reunion
      * @ORM\JoinColumn(name="doctorant_id", referencedColumnName="id")
      **/
     private $doctorant;
+	
+	public function __construct(){
+		$this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
+	}
     
     
     /**

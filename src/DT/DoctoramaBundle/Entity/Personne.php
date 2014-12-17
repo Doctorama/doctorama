@@ -97,10 +97,6 @@ class Personne
     protected $depDeNaissance;
 	
 	
-	public function __construct(){
-		$this->reunions = new \Doctrine\Common\Collections\ArrayCollection();
-	}
-	
     /**
      * Get id
      *
