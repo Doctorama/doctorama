@@ -501,7 +501,7 @@ class DoctoramaController extends Controller {
             $em->persist($reunion);
             $em->flush();
 
-          $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
+          $request->getSession()->getFlashBag()->add('notice', 'Reunion modifié.');
 
           // On redirige vers la page de visualisation de l'annonce nouvellement créée
           return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
