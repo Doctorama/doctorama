@@ -25,13 +25,12 @@
                     </li>
                     <li class="active"><a href="{{ path('dt_doctorama_accueil') }}">Accueil</a></li>
                     <li><a href="{{ path('dt_doctorama_agenda') }}" >Agenda</a></li>
-                    {% if is_granted('ROLE_DIRECTEUR') or is_granted('ROLE_ENCADRANT') %} 
+                    {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
                     <li><a href="{{ path('dt_doctorama_mes_doctorants') }}">Doctorants encadrés </a></li>
                     <li><a href="{{ path('dt_doctorama_doctorant_labo') }}">Doctorants du laboratoire </a></li>
                     <li><a href="{{ path('dt_doctorama_statistiques') }}">Statistiques</a></li>
                     <li><a href="{{ path('dt_doctorama_historique_doctorants') }}">Historique doctorants</a></li>
                     {% endif %}
-                    
                 </ul>
             </div>
             {% if is_granted('ROLE_DIRECTEUR') or is_granted('ROLE_ENCADRANT') %} 
@@ -73,8 +72,10 @@
                                     {{app.user.encadrant.nom}} {{app.user.encadrant.prenom}}
                                 {% elseif app.user.directeur is defined and app.user.directeur != null %} 
                                     {{app.user.directeur.nom}} {{app.user.directeur.prenom}}
-                                {% elseif is_granted('ROLE_DIRECTEUR') %}
-                                    Directeur
+                                {% elseif is_granted('ROLE_DIRECTEUR_LABO') %}
+                                    Directeur Laboratoire
+                                {% elseif is_granted('ROLE_DIRECTEUR_THESE') %}
+                                    Directeur These
                                 {% elseif is_granted('ROLE_ENCADRANT') %}
                                     Encadrant
                                 {% elseif is_granted('ROLE_DOCTORANT') %}

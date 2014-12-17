@@ -109,11 +109,7 @@ class Compte extends BaseUser
             array_push($roles, "ROLE_DOCTORANT");
         }
         
-        //si c'est un directeur
-        if($this->directeur != null)
-        {
-            array_push($roles, "ROLE_DIRECTEUR");
-        }
+        
       
       // we need to make sure to have at least one role
       //$roles[] = "ROLE_ENCADRANT";

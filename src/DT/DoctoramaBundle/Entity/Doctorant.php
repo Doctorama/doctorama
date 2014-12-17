@@ -15,8 +15,8 @@ require_once __DIR__ . '/These.php';
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="DT\DoctoramaBundle\Repository\DoctorantRepository")
  */
-class Doctorant extends Personne
-{
+class Doctorant extends Personne {
+
     /**
      * @var integer
      *
@@ -123,67 +123,92 @@ class Doctorant extends Personne
      * @ORM\Column(name="anneeDernierDiplome", type="string", length=255, nullable=true)
      */
     private $anneeDernierDiplome;
-    
+
     /**
      * @ORM\OneToOne(targetEntity="DT\SecurityBundle\Entity\Compte", mappedBy="doctorant")
-     **/
+     * */
     protected $compte;
-	
-	/**
-	 * @ORM\OneToOne(targetEntity="These")
-	 */
-	protected $these;
-    
+
     /**
-	* Get compte
-	*
-	* @return Compte
-	**/
+     * @ORM\OneToOne(targetEntity="These")
+     */
+    protected $these;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Reunion", mappedBy="doctorant")
+     * */
+    private $reunions;
+
+    /**
+     * Get reunions
+     *
+     * @return reunion[] 
+     */
+    public function getReunions() {
+        return $this->reunions;
+    }
+
+    /**
+     * add encadrant
+     *
+     * 
+     */
+    public function addReunion($reunion) {
+        if (!$this->reunions->contains($reunion)) {
+            $reunion->setDoctorant($this);
+            $this->items[] = $reunion;
+        }
+        return $this;
+    }
+
+    /**
+     * Get compte
+     *
+     * @return Compte
+     * */
     function getCompte() {
         return $this->compte;
     }
-	
-	/**
-	* Set compte
-	*
-	* @param Compte $compte
-	* @return Compte
-	**/
+
+    /**
+     * Set compte
+     *
+     * @param Compte $compte
+     * @return Compte
+     * */
     function setCompte($compte) {
         $this->compte = $compte;
-        
+
         return $this;
     }
-	
-	/**
-	* Get these
-	*
-	* @return These
-	**/
-	public function getThese(){
-		return $this->these;
-	}
-	
-	/**
-	* Set these
-	*
-	* @param These $these
-	* @return These
-	**/
-	public function setThese($these){
-		$this->these = $these;
-		$these->setDoctorant($this);
-		return $this;
-	}
 
+    /**
+     * Get these
+     *
+     * @return These
+     * */
+    public function getThese() {
+        return $this->these;
+    }
+
+    /**
+     * Set these
+     *
+     * @param These $these
+     * @return These
+     * */
+    public function setThese($these) {
+        $this->these = $these;
+        $these->setDoctorant($this);
+        return $this;
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -193,10 +218,9 @@ class Doctorant extends Personne
      * @param integer $numEtudiant
      * @return Doctorant
      */
-    public function setNumEtudiant($numEtudiant)
-    {
+    public function setNumEtudiant($numEtudiant) {
         $this->numEtudiant = $numEtudiant;
-    
+
         return $this;
     }
 
@@ -205,8 +229,7 @@ class Doctorant extends Personne
      *
      * @return integer 
      */
-    public function getNumEtudiant()
-    {
+    public function getNumEtudiant() {
         return $this->numEtudiant;
     }
 
@@ -216,10 +239,9 @@ class Doctorant extends Personne
      * @param integer $bourseEtExoneration
      * @return Doctorant
      */
-    public function setBourseEtExoneration($bourseEtExoneration)
-    {
+    public function setBourseEtExoneration($bourseEtExoneration) {
         $this->bourseEtExoneration = $bourseEtExoneration;
-    
+
         return $this;
     }
 
@@ -228,8 +250,7 @@ class Doctorant extends Personne
      *
      * @return integer 
      */
-    public function getBourseEtExoneration()
-    {
+    public function getBourseEtExoneration() {
         return $this->bourseEtExoneration;
     }
 
@@ -239,10 +260,9 @@ class Doctorant extends Personne
      * @param string $dateInscr1eThese
      * @return Doctorant
      */
-    public function setDateInscr1eThese($dateInscr1eThese)
-    {
+    public function setDateInscr1eThese($dateInscr1eThese) {
         $this->dateInscr1eThese = $dateInscr1eThese;
-    
+
         return $this;
     }
 
@@ -251,8 +271,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getDateInscr1eThese()
-    {
+    public function getDateInscr1eThese() {
         return $this->dateInscr1eThese;
     }
 
@@ -262,10 +281,9 @@ class Doctorant extends Personne
      * @param string $dcace
      * @return Doctorant
      */
-    public function setDcace($dcace)
-    {
+    public function setDcace($dcace) {
         $this->dcace = $dcace;
-    
+
         return $this;
     }
 
@@ -274,8 +292,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getDcace()
-    {
+    public function getDcace() {
         return $this->dcace;
     }
 
@@ -285,10 +302,9 @@ class Doctorant extends Personne
      * @param string $nomFormationMaster
      * @return Doctorant
      */
-    public function setNomFormationMaster($nomFormationMaster)
-    {
+    public function setNomFormationMaster($nomFormationMaster) {
         $this->nomFormationMaster = $nomFormationMaster;
-    
+
         return $this;
     }
 
@@ -297,8 +313,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getNomFormationMaster()
-    {
+    public function getNomFormationMaster() {
         return $this->nomFormationMaster;
     }
 
@@ -308,10 +323,9 @@ class Doctorant extends Personne
      * @param string $universiteMaster
      * @return Doctorant
      */
-    public function setUniversiteMaster($universiteMaster)
-    {
+    public function setUniversiteMaster($universiteMaster) {
         $this->universiteMaster = $universiteMaster;
-    
+
         return $this;
     }
 
@@ -320,8 +334,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getUniversiteMaster()
-    {
+    public function getUniversiteMaster() {
         return $this->universiteMaster;
     }
 
@@ -331,10 +344,9 @@ class Doctorant extends Personne
      * @param string $sujetMaster
      * @return Doctorant
      */
-    public function setSujetMaster($sujetMaster)
-    {
+    public function setSujetMaster($sujetMaster) {
         $this->sujetMaster = $sujetMaster;
-    
+
         return $this;
     }
 
@@ -343,8 +355,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getSujetMaster()
-    {
+    public function getSujetMaster() {
         return $this->sujetMaster;
     }
 
@@ -354,10 +365,9 @@ class Doctorant extends Personne
      * @param string $laboratoireAcceuilMaster
      * @return Doctorant
      */
-    public function setLaboratoireAcceuilMaster($laboratoireAcceuilMaster)
-    {
+    public function setLaboratoireAcceuilMaster($laboratoireAcceuilMaster) {
         $this->laboratoireAcceuilMaster = $laboratoireAcceuilMaster;
-    
+
         return $this;
     }
 
@@ -366,8 +376,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getLaboratoireAcceuilMaster()
-    {
+    public function getLaboratoireAcceuilMaster() {
         return $this->laboratoireAcceuilMaster;
     }
 
@@ -377,10 +386,9 @@ class Doctorant extends Personne
      * @param string $encadrantsMaster
      * @return Doctorant
      */
-    public function setEncadrantsMaster($encadrantsMaster)
-    {
+    public function setEncadrantsMaster($encadrantsMaster) {
         $this->encadrantsMaster = $encadrantsMaster;
-    
+
         return $this;
     }
 
@@ -389,8 +397,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getEncadrantsMaster()
-    {
+    public function getEncadrantsMaster() {
         return $this->encadrantsMaster;
     }
 
@@ -400,10 +407,9 @@ class Doctorant extends Personne
      * @param string $etabDernierDiplome
      * @return Doctorant
      */
-    public function setEtabDernierDiplome($etabDernierDiplome)
-    {
+    public function setEtabDernierDiplome($etabDernierDiplome) {
         $this->etabDernierDiplome = $etabDernierDiplome;
-    
+
         return $this;
     }
 
@@ -412,8 +418,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getEtabDernierDiplome()
-    {
+    public function getEtabDernierDiplome() {
         return $this->etabDernierDiplome;
     }
 
@@ -423,10 +428,9 @@ class Doctorant extends Personne
      * @param string $depDernierDiplome
      * @return Doctorant
      */
-    public function setDepDernierDiplome($depDernierDiplome)
-    {
+    public function setDepDernierDiplome($depDernierDiplome) {
         $this->depDernierDiplome = $depDernierDiplome;
-    
+
         return $this;
     }
 
@@ -435,8 +439,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getDepDernierDiplome()
-    {
+    public function getDepDernierDiplome() {
         return $this->depDernierDiplome;
     }
 
@@ -446,10 +449,9 @@ class Doctorant extends Personne
      * @param string $paysDernierDiplome
      * @return Doctorant
      */
-    public function setPaysDernierDiplome($paysDernierDiplome)
-    {
+    public function setPaysDernierDiplome($paysDernierDiplome) {
         $this->paysDernierDiplome = $paysDernierDiplome;
-    
+
         return $this;
     }
 
@@ -458,8 +460,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getPaysDernierDiplome()
-    {
+    public function getPaysDernierDiplome() {
         return $this->paysDernierDiplome;
     }
 
@@ -469,10 +470,9 @@ class Doctorant extends Personne
      * @param string $libelleDernierDiplome
      * @return Doctorant
      */
-    public function setLibelleDernierDiplome($libelleDernierDiplome)
-    {
+    public function setLibelleDernierDiplome($libelleDernierDiplome) {
         $this->libelleDernierDiplome = $libelleDernierDiplome;
-    
+
         return $this;
     }
 
@@ -481,8 +481,7 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getLibelleDernierDiplome()
-    {
+    public function getLibelleDernierDiplome() {
         return $this->libelleDernierDiplome;
     }
 
@@ -492,10 +491,9 @@ class Doctorant extends Personne
      * @param string $anneeDernierDiplome
      * @return Doctorant
      */
-    public function setAnneeDernierDiplome($anneeDernierDiplome)
-    {
+    public function setAnneeDernierDiplome($anneeDernierDiplome) {
         $this->anneeDernierDiplome = $anneeDernierDiplome;
-    
+
         return $this;
     }
 
@@ -504,8 +502,8 @@ class Doctorant extends Personne
      *
      * @return string 
      */
-    public function getAnneeDernierDiplome()
-    {
+    public function getAnneeDernierDiplome() {
         return $this->anneeDernierDiplome;
     }
+
 }

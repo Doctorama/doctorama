@@ -5,7 +5,7 @@ namespace DT\DoctoramaBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 require_once __DIR__ . '/Personne.php';
-
+require_once __DIR__ . '/Doctorant.php';
 /**
  * Reunion
  *
@@ -36,16 +36,67 @@ class Reunion
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
-
+    
     /**
-     * @ORM\ManyToMany(targetEntity="Personne", mappedBy="reunions")
-     * @ORM\JoinTable(name="per_reu")
+     * @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="reunions")
      **/
-    private $personnes;
-
-	public function __construct() {
-        $this->personnes = new \Doctrine\Common\Collections\ArrayCollection();
+    private $encadrants;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Doctorant", inversedBy="reunions")
+     * @ORM\JoinColumn(name="doctorant_id", referencedColumnName="id")
+     **/
+    private $doctorant;
+    
+    
+    /**
+     * Get encadrants
+     *
+     * @return encadrant 
+     */
+    public function getEncadrants()
+    {
+        return $this->encadrants;
     }
+    
+    /**
+     * add encadrant
+     *
+     * 
+     */
+    public function addEncadrant($encadrant)
+    {
+        if(!$this->encadrants->contains($encadrant)){
+			$this->encadrants[] = ($encadrant);
+                        
+        }
+    }
+    
+    
+    /**
+     * Get doctorant
+     *
+     * @return encadrant 
+     */
+    public function getDoctorant()
+    {
+        return $this->doctorant;
+    }
+    
+    
+    /**
+     * add doctorant
+     *
+     * 
+     */
+    public function setDoctorant($doctorant)
+    {
+        $this->doctorant=$doctorant;
+        
+        return $this;
+    }
+    
+    
     
     /**
      * Get id
@@ -103,37 +154,7 @@ class Reunion
         return $this->date;
     }
     
-    /**
-	* Get personnes
-	*
-	* @return ArrayCollection Personne
-	**/
-    public function getPersonnes()
-    {
-        return $this->personnes;
-    }
-	
-	/**
-	* Add personne
-	*
-	* @param Personne $personne
-	**/
-	public function addPersonne($personne)
-	{
-		if(!$this->personnes->contains($personne)){
-			$personne->addReunion($this);
-       		$this->personnes[] = ($personne);
-		}
-	}
-	
-	/**
-	* Delete personne
-	*
-	* @param Personne $personne
-	*/
-	public function deletePersonne($personne)
-	{
-       	$this->personnes->removeElement($personne);
-	}
+    
+    
 	
 }
