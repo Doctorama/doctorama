@@ -77,4 +77,11 @@ dt_doctorama_parse_csv:
 dt_creation_reunion:
     pattern: /creation_reunion
     defaults: { _controller: DTDoctoramaBundle:Doctorama:creationReunion}
+    
+dt_popup_archivage:
+    pattern: /archiver_these/{id_these}
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:archiverThese}
 
+dt_fermer_fenetre:
+    pattern: /fermer_fenetre
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:fermerFenetre}

@@ -347,7 +347,6 @@ class DoctoramaController extends Controller {
 
                 $request->getSession()->getFlashBag()->add('notice', 'Informations bien enregistrées.');
 
-                // On redirige vers la page de visualisation de l'annonce nouvellement créée
                 return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
             }
 
@@ -552,22 +551,17 @@ public function parseCsvAction(Request $request)
 
         $formReunion = $this->createForm(new ReunionType(), $reunion);
         $formReunion->add('save',  'submit');
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+
         $formReunion->handleRequest($request);
-            
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+
         if ($formReunion->isValid()) {
-        
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($reunion);
             $em->flush();
 
           $request->getSession()->getFlashBag()->add('notice', 'Reunion modifié.');
 
-          // On redirige vers la page de visualisation de l'annonce nouvellement créée
           return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion','formReunion' => $formReunion->createView()));
@@ -581,25 +575,51 @@ public function parseCsvAction(Request $request)
 
         $formReunion = $this->createForm(new ReunionType(), $reunion);
         $formReunion->add('save',      'submit');
-        // On fait le lien Requête <-> Formulaire
-        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+
         $formReunion->handleRequest($request);
-            
-        // On vérifie que les valeurs entrées sont correctes
-        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+
         if ($formReunion->isValid()) {
         
-            // On l'enregistre notre objet $advert dans la base de données, par exemple
             $em = $this->getDoctrine()->getManager();
             $em->persist($reunion);
             $em->flush();
 
           $request->getSession()->getFlashBag()->add('notice', 'Reunion crée');
 
-          // On redirige vers la page de visualisation de l'annonce nouvellement créée
           return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Creation reunion','formReunion' => $formReunion->createView()));
     }
+    
+    public function archiverTheseAction($id_these, Request $request)
+    {
+        $these = $this->getDoctrine()->getManager()->find("DTDoctoramaBundle:These", $id_these);
 
+        $formThese = $this->createForm(new TheseType(true), $these);
+        $formThese->add('Enregistrer',  'submit');
+
+        $formThese->handleRequest($request);
+            
+        if ($formThese->isValid()) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($these);
+            $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'These archivée !');
+
+          return $this->redirect($this->generateUrl('dt_fermer_fenetre'));
+        }
+    
+        return $this->render('DTDoctoramaBundle:Popup:popup_archivage.html.twig', array('formThese'=>$formThese->createView()));
+
+    }
+    
+    public function fermerFenetreAction(Request $request)
+    {
+
+        return $this->render('DTDoctoramaBundle:Popup:fermerFenetre.html.twig');
+
+
+    }
 }

@@ -1,0 +1,25 @@
+{# src/DT/DoctoramaBundle/Resources/views/Popup/popup_archivage.html.twig#}
+{{ form_start(formThese, {'attr': {'class': 'form-horizontal'}}) }}
+{{ form_widget(formThese._token) }}
+{# Les erreurs générales du formulaire. #}
+{{ form_errors(formThese) }}
+
+<div class="form-group">
+    {{ form_label(formThese.mention,"Mention",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+    <div class="col-sm-9">
+        {{ form_widget(formThese.mention,{'attr': {'class': 'form-control'} }) }}
+    </div>
+
+</div >
+
+<FORM>
+
+    {{ form_widget(formThese.Enregistrer, {'attr': {'class': 'btn btn-success'}}) }} <!-- , 'ONCLICK':'window.close()' -->
+
+
+</FORM>
+
+
+{{form_rest(formThese) }}
+{{ form_end(formThese) }}
+

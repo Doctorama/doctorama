@@ -54,11 +54,19 @@
 			<div class="form-group">
 				<div class="col-sm-offset-3 col-sm-9">
 					<a href="{{ path('dt_doctorama_modif_dossier_suivis', {'id_doctorant': doctorant.id}) }}" class="btn btn-warning" role="button">Modifier</a>
-					<button type="button" class="btn btn-danger">Archiver</button>
+                                        <a href="javascript:affichage_popup('{{ path('dt_popup_archivage', {'id_these': doctorant.these.id}) }}','popup_1');" class="btn btn-danger">Archiver</a>
 				
-				</div>
+                                        <SCRIPT LANGUAGE="JavaScript">
+                                            function affichage_popup(nom_de_la_page, nom_interne_de_la_fenetre)
+                                            {
+                                                window.open (nom_de_la_page, nom_interne_de_la_fenetre, config='height=100, width=400, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no')
+                                            }
+
+                                        </SCRIPT>
+                                </div>
 			</div>
 		</div>
 		{{form_end(formDoctorant)}}
 	</section>
+        
 {% endblock %}
