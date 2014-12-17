@@ -58,6 +58,12 @@ dt_formulaire_creation_dossier:
 dt_export_fiche:
     pattern: /export_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFiche}
+
+ 
+dt_modif_reunion:
+    pattern: /modifier_reunion
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:modifReunion}
+
     
 dt_doctorama_importCsv:
     pattern: /importation_csv
@@ -66,3 +72,4 @@ dt_doctorama_importCsv:
 dt_doctorama_parse_csv:
     pattern: /parse_csv
     defaults: { _controller: DTDoctoramaBundle:Doctorama:parseCsv}	
+
