@@ -223,6 +223,7 @@ class DoctoramaController extends Controller {
             
             $em->persist($directeur);
         }
+        
         $em->persist($doctorant->getThese());
         $em->persist($doctorant);
         $em->flush();

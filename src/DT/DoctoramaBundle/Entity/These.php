@@ -1,6 +1,7 @@
 <?php
 
 namespace DT\DoctoramaBundle\Entity;
+
 require_once __DIR__ . '/DossierDeSuivi.php';
 require_once __DIR__ . '/Encadrant.php';
 require_once __DIR__ . '/Doctorant.php';
@@ -14,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="DT\DoctoramaBundle\Repository\TheseRepository")
  */
-class These
-{
+class These {
+
     /**
      * @var integer
      * 
@@ -31,7 +32,7 @@ class These
      * @ORM\Column(name="titreThese", type="string", length=255)
      */
     private $titreThese;
-	
+
     /**
      * @var string
      *
@@ -94,147 +95,160 @@ class These
      * @ORM\Column(name="mention", type="string", length=255, nullable=true)
      */
     private $mention;
-	
-	/**
-	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
-	 */
-	protected $dossierDeSuivi;
-	
-	/**
-	*
-	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theses")
-	*/
-	protected $encadrants;
-	
-	/**
-	 * @ORM\OneToOne(targetEntity="Doctorant")
-	 */
-	protected $doctorant;
-	
-	/**
-	*
-	* @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
-	*/
-	protected $directeursDeThese;
-	
-	public function __construct() {
+
+    /**
+     * @ORM\OneToOne(targetEntity="DossierDeSuivi")
+     */
+    protected $dossierDeSuivi;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="theses")
+     */
+    protected $encadrants;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Doctorant")
+     */
+    protected $doctorant;
+
+    /**
+     *
+     * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
+     */
+    protected $directeursDeThese;
+
+    public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
     }
-	
-	/**
-	 * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="theses")
-	 */
-	protected $doctorants;
-	
-	/**
-	* Get doctorant
-	*
-	* @return Doctorant
-	**/
-	public function getDoctorant(){
-		return $this->doctorant;
-	}
-	
-	/**
-	* Set doctorant
-	*
-	* @param Doctorant $doctorant
-    * @return Doctorant
-	**/
-	public function setDoctorant($doctorant){
-		$this->doctorant = $doctorant;
-		
-		return $this;
-	}
-	
-	/**
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DossierDeSuivi", inversedBy="theses")
+     */
+    protected $doctorants;
+
+    /**
+     * Get doctorant
+     *
+     * @return Doctorant
+     * */
+    public function getDoctorant() {
+        return $this->doctorant;
+    }
+
+    /**
+     * Set doctorant
+     *
+     * @param Doctorant $doctorant
+     * @return Doctorant
+     * */
+    public function setDoctorant($doctorant) {
+        $this->doctorant = $doctorant;
+
+        return $this;
+    }
+
+    /**
      * Set encadrant
      *
-	 * @param Encadrant $encadrant
+     * @param Encadrant $encadrant
      * @return encadrant 
      */
-	public function setEncadrants($encadrants){
-		$this->encadrants = $encadrants;
-		
-		return $this;
-	}
-        
-        /**
-        * Get encadrant
-        *
-        * @return encadrant 
-        */
-        public function getEncadrants()
-        {
-            return $this->encadrants;
+    public function setEncadrants($encadrants) {
+        foreach ($encadrants as $encadrant) {
+            if (!$this->encadrants->contains($encadrant)) {
+                $encadrant->addThese($this);
+                $this->items[] = $encadrant;
+            }
         }
-	
-	/**
-	* Add encradrant
-	*
-	* @param Encadrant $encadrant
-	**/
-	public function addEncadrant($encadrant){
-		if(!$this->encadrants->contains($encadrant)){
-			$encadrant->addThese($this);
-            $this->items[] = $encadrant;
-		}        
-        return $this;
-	}
-	
-	/**
-	* Get directeursDeThese
-	*
-	* @return DirecteurDeThese
-	**/
-	public function getDirecteursDeThese(){
-		return $this->directeursDeThese;
-	}
-	
-	/**
-	* Add directeurDeThese
-	*
-	* @param DirecteursDeThese $directeurDeThese
-	* @return ArrayCollection DirecteursDeThese
-	**/
-	public function addDirecteursDeThese($directeurDeThese){
-		if(!$this->directeursDeThese->contains($directeurDeThese)){
-			$directeurDeThese->addThesesDirecteur($this);
-            $this->items[] = $directeurDeThese;
-		}
-        return $this;
-	}
-	
-	/**
-     * Get dossierDeSuivi
-     *
-     * @return DossierDeSuivi 
-     */
-	public function getDossierDeSuivi(){
-		return $this->dossierDeSuivi;
-	}
-	
-	/**
-     * Get dossierDeSuivi
-     *
-	 * @param DossierDeSuivi $dossierDeSuivi
-     * @return DossierDeSuivi 
-     */
-	public function setDossierDeSuivi($dossierDeSuivi){
-		$this->dossierDeSuivi = $dossierDeSuivi;
-		
-		return $this;
-	}
 
+        return $this;
+    }
+
+    /**
+     * Get encadrant
+     *
+     * @return encadrant 
+     */
+    public function getEncadrants() {
+        return $this->encadrants;
+    }
+
+    /**
+     * Add encradrant
+     *
+     * @param Encadrant $encadrant
+     * */
+    public function addEncadrant($encadrant) {
+        if (!$this->encadrants->contains($encadrant)) {
+            $encadrant->addThese($this);
+            $this->items[] = $encadrant;
+        }
+        return $this;
+    }
+
+    /**
+     * Get directeursDeThese
+     *
+     * @return DirecteurDeThese
+     * */
+    public function getDirecteursDeThese() {
+        return $this->directeursDeThese;
+    }
+
+    /**
+     * Add directeurDeThese
+     *
+     * @param DirecteursDeThese $directeurDeThese
+     * @return ArrayCollection DirecteursDeThese
+     * */
+    public function addDirecteursDeThese($directeurDeThese) {
+        if (!$this->directeursDeThese->contains($directeurDeThese)) {
+            $directeurDeThese->addThesesDirecteur($this);
+            $this->items[] = $directeurDeThese;
+        }
+        return $this;
+    }
+
+    public function setDirecteursDeThese($directeursDeThese) {
+        foreach ($directeursDeThese as $directeurDeThese) {
+            if (!$this->directeursDeThese->contains($directeurDeThese)) {
+                $directeurDeThese->addThesesDirecteur($this);
+                $this->items[] = $directeurDeThese;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get dossierDeSuivi
+     *
+     * @return DossierDeSuivi 
+     */
+    public function getDossierDeSuivi() {
+        return $this->dossierDeSuivi;
+    }
+
+    /**
+     * Get dossierDeSuivi
+     *
+     * @param DossierDeSuivi $dossierDeSuivi
+     * @return DossierDeSuivi 
+     */
+    public function setDossierDeSuivi($dossierDeSuivi) {
+        $this->dossierDeSuivi = $dossierDeSuivi;
+
+        return $this;
+    }
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -244,10 +258,9 @@ class These
      * @param string $titreThese
      * @return These
      */
-    public function setTitreThese($titreThese)
-    {
+    public function setTitreThese($titreThese) {
         $this->titreThese = $titreThese;
-    
+
         return $this;
     }
 
@@ -256,8 +269,7 @@ class These
      *
      * @return string 
      */
-    public function getTitreThese()
-    {
+    public function getTitreThese() {
         return $this->titreThese;
     }
 
@@ -267,10 +279,9 @@ class These
      * @param string $sujetThese
      * @return These
      */
-    public function setSujetThese($sujetThese)
-    {
+    public function setSujetThese($sujetThese) {
         $this->sujetThese = $sujetThese;
-    
+
         return $this;
     }
 
@@ -279,8 +290,7 @@ class These
      *
      * @return string 
      */
-    public function getSujetThese()
-    {
+    public function getSujetThese() {
         return $this->sujetThese;
     }
 
@@ -290,10 +300,9 @@ class These
      * @param string $specialite
      * @return These
      */
-    public function setSpecialite($specialite)
-    {
+    public function setSpecialite($specialite) {
         $this->specialite = $specialite;
-    
+
         return $this;
     }
 
@@ -302,8 +311,7 @@ class These
      *
      * @return string 
      */
-    public function getSpecialite()
-    {
+    public function getSpecialite() {
         return $this->specialite;
     }
 
@@ -313,10 +321,9 @@ class These
      * @param string $laboratoire
      * @return These
      */
-    public function setLaboratoire($laboratoire)
-    {
+    public function setLaboratoire($laboratoire) {
         $this->laboratoire = $laboratoire;
-    
+
         return $this;
     }
 
@@ -325,8 +332,7 @@ class These
      *
      * @return string 
      */
-    public function getLaboratoire()
-    {
+    public function getLaboratoire() {
         return $this->laboratoire;
     }
 
@@ -336,10 +342,9 @@ class These
      * @param string $axeThematique
      * @return These
      */
-    public function setAxeThematique($axeThematique)
-    {
+    public function setAxeThematique($axeThematique) {
         $this->axeThematique = $axeThematique;
-    
+
         return $this;
     }
 
@@ -348,8 +353,7 @@ class These
      *
      * @return string 
      */
-    public function getAxeThematique()
-    {
+    public function getAxeThematique() {
         return $this->axeThematique;
     }
 
@@ -359,10 +363,9 @@ class These
      * @param string $axeScientifique
      * @return These
      */
-    public function setAxeScientifique($axeScientifique)
-    {
+    public function setAxeScientifique($axeScientifique) {
         $this->axeScientifique = $axeScientifique;
-    
+
         return $this;
     }
 
@@ -371,8 +374,7 @@ class These
      *
      * @return string 
      */
-    public function getAxeScientifique()
-    {
+    public function getAxeScientifique() {
         return $this->axeScientifique;
     }
 
@@ -382,10 +384,9 @@ class These
      * @param \integer $financement
      * @return These
      */
-    public function setFinancement($financement)
-    {
+    public function setFinancement($financement) {
         $this->financement = $financement;
-    
+
         return $this;
     }
 
@@ -394,8 +395,7 @@ class These
      *
      * @return \integer
      */
-    public function getFinancement()
-    {
+    public function getFinancement() {
         return $this->financement;
     }
 
@@ -405,10 +405,9 @@ class These
      * @param \datetime $dateDebut
      * @return These
      */
-    public function setDateDebut($dateDebut)
-    {
+    public function setDateDebut($dateDebut) {
         $this->dateDebut = $dateDebut;
-    
+
         return $this;
     }
 
@@ -417,8 +416,7 @@ class These
      *
      * @return \datetime 
      */
-    public function getDateDebut()
-    {
+    public function getDateDebut() {
         return $this->dateDebut;
     }
 
@@ -428,10 +426,9 @@ class These
      * @param \datetime $dateDeSoutenance
      * @return These
      */
-    public function setDateDeSoutenance($dateDeSoutenance)
-    {
+    public function setDateDeSoutenance($dateDeSoutenance) {
         $this->dateDeSoutenance = $dateDeSoutenance;
-    
+
         return $this;
     }
 
@@ -440,8 +437,7 @@ class These
      *
      * @return \datetime 
      */
-    public function getDateDeSoutenance()
-    {
+    public function getDateDeSoutenance() {
         return $this->dateDeSoutenance;
     }
 
@@ -451,10 +447,9 @@ class These
      * @param string $mention
      * @return These
      */
-    public function setMention($mention)
-    {
+    public function setMention($mention) {
         $this->mention = $mention;
-    
+
         return $this;
     }
 
@@ -463,8 +458,8 @@ class These
      *
      * @return string 
      */
-    public function getMention()
-    {
+    public function getMention() {
         return $this->mention;
     }
+
 }
