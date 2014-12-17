@@ -9,6 +9,11 @@ use DT\DoctoramaBundle\Form\TheseType;
 
 class DoctorantType extends AbstractType
 {
+    private $withThese;
+    
+    public function __construct($withThese = false) {
+        $this->withThese = $withThese;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -37,12 +42,15 @@ class DoctorantType extends AbstractType
             ->add('prenom','text')
             ->add('adresse', 'text', array('required' => false))
             ->add('mail','text')
+            ->add('nationalite','text')
             ->add('dateDeNaissance','date', array('required' => false))
             ->add('villeDeNaissance', 'text', array('required' => false))
             ->add('paysDeNaissance', 'text', array('required' => false))
-            ->add('depDeNaissance', 'text', array('required' => false))
-            ->add('these', new TheseType(),array(
-                            'data_class' => 'DT\DoctoramaBundle\Entity\These'))
+            ->add('depDeNaissance', 'text', array('required' => false));
+        
+        if($this->withThese)
+            $builder->add('these', new TheseType(),array(
+                            'data_class' => 'DT\DoctoramaBundle\Entity\These'));
 
         ;
     }

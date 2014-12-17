@@ -24,8 +24,9 @@
                         </div>
                     </div>
                 </div>
+                {{ form_widget(formDoctorant.Enregistrer, {'attr': {'class':'btn btn-success'}}) }}
                 {{form_rest(formDoctorant)}}
-                {{ form_widget(formDoctorant.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                
                 {{form_end(formDoctorant)}}
             </div>
         </div>

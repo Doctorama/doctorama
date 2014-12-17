@@ -1,0 +1,102 @@
+{# src/DT/DoctoramaBundle/Resources/views/Template/template_info_etudiant.html.twig#}
+<article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="Doctorant">
+    <div class="form-group">
+        {{ form_label(form.numEtudiant,"Numéro étudiant",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.numEtudiant,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.bourseEtExoneration,"Bourse et exoneration",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.bourseEtExoneration,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dateInscr1eThese,"Date inscription 1er thése",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.dateInscr1eThese,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.dcace,"DCACE",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.dcace,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+
+    <legend> <h4> Information Master </h4> </legend>
+    <div class="form-group">
+        {{ form_label(form.nomFormationMaster,"Nom de la formation",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.nomFormationMaster,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.universiteMaster,"Université master",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.universiteMaster,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.sujetMaster,"Sujet master",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.sujetMaster,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.laboratoireAcceuilMaster,"Laboratoire Master",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.laboratoireAcceuilMaster,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.encadrantsMaster,"Encadrant(s)",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.encadrantsMaster,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+        
+    <legend> <h4> Information dernier diplôme </h4> </legend>
+    
+    <div class="form-group">
+        {{ form_label(form.libelleDernierDiplome,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.libelleDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.etabDernierDiplome,"Etabliessement",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.etabDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.depDernierDiplome,"Département",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.depDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.paysDernierDiplome,"Pays",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.paysDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.anneeDernierDiplome,"Année",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.anneeDernierDiplome,{'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
+
+</article>

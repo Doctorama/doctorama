@@ -4,7 +4,7 @@
 {% block DTDoctoramaBody %}
 
     <legend>
-      <h3> {{title}} </h3>
+        <h3> {{title}} </h3>
     </legend>
 
     <section class="row">
@@ -14,201 +14,106 @@
                 <li role="presentation" class="active">
                     <a href="#Administrative" aria-controls="sansrole" role="tab" data-toggle="tab">Informations administratives</a>
                 </li>
-                <li role="presentation">
-                    <a href="#Doctorant" aria-controls="avecrole" role="tab" data-toggle="tab">Informations Etudiants </a>
-                </li>
+                {% if app.user.doctorant is defined and app.user.doctorant != null %}
+                    <li role="presentation">
+                        <a href="#Doctorant" aria-controls="avecrole" role="tab" data-toggle="tab">Informations Etudiants </a>
+                    </li>
+                {% endif %}
+
             </ul>
 
             <section class="tab-content">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'} } ) }}
+                {{ form_widget(form._token) }}
+                {# Les erreurs générales du formulaire. #}
+                {{ form_errors(form) }}
                 <article role="tabpanel" class="tab-pane jumbotron backgroundWhite active" id="Administrative">
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Nom</label>
+                        {{ form_label(form.nom,"Nom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="nom" placeholder="Nom">
+                            {{ form_widget(form.nom,{'attr': {'class': 'form-control'} }) }}
+                        </div>
+                    </div >
+                    <div class="form-group">
+                        {{ form_label(form.prenom,"Prénom",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                        <div class="col-sm-9">
+                            {{ form_widget(form.prenom,{'attr': {'class': 'form-control'} }) }}
+                        </div>
+                    </div >
+                    <div class="form-group">
+                        {{ form_label(form.nomUsage,"Nom d'usage",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+                        <div class="col-sm-9">
+                            {{ form_widget(form.nomUsage,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Prénom</label>
+                        {{ form_label(form.civilite,"Civilite",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="prénom" placeholder="Prénom">
+                            {{ form_widget(form.civilite,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Nom Usage</label>
+                        {{ form_label(form.nationalite,"Nationalité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="nom_usage" placeholder="Nom Usage">
+                            {{ form_widget(form.nationalite,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Civilité</label>
+                        {{ form_label(form.adresse,"Adresse",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="civilité" placeholder="Civilité">
+                            {{ form_widget(form.adresse,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Nationnalité</label>
+                        {{ form_label(form.mail,"Email",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="nation" placeholder="Nationnalité">
+                            {{ form_widget(form.mail,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Adresse</label>
+                        {{ form_label(form.dateDeNaissance,"Date de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="adresse" placeholder="Adresse">
+                            {{ form_widget(form.dateDeNaissance) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Email</label>
+                        {{ form_label(form.villeDeNaissance,"Ville de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" name="email" placeholder="mon-email@exemple.com">
+                            {{ form_widget(form.villeDeNaissance,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Date naissance</label>
+                        {{ form_label(form.depDeNaissance,"Département de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="date" class="form-control" name="date_naiss" >
+                            {{ form_widget(form.depDeNaissance,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Ville naissance</label>
+                        {{ form_label(form.paysDeNaissance,"Pays de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="ville_naiss" placeholder="Ville de naissance">
+                            {{ form_widget(form.paysDeNaissance,{'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Département de naissance</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="dpt_naiss" placeholder="Département de naissance">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Pays de naissance</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="pays_naiss" placeholder="Pays de naissance">
-                        </div>
-                    </div>
                 </article>
 
-                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="Doctorant">
-                    <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Numéro étudiant</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" name="num_etu" placeholder="">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Bourses et éxonérations</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="bourse_etu" placeholder="Bourses et éxonérations">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">Date 1ère inscription</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control" name="1inscription_etu" placeholder="">
-                        </div>
-                    </div>
-
-                     <div class="form-group">
-                        <label for="nom_doct" class="col-sm-3 control-label">DCACE</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="DCACE" placeholder="DCACE">
-                        </div>
-                    </div>
-
-                    <legend> <h4> Information Master </h4> </legend>
-
-                    <div class="form-group">
-                        <label for="nom_mast" class="col-sm-3 control-label">Nom formation</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="nom_mast" placeholder="Nom de la formation">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="univ" class="col-sm-3 control-label">Université</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="univ_mast" placeholder="Université">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sujet_mast" class="col-sm-3 control-label">Sujet de Master</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="sujet_mast" placeholder="Sujet de Master">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="labo_acc" class="col-sm-3 control-label">Laboratoire d'accueil</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="labo_acc" placeholder="Laboratoire d'accueil">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="enc_mast" class="col-sm-3 control-label">Encadrant</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="enc_mast" placeholder="Encadrant(s)">
-                        </div>
-                    </div>
-
-
-                    <legend> <h4> Information dernier diplôme </h4> </legend>
-
-                    <div class="form-group">
-                        <label for="nom_mast" class="col-sm-3 control-label">Nom</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="nom_dip" placeholder="Nom du diplôme">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="univ" class="col-sm-3 control-label">Etablissement</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="etab_dip" placeholder="Etablissement">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="sujet_mast" class="col-sm-3 control-label">Département</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="dpt_dip" placeholder="Département">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="labo_acc" class="col-sm-3 control-label">Pays</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="pays_dip" placeholder="Pays">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="enc_mast" class="col-sm-3 control-label">Année</label>
-                        <div class="col-sm-9">
-                            <input type="number" class="form-control" name="annee_dip" placeholder="">
-                        </div>
-                    </div>
-                </article>
-
-                <button  type="submit" class=" btn btn-success">Enregistrer</button>
+                {% if app.user.doctorant is defined and app.user.doctorant != null %}
+                    {{ include("DTDoctoramaBundle:Template:template_info_etudiant.html.twig") }}
+                {% endif %}
+                {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-success'}}) }}
+                {{ form_end(form) }}
             </section>
 
         </form>
     </section>
 
-    
+
 {% endblock %}

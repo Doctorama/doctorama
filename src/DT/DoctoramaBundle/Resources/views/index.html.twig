@@ -33,7 +33,6 @@
                     {% endif %}
                 </ul>
             </div>
-            {% if is_granted('ROLE_DIRECTEUR') or is_granted('ROLE_ENCADRANT') %} 
             <div class="well sidebar">
                 <ul class="nav nav-stacked">
                     <li class="nav-header">
@@ -42,12 +41,16 @@
                         <b style="font-size:12pt">MENU ADMINISTRATION</b>
                     </legend>
                     </li>
+                    {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
                     <li><a href="{{ path('dt_doctorama_admin_dossier_suivis') }}">Dossier de suivis</a></li>
+                    {% endif %}
                     <li><a href="{{ path('dt_doctorama_info_perso') }}">Administration utilisateurs</a></li>
+                    {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %}
                     <li><a href="{{ path('dt_doctorama_importCsv') }}">Importation CSV</a></li>
+                    {% endif %}
                 </ul>
             </div>
-            {% endif %}
+            
         </div>
         <div class="canvas Conteneur">
             <div class="navbar navbar-default navbar-fixed-top EnTete">

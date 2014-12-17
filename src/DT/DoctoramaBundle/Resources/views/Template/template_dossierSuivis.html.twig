@@ -185,7 +185,14 @@
             <div class="col-sm-9">
                 {{ form_widget(formDoctorant.dateDeNaissance) }}
             </div>
-        </div><div class="form-group">
+        </div>
+        <div class="form-group">
+            {{ form_label(formDoctorant.nationalite,"Nationalité",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            <div class="col-sm-9">
+                {{ form_widget(formDoctorant.nationalite,{'attr': {'class': 'form-control'} }) }}
+            </div>
+        </div>    
+        <div class="form-group">
             {{ form_label(formDoctorant.villeDeNaissance,"Ville de naissance",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
             <div class="col-sm-9">
                 {{ form_widget(formDoctorant.villeDeNaissance,{'attr': {'class': 'form-control'} }) }}
