@@ -30,6 +30,13 @@
 
         </div>
         <div class="form-group">
+            {{ form_label(formDoctorant.these.directeursDeThese,"Directeurs de these",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
+            <div class="col-sm-9">
+                {{ form_widget(formDoctorant.these.directeursDeThese) }}
+            </div>
+
+        </div>
+        <div class="form-group">
             {{ form_label(formDoctorant.these.encadrants,"Encadrants",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
             <div class="col-sm-9">
                 {{ form_widget(formDoctorant.these.encadrants) }}

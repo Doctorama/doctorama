@@ -215,6 +215,13 @@ class DoctoramaController extends Controller {
             
             $em->persist($encadrant);
         }
+        
+        foreach($doctorant->getThese()->getDirecteursDeThese() as $directeur)
+        {
+            $directeur->addThesesDirecteur($doctorant->getThese());
+            
+            $em->persist($directeur);
+        }
         $em->persist($doctorant->getThese());
         $em->persist($doctorant);
         $em->flush();

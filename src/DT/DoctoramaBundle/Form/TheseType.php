@@ -33,7 +33,11 @@ class TheseType extends AbstractType
                 'expanded' => true
               ))
             //->add('doctorant')
-            //->add('directeursDeThese')
+            ->add('directeursDeThese','entity', array(
+                'class'    => 'DTDoctoramaBundle:Encadrant',
+                'property' => 'nom',
+                'multiple' => true,
+                'expanded' => true))
             //->add('doctorants')
         ;
     }
