@@ -31,6 +31,7 @@ class TheseServiceTest extends WebTestCase
 		$this->em->getConnection()->prepare("TRUNCATE TABLE these_dossierdesuivi")->execute();
 		$this->em->getConnection()->prepare("TRUNCATE TABLE encadrant")->execute();
 		$this->em->getConnection()->prepare("TRUNCATE TABLE doctorant")->execute();
+		$this->em->getConnection()->prepare("TRUNCATE TABLE dossierdesuivi")->execute();
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
 	}
 		
@@ -288,4 +289,128 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	public function testupdateTitreThese()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateTitreThese(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getTitreThese());
+		
+	}
+	
+	public function testupdateSujetThese()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateSujetThese(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getSujetThese());
+		
+	}
+	
+	public function testupdateSpecialite()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateSpecialite(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getSpecialite());
+	}
+	
+	public function testupdateLaboratoire()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateLaboratoire(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getLaboratoire());	
+	}
+	
+	public function testupdateFinancement()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateFinancement(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getFinancement());	
+	}
+	
+	public function testupdatedateDebut()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updatedateDebut(1, new \DateTime('2015-01-01'));
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals(new \DateTime('2015-01-01'), $these->getDateDebut());	
+	}
+	
+	public function testupdateDateDeSoutenance()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updatedateDeSoutenance(1, new \DateTime('2015-01-01'));
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals(new \DateTime('2015-01-01'), $these->getDateDeSoutenance());	
+	}
+	
+	public function testupdateMention()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->updateMention(1, 'test');
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals('test', $these->getMention());	
+	}
+	
+	public function testdeleteThese()
+	{
+		$this->viderTable();
+		$this->create1These();
+		$TS = new TheseService($this->em);
+		
+		$req = $TS->deleteThese(1);
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findAll();
+		$this->assertEquals(0, count($these));	
+	}
+	
+	/*public function testfindByDoctorant()
+	{
+		$this->viderTable();
+		$th = $this->create1These();
+		$enc = $this->create1Encadrant();
+		$th->addEncadrant($enc);
+		$TS = new TheseService($this->em);
+		
+		
+		$req = $TS->findByDoctorant(1);
+		
+		$these = $this->em->getRepository('DTDoctoramaBundle:These')->findOneById(1);
+		$this->assertEquals($enc, $these->getEncadrants());	
+	}*/
 }

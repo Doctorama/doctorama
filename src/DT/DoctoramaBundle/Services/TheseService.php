@@ -219,8 +219,8 @@ class TheseService
 			return null;
 		}
 
-		$these->setlaboratoire($newlaboratoire);
-		$this->emem->flush();
+		$these->setLaboratoire($newlaboratoire);
+		$this->em->flush();
 
 		return $these;
 	}
@@ -288,9 +288,10 @@ class TheseService
 		if (!$these) {
 			return null;
 		}
-		$this->em->remove($these);
+		
+		$this->em->remove($these);	
 		$this->em->flush();
-
+		
 		return $these;
 	}
 

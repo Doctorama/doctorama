@@ -112,15 +112,8 @@ class These {
      */
     protected $doctorant;
 
-    /**
-     *
-     * @ORM\ManyToMany(targetEntity="Encadrant", mappedBy="thesesDirecteur")
-     */
-    protected $directeursDeThese;
-
     public function __construct() {
         $this->encadrants = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->directeursDeThese = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
