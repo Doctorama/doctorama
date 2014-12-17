@@ -9,56 +9,55 @@
 
     <section class="row-fluid">
         <div role="tabpanel">
-            
-        <ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
-					<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
-				</ul>
-				{{ include("DTDoctoramaBundle:Template:template_dossierSuivis.html.twig") }}
-					<legend> </legend>
-					<div class="form-group">
-						<div class="col-sm-offset-3 col-sm-9">
-							<a href="{{ path('dt_doctorama_modif_dossier_suivis', {'id_doctorant': doctorant.id}) }}" class="btn btn-warning" role="button">Modifier</a>
-							<button type="button" class="btn btn-danger">Archiver</button>
-						
-						</div>
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
+				<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
+				{% for ficheId, ficheContent in fiches %}
+					<li role="presentation"><a href="#{{ficheId}}" aria-controls="{{ficheId}}" role="tab" data-toggle="tab">{{ficheId}}</a></li>
+				{% endfor %}
+			</ul>
+			{{ include("DTDoctoramaBundle:Template:template_dossierSuivis.html.twig") }}
+				{% for ficheId, ficheContent in fiches %}
+				<div role="tabpanel" class="tab-pane" id="{{ficheId}}">
+					<div class="col-sm-8">
+						<form name="form" class="form-horizontal" role="form" method="post" action="{{path('dt_export_fiche')}}?nom={{doctorant.nom}} {{doctorant.prenom}}">
+							<input type="hidden" name="ficheId" value="{{ficheId}}" />
+							<input type="hidden" name="ficheLabel" value="{{ficheContent.label}}" />
+							<legend>
+								Fiche de suivi de réunion du {{ficheContent.date_reunion}}
+							</legend>
+							{%set id=0 %}
+							{% for question in ficheContent.questions %}
+								{% set id = id+1 %}
+								<div class="form-group">
+									<label class="col-sm-4 control-label">{{question.question}} :</label>
+									<div class="col-sm-8">
+										<input type="hidden" name="{{ficheId}}[question{{id}}]" value="{{question.question}}"/>
+										<input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly>
+									</div>
+								</div>
+							{% endfor %}
+							<div class="form-group">
+								<div class="col-sm-4"></div>
+								<div class="col-sm-4">
+									<input type="submit" class="btn btn-info" id="exportPDF" name="export" value="PDF">
+									<input type="submit" class="btn btn-info" id="exportCSV" name="export" value="CSV">
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
-				{{form_end(formDoctorant)}}
-        
-            {#</div>
-                {% for ficheId, ficheContent in fiches %}
-                    <div role="tabpanel" class="tab-pane" id="{{ficheId}}">
-                        <div class="col-sm-8">
-                            <form name="form" class="form-horizontal" role="form" method="post" action="{{path('dt_export_fiche')}}?nom={{doctorant.nom}} {{doctorant.prenom}}">
-                                <input type="hidden" name="ficheId" value="{{ficheId}}" />
-                                <input type="hidden" name="ficheLabel" value="{{ficheContent.label}}" />
-                                <legend>
-                                    Fiche de suivi de réunion du {{ficheContent.date_reunion}}
-                                </legend>
-                                {%set id=0 %}
-                                {% for question in ficheContent.questions %}
-                                    {% set id = id+1 %}
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">{{question.question}} :</label>
-                                        <div class="col-sm-8">
-                                            <input type="hidden" name="{{ficheId}}[question{{id}}]" value="{{question.question}}"/>
-                                            <input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                                <div class="form-group">
-                                    <div class="col-sm-4"></div>
-                                    <div class="col-sm-4">
-                                        <input type="submit" class="btn btn-info" id="exportPDF" name="export" value="PDF">
-                                        <input type="submit" class="btn btn-info" id="exportCSV" name="export" value="CSV">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>#}
-        </div>
-    </section>
+				{% endfor %}
+			</div>
+			<legend> </legend>
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<a href="{{ path('dt_doctorama_modif_dossier_suivis', {'id_doctorant': doctorant.id}) }}" class="btn btn-warning" role="button">Modifier</a>
+					<button type="button" class="btn btn-danger">Archiver</button>
+				
+				</div>
+			</div>
+		</div>
+		{{form_end(formDoctorant)}}
+	</section>
 {% endblock %}
