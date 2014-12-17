@@ -31,7 +31,7 @@ class TemplateFicheSuivi
     private $titre;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="DossierDeSuivi")
+	 * @ORM\ManyToOne(targetEntity="DossierDeSuivi", inversedBy="templatesFicheSuivi")
 	 */
 	protected $dossierDeSuivi;
 	
@@ -115,9 +115,9 @@ class TemplateFicheSuivi
 	*/
 	public function setDossierDeSuivi($dossierSuivi)
     {
-        $this->dossierDeSuivi = $dossierSuivi;
-		$dossierSuivi->setTemplateFicheSuivi($this);
-        return $this;
+		$this->dossierDeSuivi = $dossierSuivi;
+		$dossierSuivi->addTemplateFicheSuivi($this);
+		return $this;
     }
 
 }
