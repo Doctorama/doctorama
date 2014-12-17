@@ -525,9 +525,9 @@ public function parseCsvAction(Request $request)
 						        		break;
 								}
 							}
-							$doctorant->setThese($these);
-							$em->persist($doctorant);
-							$em->persist($these);
+							//$doctorant->setThese($these);
+							//$em->persist($doctorant);
+							//$em->persist($these);
 						}	
 					}
 				$ligne ++;
@@ -538,8 +538,11 @@ public function parseCsvAction(Request $request)
 		{ 
 			$reponse = 'Echec de l\'upload du fichier CSV. '; 
 		} 
-        $em->flush();
-        return new Response($reponse);
+        //$em->flush();
+        //return new Response($reponse);
+        return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV'));
+        
+        
     }
 
 
