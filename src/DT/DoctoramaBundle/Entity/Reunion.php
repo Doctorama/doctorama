@@ -36,7 +36,14 @@ class Reunion
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
-    
+	
+	/**
+	* @var string
+	*
+	* @ORM\Column(name="libelle", type="string", length=255)
+	**/
+	private $libelle;
+
     /**
      * @ORM\ManyToMany(targetEntity="Encadrant", inversedBy="reunions")
      **/
@@ -72,7 +79,6 @@ class Reunion
         }
     }
     
-    
     /**
      * Get doctorant
      *
@@ -82,7 +88,6 @@ class Reunion
     {
         return $this->doctorant;
     }
-    
     
     /**
      * add doctorant
@@ -95,9 +100,7 @@ class Reunion
         
         return $this;
     }
-    
-    
-    
+
     /**
      * Get id
      *
@@ -153,8 +156,34 @@ class Reunion
     {
         return $this->date;
     }
-    
-    
-    
 	
+	/**
+	* Get libelle
+	*
+	* @return Libelle
+	**/
+	public function getLibelle(){
+		return $this->libelle;
+	}
+	
+	/**
+	* Set libelle
+	*
+	* @param string $libelle
+	* @return Reunion
+	**/
+	public function setLibelle($libelle){
+		$this->libelle = $libelle;
+		return $this;
+	}
+	
+    /**
+	* Get personnes
+	*
+	* @return ArrayCollection Personne
+	**/
+    public function getPersonnes()
+    {
+        return $this->personnes;
+    }	
 }

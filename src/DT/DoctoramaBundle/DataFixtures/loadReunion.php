@@ -15,6 +15,7 @@ class loadReunion extends AbstractFixture implements OrderedFixtureInterface{
 		$reunion = new Reunion;
 		$reunion->setLieu('Pascal 128');
 		$reunion->setDate(new \DateTime('2014-12-16'));
+		$reunion->setLibelle('T6');
 		
 		$manager->persist($reunion);
 		$manager->flush();

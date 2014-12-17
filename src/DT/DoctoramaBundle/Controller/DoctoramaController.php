@@ -16,6 +16,7 @@ use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 use DT\DoctoramaBundle\Form\DoctorantType;
 use DT\DoctoramaBundle\Form\TheseType;
+use DT\DoctoramaBundle\Form\ReunionType;
 use \DateTime;
 /**
  * Description of DoctoramaController
@@ -478,6 +479,34 @@ class DoctoramaController extends Controller {
     	
         return new Response($reponse);
 
+    }
+
+
+
+    public function modifReunionAction(Request $request){
+   
+        $reunion = new Reunion();
+        $formReunion = $this->createForm(new ReunionType(), $reunion);
+        $formReunion->add('save',  'submit');
+        // On fait le lien Requête <-> Formulaire
+        // À partir de maintenant, la variable $advert contient les valeurs entrées dans le formulaire par le visiteur
+        $formReunion->handleRequest($request);
+            
+        // On vérifie que les valeurs entrées sont correctes
+        // (Nous verrons la validation des objets en détail dans le prochain chapitre)
+        if ($formReunion->isValid()) {
+        
+            // On l'enregistre notre objet $advert dans la base de données, par exemple
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($reunion);
+            $em->flush();
+
+          $request->getSession()->getFlashBag()->add('notice', 'Dossier bien crée.');
+
+          // On redirige vers la page de visualisation de l'annonce nouvellement créée
+          return $this->redirect($this->generateUrl('dt_doctorama_doctorant_labo'));
+        }
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion','formReunion' => $formReunion->createView()));
     }
 
 }

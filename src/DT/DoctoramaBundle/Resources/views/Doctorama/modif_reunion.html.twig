@@ -1,0 +1,111 @@
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/modif_reunion.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+    <legend>
+      <h3> {{title}} </h3>
+    </legend>
+
+    <section class="row">
+        <form action="" method="post" class="form-horizontal"  role="form">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#Administrative" aria-controls="sansrole" role="tab" data-toggle="tab">Informations administratives</a>
+                </li>
+                <li role="presentation">
+                    <a href="#Doctorant" aria-controls="avecrole" role="tab" data-toggle="tab">Informations Etudiants </a>
+                </li>
+            </ul>
+
+            <section class="tab-content">
+                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite active" id="Administrative">
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Nom</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="nom" placeholder="Nom">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Prénom</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="prénom" placeholder="Prénom">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Nom Usage</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="nom_usage" placeholder="Nom Usage">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Civilité</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="civilité" placeholder="Civilité">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Nationnalité</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="nation" placeholder="Nationnalité">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Adresse</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="adresse" placeholder="Adresse">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" name="email" placeholder="mon-email@exemple.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Date naissance</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" name="date_naiss" >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Ville naissance</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="ville_naiss" placeholder="Ville de naissance">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Département de naissance</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="dpt_naiss" placeholder="Département de naissance">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nom_doct" class="col-sm-3 control-label">Pays de naissance</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="pays_naiss" placeholder="Pays de naissance">
+                        </div>
+                    </div>
+                </article>
+
+                
+
+                <button  type="submit" class=" btn btn-success">Enregistrer</button>
+            </section>
+
+        </form>
+    </section>
+
+    
+{% endblock %}

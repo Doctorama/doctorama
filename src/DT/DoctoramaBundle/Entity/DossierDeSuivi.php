@@ -30,9 +30,9 @@ class DossierDeSuivi
     private $commentaires;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="TemplateFicheSuivi")
+	 * @ORM\OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="dossierDeSuivi")
 	 */
-	protected $templateFicheSuivi;
+	protected $templatesFicheSuivi;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="These")
@@ -41,6 +41,7 @@ class DossierDeSuivi
 	
 	public function __construct() {
         $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->templatesFicheSuivi = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -82,7 +83,7 @@ class DossierDeSuivi
 	* @return TemplateFicheSuivi
 	**/
 	public function getTemplateFicheSuivi(){
-		return $this->templateFicheSuivi;
+		return $this->templatesFicheSuivi;
 	}
 	
 	/**
@@ -91,8 +92,12 @@ class DossierDeSuivi
 	* @param TemplateFicheSuivi $ficheSuivi
 	* @return TemplateFicheSuivi
 	**/
-	public function setTemplateFicheSuivi($ficheSuivi){
-		return $this->templateFicheSuivi = $ficheSuivi;
+	public function addTemplateFicheSuivi($ficheSuivi){
+		if(!$this->templatesFicheSuivi->contains($ficheSuivi)){
+			//$ficheSuivi->addDossierDeSuivi($this);
+			$this->items[] = ($ficheSuivi);
+		}
+		return $this;
 	}
 	
 	/**
