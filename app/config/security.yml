@@ -8,7 +8,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_DOCTORANT, ROLE_ENCADRANT]
+        ROLE_ADMIN:       [ROLE_DOCTORANT, ROLE_ENCADRANT, ROLE_DIRECTEUR_THESE]
+        ROLE_DIRECTEUR_LABO: [ROLE_ADMIN]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
@@ -21,11 +22,11 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
-                    directeur_these: { password: directeur, roles [ 'ROLE_DIRECTEUR'] }
+                    directeur_these: { password: directeurthese, roles [ 'ROLE_DIRECTEUR_THESE'] }
                     encadrant: { password: encadrant, roles: [ 'ROLE_ENCADRANT' ] }
                     doctorant: { password: doctorant, roles: [ 'ROLE_DOCTORANT' ] }
+                    directeur_labo: { password: directeurlabo, roles: [ 'ROLE_DIRECTEUR_LABO' ] }
 
     # the main part of the security, where you can set up firewalls
     # for specific sections of your app

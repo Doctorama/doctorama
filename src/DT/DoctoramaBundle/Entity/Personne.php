@@ -96,45 +96,11 @@ class Personne
      */
     protected $depDeNaissance;
 	
-    /**
-     * @ORM\ManyToMany(targetEntity="Reunion", inversedBy="personnes")
-     **/
-    protected $reunions;
 	
 	public function __construct(){
 		$this->reunions = new \Doctrine\Common\Collections\ArrayCollection();
 	}
 	
-	/**
-	* Get Reunion
-	*
-	* @return ArrayCollection Reunion
-	*/
-	public function getReunion(){
-		return $this->reunions;
-	}
-	
-	/**
-	* Delete Reunion
-	*
-	* @param Reunion $reunion
-	**/
-	public function deleteReunion($reunion){
-		$this->reunions->removeElement($reunion);
-	}
-	
-	/**
-	* Add Reunion
-	*
-	* @param Reunion $reunion
-	**/
-	public function addReunion($reunion){
-		if(!$this->reunions->contains($reunion)){
-			$this->reunions[] = ($reunion);
-		}
-	}
-
-
     /**
      * Get id
      *

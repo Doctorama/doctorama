@@ -19,10 +19,14 @@ class loadQuestion extends AbstractFixture implements OrderedFixtureInterface{
 		
 		
 		$tfs = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findByTitre('Un Template');
+		$tfs2 = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findByTitre('Un Template2');
 		$template = $tfs[sizeof($tfs)-1];
+		$template2 = $tfs2[sizeof($tfs2)-1];
 		$template->addQuestions($question);
+		$template2->addQuestions($question);
 		
 		$manager->persist($template);
+		$manager->persist($template2);
 		$manager->persist($question);
 			
 		
