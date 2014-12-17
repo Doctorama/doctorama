@@ -100,7 +100,10 @@ class Reunion
      */
     public function setDoctorant($doctorant)
     {
-        $this->doctorant=$doctorant;
+		if($this->doctorant != $doctorant){
+			$this->doctorant=$doctorant;
+			$doctorant->addReunion($this);
+		}
         
         return $this;
     }

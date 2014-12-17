@@ -178,10 +178,9 @@ class These
 	public function addEncadrant($encadrant){
 		if(!$this->encadrants->contains($encadrant)){
 			$encadrant->addThese($this);
-                        $this->items[] = $encadrant;
-		}
-                
-                return $this;
+            $this->items[] = $encadrant;
+		}        
+        return $this;
 	}
 	
 	/**
