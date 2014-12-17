@@ -417,115 +417,113 @@ public function parseCsvAction(Request $request)
 					if ($ligne>1) {
 						if (!$tab[0] == "") {
 							for($i=0; $i<$champs; $i ++) {	
-								
-								switch ($i) {
-		    						case 0:
+								switch ($tab_intitule[$i]) {
+									case "Numéro_Etudiant":
 		        						$doctorant->setNumEtudiant($tab[$i]);
 						        		break;
-						    		case 1:
+						    		case "Civilité_(M./MME/MLLE)":
 						        		$doctorant->setCivilite($tab[$i]);
 						        		break;
-						    		case 2:
+						        	case "Nom_patronymique":
 						    			$doctorant->setNom($tab[$i]);
 						    			$reponse = $tab[$i];
 						        		break;
-						    		case 3:
+						    		case "Nom_Marital":
 						    			$doctorant->setNomUsage($tab[$i]);
 						        		break;
-		    						case 4:
+		    						case "Prénom":
 		        						$doctorant->setPrenom($tab[$i]);
 						        		break;
-						    		case 5:
+						    		case "Date_De_Naissance":
 						    			//Faut changer la date
 						        		$doctorant->setDateDeNaissance(new \DateTime($tab[$i]));
 						        		break;
-						    		case 6:
+						    		case "Pays_Nationalité(libellé)":
 						        		$doctorant->setNationalite($tab[$i]);
 						        		break;
-						    		case 7:
+						    		case "Lieu_de_naissance":
 						        		$doctorant->setVilleDeNaissance($tab[$i]);
 						        		break;
-						    		case 8:
+						    		case "Pays_Naissance(libellé)":
 						        		$doctorant->setPaysDeNaissance($tab[$i]);
 						        		break;
-						    		case 9:
+						    		case "Département_de_naissance(libellé)":
 						    			$doctorant->setDepDeNaissance($tab[$i]);
 						        		break;
-						    		case 10:
+						    		case "Etablissement(libellé)":
 						    			$doctorant->setUniversiteMaster($tab[$i]);
 						        		break;
-		    						case 11:
+		    						case "Département(libellé)":
 		        						$doctorant->setEtabDernierDiplome($tab[$i]);
 						        		break;
-						    		case 12:
+						    		case "Cadre_F_Dernier_diplôme.Pays(libellé)":
 						        		$doctorant->setSujetMaster($tab[$i]);
 						        		break;
-						    		case 13:
+						    		case "Type(libellé)":
 						        		break;
-						    		case 14:
+						    		case "Diplôme":
 						        		$doctorant->setLibelleDernierDiplome($tab[$i]);
 						        		break;
-						    		case 15:
+						    		case "Année":
 						        		$doctorant->setAnneeDernierDiplome($tab[$i]);
 						        		break;
-		    						case 16:
+		    						case "Adresse_1":
 						        		break;
-						    		case 17:
+						    		case "Adresse_2":
 						        		break;
-						    		case 18:
+						    		case "Code_postal":
 						        		break;
-						    		case 19:
+						    		case "Ville":
 						        		break;
-		    						case 20:
+		    						case "Adrese_de_l’étudiant.Pays(libellé)":
 		        						$doctorant->setAdresse($tab[$i]);
 						        		break;
-						    		case 21:
+						    		case "E-mail_perso":
 						        		$doctorant->setMail($tab[$i]);
 						        		break;
-						    		case 22:
+						    		case "CROUS":
 						        		break;
-						    		case 23:
+						    		case "Numéro_allocataire":
 						        		break;
-						    		case 24:
+						    		case "Echelon":
 						        		break;
-						    		case 25:
+						    		case "Exonération":
 						    			$doctorant->setBourseEtExoneration($tab[$i]);
 						        		break;
-						    		case 26:
+						    		case "Sujet_de_la_thèse":
 						    			$these->setSujetThese($tab[$i]);
 						        		break;
-		    						case 27:
+		    						case "Specialite_de_la_thèse":
 		        						$these->setSpecialite($tab[$i]);
 						        		break;
-						    		case 28:
+						    		case "Laboratoire_de_la_thèse(Lib_long)":
 						        		$these->setLaboratoire($tab[$i]);
 						        		break;
-						    		case 29:
+						    		case "Directeur_de_thèse":
 						        		//$doctorant->setIdPers($tab[$i]);
 						        		break;
-						    		case 30:
+						    		case "Collaboration_Université":
 						        		break;
-						    		case 31:
+						    		case "Collaboration_Responsable":
 						        		break;
-						    		case 32:
+						    		case "Financement_de_la_thèse":
 						        		$these->setFinancement($tab[$i]);
 						        		break;
-						    		case 33:
+						    		case "1er_année_insc_these":
 						        		$doctorant->setDateInscr1ethese($tab[$i]);
 						        		break;
-						    		case 34:
+						    		case "Date_Soutenance":
 						    		//Faut changer la date
 						    			$these->setDateDeSoutenance(new \DateTime($tab[$i]));
 						        		break;
-						    		case 35:
+						    		case "Identite":
 						        		break;
-		    						case 36:
+		    						case "Type_jury_(Pres/membre)":
 						        		break;
-						    		case 37:
+						    		case "Mention":
 						        		$these->setMention($tab[$i]);
 						        		break;
 								}
-								//$reponse = $reponse . $tab[$i] . "<br />";
 							}
 							$doctorant->setThese($these);
 							$em->persist($doctorant);
