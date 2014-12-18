@@ -418,7 +418,7 @@ class DoctoramaController extends Controller {
 			$ligne = 0; // compteur de ligne
 			
 			$fic = fopen("$uploads_dir/$name", "a+");
-			while($tab=fgetcsv($fic,1024,';')) {
+			while($tab=fgetcsv($fic,1024,',')) {
 				$j = 0; //Compteur remplissage ligne $list_doctorants
 				
 				//Création des enregistrements:
@@ -460,12 +460,13 @@ class DoctoramaController extends Controller {
 		        						$doctorant->setPrenom($tab[$i]);
 						        		break;
 						    		case "Date De Naissance":
-						    			//Faut changer la date
+						    		//On change le format de la date avant de l'insérer
 						    			$list_doctorants[$ligne][$j] = $tab[$i];
 						    			$j++;
-						    			$arr = explode('/', $tab[$i]);
-										$newDate = $arr[2].'/'.$arr[1].'/'.$arr[0];
-						        		$doctorant->setDateDeNaissance(new \DateTime($newDate));
+						    			if (!$tab[$i]=="") {
+						    				$arr = implode('-', array_reverse(explode('/', $tab[$i])));
+						        			$doctorant->setDateDeNaissance(new \DateTime($arr));
+						    			}
 						        		break;
 						    		case "Pays Nationalité (libellé)":
 						        		$doctorant->setNationalite($tab[$i]);
@@ -533,7 +534,6 @@ class DoctoramaController extends Controller {
 						        		$these->setLaboratoire($tab[$i]);
 						        		break;
 						    		case "Directeur de thèse":
-						        		//$doctorant->setIdPers($tab[$i]);
 						        		$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom',$tab[$i]);
 										$encadrant = $query->getResult();
 										$these->setDirecteursDeThese($encadrant);
@@ -549,10 +549,11 @@ class DoctoramaController extends Controller {
 						        		$doctorant->setDateInscr1ethese($tab[$i]);
 						        		break;
 						    		case "Date Soutenance":
-						    		//Faut changer la date
-						    			$arr = explode('/', $tab[$i]);
-										$newDate = $arr[2].'/'.$arr[1].'/'.$arr[0];
-						    			$these->setDateDeSoutenance(new \DateTime($newDate));
+						    		//On change le format de la date avant de l'insérer
+						    			if (!$tab[$i]=="") {
+						    				$arr = implode('-', array_reverse(explode('/', $tab[$i])));
+						    				$these->setDateDeSoutenance(new \DateTime($arr));
+						    			}
 						        		break;
 						    		case "Identite":
 						        		break;
@@ -563,9 +564,9 @@ class DoctoramaController extends Controller {
 						        		break;
 								}
 							}
-							$doctorant->setThese($these);
-							$em->persist($doctorant);
-							$em->persist($these);
+							//$doctorant->setThese($these);
+							//$em->persist($doctorant);
+							//$em->persist($these);
 						}	
 					}
 				$ligne ++;
@@ -576,8 +577,8 @@ class DoctoramaController extends Controller {
 		{ 
 			$reponse = 'Echec de l\'upload du fichier CSV. '; 
 		} 
-        $em->flush();
-		//var_dump($list_doctorants);
+        //$em->flush();
+		//var_dump($arr);
 		//exit;
         return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV', 'list_doctorants' => $list_doctorants));
     }
