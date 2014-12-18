@@ -1,0 +1,77 @@
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/modif_template.html.twig#}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+{% block DTDoctoramaBody %}
+
+    <legend>
+        <h3> {{title}} </h3>
+    </legend>
+
+    <section class="row">
+        <form action="" method="post" class="form-horizontal"  role="form">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#T6" aria-controls="sansrole" role="tab" data-toggle="tab">T+6</a>
+                </li>
+                <li role="presentation">
+                    <a href="#T12" aria-controls="avecrole" role="tab" data-toggle="tab">T+12</a>
+                </li>
+
+            </ul>
+
+            <section class="tab-content">
+                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite active" id="T6">
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="add_input_question_t6" placeholder="Nouvelle question">
+                      <span class="input-group-btn">
+                        <button class="btn btn-success" id="add_question_t6" type="button">Ajouter</button>
+                      </span>
+                    </div>
+
+                    <form action="{{ path('dt_doctorama_modif_fiche_form') }}" methode="post" >
+                        <table class="table border1px table-striped" style="margin-top:25px;">
+                            <thead>
+                            </thead>
+                            <tbody id="t6">
+                                <tr>
+                                    <input type="hidden" value="Question 1" name="question[]"/>
+                                    <td> Question 1 </td>
+                                    <td> 
+                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
+                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <input type="hidden" value="Question 2" name="question[]"/>
+                                    <td> Question 2 </td>
+                                    <td> 
+                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
+                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <input type="hidden" value="Question 3" name="question[]"/>
+                                    <td> Question 3 </td>
+                                    <td> 
+                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
+                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" class="btn btn-success" value="Enregistrer"/>
+                    </form>
+                </article>
+
+
+                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="T12">
+            
+                </article>
+            </section>
+
+        </form>
+    </section>
+
+
+{% endblock %}

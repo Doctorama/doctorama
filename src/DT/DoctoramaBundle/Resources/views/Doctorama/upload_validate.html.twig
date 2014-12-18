@@ -1,0 +1,35 @@
+
+{# src/DT/DoctoramaBundle/Resources/views/Doctorama/doctorant_labo.html.twig #}
+{% extends "DTDoctoramaBundle::index.html.twig" %}
+
+
+{% block DTDoctoramaBody %}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <legend>
+          <h3>Importation du fichier réussie </h3>
+        </legend>
+
+<center>
+<IMG SRC="{{asset('bundles/doctorama/public/img/logo2.png')}}">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>Votre fichier a bien été Importer !</h1>
+                <div class="error-actions">
+                    <a href="{{ path('dt_doctorama_accueil') }}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Accueil </a>
+                    <a href="{{ path('dt_doctorama_importCsv') }}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-upload"></span>
+                        Import CSV </a>
+                </div>
+                <div class="error-details">
+                	</br>
+                    Vous pouvez revenir à l'acceuil ou Uploader un nouveau fichier CSV.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+{% endblock %}
