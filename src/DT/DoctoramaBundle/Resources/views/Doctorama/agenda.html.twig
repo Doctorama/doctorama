@@ -11,8 +11,10 @@
 	<section class="row" >
 		
 		<div class="col-lg-5 col-md-6">
-		  <a href="{{ path('dt_creation_reunion') }}" style="margin-bottom:15px;" class="btn  btn-success" role="button">Création Réunion</a>	
-				{% for j in 0..7 %}
+                    {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
+                        <a href="{{ path('dt_creation_reunion') }}" style="margin-bottom:15px;" class="btn  btn-success" role="button">Création Réunion</a>	
+                    {% endif %}
+                                {% for j in 0..7 %}
 					{%set i = 0%}
 					 
 					<div class="table-responsive">
@@ -46,8 +48,12 @@
 									   	{% endfor %}"> </span>
 									</td>
 									 <td>{{reu.reunion.lieu}} </td>
-									 <td class=" pull-right"><a href="{{ path('dt_modif_reunion', {'id_reunion': reu.reunion.id}) }}" class="btn btn-xs btn-info" role="button">Détails</a></td>
-								</tr>
+                                                                         {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
+                                                                            <td class=" pull-right"><a href="{{ path('dt_modif_reunion', {'id_reunion': reu.reunion.id}) }}" class="btn btn-xs btn-info" role="button">Détails</a></td>
+                                                                         {%else%}
+                                                                             <td/>
+                                                                         {%endif%}
+                                                                </tr>
 							</tbody>
 					 	{% endif %}
 				 	{% endfor %}
