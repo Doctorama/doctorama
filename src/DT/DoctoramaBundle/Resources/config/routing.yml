@@ -52,21 +52,21 @@ dt_detail_doctorant:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:detailDoctorant}
 
 dt_formulaire_creation_dossier:
-    pattern: /creation_dossier_suivis
+    pattern: /encadrant/creation_dossier_suivis
     defaults: { _controller: DTDoctoramaBundle:Doctorama:creationDossier}
 
 dt_export_fiche:
-    pattern: /export_fiche
+    pattern: /encadrant/export_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:exportFiche}
 
  
 dt_modif_reunion:
-    pattern: /modifier_reunion/{id_reunion}
+    pattern: /encadrant/modifier_reunion/{id_reunion}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifReunion}
 
     
 dt_doctorama_importCsv:
-    pattern: /importation_csv
+    pattern: /directeur_labo/importation_csv
     defaults: { _controller: DTDoctoramaBundle:Doctorama:importCsv}
     
 dt_doctorama_parse_csv:
@@ -74,11 +74,11 @@ dt_doctorama_parse_csv:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:parseCsv}	
 
 dt_creation_reunion:
-    pattern: /creation_reunion
+    pattern: /encadrant/creation_reunion
     defaults: { _controller: DTDoctoramaBundle:Doctorama:creationReunion}
     
 dt_popup_archivage:
-    pattern: /archiver_these/{id_these}
+    pattern: /encadrant/archiver_these/{id_these}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:archiverThese}
 
 

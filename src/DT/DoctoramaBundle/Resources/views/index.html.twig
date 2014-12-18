@@ -43,8 +43,9 @@
                     </li>
                     {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
                     <li><a href="{{ path('dt_doctorama_admin_dossier_suivis') }}">Dossier de suivis</a></li>
-                    {% endif %}
                     <li><a href="{{ path('dt_doctorama_modif_fiche') }}">Template de fiche de suivi</a></li>
+                    {% endif %}
+                    
                     <li><a href="{{ path('dt_doctorama_info_perso') }}">Information Personnelles</a></li>
 
                     {% if is_granted('ROLE_DIRECTEUR_LABORATOIRE') %} 

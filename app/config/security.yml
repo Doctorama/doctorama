@@ -55,6 +55,7 @@ security:
         - { path: ^/doctorant, roles: ROLE_DOCTORANT ,requires_channel: form_login }
         - { path: ^/encadrant, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE] ,requires_channel: form_login }
         - { path: ^/statistiques, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE] ,requires_channel: form_login }
+        - { path: ^/directeur_labo, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE,ROLE_DOCTORANT] ,requires_channel: form_login }
         - { path: ^/, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE,ROLE_DOCTORANT] ,requires_channel: form_login }
         
         
