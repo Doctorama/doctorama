@@ -81,6 +81,13 @@ $(document).ready(function(){
 		tr.hide();
 	});
 	
+	$(document).on('click','.fiche',function(){
+		$('#modif_buttons').hide();
+	});
+	$(document).on('click','.infos_doctorant',function(){
+		$('#modif_buttons').show();
+	});
+	
 	// Agenda
 	$('#calendar').fullCalendar({
 		firstDay:1,

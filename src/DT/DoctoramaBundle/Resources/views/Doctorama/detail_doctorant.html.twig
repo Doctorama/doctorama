@@ -7,13 +7,13 @@
         <h3>{{title}} : {{doctorant.nom}} {{doctorant.prenom}}</h3>
     </legend>
 
-    <section class="row-fluid">
+    <section class="row-fluid details_doctorant">
         <div role="tabpanel">
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#these" aria-controls="these" role="tab" data-toggle="tab">Thèse</a></li>
 				<li role="presentation"><a href="#doctorant" aria-controls="doctorant" role="tab" data-toggle="tab">Doctorant</a></li>
 				{% for ficheId, ficheContent in fiches %}
-					<li role="presentation"><a href="#{{ficheId}}" aria-controls="{{ficheId}}" role="tab" data-toggle="tab">{{ficheId}}</a></li>
+					<li role="presentation"><a href="#{{ficheId}}" class="fiche" aria-controls="{{ficheId}}" role="tab" data-toggle="tab">{{ficheId}}</a></li>
 				{% endfor %}
 			</ul>
 			{{ include("DTDoctoramaBundle:Template:template_dossierSuivis.html.twig") }}
@@ -51,7 +51,7 @@
 				{% endfor %}
 			</div>
 			<legend> </legend>
-			<div class="form-group">
+			<div class="form-group" id="modif_buttons">
 				<div class="col-sm-offset-3 col-sm-9">
 					{% if doctorant.these.mention == null %} 
                                             <a href="{{ path('dt_doctorama_modif_dossier_suivis', {'id_doctorant': doctorant.id}) }}" class="btn btn-warning" role="button">Modifier</a>

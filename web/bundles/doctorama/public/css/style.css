@@ -144,3 +144,9 @@ modification du conteneur
 .backgroundWhite{
 	background:white;
 }
+
+/*Liste encadrants & directeurs de thèse -> Détails doctorant*/
+select.select-large{
+	max-height:100px;
+	min-width:200px;
+}
