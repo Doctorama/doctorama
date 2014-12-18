@@ -603,12 +603,42 @@ class DoctoramaController extends Controller {
     }
 
     public function modifFicheAction(Request $request){
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
+        $TR = $this->getDoctrine()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+        $templates = $TR->findAllTemplateLastVersion();
+
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi', 'templates' => $templates));
     }
 
     public function modifFicheFormAction(Request $request){
-        var_dump($_POST);
+        var_dump($_GET);
+        /*
+        $em = $this->getDoctrine()->getManager();
+
+        $template = new TemplateFicheSuivi();
+
+        $titre = $_GET['libelle'];
+        $version = $_GET['version'] + 1;
+
+        $template->setTitre($titre);
+        $template->setVersion($version);
+
+        foreach ($_GET['question'] as $q) {
+            $q1 = htmlentities(str_replace('"','\"',$q));
+            $ques = new Question();
+            $ques->setQuestion($ques);
+
+            $template->addQuestions($ques);
+            $em->persist($ques);
+        }
+
+        */
+       // var_dump($template);
+       // $em->flush();
         exit;
+        
+
+        
+       // $template->setTitre();
        //return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
     }
 }

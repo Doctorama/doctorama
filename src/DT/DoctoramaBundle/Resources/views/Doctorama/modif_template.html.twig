@@ -8,69 +8,65 @@
     </legend>
 
     <section class="row">
-        <form action="" method="post" class="form-horizontal"  role="form">
+            <a href="{{ path('dt_doctorama_modif_fiche') }}" class="btn btn-danger" role="button" style="margin-bottom:15px">Revenir aux dernières sauvegardes</a>
 
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active">
-                    <a href="#T6" aria-controls="sansrole" role="tab" data-toggle="tab">T+6</a>
-                </li>
-                <li role="presentation">
-                    <a href="#T12" aria-controls="avecrole" role="tab" data-toggle="tab">T+12</a>
-                </li>
-
+                {%set i=0 %}
+                {% for template in templates %}
+                    {%if i == 0 %}
+                        <li role="presentation" class="active">
+                            <a href="{{'#'~template.titre}}" aria-controls="sansrole" role="tab" data-toggle="tab">{{template.titre}}</a>
+                        </li>
+                        {% set i=1 %}
+                    {% else %}
+                        <li role="presentation">
+                            <a href="{{'#'~template.titre}}" aria-controls="avecrole" role="tab" data-toggle="tab">{{template.titre}}</a>
+                        </li>
+                    {% endif%}
+                {% endfor %}
             </ul>
 
             <section class="tab-content">
-                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite active" id="T6">
-                    <div class="input-group">
-                      <input type="text" class="form-control" id="add_input_question_t6" placeholder="Nouvelle question">
-                      <span class="input-group-btn">
-                        <button class="btn btn-success" id="add_question_t6" type="button">Ajouter</button>
-                      </span>
-                    </div>
+                {%set i=0 %}
+                {% for template in templates %}
+                    {%if i == 0 %}
+                        <article role="tabpanel" class="tab-pane jumbotron backgroundWhite active" id="{{template.titre}}">
+                        {% set i=1 %}
+                    {% else %}
+                        <article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="{{template.titre}}">
+                    {% endif%}
+                
+                            <div class="input-group">
+                                <input type="text" class="form-control {{template.titre}}" id="add_input_question" placeholder="Nouvelle question">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" id="add_question" type="button">Ajouter</button>
+                                </span>
+                            </div>
 
-                    <form action="{{ path('dt_doctorama_modif_fiche_form') }}" methode="post" >
-                        <table class="table border1px table-striped" style="margin-top:25px;">
-                            <thead>
-                            </thead>
-                            <tbody id="t6">
-                                <tr>
-                                    <input type="hidden" value="Question 1" name="question[]"/>
-                                    <td> Question 1 </td>
-                                    <td> 
-                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
-                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <input type="hidden" value="Question 2" name="question[]"/>
-                                    <td> Question 2 </td>
-                                    <td> 
-                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
-                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <input type="hidden" value="Question 3" name="question[]"/>
-                                    <td> Question 3 </td>
-                                    <td> 
-                                        <i class="btn-sm btn-danger sup_question">Supprimer</i> 
-                                        <i class="btn-sm btn-warning modif_question">Modifier</i> 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <input type="submit" class="btn btn-success" value="Enregistrer"/>
-                    </form>
-                </article>
-
-
-                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="T12">
-            
-                </article>
+                            <form methode="get" action="{{ path('dt_doctorama_modif_fiche_form') }}"  >
+                                <table class="table border1px table-striped" style="margin-top:25px;">
+                                    <input type="hidden" value="{{template.version}}" name="version"/>
+                                    <input type="hidden" value="{{template.titre}}" name="libelle"/>
+                                    <thead>
+                                    </thead>
+                                    <tbody id="{{template.titre}}">
+                                        {% for question in template.questions %}
+                                            <tr>
+                                                <input type="hidden" value="{{question}}" name="question[]"/>
+                                                <td> {{question}} </td>
+                                                <td> 
+                                                    <i class="btn-sm btn-danger sup_question ">Supprimer</i> 
+                                                    <i class="btn-sm btn-warning modif_question {{template.titre}}">Modifier</i> 
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <input type="submit" class="btn btn-success" value="Enregistrer"/>
+                            </form>
+                        </article>
+                {% endfor %}
             </section>
-
-        </form>
     </section>
 
 
