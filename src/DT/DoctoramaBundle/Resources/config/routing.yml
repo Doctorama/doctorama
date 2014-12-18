@@ -87,10 +87,10 @@ dt_fermer_fenetre:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:fermerFenetre}
 
 dt_doctorama_modif_fiche:
-    pattern: /modifier_fiche
+    pattern: /encadrant/modifier_fiche
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifFiche}
 
 dt_doctorama_modif_fiche_form:
-    pattern: /modifier_fiche_form
+    pattern: /encadrant/modifier_fiche_form
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifFicheForm}
 

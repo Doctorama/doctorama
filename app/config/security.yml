@@ -53,8 +53,8 @@ security:
     access_control:
         - { path: ^/login, roles:  IS_AUTHENTICATED_ANONYMOUSLY ,requires_channel: form_login } 
         - { path: ^/doctorant, roles: ROLE_DOCTORANT ,requires_channel: form_login }
-        - { path: ^/encadrant, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR] ,requires_channel: form_login }
-        - { path: ^/statistiques, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR] ,requires_channel: form_login }
-        - { path: ^/, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR,ROLE_DOCTORANT] ,requires_channel: form_login }
+        - { path: ^/encadrant, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE] ,requires_channel: form_login }
+        - { path: ^/statistiques, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE] ,requires_channel: form_login }
+        - { path: ^/, roles: [ROLE_ENCADRANT,ROLE_DIRECTEUR_THESE,ROLE_DOCTORANT] ,requires_channel: form_login }
         
         
