@@ -60,7 +60,7 @@ class DoctoramaController extends Controller {
             $listDoctorants = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant')->theseNonArchivee($user->getEncadrant()->getId());
         } else {
             $doctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-            $listDoctorants = $doctorantRepository->findAll();
+            $listDoctorants = $doctorantRepository->theseNonArchivee();
         }
 
         return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorants));
@@ -74,13 +74,13 @@ class DoctoramaController extends Controller {
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->theseNonArchivee();
         $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
-        $listThese = array(sizeof($listDoctorant));
+        /*$listThese = array(sizeof($listDoctorant));
         for ($i = 0; $i < sizeof($listDoctorant); $i++) {
 
             $these = $TheseRepository->findById($listDoctorant[$i]->getId());
             if (isset($these[0]))
                 $listDoctorant[$i]->setThese($these[0]);
-        }
+        }*/
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant' => $listDoctorant));
     }
 
