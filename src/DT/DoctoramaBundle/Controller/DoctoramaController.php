@@ -562,7 +562,20 @@ class DoctoramaController extends Controller {
 		    						case "Type jury (Pres/membre)":
 						        		break;
 						    		case "Mention":
-						        		$these->setMention($tab[$i]);
+						    			switch ($tab[$i]) {
+											case "Très honorable avec les félicitations du jury":
+						        				$these->setMention("3");
+						        				break;
+						        			case "Très honorable":
+						        				$these->setMention("2");
+						        				break;
+						        			case "Honorable":
+						        				$these->setMention("1");
+						        				break;
+						        			case "Abandonnée":
+						        				$these->setMention("4");
+						        				break;
+						    			}
 						        		break;
 								}
 							}
