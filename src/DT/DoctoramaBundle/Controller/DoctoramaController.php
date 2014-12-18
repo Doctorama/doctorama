@@ -166,8 +166,11 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier de suivis'));
     }
 
-    public function adminUtilisateurAction(Request $request) {
-        return $this->render('DTDoctoramaBundle:Doctorama:admin_utilisateur.html.twig', array('title' => 'Gestion des utilisateurs'));
+    public function adminUtilisateurAction(Request $request) {   
+        $compteRepository = $this->getDoctrine()->getManager()->getRepository('DTSecurityBundle:Compte');
+        $listeComptesActifs = $compteRepository->findAll();
+        
+        return $this->render('DTDoctoramaBundle:Doctorama:admin_utilisateur.html.twig', array('title' => 'Gestion des utilisateurs', 'comptesActifs' => $listeComptesActifs));
     }
 
     public function persisterDossierSuivis($doctorant) {
@@ -631,5 +634,58 @@ class DoctoramaController extends Controller {
         var_dump($_POST);
         exit;
        //return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
+    }
+    
+    public function adminInfosPeroAction($id_compte, Request $request){
+
+       $compte = $this->getDoctrine()->getManager()->find('DTSecurityBundle:Compte',$id_compte);
+       
+ 
+        //si c'est un encadrant
+        if (method_exists($compte, 'getEncadrant') && $compte->getEncadrant() != null) {
+
+            $encadrant = $compte->getEncadrant();
+            $formEncadrant = $this->createForm(new EncadrantType(), $encadrant, array('method' => 'PUT'));
+            $formEncadrant->add('Enregistrer', 'submit');
+
+            $formEncadrant->handleRequest($request);
+
+            if ($formEncadrant->isValid()) {
+
+                $em->persist($encadrant);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Informations bien enregistrées.');
+
+                return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
+            }
+
+            return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles', 'form' => $formEncadrant->createView(), 'compte' =>$compte));
+        }
+
+        //si c'est un doctorant
+        elseif (method_exists($compte, 'getDoctorant') && $compte->getDoctorant() != null) {
+            
+            $doctorant = $compte->getDoctorant();
+            $formDoctorant = $this->createForm(new DoctorantType(false), $doctorant, array('method' => 'PUT'));
+            $formDoctorant->add('Enregistrer', 'submit');
+
+            $formDoctorant->handleRequest($request);
+
+            if ($formDoctorant->isValid()) {
+
+                $em->persist($doctorant);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Informations bien enregistrées.');
+
+                // On redirige vers la page de visualisation de l'annonce nouvellement créée
+                return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
+            }
+
+            return $this->render('DTDoctoramaBundle:Doctorama:infos_perso.html.twig', array('title' => 'Informations Personnelles', 'form' => $formDoctorant->createView(),'compte' =>$compte));
+        }
+
+        return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
     }
 }

@@ -14,11 +14,13 @@
                 <li role="presentation" class="active">
                     <a href="#Administrative" aria-controls="sansrole" role="tab" data-toggle="tab">Informations administratives</a>
                 </li>
-                {% if app.user.doctorant is defined and app.user.doctorant != null %}
+                
+                {% if (compte is defined and compte.doctorant != null) or (app.user.doctorant is defined and app.user.doctorant != null) %}
                     <li role="presentation">
                         <a href="#Doctorant" aria-controls="avecrole" role="tab" data-toggle="tab">Informations Etudiants </a>
                     </li>
                 {% endif %}
+                
 
             </ul>
 
@@ -105,7 +107,7 @@
 
                 </article>
 
-                {% if app.user.doctorant is defined and app.user.doctorant != null %}
+                {% if (compte is defined and compte.doctorant != null)  or (app.user.doctorant is defined and app.user.doctorant != null)%}
                     {{ include("DTDoctoramaBundle:Template:template_info_etudiant.html.twig") }}
                 {% endif %}
                 {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-success'}}) }}

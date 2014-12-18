@@ -32,8 +32,12 @@ dt_doctorama_admin_dossier_suivis:
     defaults: { _controller: DTDoctoramaBundle:Doctorama:adminDossierSuivis}
 
 dt_doctorama_admin_utilisateur:
-    pattern: /encadrant/admin_utilisateur
+    pattern: /directeur_labo/admin_utilisateur
     defaults: { _controller: DTDoctoramaBundle:Doctorama:adminUtilisateur}
+    
+dt_doctorama_admin_infos_perso:
+    pattern: /directeur_labo/admin_utilisateur/{id_compte}
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:adminInfosPero}
 
 dt_doctorama_info_perso:
     pattern: /info_perso
