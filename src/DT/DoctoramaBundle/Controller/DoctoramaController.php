@@ -585,7 +585,6 @@ class DoctoramaController extends Controller {
 
 
 
-
     public function modifReunionAction($id_reunion , Request $request){
 
         $reunion = $this->getDoctrine()->getManager()->find("DTDoctoramaBundle:Reunion", $id_reunion);
