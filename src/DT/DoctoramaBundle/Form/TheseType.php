@@ -20,7 +20,7 @@ class TheseType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder ->add('mention', 'choice', array(
-                        'choices' => array('1' => 'Honorable', '2' => 'Très honorable', '3' => 'Très honorable avec félicitation', '4' => 'Abandonnée'),
+                        'choices' => array('1' => 'Honorable', '2' => 'Très honorable', '3' => 'Très honorable avec les félicitations du jury', '4' => 'Abandonnée'),
                         'required' => false,
                     ));
         
