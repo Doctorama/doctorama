@@ -135,36 +135,63 @@ class DoctoramaController extends Controller {
 
 
         return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda','reunions'=>$reunions));
-
-
-        
+   
     }
     
     public function statistiquesAction(Request $request)
     {
-        $theses = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These')->theseArchivee();
+        $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
+        $theses = $theseRepository->theseArchivee();
         $dureeMoyenneThese=0;
+        $nbThesesAbandonnees = 0;
+        $pourcentageTheseReussi = 0;
         
+        $EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
+        $listEncadrant = $EncadrantRepository->findAll();
+        $encadrants = array();
+        
+        //s'il y a des theses
         if (sizeof($theses)>0)
-        {
+        {   
+            //pour chaque these
             foreach($theses as $these)
             {
+                //calcul moyenne
                 $interval = date_diff($these->getDateDebut(), $these->getDateDeSoutenance());
-                echo "<script>alert(\"interval : ".$interval->format('%a')." \")</script>";
 
                 $tempsTotal = ($interval->format('%d')/30) + $interval->format('%m')+ 12 *$interval->format('%y');
                 $dureeMoyenneThese = $dureeMoyenneThese + $tempsTotal;
+                
+                //si la thése est abandonnée
+                if($these->getMention() == '4')
+                {
+                    $nbThesesAbandonnees++;
+                }
+                
             }
-
+            
+            //calcul de la durée moyenne d'une these
             $dureeMoyenneThese = $dureeMoyenneThese / sizeof($theses);
+            
+            //pourcentage de these reussi
+            $pourcentageTheseReussi = round(100 * (sizeof($theses) - $nbThesesAbandonnees) /sizeof($theses));
+            
+            //pour les encadrants
+            $theseNonArchivees = $theseRepository->theseNonArchivee();
+            foreach($listEncadrant as $encadrant)
+            {
+                $thesesEncadrees = $theseRepository->theseNonArchivee($encadrant->getId());
+                
+                $pourcentageTheseEncadrees = round(100*(sizeof($thesesEncadrees)/sizeof($theseNonArchivees)));
+                
+                array_push($encadrants, array('nom'=>$encadrant->getNom(), 'prenom'=>$encadrant->getPrenom(), 'progress'=>$pourcentageTheseEncadrees));
+            }
         }
-        
-	$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
-        
-        $listEncadrant = $EncadrantRepository->findAll();
+
         return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques',
                     'dureeMoyenne' => $dureeMoyenneThese,
-                    'encadrants' => $listEncadrant
+                    'encadrants' => $encadrants,
+                    'pourcentageTheseReussi' => $pourcentageTheseReussi,
         ));
     }
 
