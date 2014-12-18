@@ -35,9 +35,9 @@ class DossierDeSuivi
 	//protected $templatesFicheSuivi;
 	
 	/**
-	* @ORM\OneToMany(targetEntity="Fiche", mappedBy="dossierDeSuivis")
+	* @ORM\OneToMany(targetEntity="Fiche", mappedBy="dossierDeSuivi")
 	**/
-	protected $fiche;
+	protected $fiches;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="These")
@@ -47,7 +47,7 @@ class DossierDeSuivi
 	public function __construct() {
         $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
 		//$this->templatesFicheSuivi = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->fiche = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->fiches = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -106,12 +106,12 @@ class DossierDeSuivi
 		return $this;
 	}*/
 	
-	public function getFiche(){
-		return $this->fiche;
+	public function getFiches(){
+		return $this->fiches;
 	}
 	
 	public function addFiche($fiche){
-		if(!$this->fiche->contains($fiche)){
+		if(!$this->fiches->contains($fiche)){
 			$this->items[] = ($fiche);
 		}
 		return $this;

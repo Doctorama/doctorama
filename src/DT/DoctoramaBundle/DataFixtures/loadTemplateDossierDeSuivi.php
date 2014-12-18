@@ -13,27 +13,28 @@ class loadTemplateDossierDeSuivi extends AbstractFixture implements OrderedFixtu
 	public function load(ObjectManager $manager){
 		$template = new TemplateFicheSuivi;
 		$template->setTitre('Un template');
+		$template->setVersion(1);
 		
 		$template2 = new TemplateFicheSuivi;
 		$template2->setTitre('Un template1');
+		$template2->setVersion(1);
 		
 		$template3 = new TemplateFicheSuivi;
 		$template3->setTitre('Un template2');
+		$template3->setVersion(1);
 		
 		$template4 = new TemplateFicheSuivi;
 		$template4->setTitre('Un template2');
+		$template4->setVersion(2);
 		
-		$template5 = new TemplateFicheSuivi;
-		$template5->setTitre('Un template2');
 		
 		$manager->persist($template);
 		$manager->persist($template2);
 		$manager->persist($template3);
 		$manager->persist($template4);
-		$manager->persist($template5);
 		$manager->flush();
 		
-		$t = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(1);
+		/*$t = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(1);
 		$t2 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(2);
 		$t3 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(3);
 		$t4 = $manager->getRepository('DTDoctoramaBundle:DossierDeSuivi')->findById(4);
@@ -44,7 +45,7 @@ class loadTemplateDossierDeSuivi extends AbstractFixture implements OrderedFixtu
 		$template4->setDossierDeSuivi($t3[0]);
 		$template5->setDossierDeSuivi($t4[0]);
 		
-		$manager->flush();
+		$manager->flush();*/
 	}
 	//fonction ordre des fixtures
 	public function getOrder(){

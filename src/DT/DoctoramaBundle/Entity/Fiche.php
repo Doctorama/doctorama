@@ -1,6 +1,8 @@
 <?php
 
 namespace DT\DoctoramaBundle\Entity;
+require_once __DIR__ . '/TemplateFicheSuivi.php';
+require_once __DIR__ . '/DossierDeSuivi.php';
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,9 +36,9 @@ class Fiche
 	private $templatesFicheSuivi;
 	
 	/**
-	* @ORM\ManyToOne(targetEntity="DossierDeSuivi", inversedBy="fiche")
+	* @ORM\ManyToOne(targetEntity="DossierDeSuivi", inversedBy="fiches")
 	**/
-	private $dossierDeSuivis;
+	private $dossierDeSuivi;
 	
 	public function getTemplatesFicheSuivi(){
 		return $this->templatesFicheSuivi;
@@ -45,18 +47,18 @@ class Fiche
 	public function setTemplatesFicheSuivi($template)
     {
 		$this->templatesFicheSuivi = $template;
-		$template->addFiche($this); //a changer
+		$template->addFiche($this);
 		return $this;
     }
 	
-	public function getDossierDeSuivis(){
-		return $this->dossierDeSuivis;
+	public function getDossierDeSuivi(){
+		return $this->dossierDeSuivi;
 	}
 	
-	public function setDossierDeSuivis($dossier)
+	public function setDossierDeSuivi($dossier)
     {
-		$this->dossierDeSuivis = $dossier;
-		$dossier->addFiche($this); //a changer
+		$this->dossierDeSuivi = $dossier;
+		$dossier->addFiche($this);
 		return $this;
     }
 
