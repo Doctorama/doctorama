@@ -15,9 +15,7 @@
 {{ form_errors(formReunion) }}
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="these">
-        <legend>
-            Informations sur la thèse 
-        </legend>
+     
 
         <div class="form-group">
             {{ form_label(formReunion.lieu,"Lieu",{'label_attr': {'class': 'col-sm-3 control-label'} }) }}
@@ -53,12 +51,10 @@
                 {{ form_widget(formReunion.libelle) }}
             </div>
         </div>
-
-
-
-
         </div>
         
+        {{form_widget(formReunion.save,{'attr':{'class':'btn btn-lg btn-success col-md-push-3 col-sm-2 ', 'style':'margin-top:40px'}})}}
+
         {{form_end(formReunion) }}
     </div>
 
