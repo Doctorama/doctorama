@@ -58,9 +58,6 @@ class DoctoramaController extends Controller {
               } */
 
             $listDoctorants = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant')->theseNonArchivee($user->getEncadrant()->getId());
-        } else {
-            $doctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
-            $listDoctorants = $doctorantRepository->theseNonArchivee();
         }
 
         return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorants));
