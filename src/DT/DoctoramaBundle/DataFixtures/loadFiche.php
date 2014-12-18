@@ -19,13 +19,13 @@ class loadFiche extends AbstractFixture implements OrderedFixtureInterface{
 		$fiche2->setTitre('Un titre2');
 		
 		$fiche3 = new Fiche;
-		$fiche3->setTitre('Un titre2');
+		$fiche3->setTitre('Un titre3');
 		
 		$fiche4 = new Fiche;
-		$fiche4->setTitre('Un titre2');
+		$fiche4->setTitre('Un titre4');
 		
 		$fiche5 = new Fiche;
-		$fiche5->setTitre('Un titre2');
+		$fiche5->setTitre('Un titre5');
 		
 		$manager->persist($fiche);
 		$manager->persist($fiche2);
@@ -42,6 +42,7 @@ class loadFiche extends AbstractFixture implements OrderedFixtureInterface{
 		$t2 = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findById(2);
 		$t3 = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findById(3);
 		$t4 = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findById(4);
+		$t5 = $manager->getRepository('DTDoctoramaBundle:TemplateFicheSuivi')->findById(5);
 		
 		$fiche->setDossierDeSuivi($d[0]);
 		$fiche2->setDossierDeSuivi($d2[0]);
@@ -54,6 +55,7 @@ class loadFiche extends AbstractFixture implements OrderedFixtureInterface{
 		$fiche3->setTemplatesFicheSuivi($t3[0]);
 		$fiche4->setTemplatesFicheSuivi($t3[0]);
 		$fiche5->setTemplatesFicheSuivi($t4[0]);
+		$fiche5->setTemplatesFicheSuivi($t5[0]);
 		
 		$manager->flush();
 	}
