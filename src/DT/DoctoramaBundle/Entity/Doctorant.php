@@ -151,7 +151,7 @@ class Doctorant extends Personne {
     /**
      * add encadrant
      *
-     * 
+     * @param Reunion $reunion
      */
     public function addReunion($reunion) {
         if (!$this->reunions->contains($reunion)) {

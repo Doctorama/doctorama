@@ -64,7 +64,7 @@ class Encadrant extends Personne {
     /**
      * add encadrant
      *
-     * 
+     * @param Reunion $reunion
      */
     public function addReunion($reunion) {
         if (!$this->reunions-> contains($reunion)) {
@@ -94,11 +94,22 @@ class Encadrant extends Personne {
         $this->id = $id;
         return $this;
     }
-
+	
+	/**
+	* Get compte
+	*
+	* @return Compte
+	**/
     function getCompte() {
         return $this->compte;
     }
-
+	
+	/**
+	* Set compte
+	*
+	* @param Compte $compte
+	* @return Compte
+	**/
     function setCompte($compte) {
         $this->compte = $compte;
         return $this;
