@@ -390,6 +390,7 @@ class DoctoramaController extends Controller {
     {
     	$reponse;
     	$tab_intitule = array(); 
+    	$list_doctorants = array();
     	$em = $this->getDoctrine()->getManager();
     	
     	$uploads_dir = "bundles/doctorama/uploads/";
@@ -397,9 +398,11 @@ class DoctoramaController extends Controller {
         $name = $_FILES["file"]["name"];
 		if(move_uploaded_file($tmp_name, "$uploads_dir/$name")) 
 		{ 
-			$ligne = 1; // compteur de ligne
+			$ligne = 0; // compteur de ligne
+			
 			$fic = fopen("$uploads_dir/$name", "a+");
 			while($tab=fgetcsv($fic,1024,';')) {
+				$j = 0; //Compteur remplissage ligne $list_doctorants
 				
 				//Création des enregistrements:
 				$doctorant = new Doctorant();
@@ -409,59 +412,66 @@ class DoctoramaController extends Controller {
 				$champs = count($tab);	
 				
 				//Récupération des entités du fichier CSV dans un tableau
-				if ($ligne==1) {
+				if ($ligne==0) {
 					for($i=0; $i<$champs; $i ++) {
 						$tab_intitule[$i] = $tab[$i];
 					}
 				}
 				
 				//affichage de chaque champ de la ligne en question
-					if ($ligne>1) {
+					if ($ligne>0) {
 						if (!$tab[0] == "") {
 							for($i=0; $i<$champs; $i ++) {	
 								switch ($tab_intitule[$i]) {
-									case "Numéro_Etudiant":
+									case "Numéro Etudiant":
 		        						$doctorant->setNumEtudiant($tab[$i]);
 						        		break;
-						    		case "Civilité_(M./MME/MLLE)":
+						    		case "Civilité (M./MME/MLLE)":
 						        		$doctorant->setCivilite($tab[$i]);
 						        		break;
-						        	case "Nom_patronymique":
+						        	case "Nom patronymique":
+						        		$list_doctorants[$ligne][$j] = $tab[$i];
+						        		$j++;
 						    			$doctorant->setNom($tab[$i]);
-						    			$reponse = $tab[$i];
 						        		break;
-						    		case "Nom_Marital":
+						    		case "Nom Marital":
 						    			$doctorant->setNomUsage($tab[$i]);
 						        		break;
 		    						case "Prénom":
+		    							$list_doctorants[$ligne][$j] = $tab[$i];
+		    							$j++;
 		        						$doctorant->setPrenom($tab[$i]);
 						        		break;
-						    		case "Date_De_Naissance":
+						    		case "Date De Naissance":
 						    			//Faut changer la date
-						        		$doctorant->setDateDeNaissance(new \DateTime($tab[$i]));
+						    			$list_doctorants[$ligne][$j] = $tab[$i];
+						    			$j++;
+						    			$arr = explode('/', $tab[$i]);
+										$newDate = $arr[2].'/'.$arr[1].'/'.$arr[0];
+						        		$doctorant->setDateDeNaissance(new \DateTime($newDate));
 						        		break;
-						    		case "Pays_Nationalité(libellé)":
+						    		case "Pays Nationalité (libellé)":
 						        		$doctorant->setNationalite($tab[$i]);
 						        		break;
-						    		case "Lieu_de_naissance":
+						    		case "Lieu de naissance":
 						        		$doctorant->setVilleDeNaissance($tab[$i]);
 						        		break;
-						    		case "Pays_Naissance(libellé)":
+						    		case "Pays Naissance (libellé)":
 						        		$doctorant->setPaysDeNaissance($tab[$i]);
 						        		break;
-						    		case "Département_de_naissance(libellé)":
+						    		case "Département de naissance (libellé)":
 						    			$doctorant->setDepDeNaissance($tab[$i]);
 						        		break;
-						    		case "Etablissement(libellé)":
+						    		case "Etablissement (libellé)":
 						    			$doctorant->setUniversiteMaster($tab[$i]);
 						        		break;
-		    						case "Département(libellé)":
+		    						case "Département (libellé)":
 		        						$doctorant->setEtabDernierDiplome($tab[$i]);
 						        		break;
-						    		case "Cadre_F_Dernier_diplôme.Pays(libellé)":
+						    		case "Cadre F - Dernier diplôme.Pays (libellé)":
 						        		$doctorant->setSujetMaster($tab[$i]);
 						        		break;
-						    		case "Type(libellé)":
+						    		case "Type (libellé)":
 						        		break;
 						    		case "Diplôme":
 						        		$doctorant->setLibelleDernierDiplome($tab[$i]);
@@ -469,58 +479,67 @@ class DoctoramaController extends Controller {
 						    		case "Année":
 						        		$doctorant->setAnneeDernierDiplome($tab[$i]);
 						        		break;
-		    						case "Adresse_1":
+		    						case "Adresse 1":
 						        		break;
-						    		case "Adresse_2":
+						    		case "Adresse 2":
 						        		break;
-						    		case "Code_postal":
+						    		case "Code postal":
 						        		break;
 						    		case "Ville":
 						        		break;
-		    						case "Adrese_de_l’étudiant.Pays(libellé)":
+		    						case "Adrese de l’étudiant.Pays (libellé)":
 		        						$doctorant->setAdresse($tab[$i]);
 						        		break;
-						    		case "E-mail_perso":
+						    		case "E-mail perso":
 						        		$doctorant->setMail($tab[$i]);
 						        		break;
 						    		case "CROUS":
 						        		break;
-						    		case "Numéro_allocataire":
+						    		case "Numéro allocataire":
 						        		break;
 						    		case "Echelon":
 						        		break;
 						    		case "Exonération":
 						    			$doctorant->setBourseEtExoneration($tab[$i]);
 						        		break;
-						    		case "Sujet_de_la_thèse":
+						    		case "Sujet de la thèse":
+						    			$list_doctorants[$ligne][$j] = $tab[$i];
+						    			$j++;
 						    			$these->setSujetThese($tab[$i]);
 						        		break;
-		    						case "Specialite_de_la_thèse":
+		    						case "Specialite de la thèse":
+		    							$list_doctorants[$ligne][$j] = $tab[$i];
+		    							$j++;
 		        						$these->setSpecialite($tab[$i]);
 						        		break;
-						    		case "Laboratoire_de_la_thèse(Lib_long)":
+						    		case "Laboratoire de la thèse (Lib long)":
 						        		$these->setLaboratoire($tab[$i]);
 						        		break;
-						    		case "Directeur_de_thèse":
+						    		case "Directeur de thèse":
 						        		//$doctorant->setIdPers($tab[$i]);
+						        		$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom',$tab[$i]);
+										$encadrant = $query->getResult();
+										$these->setDirecteursDeThese($encadrant);
 						        		break;
-						    		case "Collaboration_Université":
+						    		case "Collaboration Université":
 						        		break;
-						    		case "Collaboration_Responsable":
+						    		case "Collaboration Responsable":
 						        		break;
-						    		case "Financement_de_la_thèse":
+						    		case "Financement de la thèse":
 						        		$these->setFinancement($tab[$i]);
 						        		break;
-						    		case "1er_année_insc_these":
+						    		case "1er année insc these":
 						        		$doctorant->setDateInscr1ethese($tab[$i]);
 						        		break;
-						    		case "Date_Soutenance":
+						    		case "Date Soutenance":
 						    		//Faut changer la date
-						    			$these->setDateDeSoutenance(new \DateTime($tab[$i]));
+						    			$arr = explode('/', $tab[$i]);
+										$newDate = $arr[2].'/'.$arr[1].'/'.$arr[0];
+						    			$these->setDateDeSoutenance(new \DateTime($newDate));
 						        		break;
 						    		case "Identite":
 						        		break;
-		    						case "Type_jury_(Pres/membre)":
+		    						case "Type jury (Pres/membre)":
 						        		break;
 						    		case "Mention":
 						        		$these->setMention($tab[$i]);
@@ -541,10 +560,11 @@ class DoctoramaController extends Controller {
 			$reponse = 'Echec de l\'upload du fichier CSV. '; 
 		} 
         $em->flush();
-        return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV'));
-        
-        
+		//var_dump($list_doctorants);
+		//exit;
+        return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV', 'list_doctorants' => $list_doctorants));
     }
+
 
 
 
