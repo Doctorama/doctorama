@@ -25,4 +25,12 @@ class TheseRepository extends EntityRepository{
             ->getResult();
  
     }
+    
+    function theseArchivee()
+    {
+        $query = $this->_em->createQuery('SELECT t FROM DTDoctoramaBundle:These t WHERE t.mention is not NULL');
+        $results = $query->getResult();
+        
+        return $results;
+    }
 }

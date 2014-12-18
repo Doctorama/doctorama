@@ -142,11 +142,28 @@ class DoctoramaController extends Controller {
     
     public function statistiquesAction(Request $request)
     {
-	$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
+        $theses = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These')->theseArchivee();
+        $dureeMoyenneThese=0;
+        
+        if (sizeof($theses)>0)
+        {
+            foreach($theses as $these)
+            {
+                $interval = date_diff($these->getDateDebut(), $these->getDateDeSoutenance());
+                echo "<script>alert(\"interval : ".$interval->format('%a')." \")</script>";
 
+                $tempsTotal = ($interval->format('%d')/30) + $interval->format('%m')+ 12 *$interval->format('%y');
+                $dureeMoyenneThese = $dureeMoyenneThese + $tempsTotal;
+            }
+
+            $dureeMoyenneThese = $dureeMoyenneThese / sizeof($theses);
+        }
+        
+	$EncadrantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Encadrant');
+        
         $listEncadrant = $EncadrantRepository->findAll();
         return $this->render('DTDoctoramaBundle:Doctorama:statistiques.html.twig', array('title' => 'Statistiques',
-                    'dureeMoyenne' => '40 mois',
+                    'dureeMoyenne' => $dureeMoyenneThese,
                     'encadrants' => $listEncadrant
         ));
     }

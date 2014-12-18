@@ -30,10 +30,9 @@ class DoctoramaTwigExtensions extends \Twig_Extension{
             $today = new \DateTime('now');
 
             $intervalEcoule = date_diff($dateDebut,$today);
-            $nbJoursEcoule = $intervalEcoule->format('%d')+ 12 * $intervalEcoule->format('%m')+ 365 *$intervalEcoule->format('%y');
-            
+            $nbJoursEcoule = $intervalEcoule->format('%a');
             $intervalDebFin = date_diff($dateDebut,$dateFin);
-            $nbJoursTotaux = $intervalDebFin->format('%d')+ 12 * $intervalDebFin->format('%m')+ 365 *$intervalDebFin->format('%y');
+            $nbJoursTotaux = $intervalDebFin->format('%a');
             
             return round(100*($nbJoursEcoule/$nbJoursTotaux));
         }
