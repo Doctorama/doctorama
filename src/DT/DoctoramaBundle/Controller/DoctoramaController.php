@@ -441,6 +441,7 @@ class DoctoramaController extends Controller {
 							for($i=0; $i<$champs; $i ++) {	
 								switch ($tab_intitule[$i]) {
 									case "Numéro Etudiant":
+									//VéRIFIER SI ETUDIANT EXISTE DéJà//
 		        						$doctorant->setNumEtudiant($tab[$i]);
 						        		break;
 						    		case "Civilité (M./MME/MLLE)":
@@ -536,6 +537,7 @@ class DoctoramaController extends Controller {
 						    		case "Directeur de thèse":
 						        		$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom',$tab[$i]);
 										$encadrant = $query->getResult();
+										//SI IL EXISTE PAS CRéER UN NOUVEAU//
 										$these->setDirecteursDeThese($encadrant);
 						        		break;
 						    		case "Collaboration Université":
