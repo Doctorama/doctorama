@@ -564,9 +564,9 @@ class DoctoramaController extends Controller {
 						        		break;
 								}
 							}
-							//$doctorant->setThese($these);
-							//$em->persist($doctorant);
-							//$em->persist($these);
+							$doctorant->setThese($these);
+							$em->persist($doctorant);
+							$em->persist($these);
 						}	
 					}
 				$ligne ++;
@@ -577,7 +577,7 @@ class DoctoramaController extends Controller {
 		{ 
 			$reponse = 'Echec de l\'upload du fichier CSV. '; 
 		} 
-        //$em->flush();
+        $em->flush();
 		//var_dump($arr);
 		//exit;
         return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV', 'list_doctorants' => $list_doctorants));
