@@ -19,6 +19,7 @@ use DT\DoctoramaBundle\Form\TheseType;
 use DT\DoctoramaBundle\Form\ReunionType;
 use DT\DoctoramaBundle\Form\EncadrantType;
 use DT\SecurityBundle\Entity\Compte;
+use DT\DoctoramaBundle\Entity\Encadrant;
 use \DateTime;
 
 /**
@@ -141,7 +142,7 @@ class DoctoramaController extends Controller {
 
     public function statistiquesAction(Request $request) {
         $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
-        $theses = $theseRepository->theseArchivee();
+        $theses = $theseRepository->theseArchiveeAvecDates();
         $dureeMoyenneThese = 0;
         $nbThesesAbandonnees = 0;
         $pourcentageTheseReussi = 0;
@@ -754,6 +755,35 @@ class DoctoramaController extends Controller {
         }
 
         return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
+    }
+    
+    public function passerEncadrantAction($id_doctorant, Request $request)
+    {
+        $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant',$id_doctorant);
+        $encadrant = new Encadrant();
+        
+        $encadrant->setNom($doctorant->getNom());
+        $encadrant->setPrenom($doctorant->getPrenom());
+        $encadrant->setMail($doctorant->getMail());
+        $encadrant->setNomUsage($doctorant->getNomUsage());
+        $encadrant->setCivilite($doctorant->getCivilite());
+        $encadrant->setAdresse($doctorant->getAdresse());
+        $encadrant->setDateDeNaissance($doctorant->getDateDeNaissance());
+        $encadrant->setVilleDeNaissance($doctorant->getVilleDeNaissance());
+        $encadrant->setPaysDeNaissance($doctorant->getPaysDeNaissance());
+        $encadrant->setDepDeNaissance($doctorant->getDepDeNaissance());
+        
+        $compte = $doctorant->getCompte();
+        $compte->setEncadrant($encadrant);
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        $em->persist($compte);
+        $em->persist($encadrant);
+        
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('dt_doctorama_admin_utilisateur'));
     }
 
 }

@@ -34,6 +34,16 @@ class TheseRepository extends EntityRepository {
         }
         
     }
+    function theseArchiveeAvecDates(){
+        $query = $this->_em->createQuery('SELECT t '
+                . 'FROM DTDoctoramaBundle:These t '
+                . 'WHERE t.mention is not NULL '
+                . 'AND t.dateDebut is not NULL '
+                . 'AND t.dateDeSoutenance is not null');
+        $results = $query->getResult();
+
+        return $results;
+    }
 
     function theseArchivee() {
         $query = $this->_em->createQuery('SELECT t FROM DTDoctoramaBundle:These t WHERE t.mention is not NULL');

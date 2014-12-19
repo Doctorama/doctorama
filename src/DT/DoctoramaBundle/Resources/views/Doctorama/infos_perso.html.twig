@@ -15,7 +15,7 @@
                     <a href="#Administrative" aria-controls="sansrole" role="tab" data-toggle="tab">Informations administratives</a>
                 </li>
                 
-                {% if (compte is defined and compte.doctorant != null) or (app.user.doctorant is defined and app.user.doctorant != null) %}
+                {% if (compte is defined and compte.doctorant != null and compte.encadrant == null)  or (app.user.doctorant is defined and app.user.doctorant != null and app.user.encadrant==null)%}
                     <li role="presentation">
                         <a href="#Doctorant" aria-controls="avecrole" role="tab" data-toggle="tab">Informations Etudiants </a>
                     </li>
@@ -105,12 +105,14 @@
                         </div>
                     </div>
 
-                </article>
-
-                {% if (compte is defined and compte.doctorant != null)  or (app.user.doctorant is defined and app.user.doctorant != null)%}
+                </article>   
+                {% if (compte is defined and compte.doctorant != null and compte.encadrant == null)  or (app.user.doctorant is defined and app.user.doctorant != null and app.user.encadrant==null)%}
                     {{ include("DTDoctoramaBundle:Template:template_info_etudiant.html.twig") }}
                 {% endif %}
                 {{ form_widget(form.Enregistrer, {'attr': {'class': 'btn btn-success'}}) }}
+                {% if (compte is defined and compte.doctorant != null and compte.encadrant == null)  or (app.user.doctorant is defined and app.user.doctorant != null and app.user.encadrant==null)%}
+                    <a href="{{ path('dt_admin_passer_encadrant', {'id_doctorant': compte.doctorant.id}) }}" class="btn btn-danger">Passer encadrant</a>
+                {% endif %}
                 {{ form_end(form) }}
             </section>
 
