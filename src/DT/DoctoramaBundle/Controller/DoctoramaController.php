@@ -193,7 +193,8 @@ class DoctoramaController extends Controller {
     }
 
     public function indexAction(Request $request) {
-        return $this->render('DTDoctoramaBundle::index.html.twig', array('title' => 'Accueil'));
+        //return $this->render('DTDoctoramaBundle::index.html.twig', array('title' => 'Agenda'));
+        return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
     }
 
     public function adminDossierSuivisAction(Request $request) {
