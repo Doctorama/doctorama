@@ -21,7 +21,7 @@ class EncadrantType extends AbstractType
             ->add('prenom')
             ->add('adresse')
             ->add('mail')
-            ->add('dateDeNaissance')
+            ->add('dateDeNaissance', 'date', array('required' => false, 'years' => range(date('Y') -100, date('Y')-15)))
             ->add('villeDeNaissance')
             ->add('paysDeNaissance')
             ->add('depDeNaissance')

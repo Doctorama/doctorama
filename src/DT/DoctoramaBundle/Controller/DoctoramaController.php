@@ -92,7 +92,8 @@ class DoctoramaController extends Controller {
             $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
             $reu=$reunionRepository->findAll();
         }
-        
+        $event = array();
+        $reunions = array();
         foreach ($reu as $reunion) 
         {
             $pers[] = array('nom'=>$reunion->getDoctorant()->getNom(),
