@@ -8,27 +8,30 @@ class QuestionService
 	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:Question');
 	$em = $this->getDoctrine()->getManager();
     
-
+/**
+	* Set Question
+	*
+	* @param $question, $fiche
+	*
+	* @return Question
+	**/
 	public function createQuestion($question, $fiche)
 	{
 		$question = new Question();
 		$question->setQuestion($question);
-		
 		$question->setFiche($fiche);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
 		
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($Question);
 		$em->flush();
 
 	}
-
+/**
+	* get QuestionById
+	*
+	* @param QuestionById $id
+	* @return Question
+	**/
 	public function findbyId($id)
 	{
    		
@@ -44,7 +47,12 @@ class QuestionService
     		return $question;
     	}
     }
-	
+	/**
+	* get QuestionByQuestion
+	*
+	* @param QuestionByQuestion $question
+	* @return Question
+	**/
     public function findByQuestion($question)
 	{
 
@@ -59,7 +67,13 @@ class QuestionService
     	}
 
 	}
-
+/**
+	* Set Question
+	*
+	* @param Question $id, $newQuestion
+	*
+	* @return Question
+	**/
 	public function updateQuestion($id, $newQuestion)
 	{
    
@@ -76,7 +90,13 @@ class QuestionService
 
     return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set Question
+	*
+	* @param Question $id
+	*
+	* @return True
+	**/
 	public function deleteQuestion($id)
 	{
    

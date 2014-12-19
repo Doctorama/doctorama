@@ -8,26 +8,29 @@ class ReponseService
 	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:Reponse');
 	$em = $this->getDoctrine()->getManager();
     
-
-	public function createReponse($reponse, $question)
+/**
+	* Set Reponse
+	*
+	* @param $reponse, $Reponse
+	*
+	* @return Reponse
+	**/
+	public function createReponse($reponse, $Reponse)
 	{
 		$reponse = new Reponse();
 		$reponse->setDate($date);
 		
-		$reponse->setQuestion($question);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
-		
+		$reponse->setReponse($Reponse);
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($reponse);
 		$em->flush();
 	}
-
+/**
+	* get ReponseById
+	*
+	* @param ReponseById $id
+	* @return Reponse
+	**/
 	public function findbyId($id)
 	{
    		
@@ -40,7 +43,12 @@ class ReponseService
     	}
     	return $reponse;
     }
-	
+	/**
+	* get ReponseByReponse
+	*
+	* @param ReponseByReponse $reponse
+	* @return Reponse
+	**/
     public function findByreponse($reponse)
 	{
 
@@ -55,7 +63,13 @@ class ReponseService
     	}
 
 	}
-
+/**
+	* Set Reponse
+	*
+	* @param Reponse $id, $newReponse
+	*
+	* @return Reponse
+	**/
 	public function updateReponse($id, $newReponse)
 	{
     $reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);
@@ -66,12 +80,18 @@ class ReponseService
         );
     }
 
-    $reponse->setQuestion($newReponse);
+    $reponse->setReponse($newReponse);
     $em->flush();
 
     return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set Reponse
+	*
+	* @param Reponse $id
+	*
+	* @return True
+	**/
 	public function deleteReponse($id)
 	{
      $reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);

@@ -9,14 +9,18 @@ class ReunionService
 	
 	private $repository;
 	
-	/* --------Constructeur, permet de récupèrer l'entitymanager et les tous les attributs de la table reunion-------- */
 	public function __construct($em)
 	{
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Reunion');
 	}
-	
-	/* -------- Fonction permettant de créer une réunion en précisant la date et le lieu de celle-ci--------*/	
+	/**
+	* Set Reunion
+	*
+	* @param $lieu, $date
+	*
+	* @return Reunion
+	**/
 	public function createReunion($lieu, $date)
 	{
 		$reunion = new Reunion();
@@ -28,8 +32,13 @@ class ReunionService
 
 		return $reunion;
 	}
-	
-	/*-------- Fonction permettant de créer une personne en précisant son id et une personne (tous les attributs de l'entité personne)--------*/
+	/**
+	* Set Personnes
+	*
+	* @param $id, $personne
+	*
+	* @return Personnes
+	**/
 	public function addPersonne($id, $personne)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -43,7 +52,13 @@ class ReunionService
 			return $rep;
 		}
 	}
-	/*-------- Fonction permettant de supprimer une personne--------*/
+	/**
+	* Set Personne
+	*
+	* @param Personne $id, $idpersonne
+	*
+	* @return True
+	**/
 	public function deletePersonne($id, $idpersonne)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -64,9 +79,12 @@ class ReunionService
 			return $rep;
 		}
 	}
-	
-	/*-------- Récupèrer une personne en fonction de son Id-------- */
-	
+	/**
+	* get PersonnesById
+	*
+	* @param PersonnesById $id
+	* @return Personnes
+	**/
 	public function getPersonnes($id)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -79,7 +97,12 @@ class ReunionService
 			return $rep->getPersonnes();
 		}
 	}
-	/*-------- Renvoie la date de réunion en précisant son Id--------*/
+	/**
+	* get DateById
+	*
+	* @param DateById $id
+	* @return Date
+	**/
 	public function getDate($id)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -92,8 +115,13 @@ class ReunionService
 			return $rep->getDate();
 		}
 	}
-	
-	/*-------- Permet de modifier une réunion, on lui renseigne une nouvelle date et un nouvel Id --------*/
+	/**
+	* Set Date
+	*
+	* @param Date $id, $date
+	*
+	* @return Date
+	**/
 	public function setDate($id, $date)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -106,8 +134,12 @@ class ReunionService
 			return $rep->setDate($date);
 		}
 	}
-	
-	/*-------- Renvoie le lieu de la réunion en renseignant son Id--------*/
+	/**
+	* get LieuById
+	*
+	* @param LieuById $id
+	* @return Lieu
+	**/
 	public function getLieu($id)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -120,8 +152,13 @@ class ReunionService
 			return $rep->getLieu();
 		}
 	}
-	
-	/*-------- Modifier le lieu d'une réunion, on lui renseigne un nouveau lieu et un nouvel Id--------*/
+	/**
+	* Set Lieu
+	*
+	* @param Lieu $id, $lieu
+	*
+	* @return Lieu
+	**/
 	public function setLieu($id, $lieu)
 	{
 		$rep = $this->repository->findOneById($id);
@@ -134,8 +171,12 @@ class ReunionService
 			return $rep->setLieu($lieu);
 		}
 	}
-	
-	/*-------- Retourne toutes les réunions en renseignant son Id--------*/
+	/**
+	* get ReunionByPersonne
+	*
+	* @param ReunionByPersonne $idpers
+	* @return ReunionByPersonne
+	**/
 	public function findReunionByPersonne($idpers)
 	{
 		$rep = $this->repository->findAll();

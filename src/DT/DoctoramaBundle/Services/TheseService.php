@@ -5,328 +5,474 @@ use DT\DoctoramaBundle\Entity\These;
 
 class TheseService
 {
-	private $em;
-	
-	private $repository;
-	
-	public function __construct($em)
-	{
-		$this->em = $em;
-		$this->repository = $this->em->getRepository('DTDoctoramaBundle:These');
-	}
+	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:These');
+	$em = $this->getDoctrine()->getManager();
     
-
-	public function createThese($titreThese, $sujetThese, $specialite, $laboratoire, $axeThematique, $axeScientifique, $financement, $dateDebut, $dateDeSoutenance, $mention)
+/**
+	* Set These
+	*
+	* @param $titreThese, $sujetThese, $specialite, $laboratoire, axeThematique, axeSpecifique, $financement, $dateDebut, $dateDeSoutenance, $mention
+	*
+	*
+	* @return These
+	**/
+	public function createThese($titreThese, $sujetThese, $specialite, $laboratoire, axeThematique, axeSpecifique, $financement, $dateDebut, $dateDeSoutenance, $mention)
 	{
 		$these = new These();
 		$these->setTitreThese($titreThese);
 		$these->setSujetThese($sujetThese);
 		$these->setSpecialite($specialite);
-		$these->setLaboratoire($laboratoire);
-		$these->setAxeThematique($axeThematique);
-		$these->setAxeScientifique($axeScientifique);
+		$these->setlaboratoire($laboratoire);
+		$these->setaxeThematique($axeThematique);
+		$these->setaxeSpecifique($axeSpecifique);
 		$these->setFinancement($financement);
-		$these->setDateDebut($dateDebut);
-		$these->setDateDeSoutenance($dateDeSoutenance);
+		$these->setdateDebut($dateDebut);
+		$these->setdateDeSoutenance($dateDeSoutenance);
 		$these->setMention($mention);
 
-		$this->em->persist($these);
-		$this->em->flush();
-		
-		return $these;
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($these);
+		$em->flush();
+
 	}
-	
-	public function findById($id)
-	{		
-        $these = $this->repository->findOneById($id);
+	/**
+	* get TheseById
+	*
+	* @param TheseById $id
+	* @return These
+	**/
+	public function findbyId($id)
+	{
+   		
+        $these = $repository->findById($id);
 
    		if (!$these) {
-			return null;
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$id
+        );
     	}
     	return $these;
     }
-	
-    public function findByTitreThese($titreThese)
+	/**
+	* get TheseByTitre
+	*
+	* @param TheseByTitre $titre
+	* @return These
+	**/
+    public function findByTitle($titreThese)
 	{
-		$these = $this->repository->findByTitreThese($titreThese);
+		$these = $repository->find($titreThese);
 
   	    if (!$these) {
-			return null;
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$titreThese );
     	}
     	else {
-    		return $these;
-    	}		
-	}
 
-
-    public function findBySujetThese($sujetThese)
-	{
-		$these = $this->repository->findBySujetThese($sujetThese);
-
-  	    if (!$these) {
-			return null;
-    	}
-    	else {
-    		return $these;
-    	}		
-	}
-
-	public function findBySpecialite($specialite)
-	{
-		$these = $this->repository->findBySpecialite($specialite);
-
-  	    if (!$these) {
-			return null;
-    	}
-    	else {   		
     		return $these;
     	}
 		
 	}
 
-	public function findByLaboratoire($laboratoire)
+/**
+	* get TheseBySubject
+	*
+	* @param TheseBySubject $sujetThese
+	* @return These
+	**/
+    public function findBySubject($sujetThese)
 	{
-		$these = $this->repository->findByLaboratoire($laboratoire);
 
-  	    if (!$these) {
-			return null;
+		$these = $repository->find($sujetThese);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$sujetThese );
     	}
-    	else {		
+    	else {
     		return $these;
     	}
+		
+		
 	}
+/**
+	* get TheseBySpeciality
+	*
+	* @param TheseBySpeciality $specialite
+	* @return These
+	**/
+	 public function findBySpeciality($specialite)
+	{
 
+		$these = $repository->find($specialite);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$specialite );
+    	}
+    	else {
+    		
+    		return $these;
+    	}
+		
+	}
+/**
+	* get TheseByLabo
+	*
+	* @param TheseByLabo $labo
+	* @return These
+	**/
+	 public function findByLabo($laboratoire)
+	{
+
+		$these = $repository->find($laboratoire);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$laboratoire );
+    	}
+    	else {
+    		
+    		return $these;
+    	}
+		
+	}
+/**
+	* get TheseByAxeThematique
+	*
+	* @param TheseByAxeThematique $axeThematique
+	* @return These
+	**/
 	public function findByAxeThematique($axeThematique)
 	{
-		$these = $this->repository->findByAxeThematique($axeThematique);
 
-  	    if (!$these) {
-			return null;
+		$these = $repository->find($axeThematique);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$axeThematique );
     	}
-    	else {    		
+    	else {
+    		
     		return $these;
-    	}		
+    	}
+		
 	}
 
-
-	public function findByAxeScientifique($axeScientifique)
+/**
+	* get TheseByAxeSpecifique
+	*
+	* @param TheseByAxeSpecifique $axeSpecifique
+	* @return These
+	**/
+	public function findByaxeSpecifique($axeSpecifique)
 	{
 
-		$these = $this->repository->findByAxeScientifique($axeScientifique);
-  	    if (!$these) {
-			return null;
+		$these = $repository->find($axeSpecifique);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$axeSpecifique );
     	}
-    	else {  		
+    	else {
+    		
     		return $these;
-    	}		
+    	}
+		
 	}
 
-
+/**
+	* get TheseByFinancement
+	*
+	* @param TheseByFinancement $financement
+	* @return These
+	**/
 	public function findByFinancement($financement)
 	{
-		$these = $this->repository->findByFinancement($financement);
 
-  	    if (!$these) {
-			return null;
+		$these = $repository->find($financement);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$financement );
     	}
-    	else {   		
+    	else {
+    		
     		return $these;
-    	}		
-	}
-
-	public function findByDateDebut($dateDebut)
-	{
-		$these = $this->repository->findByDateDebut($dateDebut);
-
-  	    if (!$these) {
-			return null;
     	}
-    	else {    		
-    		return $these;
-    	}		
-	}
-
-	public function findByDateDeSoutenance($dateDeSoutenance)
-	{
-
-		$these = $this->repository->findByDateDeSoutenance($dateDeSoutenance);
-
-  	    if (!$these) {
-			return null;
-    	}
-    	else {  		
-    		return $these;
-    	}		
-	}
-
-	public function findByMention($mention)
-	{
-		$these = $this->repository->findByMention($mention);
-
-  	    if (!$these) {
-			return null;
-    	}
-    	else {    		
-    		return $these;
-    	}		
-	}
-
-	public function updateTitreThese($id, $newTitreThese)
-	{   
-		$these = $this->repository->findOneById($id);
-
-		if (!$these) {
-			return null;
-		}
-
-		$these->setTitreThese($newTitreThese);
-		$this->em->flush();
-
-		return $these;
-	}
-
-	public function updateSujetThese($id, $newSujetThese)
-	{   
-		$these = $this->repository->findOneById($id);
-
-		if (!$these) {
-			return null;
-		}
-		$these->setSujetThese($newSujetThese);
-		$this->em->flush();
-
-		return $these;
-	}
-
-	public function updateSpecialite($id, $newSpecialite)
-	{  
-		$these = $this->repository->findOneById($id);
 		
-		if (!$these) {
-			return null;
-		}
-		$these->setSpecialite($newSpecialite);
-		$this->em->flush();
-
-		return $these;
 	}
+/**
+	* get TheseByDateDebut
+	*
+	* @param TheseByDateDebut $dateDebut
+	* @return These
+	**/
+	public function findByDateDebut($dateDebut)
+		{
 
+		$these = $repository->find($dateDebut);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$dateDebut );
+    	}
+    	else {
+    		
+    		return $these;
+    	}
+		
+	}
+/**
+	* get TheseByDateDeSoutenance
+	*
+	* @param TheseByDateDeSoutenance $dateDeSoutenance
+	* @return These
+	**/
+	public function findByDateDeSoutenance($dateDeSoutenance)
+		{
+
+		$these = $repository->find($dateDeSoutenance);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$dateDeSoutenance );
+    	}
+    	else {
+    		
+    		return $these;
+    	}
+		
+	}
+/**
+	* get TheseByMention
+	*
+	* @param TheseByMention $mention
+	* @return These
+	**/
+	public function findByMention($mention)
+		{
+
+		$these = $repository->find($mention);
+
+  	      if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun element trouvé pour : '.$mention );
+    	}
+    	else {
+    		
+    		return $these;
+    	}
+		
+	}
+/**
+	* Set TitreThese
+	*
+	* @param These $id, $newTitreThese
+	*
+	* @return These
+	**/
+	public function updateTitreThese($id, $newTitreThese)
+	{
+    
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
+
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
+    $these->setTitreThese($newTitreThese);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('homepage'));
+	}
+/**
+	* Set SujetThese
+	*
+	* @param These $id, $newSujetThese
+	*
+	* @return These
+	**/
+	public function updateSujetThese($id, $newSujetThese)
+	{
+    
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
+
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
+
+    $these->setSujetThese($newSujetThese);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('homepage'));
+	}
+/**
+	* Set SpecialiteThese
+	*
+	* @param These $id, $newSpecialite
+	*
+	* @return These
+	**/
+	public function updateSpecialite($id, $newSpecialite)
+	{
+   
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
+
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
+
+    $these->setSpecialite($newSpecialite);
+    $em->flush();
+
+    return $this->redirect($this->generateUrl('homepage'));
+	}
+/**
+	* Set LaboratoireThese
+	*
+	* @param These $id, $newlaboratoire
+	*
+	* @return These
+	**/
 	public function updateLaboratoire($id, $newlaboratoire)
 	{
-		$these = $this->repository->findOneById($id);
+   
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
 
-		$these->setLaboratoire($newlaboratoire);
-		$this->em->flush();
+    $these->setlaboratoire($newlaboratoire);
+    $em->flush();
 
-		return $these;
+    return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set FinancementThese
+	*
+	* @param These $id, $newFinancement
+	*
+	* @return These
+	**/
 	public function updateFinancement($id, $newFinancement)
 	{
-		$these = $this->repository->findOneById($id);
+  
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
 
-		$these->setFinancement($newFinancement);
-		$this->em->flush();
+    $these->setFinancement($newFinancement);
+    $em->flush();
 
-		return $these;
+    return $this->redirect($this->generateUrl('homepage'));
 	}
-
-	public function updatedateDebut($id, $newdateDebut)
+/**
+	* Set DateDebutThese
+	*
+	* @param These $id, $newDateDebut
+	*
+	* @return These
+	**/
+	public function updateDateDebut($id, $newDateDebut)
 	{
-		$these = $this->repository->findOneById($id);
+   
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
 
-		$these->setdateDebut($newdateDebut);
-		$this->em->flush();
+    $these->setdateDebut($newdateDebut);
+    $em->flush();
 
-		return $these;
+    return $this->redirect($this->generateUrl('homepage'));
 	}
-
-	public function updatedateDeSoutenance($id, $newdateDeSoutenance)
+/**
+	* Set DateDeSoutenanceThese
+	*
+	* @param These $id, $newdateDeSoutenance
+	*
+	* @return These
+	**/
+	public function updateDateDeSoutenance($id, $newdateDeSoutenance)
 	{
-		$these = $this->repository->findOneById($id);
+ 
+	$these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
+    if (!$These) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
 
-		$these->setdateDeSoutenance($newdateDeSoutenance);
-		$this->em->flush();
+    $these->setdateDeSoutenance($newdateDeSoutenance);
+    $em->flush();
 
-		return $these;
+    return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set MentionThese
+	*
+	* @param These $id, $newMention
+	*
+	* @return These
+	**/
 	public function updateMention($id, $newMention)
 	{
-		$these = $this->repository->findOneById($id);
+ 
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
 
-		$these->setMention($newMention);
-		$this->em->flush();
+    $these->setMention($newMention);
+    $em->flush();
 
-		return $these;
+    return $this->redirect($this->generateUrl('homepage'));
 	}
+
+	
+/**
+	* Set These
+	*
+	* @param These $id
+	*
+	* @return True
+	**/
 	
 	public function deleteThese($id)
 	{
-		$these = $this->repository->findOneById($id);
+ 
+    $these = $em->getRepository('DT/DoctoramaBundle/Entity:These')->findById($id);
 
-		if (!$these) {
-			return null;
-		}
-		
-		$this->em->remove($these);	
-		$this->em->flush();
-		
-		return $these;
+    if (!$these) {
+        throw $this->createNotFoundException(
+            'Aucun produit trouvé pour cet id : '.$id
+        );
+    }
+    $em->remove($these);
+	$em->flush();
+
+	return $these;
 	}
 
-	public function findByDoctorant($doctorant)
-	{
-		$these = $this->repository->findByDoctorant($doctorant);
-		
-		if (!$these) {
-			return null;
-		}
-		return $these;
-	}
-	
-	public function updateDoctorant($id, $doctorant)
-	{
-		$these = $this->repository->findOneById($id);
 
-		if (!$these) {
-			return null;
-		}
-
-		$these->setDoctorant($newFinancement);
-		$this->em->flush();
-
-		return $these;
-	}
-	
-	public function findEncadrantsByIdThese($idThese)
-	{
-		$these = $this->repository->findOneById($id);
-
-		if (!$these) {
-			return null;
-		}
-		
-		return $these->getEncadrants();
-	}
 }

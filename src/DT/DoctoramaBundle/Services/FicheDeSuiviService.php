@@ -15,7 +15,13 @@ class FicheDeSuiviService
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:templatefichedesuivi');
 	}
-	
+	/**
+	* Set FicheDeSuivi
+	*
+	* @param $idType, $titre
+	*
+	* @return FicheDeSuivi
+	**/
 	public function createTemplateFicheDeSuivi($idType, $titre)
 	{
 		$ficheDeSuivi = new FicheDeSuivi();
@@ -27,7 +33,12 @@ class FicheDeSuiviService
 		$this->em->flush();
 	}
 
-
+/**
+	* get FicheDeSuiviById
+	*
+	* @param FicheDeSuiviById $id
+	* @return FicheDeSuivi
+	**/
 	public function findbyId($id)
 	{		
         $these = $this->repository->findOneById($id);
@@ -36,7 +47,12 @@ class FicheDeSuiviService
 			return null;
     	}
     }
-	
+/**
+	* get FicheDeSuiviByIdType
+	*
+	* @param FicheDeSuiviByIdType $idType
+	* @return FicheDeSuivi
+	**/
     public function findByIdType($idType)
 	{
 
@@ -50,7 +66,12 @@ class FicheDeSuiviService
     	}
 
 	}
-
+/**
+	* get FicheDeSuiviByTitre
+	*
+	* @param FicheDeSuiviByTitre $titre
+	* @return FicheDeSuivi
+	**/
 	public function findByTitre($titre)
 	{
 
@@ -63,7 +84,13 @@ class FicheDeSuiviService
     		$ficheDeSuivi = $this->repository->findByTitre($titre);
     	}
 	}
-
+/**
+	* Set FicheDeSuivi
+	*
+	* @param IdTypeFicheDeSuivi $id, $newIdType
+	*
+	* @return FicheDeSuivi
+	**/
 	public function updateIdType($id, $newIdType)
 	{
 		
@@ -78,7 +105,13 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set FicheDeSuivi
+	*
+	* @param TitreFicheDeSuivi $id, $newTitre
+	*
+	* @return FicheDeSuivi
+	**/
 	public function updateTitle($id, $newTitre)
 	{
 
@@ -93,7 +126,13 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set FicheDeSuivi
+	*
+	* @param FicheDeSuivi $id
+	*
+	* @return True
+	**/
 	public function deleteFicheDeSuivi($id)
 	{
 
