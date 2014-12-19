@@ -49,18 +49,11 @@ class DoctoramaController extends Controller {
         //si c'est une connexion fait grâce à un utilisateur issu de l'objet compte
         $listDoctorants = array();
         if (method_exists($user, 'getEncadrant')) {
-            /* $theseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
-              $theses = $theseRepository->findByEncadrant($user->getEncadrant()->getId());
-
-              foreach($theses as $these)
-              {
-              array_push($listDoctorants, $these->getDoctorant());
-              } */
 
             $listDoctorants = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant')->theseNonArchivee($user->getEncadrant()->getId());
         }
 
-        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadres', 'doctorants' => $listDoctorants));
+        return $this->render('DTDoctoramaBundle:Doctorama:liste_doctorants_encadres.html.twig', array('title' => 'Liste des doctorants encadrés', 'doctorants' => $listDoctorants));
     }
 
     public function ficheSuiviExportAction(Request $request) {

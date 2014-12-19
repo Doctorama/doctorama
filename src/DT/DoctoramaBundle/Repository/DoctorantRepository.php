@@ -28,7 +28,8 @@ class DoctorantRepository extends EntityRepository{
                     . 'FROM DTDoctoramaBundle:Doctorant d '
                     . 'JOIN d.these t '
                     . 'JOIN t.encadrants e '
-                    . 'WHERE t.mention is NULL AND e.id = :id ');
+                    . 'JOIN t.directeursDeThese dir '
+                    . 'WHERE t.mention is NULL AND (e.id = :id OR dir.id = :id)');
             $query->setParameter('id', $encadrant_id);
             $results = $query->getResult();
         }

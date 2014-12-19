@@ -17,8 +17,9 @@ class TheseRepository extends EntityRepository {
         {
             $query = $this->_em->createQuery('SELECT t FROM DTDoctoramaBundle:These t '
                 . 'JOIN t.encadrants e '
-                . 'WHERE t.mention is NULL AND e.id = :encadrant');
-            $query->setParameter('encadrant', $encadrant_id);
+                . 'JOIN t.directeursDeThese dir '
+                . 'WHERE t.mention is NULL AND (e.id = :id OR dir.id = :id)');
+            $query->setParameter('id', $encadrant_id);
             $results = $query->getResult();
 
             return $results; 
@@ -32,19 +33,6 @@ class TheseRepository extends EntityRepository {
             return $results;
         }
         
-    }
-
-    function findByEncadrant($encadrant) {
-        $qb = $this->_em->createQueryBuilder();
-
-        return $this->createQueryBuilder('a')
-                        ->select('a')
-                        ->leftJoin('a.encadrants', 'c')
-                        ->addSelect('c')
-                        ->add('where', $qb->expr()->in('c', ':c'))
-                        ->setParameter('c', $encadrant)
-                        ->getQuery()
-                        ->getResult();
     }
 
     function theseArchivee() {
