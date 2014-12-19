@@ -116,7 +116,7 @@ class DemoControllerTest extends WebTestCase
 
         $crawler = $this->client->request('GET', '/encadrant/doctorant_labo/creer_dossier_suivis');
 
-        $this->assertFalse($this->client->getResponse()->isSuccessful());
+        $this->assertTrue($this->client->getResponse()->isSuccessful());
         $this->assertGreaterThan(0, $crawler->filter('html:contains("")')->count());
     }
 	
@@ -156,4 +156,30 @@ class DemoControllerTest extends WebTestCase
         $cookie = new Cookie($session->getName(), $session->getId());
         $this->client->getCookieJar()->set($cookie);
     }
+	
+	//TEST_FORMULAIRE_CREER_DOSSIER
+	/*
+	public function testCreerDossier()
+	{
+    $client = static::createClient();
+
+    $crawler = $client->request('GET', '/encadrant/doctorant_labo/creer_dossier_suivis');
+
+    $this->assertEquals(1, $crawler->filter('html:contains("")')->count());
+
+    $form = $crawler->selectButton('Enregistrer')->form();
+
+    $form['DT_DoctoramaBundle_DoctorantType[nom]']       = 'name';
+    $form['DT_DoctoramaBundle_DoctorantType[prenom]']      = 'last name';
+    $form['DT_DoctoramaBundle_DoctorantType[mail]']    = 'email@email.com';
+    $form['DT_DoctoramaBundle_EncadrantType[directeursDeThese]']       = '';
+	$form['DT_DoctoramaBundle_EncadrantType[encadrants]']       = '';
+	$form['DT_DoctoramaBundle_TheseType[titreThese]']       = 'titre';
+	$form['DT_DoctoramaBundle_TheseType[sujetThese]']       = 'sujet';
+
+    $crawler = $client->submit($form);
+
+    $this->assertEquals(1, $crawler->filter('.blogger-notice:contains("")')->count());
+	}
+	*/
 }
