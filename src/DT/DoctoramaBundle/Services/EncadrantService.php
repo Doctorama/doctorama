@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //EncadrantService
 use DT\DoctoramaBundle\Entity\Encadrant;
 
+/**
+ * Services associes a l'entite Encadrant
+ */
 class EncadrantService
 {
 

@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //DossierDeSuiviService
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
+/**
+ * Services associes a l'entite DossierDeSuivi
+ */
 class DossierDeSuiviService
 {
 	/**

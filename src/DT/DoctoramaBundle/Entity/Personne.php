@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 require_once __DIR__ . '/Reunion.php';
 
 /**
+ * Personne
  * @ORM\MappedSuperclass
  */
 class Personne

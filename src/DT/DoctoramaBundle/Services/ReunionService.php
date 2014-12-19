@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //ReunionService
 use DT\DoctoramaBundle\Entity\Reunion;
 
+/**
+ * Services associes a l'entite Reunion
+ */
 class ReunionService
 {
 	/**

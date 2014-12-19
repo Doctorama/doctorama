@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //TheseService
 use DT\DoctoramaBundle\Entity\These;
 
+/**
+ * Services associes a l'entite These
+ */
 class TheseService
 
 	/**

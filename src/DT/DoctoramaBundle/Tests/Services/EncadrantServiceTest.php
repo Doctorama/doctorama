@@ -5,6 +5,9 @@ use DT\DoctoramaBundle\Services\EncadrantService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use DT\DoctoramaBundle\Entity\Encadrant;
 
+/**
+ * Tests associes a l'entite Encadrant
+ */
 class EncadrantServiceTest extends WebTestCase
 {
     /**

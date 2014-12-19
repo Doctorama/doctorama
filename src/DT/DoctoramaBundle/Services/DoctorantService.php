@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //DoctorantService
 use DT\DoctoramaBundle\Entity\Doctorant;
 
+/**
+ * Services associes a l'entite Doctorant
+ */
 class DoctorantService
 {
 	/**

@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Encadrant;
 
+/**
+ * Tests associes a l'entite Reunion
+ */
 class ReunionServiceTest extends WebTestCase
 {
     /**

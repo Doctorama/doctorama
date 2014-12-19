@@ -5,6 +5,9 @@ use DT\DoctoramaBundle\Services\DoctorantService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use DT\DoctoramaBundle\Entity\Doctorant;
 
+/**
+ * Tests associes a l'entite Doctorant
+ */
 class DoctorantServiceTest extends WebTestCase
 {
     /**

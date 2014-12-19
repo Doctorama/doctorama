@@ -8,6 +8,9 @@ use DT\DoctoramaBundle\Entity\Encadrant;
 use DT\DoctoramaBundle\Entity\Doctorant;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 
+/**
+ * Tests associes a l'entite These
+ */
 class TheseServiceTest extends WebTestCase
 {
     /**

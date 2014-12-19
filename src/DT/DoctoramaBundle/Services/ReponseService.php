@@ -3,6 +3,9 @@ namespace DT\DoctoramaBundle\Services;
 //ReponseService
 use DT\DoctoramaBundle\Entity\Reponse;
 
+/**
+ * Services associes a l'entite Reponse
+ */
 class ReponseService
 {
 	/**
