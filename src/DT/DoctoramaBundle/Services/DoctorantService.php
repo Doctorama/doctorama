@@ -5,10 +5,20 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 
 class DoctorantService
 {
+	/**
+	* @var EntityManager
+	*/
 	private $em;
 	
+	/**
+	* @var Repository
+	*/
 	private $repository;
 	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/
 	public function __construct($em)
 	{
 		$this->em = $em;
@@ -17,11 +27,31 @@ class DoctorantService
 	/**
 	* Set Doctorant
 	*
-	* @param createDoctorant $nom, $nomUsage, $civilite, $prenom, $adresse, $mail,
-	$dateDeNaissance, $nationalite, $villeDeNaissance, $paysDeNaissance, $depDeNaissance,
-	$numEtudiant, $bourseEtExoneration, $dateInscr1eThese, $dcace, $nomFormationMaster,
-	$universiteMaster, $sujetMaster, $laboratoireAccueilMaster, $encadrantsMaster, $etabDernierDiplome,
-	$depDernierDiplome, $paysDernierDiplome, $libelleDernierDiplome, $anneeDernierDiplome
+	* @param string $nom
+	* @param string $nomUsage
+	* @param string $civilite
+	* @param string $prenom
+	* @param string $adresse
+	* @param string $mail
+	* @param \datetime $dateDeNaissance
+	* @param string $nationalite
+	* @param string $villeDeNaissance
+	* @param string $paysDeNaissance
+	* @param \integer $depDeNaissance
+	* @param \integer $numEtudiant
+	* @param \integer $bourseEtExoneration
+	* @param \datetime $dateInscr1eThese
+	* @param string $dcace
+	* @param string $nomFormationMaster
+	* @param string $universiteMaster
+	* @param string $sujetMaster
+	* @param string $laboratoireAccueilMaster
+	* @param string $encadrantsMaster
+	* @param string $etabDernierDiplome
+	* @param \integer $depDernierDiplome
+	* @param string $paysDernierDiplome
+	* @param string $libelleDernierDiplome
+	* @param \integer $anneeDernierDiplome
 	*
 	* @return Doctorant
 	**/
@@ -62,10 +92,11 @@ class DoctorantService
 		$this->em->flush();
 		return $doctorant;
 	}
+	
 	/**
 	* get DoctorantById
 	*
-	* @param DoctorantById $id
+	* @param \integer $id
 	* @return Doctorant
 	**/
 	public function findDoctorantById($id)
@@ -78,10 +109,11 @@ class DoctorantService
 		else
 			return $doctorant;
 	}
+	
 	/**
 	* get DoctorantByNom
 	*
-	* @param DoctorantByNom $nom
+	* @param string $nom
 	* @return Doctorant
 	**/
 	public function findDoctorantByNom($nom)
@@ -95,10 +127,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByNomUsage
 	*
-	* @param DoctorantByNomUsage $nomUsage
+	* @param string $nomUsage
 	* @return Doctorant
 	**/
 	public function findDoctorantByNomUsage($nomUsage)
@@ -112,10 +145,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByCivilite
 	*
-	* @param DoctorantByCivilite $civilite
+	* @param string $civilite
 	* @return Doctorant
 	**/
 	public function findDoctorantByCivilite($civilite)
@@ -129,10 +163,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByPrenom
 	*
-	* @param DoctorantByPrenom $prenom
+	* @param string $prenom
 	* @return Doctorant
 	**/
 	public function findDoctorantByPrenom($prenom)
@@ -146,10 +181,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByAdresse
 	*
-	* @param DoctorantByAdresse $adresse
+	* @param string $adresse
 	* @return Doctorant
 	**/
 	public function findDoctorantByAdresse($adresse)
@@ -163,10 +199,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByMail
 	*
-	* @param DoctorantByMail $mail
+	* @param string $mail
 	* @return Doctorant
 	**/
 	public function findDoctorantByMail($mail)
@@ -180,10 +217,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByDateDeNaissance
 	*
-	* @param DoctorantByDateDeNaissance $dateDeNaissance
+	* @param \datetime $dateDeNaissance
 	* @return Doctorant
 	**/
 	public function findDoctorantByDateDeNaissance($dateDeNaissance)
@@ -197,10 +235,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByNationalite
 	*
-	* @param DoctorantByNationalite $nationalite
+	* @param string $nationalite
 	* @return Doctorant
 	**/
 	public function findDoctorantByNationalite($nationalite)
@@ -214,10 +253,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByVilleDeNaissance
 	*
-	* @param DoctorantByVilleDeNaissance $villeDeNaissance
+	* @param string $villeDeNaissance
 	* @return Doctorant
 	**/
 	public function findDoctorantByVilleDeNaissance($villeDeNaissance)
@@ -231,10 +271,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByPaysDeNaissance
 	*
-	* @param DoctorantByPaysDeNaissance $paysDeNaissance
+	* @param string $paysDeNaissance
 	* @return Doctorant
 	**/
 	public function findDoctorantByPaysDeNaissance($paysDeNaissance)
@@ -248,10 +289,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByDepDeNaissance
 	*
-	* @param DoctorantByDepDeNaissance $depDeNaissance
+	* @param \integer $depDeNaissance
 	* @return Doctorant
 	**/
 	public function findDoctorantByDepDeNaissance($depDeNaissance)
@@ -265,10 +307,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByNumEtudiant
 	*
-	* @param DoctorantByNumEtudiant $numEtudiant
+	* @param \integer $numEtudiant
 	* @return Doctorant
 	**/
 	public function findDoctorantByNumEtudiant($numEtudiant)
@@ -282,10 +325,11 @@ class DoctorantService
 		else
 			return $doctorant;
 	}
+	
 	/**
 	* get DoctorantByBourseEtExoneration
 	*
-	* @param DoctorantByBourseEtExoneration $bourseEtExoneration
+	* @param \integer $bourseEtExoneration
 	* @return Doctorant
 	**/
 	public function findDoctorantByBourseEtExoneration($bourseEtExo)
@@ -299,10 +343,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByDateInscr1eThese
 	*
-	* @param DoctorantByDateInscr1eThese $dateInscr1eThese
+	* @param \datetime $dateInscr1eThese
 	* @return Doctorant
 	**/
 	public function findDoctorantByDateInscr1eThese($dateInscr1eThese)
@@ -316,10 +361,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByDcace
 	*
-	* @param DoctorantByDcace $dcace
+	* @param string $dcace
 	* @return Doctorant
 	**/
 	public function findDoctorantByDcace($dcace)
@@ -333,10 +379,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByNomFormationMaster
 	*
-	* @param DoctorantByNomFormationMaster $nomFormationMaster
+	* @param string $nomFormationMaster
 	* @return Doctorant
 	**/
 	public function findDoctorantByNomFormationMaster($nomFormationMaster)
@@ -350,10 +397,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByUniversiteMaster
 	*
-	* @param DoctorantByUniversiteMaster $universiteMaster
+	* @param string $universiteMaster
 	* @return Doctorant
 	**/
 	public function findDoctorantByUniversiteMaster($numEtudiant)
@@ -367,10 +415,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantBySujetMaster
 	*
-	* @param DoctorantBySujetMaster $sujetMaster
+	* @param string $sujetMaster
 	* @return Doctorant
 	**/
 	public function findDoctorantBySujetMaster($numEtudiant)
@@ -384,10 +433,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByLaboratoireAcceuilMaster
 	*
-	* @param DoctorantByLaboratoireAcceuilMaster $laboratoireAcceuilMaster
+	* @param string $laboratoireAcceuilMaster
 	* @return Doctorant
 	**/
 	public function findDoctorantByLaboratoireAcceuilMaster($numEtudiant)
@@ -401,10 +451,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByEncadrantsMaster
 	*
-	* @param DoctorantByEncadrantsMaster $encadrantsMaster
+	* @param string $encadrantsMaster
 	* @return Doctorant
 	**/
 	public function findDoctorantByEncadrantsMaster($numEtudiant)
@@ -418,10 +469,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByEtabDernierDiplome
 	*
-	* @param DoctorantByEtabDernierDiplome $etabDernierDiplome
+	* @param string $etabDernierDiplome
 	* @return Doctorant
 	**/
 	public function findDoctorantByEtabDernierDiplome($numEtudiant)
@@ -435,10 +487,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByPaysDernierDiplome
 	*
-	* @param DoctorantByPaysDernierDiplome $paysDernierDiplome
+	* @param string $paysDernierDiplome
 	* @return Doctorant
 	**/
 	public function findDoctorantByPaysDernierDiplome($numEtudiant)
@@ -452,10 +505,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByLibelleDernierDiplome
 	*
-	* @param DoctorantByLibelleDernierDiplome $libelleDernierDiplome
+	* @param string $libelleDernierDiplome
 	* @return Doctorant
 	**/
 	public function findDoctorantByLibelleDernierDiplome($numEtudiant)
@@ -469,10 +523,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByAnneeDernierDiplome
 	*
-	* @param DoctorantByAnneeDernierDiplome $anneeDernierDiplome
+	* @param \integer $anneeDernierDiplome
 	* @return Doctorant
 	**/
 	public function findDoctorantByAnneeDernierDiplome($numEtudiant)
@@ -486,10 +541,11 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByDepDernierDiplome
 	*
-	* @param DoctorantByDepDernierDiplome $depDernierDiplome
+	* @param string $depDernierDiplome
 	* @return Doctorant
 	**/
 	public function findDoctorantByDepDernierDiplome($numEtudiant)
@@ -503,10 +559,12 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* get DoctorantByNomEtPrenom
 	*
-	* @param DoctorantByNomEtPrenom $prenom, $nom
+	* @param string $prenom
+	* @param string $nom
 	* @return Doctorant
 	**/
 	public function findDoctorantByNomEtPrenom($prenom, $nom)
@@ -522,9 +580,9 @@ class DoctorantService
 		else
 			return $doctorant;
 	}
+	
 	/**
-	* get Doctorants
-	*
+	* get allDoctorants
 	* 
 	* @return Doctorants
 	**/
@@ -541,10 +599,12 @@ class DoctorantService
 		else
 			return $doctorants;
 	}
+	
 	/**
 	* set NomDoctorant
 	*
-	* @param NomDoctorant $id, $nouveauNom
+	* @param \integer $id
+	* @param string $nouveauNom
 	* @return Doctorant
 	**/
 	public function updateNom($id,$nouveauNom)
@@ -564,10 +624,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set NomUsageDoctorant
 	*
-	* @param NomUsageDoctorant $id, $nouveauNomUsage
+	* @param \integer $id
+	* @param string $nouveauNomUsage
 	* @return Doctorant
 	**/
 	public function updateNomUsage($id,$nouveauNomUsage)
@@ -586,10 +648,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set CiviliteDoctorant
 	*
-	* @param CiviliteDoctorant $id, $nouveauCivilite
+	* @param \integer $id
+	* @param string $nouveauCivilite
 	* @return Doctorant
 	**/
 	public function updateCivilite($id,$nouveauCivilite)
@@ -608,10 +672,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set PrenomDoctorant
 	*
-	* @param PrenomDoctorant $id, $nouveauPrenom
+	* @param \integer $id
+	* @param string $nouveauPrenom
 	* @return Doctorant
 	**/
 	public function updatePrenom($id,$nouveauPrenom)
@@ -630,10 +696,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set AdresseDoctorant
 	*
-	* @param AdresseDoctorant $id, $nouveauAdresse
+	* @param \integer $id
+	* @param string $nouveauAdresse
 	* @return Doctorant
 	**/
 	public function updateAdresse($id,$nouveauAdresse)
@@ -652,10 +720,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set MailDoctorant
 	*
-	* @param MailDoctorant $id, $nouveauMail
+	* @param \integer $id
+	* @param string $nouveauMail
 	* @return Doctorant
 	**/
 	public function updateMail($id,$nouveauMail)
@@ -674,10 +744,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set DateDeNaissanceDoctorant
 	*
-	* @param DateDeNaissanceDoctorant $id, $nouveauDateDeNaissance
+	* @param \integer $id
+	* @param \datetime $nouveauDateDeNaissance
 	* @return Doctorant
 	**/
 	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
@@ -696,10 +768,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set Nationalitedoctorant
 	*
-	* @param Nationalitedoctorant $id, $nouveauNationalite
+	* @param \integer $id
+	* @param string $nouveauNationalite
 	* @return doctorant
 	**/
 	public function updateNationalite($id,$nouveauNationalite)
@@ -718,10 +792,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set VilleDeNaissancedoctorant
 	*
-	* @param VilleDeNaissancedoctorant $id, $VilleDeNaissance
+	* @param \integer $id
+	* @param string $VilleDeNaissance
 	* @return doctorant
 	**/
 	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
@@ -740,10 +816,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set PaysDeNaissancedoctorant
 	*
-	* @param PaysDeNaissancedoctorant $id, $nouveauPaysDeNaissance
+	* @param \integer $id
+	* @param string $nouveauPaysDeNaissance
 	* @return doctorant
 	**/
 	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
@@ -762,10 +840,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set DepDeNaissancedoctorant
 	*
-	* @param DepDeNaissancedoctorant $id, $nouveauDepDeNaissance
+	* @param \integer $id
+	* @param string $nouveauDepDeNaissance
 	* @return doctorant
 	**/
 	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
@@ -784,10 +864,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set NumEtudiantdoctorant
 	*
-	* @param NumEtudiantdoctorant $id, $nouveauNumEtudiant
+	* @param \integer $id
+	* @param \integer $nouveauNumEtudiant
 	* @return doctorant
 	**/
 	public function updateNumEtudiant($id,$nouveauNumEtudiant)
@@ -806,10 +888,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set BourseEtExonerationdoctorant
 	*
-	* @param BourseEtExonerationdoctorant $id, $nouveauBourseEtExoneration
+	* @param \integer $id
+	* @param \integer $nouveauBourseEtExoneration
 	* @return doctorant
 	**/
 	public function updateBourseEtExoneration($id,$nouveauBourseEtExoneration)
@@ -828,10 +912,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set DateInscr1eThesedoctorant
 	*
-	* @param DateInscr1eThesedoctorant $id, $nouveauDateInscr1eThese
+	* @param \integer $id
+	* @param \datetime	$nouveauDateInscr1eThese
 	* @return doctorant
 	**/
 	public function updateDateInscr1eThese($id,$nouveauDateInscr1eThese)
@@ -850,10 +936,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set Dcacedoctorant
 	*
-	* @param Dcacedoctorant $id, $nouveauDcace
+	* @param \integer $id
+	* @param string $nouveauDcace
 	* @return doctorant
 	**/
 	public function updateDcace($id,$nouveauDcace)
@@ -872,10 +960,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set NomFormationMasterdoctorant
 	*
-	* @param NomFormationMasterdoctorant $id, $nouveauNomFormationMaster
+	* @param \integer $id
+	* @param string $nouveauNomFormationMaster
 	* @return doctorant
 	**/
 	public function updateNomFormationMaster($id,$nouveauNomFormationMaster)
@@ -894,10 +984,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set UniversiteMasterdoctorant
 	*
-	* @param UniversiteMasterdoctorant $id, $nouveauUniversiteMaster
+	* @param \integer $id
+	* @param string $nouveauUniversiteMaster
 	* @return doctorant
 	**/
 	public function updateUniversiteMaster($id,$nouveauUniversiteMaster)
@@ -916,10 +1008,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set SujetMasterdoctorant
 	*
-	* @param SujetMasterdoctorant $id, $nouveauSujetMaster
+	* @param \integer $id
+	* @param string $nouveauSujetMaster
 	* @return doctorant
 	**/
 	public function updateSujetMaster($id,$nouveauSujetMaster)
@@ -938,10 +1032,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set LaboratoireAccueilMasterdoctorant
 	*
-	* @param LaboratoireAccueilMasterdoctorant $id, $nouveauLaboratoireAccueilMaster
+	* @param \integer $id
+	* @param string $nouveauLaboratoireAccueilMaster
 	* @return doctorant
 	**/
 	public function updateLaboratoireAccueilMaster($id,$nouveauLaboratoireAccueilMaster)
@@ -960,10 +1056,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set EncadrantsMasterdoctorant
 	*
-	* @param EncadrantsMasterdoctorant $id, $nouveauEncadrantsMaster
+	* @param \integer $id
+	* @param Encadrant[] $nouveauEncadrantsMaster
 	* @return doctorant
 	**/
 	public function updateEncadrantsMaster($id,$nouveauEncadrantsMaster)
@@ -982,10 +1080,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set EtabDernierDiplomedoctorant
 	*
-	* @param EtabDernierDiplomedoctorant $id, $nouveauEtabDernierDiplome
+	* @param \integer $id
+	* @param string $nouveauEtabDernierDiplome
 	* @return doctorant
 	**/
 	public function updateEtabDernierDiplome($id,$nouveauEtabDernierDiplome)
@@ -1004,10 +1104,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set DepDernierDiplomedoctorant
 	*
-	* @param DepDernierDiplomedoctorant $id, $nouveauDepDernierDiplome
+	* @param \integer $id
+	* @param \integer $nouveauDepDernierDiplome
 	* @return doctorant
 	**/
 	public function updateDepDernierDiplome($id,$nouveauDepDernierDiplome)
@@ -1026,10 +1128,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set PaysDernierDiplomedoctorant
 	*
-	* @param PaysDernierDiplomedoctorant $id, $nouveauPaysDernierDiplome
+	* @param \integer $id
+	* @param string $nouveauPaysDernierDiplome
 	* @return doctorant
 	**/
 	public function updatePaysDernierDiplome($id,$nouveauPaysDernierDiplome)
@@ -1048,10 +1152,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set LibelleDernierDiplomedoctorant
 	*
-	* @param LibelleDernierDiplomedoctorant $id, $nouveauLibelleDernierDiplome
+	* @param \integer $id
+	* @param string $nouveauLibelleDernierDiplome
 	* @return doctorant
 	**/
 	public function updateLibelleDernierDiplome($id,$nouveauLibelleDernierDiplome)
@@ -1070,10 +1176,12 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
 	* set AnneeDernierDiplomedoctorant
 	*
-	* @param AnneeDernierDiplomedoctorant $id, $nouveauAnneeDernierDiplome
+	* @param \integer $id
+	* @param string $nouveauAnneeDernierDiplome
 	* @return doctorant
 	**/
 	public function updateAnneeDernierDiplome($id,$nouveauAnneeDernierDiplome)
@@ -1092,10 +1200,11 @@ class DoctorantService
 
 		return $doctorant;
 	}
+	
 	/**
-	* set Doctorant
+	* delete Doctorant
 	*
-	* @param Nomdoctorant $id
+	* @param \integer $id
 	* @return True
 	**/
 	public function delete($id)

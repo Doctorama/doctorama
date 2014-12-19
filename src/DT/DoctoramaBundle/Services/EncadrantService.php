@@ -6,10 +6,20 @@ use DT\DoctoramaBundle\Entity\Encadrant;
 class EncadrantService
 {
 
+	/**
+	* @var EntityManager
+	*/
 	private $em;
 	
+	/**
+	* @var Repository
+	*/
 	private $repository;
 	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/
 	public function __construct($em)
 	{
 		$this->em = $em;
