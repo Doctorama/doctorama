@@ -573,18 +573,23 @@ class DoctoramaController extends Controller {
 						        		$these->setLaboratoire($tab[$i]);
 						        		break;
 						    		case "Directeur de thèse":
-							        	$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $tab[$i]);
-										$encadrant = $query->getResult();
-										//SI IL EXISTE PAS CRéER UN NOUVEAU//
-										if (!$encadrant) {
-											$encadrant = new Encadrant;
-											$encadrant->setNom($tab[$i]);
-											$encadrant->setPrenom($tab[$i]);
-											$em->persist($encadrant);
-											$these->addDirecteursDeThese($encadrant);
-										}
-										else{
-											$these->setDirecteursDeThese($encadrant);
+						    			$parse_nom = explode(';', $tab[$i]);
+						    			foreach ($parse_nom as $value) {
+    										if ($value) {
+									        	$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $value);
+												$encadrant = $query->getResult();
+												//SI IL EXISTE PAS CRéER UN NOUVEAU//
+												if (!$encadrant) {
+													$encadrant = new Encadrant;
+													$encadrant->setNom($value);
+													$encadrant->setPrenom($value);
+													$em->persist($encadrant);
+													$these->addDirecteursDeThese($encadrant);
+												}
+												else{
+													$these->setDirecteursDeThese($encadrant);
+												}
+											}
 										}
 						        		break;
 						    		case "Collaboration Université":
