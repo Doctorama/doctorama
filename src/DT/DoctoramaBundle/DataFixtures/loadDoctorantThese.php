@@ -26,7 +26,6 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant->setVilleDeNaissance('La Rochelle');
 		$doctorant->setPaysDeNaissance('France');
 		$doctorant->setDepDeNaissance('17');
-		
 		$doctorant->setDepDernierDiplome('17');
 		
 		$doctorant->setNumEtudiant('15526398958');
