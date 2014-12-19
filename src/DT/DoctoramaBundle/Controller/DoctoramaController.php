@@ -38,7 +38,25 @@ class DoctoramaController extends Controller {
                 $response->headers->set('Content-disposition', 'attachment;filename=' . $_GET['nom'] . ' ' . $_POST['ficheLabel'] . '.csv');
             }
             return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier ' . $typeExport, 'export' => $typeExport), $response);
-        } else {
+        }elseif(!strcmp($typeExport, "Valider")){
+			var_dump($_POST);
+			$templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+            $templates = $templateRepository->findByTitre($_POST['ficheId']);
+			$template = null;
+			$version = 0;
+			foreach($templates as $t){
+				if($t->getVersion() > $version){
+					$template = $t;
+				}
+			}
+			// foreach($template->getQuestions() as $question){
+				// foreach($question->getReponses() as $reponse){
+					
+				// }
+			// }
+			// exit;
+			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
+		}else {
             return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
         }
     }

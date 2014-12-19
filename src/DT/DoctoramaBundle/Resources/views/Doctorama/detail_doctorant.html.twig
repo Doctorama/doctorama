@@ -34,13 +34,19 @@
 									<label class="col-sm-4 control-label">{{question.question}} :</label>
 									<div class="col-sm-8">
 										<input type="hidden" name="{{ficheId}}[question{{id}}]" value="{{question.question}}"/>
-										<input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly>
+										<input type="text" class="form-control" id="{{ficheId}}[reponse{{id}}]" name="{{ficheId}}[reponse{{id}}]" value="{{question.reponse}}" readonly />
 									</div>
 								</div>
 							{% endfor %}
 							<div class="form-group">
 								<div class="col-sm-4"></div>
-								<div class="col-sm-4">
+								<div class="col-sm-6">
+									<span class="modifFiche_buttons">
+										<input type="button" class="btn btn-info modifFiche_modifier" value="Modifier">
+										<input type="submit" class="btn btn-info modifFiche_valider" name="export" value="Valider">
+										<input type="button" class="btn btn-info modifFiche_annuler" value="Annuler">
+										<input type="hidden" class="modifFiche_id" value="{{ficheId}}"/>
+									</span>
 									<input type="submit" class="btn btn-info" id="exportPDF" name="export" value="PDF">
 									<input type="submit" class="btn btn-info" id="exportCSV" name="export" value="CSV">
 								</div>

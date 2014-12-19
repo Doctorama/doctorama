@@ -150,3 +150,8 @@ select.select-large{
 	max-height:100px;
 	min-width:200px;
 }
+
+span.modifFiche_buttons input.modifFiche_valider,
+span.modifFiche_buttons input.modifFiche_annuler{
+	display:none;
+}

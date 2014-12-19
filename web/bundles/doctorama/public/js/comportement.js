@@ -88,6 +88,33 @@ $(document).ready(function(){
 		$('#modif_buttons').show();
 	});
 	
+	//Mise à jour fiche de suivi
+	$(document).on('click','.modifFiche_modifier',function(){
+		$('.modifFiche_modifier').hide();
+		$('.modifFiche_valider').show();
+		$('.modifFiche_annuler').show();
+		oldForm = $('div#'+$(this).siblings('.modifFiche_id').val());
+		formId = $(this).siblings('.modifFiche_id').val();
+		$('div#'+formId+" input[type='text']").prop('readonly',false);
+	});
+	
+	$(document).on('click','.modifFiche_valider',function(){
+		$('.modifFiche_modifier').show();
+		$('.modifFiche_valider').hide();
+		$('.modifFiche_annuler').hide();
+		formId = $(this).siblings('.modifFiche_id').val();
+		$('div#'+formId+" input[type='text']").prop('readonly',true);
+		
+	});
+	
+	$(document).on('click','.modifFiche_annuler',function(){
+		$('.modifFiche_modifier').show();
+		$('.modifFiche_valider').hide();
+		$('.modifFiche_annuler').hide();
+		formId = $(this).siblings('.modifFiche_id').val();
+		$('div#'+formId+" input[type='text']").prop('readonly',true);
+	});
+	
 	// Agenda
 	$('#calendar').fullCalendar({
 		firstDay:1,
