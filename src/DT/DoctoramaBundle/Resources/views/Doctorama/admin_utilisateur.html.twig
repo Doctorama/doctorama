@@ -80,21 +80,20 @@
                         </thead>
                         <tbody>
                             {% for compte in comptesActifs %}
-                                {% if compte.doctorant is defined and compte.doctorant != null %} 
+                                {% if compte.encadrant is defined and compte.encadrant != null %} 
                                     <tr>
-                                        <td>{{compte.doctorant.nom}}</td>
-                                        <td>{{compte.doctorant.prenom}}</td>
+                                        <td>{{compte.encadrant.nom}}</td>
+                                        <td>{{compte.encadrant.prenom}}</td>
                                         <td>{{compte.roles|join(', ')}}</td>
                                         <td class="pull-right"> 
                                             <a class="btn btn-default" href="{{ path('dt_doctorama_admin_infos_perso', {'id_compte':compte.id}) }}" role="button"> Modifier </a> 
                                         </td>
                                     </tr>
-                                {% endif %}
-                                
-                                {% if compte.encadrant is defined and compte.encadrant != null %} 
+                                    
+                                {% elseif compte.doctorant is defined and compte.doctorant != null %} 
                                     <tr>
-                                        <td>{{compte.encadrant.nom}}</td>
-                                        <td>{{compte.encadrant.prenom}}</td>
+                                        <td>{{compte.doctorant.nom}}</td>
+                                        <td>{{compte.doctorant.prenom}}</td>
                                         <td>{{compte.roles|join(', ')}}</td>
                                         <td class="pull-right"> 
                                             <a class="btn btn-default" href="{{ path('dt_doctorama_admin_infos_perso', {'id_compte':compte.id}) }}" role="button"> Modifier </a> 

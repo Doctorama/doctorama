@@ -97,4 +97,7 @@ dt_doctorama_modif_fiche:
 dt_doctorama_modif_fiche_form:
     pattern: /encadrant/modifier_fiche_form
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifFicheForm}
-
+    
+dt_admin_passer_encadrant:
+    pattern: /directeur_labo/passer_encadrant/{id_doctorant}
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:passerEncadrant}
