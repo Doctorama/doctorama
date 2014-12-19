@@ -430,195 +430,226 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
 
-    public function parseCsvAction(Request $request) {
-        $reponse;
-        $tab_intitule = array();
-        $list_doctorants = array();
-        $em = $this->getDoctrine()->getManager();
 
-        $uploads_dir = "bundles/doctorama/uploads/";
-        $tmp_name = $_FILES["file"]["tmp_name"];
+    public function parseCsvAction(Request $request)
+    {
+    	$reponse;
+    	$tab_intitule = array(); 
+    	$list_doctorants = array();
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	$uploads_dir = "bundles/doctorama/uploads/";
+		$tmp_name = $_FILES["file"]["tmp_name"];
         $name = $_FILES["file"]["name"];
-        if (move_uploaded_file($tmp_name, "$uploads_dir/$name")) {
-            $ligne = 0; // compteur de ligne
-
-            $fic = fopen("$uploads_dir/$name", "a+");
-            while ($tab = fgetcsv($fic, 1024, ',')) {
-                $j = 0; //Compteur remplissage ligne $list_doctorants
-                //Création des enregistrements:
-                $doctorant = new Doctorant();
-                $these = new These();
-
-                //nombre de champ dans la ligne en question
-                $champs = count($tab);
-
-                //Récupération des entités du fichier CSV dans un tableau
-                if ($ligne == 0) {
-                    for ($i = 0; $i < $champs; $i ++) {
-                        $tab_intitule[$i] = $tab[$i];
-                    }
-                }
-
-                //affichage de chaque champ de la ligne en question
-                if ($ligne > 0) {
-                    if (!$tab[0] == "") {
-                        for ($i = 0; $i < $champs; $i ++) {
-                            switch ($tab_intitule[$i]) {
-                                case "Numéro Etudiant":
-                                    //VéRIFIER SI ETUDIANT EXISTE DéJà//
-                                    $doctorant->setNumEtudiant($tab[$i]);
-                                    break;
-                                case "Civilité (M./MME/MLLE)":
-                                    $doctorant->setCivilite($tab[$i]);
-                                    break;
-                                case "Nom patronymique":
-                                    $list_doctorants[$ligne][$j] = $tab[$i];
-                                    $j++;
-                                    $doctorant->setNom($tab[$i]);
-                                    break;
-                                case "Nom Marital":
-                                    $doctorant->setNomUsage($tab[$i]);
-                                    break;
-                                case "Prénom":
-                                    $list_doctorants[$ligne][$j] = $tab[$i];
-                                    $j++;
-                                    $doctorant->setPrenom($tab[$i]);
-                                    break;
-                                case "Date De Naissance":
-                                    //On change le format de la date avant de l'insérer
-                                    $list_doctorants[$ligne][$j] = $tab[$i];
-                                    $j++;
-                                    if (!$tab[$i] == "") {
-                                        $arr = implode('-', array_reverse(explode('/', $tab[$i])));
-                                        $doctorant->setDateDeNaissance(new \DateTime($arr));
-                                    }
-                                    break;
-                                case "Pays Nationalité (libellé)":
-                                    $doctorant->setNationalite($tab[$i]);
-                                    break;
-                                case "Lieu de naissance":
-                                    $doctorant->setVilleDeNaissance($tab[$i]);
-                                    break;
-                                case "Pays Naissance (libellé)":
-                                    $doctorant->setPaysDeNaissance($tab[$i]);
-                                    break;
-                                case "Département de naissance (libellé)":
-                                    $doctorant->setDepDeNaissance($tab[$i]);
-                                    break;
-                                case "Etablissement (libellé)":
-                                    $doctorant->setUniversiteMaster($tab[$i]);
-                                    break;
-                                case "Département (libellé)":
-                                    $doctorant->setEtabDernierDiplome($tab[$i]);
-                                    break;
-                                case "Cadre F - Dernier diplôme.Pays (libellé)":
-                                    $doctorant->setSujetMaster($tab[$i]);
-                                    break;
-                                case "Type (libellé)":
-                                    break;
-                                case "Diplôme":
-                                    $doctorant->setLibelleDernierDiplome($tab[$i]);
-                                    break;
-                                case "Année":
-                                    $doctorant->setAnneeDernierDiplome($tab[$i]);
-                                    break;
-                                case "Adresse 1":
-                                    break;
-                                case "Adresse 2":
-                                    break;
-                                case "Code postal":
-                                    break;
-                                case "Ville":
-                                    break;
-                                case "Adrese de l’étudiant.Pays (libellé)":
-                                    $doctorant->setAdresse($tab[$i]);
-                                    break;
-                                case "E-mail perso":
-                                    $doctorant->setMail($tab[$i]);
-                                    break;
-                                case "CROUS":
-                                    break;
-                                case "Numéro allocataire":
-                                    break;
-                                case "Echelon":
-                                    break;
-                                case "Exonération":
-                                    $doctorant->setBourseEtExoneration($tab[$i]);
-                                    break;
-                                case "Sujet de la thèse":
-                                    $list_doctorants[$ligne][$j] = $tab[$i];
-                                    $j++;
-                                    $these->setSujetThese($tab[$i]);
-                                    break;
-                                case "Specialite de la thèse":
-                                    $list_doctorants[$ligne][$j] = $tab[$i];
-                                    $j++;
-                                    $these->setSpecialite($tab[$i]);
-                                    break;
-                                case "Laboratoire de la thèse (Lib long)":
-                                    $these->setLaboratoire($tab[$i]);
-                                    break;
-                                case "Directeur de thèse":
-                                    $query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $tab[$i]);
-                                    $encadrant = $query->getResult();
-                                    //SI IL EXISTE PAS CRéER UN NOUVEAU//
-                                    $these->setDirecteursDeThese($encadrant);
-                                    break;
-                                case "Collaboration Université":
-                                    break;
-                                case "Collaboration Responsable":
-                                    break;
-                                case "Financement de la thèse":
-                                    $these->setFinancement($tab[$i]);
-                                    break;
-                                case "1er année insc these":
-                                    $doctorant->setDateInscr1ethese($tab[$i]);
-                                    break;
-                                case "Date Soutenance":
-                                    //On change le format de la date avant de l'insérer
-                                    if (!$tab[$i] == "") {
-                                        $arr = implode('-', array_reverse(explode('/', $tab[$i])));
-                                        $these->setDateDeSoutenance(new \DateTime($arr));
-                                    }
-                                    break;
-                                case "Identite":
-                                    break;
-                                case "Type jury (Pres/membre)":
-                                    break;
-                                case "Mention":
-                                    switch ($tab[$i]) {
-                                        case "Très honorable avec les félicitations du jury":
-                                            $these->setMention("3");
-                                            break;
-                                        case "Très honorable":
-                                            $these->setMention("2");
-                                            break;
-                                        case "Honorable":
-                                            $these->setMention("1");
-                                            break;
-                                        case "Abandonnée":
-                                            $these->setMention("4");
-                                            break;
-                                    }
-                                    break;
-                            }
-                        }
-                        $doctorant->setThese($these);
-                        $em->persist($doctorant);
-                        $em->persist($these);
-                    }
-                }
-                $ligne ++;
-            }
-            $reponse = "Le fichier est Uploadé et enregistré dans la base de données";
-        } else {
-            $reponse = 'Echec de l\'upload du fichier CSV. ';
-        }
-        $em->flush();
-        //var_dump($arr);
-        //exit;
+		if(move_uploaded_file($tmp_name, "$uploads_dir/$name")) 
+		{ 
+			$ligne = 0; // compteur de ligne
+			
+			$fic = fopen("$uploads_dir/$name", "a+");
+			while($tab=fgetcsv($fic,1024,',')) {
+				$j = 0; //Compteur remplissage ligne $list_doctorants
+				$doctorant_exist = False;
+				
+				//Création des enregistrements:
+				$doctorant = new Doctorant();
+    			$these = new These();
+    			
+				//nombre de champ dans la ligne en question
+				$champs = count($tab);	
+				
+				//Récupération des entités du fichier CSV dans un tableau
+				if ($ligne==0) {
+					for($i=0; $i<$champs; $i ++) {
+						$tab_intitule[$i] = $tab[$i];
+					}
+				}
+				
+				//affichage de chaque champ de la ligne en question
+					if ($ligne>0) {
+						if (!$tab[0] == "") {
+							for($i=0; $i<$champs; $i ++) {	
+								switch ($tab_intitule[$i]) {
+									case "Numéro Etudiant":
+									//VéRIFIER SI ETUDIANT EXISTE DéJà//
+										$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Doctorant dt WHERE dt.numEtudiant= :num_etudiant")->setParameter('num_etudiant',$tab[$i]);
+										$etudiant = $query->getResult();
+										//var_dump($etudiant);
+										//exit;
+										if ($etudiant) {
+											$doctorant_exist = True;
+										} else {
+											$doctorant->setNumEtudiant($tab[$i]);
+										}
+						        		break;
+						    		case "Civilité (M./MME/MLLE)":
+						        		$doctorant->setCivilite($tab[$i]);
+						        		break;
+						        	case "Nom patronymique":
+						        		$list_doctorants[$ligne][$j] = $tab[$i];
+						        		$j++;
+						    			$doctorant->setNom($tab[$i]);
+						        		break;
+						    		case "Nom Marital":
+						    			$doctorant->setNomUsage($tab[$i]);
+						        		break;
+		    						case "Prénom":
+		    							$list_doctorants[$ligne][$j] = $tab[$i];
+		    							$j++;
+		        						$doctorant->setPrenom($tab[$i]);
+						        		break;
+						    		case "Date De Naissance":
+						    		//On change le format de la date avant de l'insérer
+						    			$list_doctorants[$ligne][$j] = $tab[$i];
+						    			$j++;
+						    			if (!$tab[$i]=="") {
+						    				$arr = implode('-', array_reverse(explode('/', $tab[$i])));
+						        			$doctorant->setDateDeNaissance(new \DateTime($arr));
+						    			}
+						        		break;
+						    		case "Pays Nationalité (libellé)":
+						        		$doctorant->setNationalite($tab[$i]);
+						        		break;
+						    		case "Lieu de naissance":
+						        		$doctorant->setVilleDeNaissance($tab[$i]);
+						        		break;
+						    		case "Pays Naissance (libellé)":
+						        		$doctorant->setPaysDeNaissance($tab[$i]);
+						        		break;
+						    		case "Département de naissance (libellé)":
+						    			$doctorant->setDepDeNaissance($tab[$i]);
+						        		break;
+						    		case "Etablissement (libellé)":
+						    			$doctorant->setUniversiteMaster($tab[$i]);
+						        		break;
+		    						case "Département (libellé)":
+		        						$doctorant->setEtabDernierDiplome($tab[$i]);
+						        		break;
+						    		case "Cadre F - Dernier diplôme.Pays (libellé)":
+						        		$doctorant->setSujetMaster($tab[$i]);
+						        		break;
+						    		case "Type (libellé)":
+						        		break;
+						    		case "Diplôme":
+						        		$doctorant->setLibelleDernierDiplome($tab[$i]);
+						        		break;
+						    		case "Année":
+						        		$doctorant->setAnneeDernierDiplome($tab[$i]);
+						        		break;
+		    						case "Adresse 1":
+						        		break;
+						    		case "Adresse 2":
+						        		break;
+						    		case "Code postal":
+						        		break;
+						    		case "Ville":
+						        		break;
+		    						case "Adrese de l’étudiant.Pays (libellé)":
+		        						$doctorant->setAdresse($tab[$i]);
+						        		break;
+						    		case "E-mail perso":
+						        		$doctorant->setMail($tab[$i]);
+						        		break;
+						    		case "CROUS":
+						        		break;
+						    		case "Numéro allocataire":
+						        		break;
+						    		case "Echelon":
+						        		break;
+						    		case "Exonération":
+						    			$doctorant->setBourseEtExoneration($tab[$i]);
+						        		break;
+						    		case "Sujet de la thèse":
+						    			$list_doctorants[$ligne][$j] = $tab[$i];
+						    			$j++;
+						    			$these->setSujetThese($tab[$i]);
+						        		break;
+		    						case "Specialite de la thèse":
+		    							$list_doctorants[$ligne][$j] = $tab[$i];
+		    							$j++;
+		        						$these->setSpecialite($tab[$i]);
+						        		break;
+						    		case "Laboratoire de la thèse (Lib long)":
+						        		$these->setLaboratoire($tab[$i]);
+						        		break;
+						    		case "Directeur de thèse":
+							        	$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $tab[$i]);
+										$encadrant = $query->getResult();
+										//SI IL EXISTE PAS CRéER UN NOUVEAU//
+										if (!$encadrant) {
+											$encadrant = new Encadrant;
+											$encadrant->setNom($tab[$i]);
+											$encadrant->setPrenom($tab[$i]);
+											$em->persist($encadrant);
+											$these->addDirecteursDeThese($encadrant);
+										}
+										else{
+											$these->setDirecteursDeThese($encadrant);
+										}
+						        		break;
+						    		case "Collaboration Université":
+						        		break;
+						    		case "Collaboration Responsable":
+						        		break;
+						    		case "Financement de la thèse":
+						        		$these->setFinancement($tab[$i]);
+						        		break;
+						    		case "1er année insc these":
+						        		$doctorant->setDateInscr1ethese($tab[$i]);
+						        		break;
+						    		case "Date Soutenance":
+						    		//On change le format de la date avant de l'insérer
+						    			if (!$tab[$i]=="") {
+						    				$arr = implode('-', array_reverse(explode('/', $tab[$i])));
+						    				$these->setDateDeSoutenance(new \DateTime($arr));
+						    			}
+						        		break;
+						    		case "Identite":
+						        		break;
+		    						case "Type jury (Pres/membre)":
+						        		break;
+						    		case "Mention":
+						    			switch ($tab[$i]) {
+											case "Très honorable avec les félicitations du jury":
+						        				$these->setMention("3");
+						        				break;
+						        			case "Très honorable":
+						        				$these->setMention("2");
+						        				break;
+						        			case "Honorable":
+						        				$these->setMention("1");
+						        				break;
+						        			case "Abandonnée":
+						        				$these->setMention("4");
+						        				break;
+						    			}
+						        		break;
+								}
+							if ($doctorant_exist) {
+								break;
+							}
+							}
+							if (!$doctorant_exist) {
+								$doctorant->setThese($these);
+								$em->persist($doctorant);
+								$em->persist($these);
+								$em->flush();;
+							}
+						}	
+					}
+				$ligne ++;
+			}
+			$reponse = "Le fichier est Uploadé et enregistré dans la base de données";
+		} 
+		else 
+		{ 
+			$reponse = 'Echec de l\'upload du fichier CSV. '; 
+		} 
+        //$em->flush();
+		//var_dump($arr);
+		//exit;
         return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV', 'list_doctorants' => $list_doctorants));
     }
+    
 
     public function modifReunionAction($id_reunion, Request $request) {
 
