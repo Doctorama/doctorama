@@ -84,7 +84,7 @@ class DoctorantService
 		$doctorant->setUniversiteMaster($universiteMaster);
 		$doctorant->setSujetMaster($sujetMaster);
 		$doctorant->setLaboratoireAcceuilMaster($laboratoireAccueilMaster);
-		$doctorant->setEncadrantssMaster($encadrantsMaster);
+		$doctorant->setEncadrantsMaster($encadrantsMaster);
 		$doctorant->setEtabDernierDiplome($etabDernierDiplome);
 		$doctorant->setDepDernierDiplome($depDernierDiplome);
 		$doctorant->setPaysDernierDiplome($paysDernierDiplome);
@@ -1078,7 +1078,7 @@ class DoctorantService
 			);
 		}
 
-		$doctorant->setEncadrantssMaster($nouveauEncadrantsMaster);
+		$doctorant->setEncadrantsMaster($nouveauEncadrantsMaster);
 		$this->em->flush();
 
 		return $doctorant;

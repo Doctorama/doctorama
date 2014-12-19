@@ -114,7 +114,7 @@ class EncadrantService
 	**/
 	public function findEncadrantByNomUsage($nomUsage)
 	{
-		$encadrants = $this->repository->findByNomUsage($nomUsage)
+		$encadrants = $this->repository->findByNomUsage($nomUsage);
 
 		if (!$encadrants) {
 			return null;
