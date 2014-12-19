@@ -17,8 +17,8 @@ class ReunionType extends AbstractType
         $builder
             ->add('lieu')
             ->add('date')
-           ->add('encadrants','entity',array('class'=>'DTDoctoramaBundle:Encadrant','property'=>'nom','multiple'=>true,'expanded'=>true))
-           ->add('doctorant','entity',array('class'=>'DTDoctoramaBundle:Doctorant','property'=>'nom','multiple'=>false,'expanded'=>true))
+           ->add('encadrants','entity',array('class'=>'DTDoctoramaBundle:Encadrant','property'=>'nom','multiple'=>true,'expanded'=>false))
+           ->add('doctorant','entity',array('class'=>'DTDoctoramaBundle:Doctorant','property'=>'nom','multiple'=>false,'expanded'=>false))
            ->add('libelle')
 
 
