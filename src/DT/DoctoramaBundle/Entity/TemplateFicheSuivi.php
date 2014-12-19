@@ -2,15 +2,15 @@
 
 namespace DT\DoctoramaBundle\Entity;
 require_once __DIR__ . '/Question.php';
-require_once __DIR__ . '/DossierDeSuivi.php';
+require_once __DIR__ . '/Fiche.php';
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * TemplateFicheSuivi
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DT\DoctoramaBundle\Repository\TemplateRepository")
  */
 class TemplateFicheSuivi
 {
@@ -31,9 +31,21 @@ class TemplateFicheSuivi
     private $titre;
 	
 	/**
+	* @var integer
+	*
+	* @ORM\Column(name="version", type="integer")
+	**/
+	private $version;
+	
+	/**
 	 * @ORM\ManyToOne(targetEntity="DossierDeSuivi", inversedBy="templatesFicheSuivi")
 	 */
-	protected $dossierDeSuivi;
+	//protected $dossierDeSuivi;
+	
+	/**
+	* @ORM\OneToMany(targetEntity="Fiche", mappedBy="templatesFicheSuivi")
+	**/
+	private $fiche;
 	
 	/**
 	 * @ORM\ManyToMany(targetEntity="Question", inversedBy="templateFicheSuivis")
@@ -42,7 +54,19 @@ class TemplateFicheSuivi
 	
 	public function __construct() {
         $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->fiche = new \Doctrine\Common\Collections\ArrayCollection();
     }
+	
+	public function getFiche(){
+		return $this->fiche;
+	}
+	
+	public function addFiche($fiche){
+		if(!$this->fiche->contains($fiche)){
+			$this->items[] = ($fiche);
+		}
+		return $this;
+	}
 	
     /**
      * Get id
@@ -77,6 +101,14 @@ class TemplateFicheSuivi
         return $this->titre;
     }
 	
+	public function getVersion(){
+		return $this->version;
+	}
+	
+	public function setVersion($version){
+		$this->version = $version;
+		return $this;
+	}
 	/**
 	* Get questions
 	*
@@ -102,10 +134,10 @@ class TemplateFicheSuivi
 	*
 	* @return DossierDeSuivi
 	**/
-	public function getDossierDeSuivi()
+	/*public function getDossierDeSuivi()
     {
         return $this->dossierDeSuivi;
-    }
+    }*/
 	
 	/**
 	* Set dossierDeSuivi
@@ -113,11 +145,11 @@ class TemplateFicheSuivi
 	* @param DossierDeSuivi $dossierSuivi
 	* @return DossierDeSuivi
 	*/
-	public function setDossierDeSuivi($dossierSuivi)
+	/*public function setDossierDeSuivi($dossierSuivi)
     {
 		$this->dossierDeSuivi = $dossierSuivi;
 		$dossierSuivi->addTemplateFicheSuivi($this);
 		return $this;
-    }
+    }*/
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace DT\DoctoramaBundle\Entity;
-require_once __DIR__ . '/TemplateFicheSuivi.php';
+require_once __DIR__ . '/Fiche.php';
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,7 +32,12 @@ class DossierDeSuivi
 	/**
 	 * @ORM\OneToMany(targetEntity="TemplateFicheSuivi", mappedBy="dossierDeSuivi")
 	 */
-	protected $templatesFicheSuivi;
+	//protected $templatesFicheSuivi;
+	
+	/**
+	* @ORM\OneToMany(targetEntity="Fiche", mappedBy="dossierDeSuivi")
+	**/
+	protected $fiches;
 	
 	/**
 	 * @ORM\OneToOne(targetEntity="These")
@@ -41,7 +46,8 @@ class DossierDeSuivi
 	
 	public function __construct() {
         $this->titre = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->templatesFicheSuivi = new \Doctrine\Common\Collections\ArrayCollection();
+		//$this->templatesFicheSuivi = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->fiches = new \Doctrine\Common\Collections\ArrayCollection();
     }
 	
     /**
@@ -82,9 +88,9 @@ class DossierDeSuivi
 	*
 	* @return TemplateFicheSuivi
 	**/
-	public function getTemplateFicheSuivi(){
+	/*public function getTemplateFicheSuivi(){
 		return $this->templatesFicheSuivi;
-	}
+	}*/
 	
 	/**
 	* Set templateFicheSuivi
@@ -92,10 +98,21 @@ class DossierDeSuivi
 	* @param TemplateFicheSuivi $ficheSuivi
 	* @return TemplateFicheSuivi
 	**/
-	public function addTemplateFicheSuivi($ficheSuivi){
+	/*public function addTemplateFicheSuivi($ficheSuivi){
 		if(!$this->templatesFicheSuivi->contains($ficheSuivi)){
 			//$ficheSuivi->addDossierDeSuivi($this);
 			$this->items[] = ($ficheSuivi);
+		}
+		return $this;
+	}*/
+	
+	public function getFiches(){
+		return $this->fiches;
+	}
+	
+	public function addFiche($fiche){
+		if(!$this->fiches->contains($fiche)){
+			$this->items[] = ($fiche);
 		}
 		return $this;
 	}

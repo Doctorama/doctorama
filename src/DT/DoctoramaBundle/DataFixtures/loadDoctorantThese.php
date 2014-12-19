@@ -26,7 +26,6 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$doctorant->setVilleDeNaissance('La Rochelle');
 		$doctorant->setPaysDeNaissance('France');
 		$doctorant->setDepDeNaissance('17');
-		
 		$doctorant->setDepDernierDiplome('17');
 		
 		$doctorant->setNumEtudiant('15526398958');
@@ -175,7 +174,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these->setFinancement('Une societe');
 		$these->setDateDebut(new \DateTime('2014-01-01'));
 		$these->setDateDESoutenance(new \DateTime('2017-01-01'));
-		$these->setMention('1');
+		$these->setMention('Bien');
 		
 		$these2 = new These;
 		
@@ -188,7 +187,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these2->setFinancement('Une societe');
 		$these2->setDateDebut(new \DateTime('2014-01-01'));
 		$these2->setDateDESoutenance(new \DateTime('2017-01-01'));
-		$these2->setMention('2');
+		$these2->setMention('Bien');
 		
 		$these3 = new These;
 		
@@ -201,6 +200,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these3->setFinancement('Une societe');
 		$these3->setDateDebut(new \DateTime('2014-01-01'));
 		$these3->setDateDESoutenance(new \DateTime('2017-01-01'));
+		$these3->setMention('');
 		
 		$these4 = new These;
 		
@@ -213,7 +213,7 @@ class loadDoctorantThese extends AbstractFixture implements OrderedFixtureInterf
 		$these4->setFinancement('Une societe');
 		$these4->setDateDebut(new \DateTime('2014-01-01'));
 		$these4->setDateDESoutenance(new \DateTime('2017-01-01'));
-		$these4->setMention('4');
+		$these4->setMention('');
 		
 		/********************* Association Doctorant These *************************/
 		
