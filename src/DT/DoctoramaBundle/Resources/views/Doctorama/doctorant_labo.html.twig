@@ -96,7 +96,7 @@
                                     <h6> {{doctorant.nom}} {{doctorant.prenom}}</h6>
                                     <p> 
                                         {%if doctorant.these.titreThese %}
-                                        	<p>{{doctorant.these.titreThese}} </p>
+                                        	<p>{{doctorant.these.titreThese[:45]~"..." }} </p>
               							{% else %}
               								<p></br></p>
               							{% endif %}
