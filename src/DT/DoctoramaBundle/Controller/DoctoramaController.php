@@ -41,8 +41,7 @@ class DoctoramaController extends Controller {
             }
             return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier ' . $typeExport, 'export' => $typeExport), $response);
         }elseif(!strcmp($typeExport, "Valider")){
-			var_dump($_POST);
-			$templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+			/*$templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
             $templates = $templateRepository->findByTitre($_POST['ficheId']);
 			$template = null;
 			$version = 0;
@@ -51,12 +50,11 @@ class DoctoramaController extends Controller {
 					$template = $t;
 				}
 			}
-			// foreach($template->getQuestions() as $question){
-				// foreach($question->getReponses() as $reponse){
-					
-				// }
-			// }
-			// exit;
+			foreach($template->getQuestions() as $question){
+				foreach($question->getReponses() as $reponse){
+				    	
+				}
+			}*/
 			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
 		}else {
             return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
