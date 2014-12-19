@@ -15,7 +15,9 @@ class TheseServiceTest extends WebTestCase
      */
     private $em;
 
-	// Permet de récupérer l'entitymanager de doctrine
+	/**
+	*	Permet de récupérer l'entitymanager de doctrine
+	*/
     public function setUp()
     {
         static::$kernel = static::createKernel();
@@ -23,6 +25,9 @@ class TheseServiceTest extends WebTestCase
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 
+	/**
+	*	Permet de vider les tables utilisees lors des tests
+	*/
 	private function viderTable()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -34,7 +39,11 @@ class TheseServiceTest extends WebTestCase
 		$this->em->getConnection()->prepare("TRUNCATE TABLE dossierdesuivi")->execute();
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
 	}
-		
+	
+	/**
+	*	Permet de créer un encadrant
+	*	@return Encadrant
+	*/	
 	public function create1Encadrant()
 	{
 		$encadrant = new Encadrant();
@@ -57,6 +66,10 @@ class TheseServiceTest extends WebTestCase
 		return $encadrant;
 	}
 	
+	/**
+	*	Permet de créer un dossier de suivi vide
+	*	@return DossierDeSuivi
+	*/
 	public function create1DossierDeSuivi()
 	{
 		$dossierDeSuivi = new DossierDeSuivi;
@@ -68,6 +81,10 @@ class TheseServiceTest extends WebTestCase
 		return $dossierDeSuivi;
 	}
 	
+	/**
+	*	Permet de créer un doctorant
+	*	@return Doctorant
+	*/
 	private function creer1Doctorant()
 	{
 		$doctorant = new Doctorant();
@@ -104,6 +121,10 @@ class TheseServiceTest extends WebTestCase
 		return $doctorant;
 	}
 	
+	/**
+	*	Permet de créer une these
+	*	@return These
+	*/
 	public function create1These()
 	{
 		$these = new These;
@@ -125,6 +146,9 @@ class TheseServiceTest extends WebTestCase
 		return $these;
 	}
 	
+	/**
+	*	Test de la création d'une these	
+	*/
 	public function testcreateThese()
 	{
 		$this->viderTable();
@@ -179,6 +203,9 @@ class TheseServiceTest extends WebTestCase
 		
 	}
 	
+	/**
+	*	Test de la recherche de theses par son id
+	*/
 	public function testfindById()
 	{
 		$this->viderTable();
@@ -189,6 +216,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son titre
+	*/
 	public function testfindTitreThese()
 	{
 		$this->viderTable();
@@ -199,6 +229,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son sujet
+	*/
 	public function testfindBySujetThese()
 	{
 		$this->viderTable();
@@ -209,6 +242,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par sa specialite
+	*/
 	public function testfindBySpecialite()
 	{
 		$this->viderTable();
@@ -219,6 +255,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son laboratoire
+	*/
 	public function testfindByLaboratoire()
 	{
 		$this->viderTable();
@@ -229,6 +268,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son axe thematique
+	*/
 	public function testfindByAxeThematique()
 	{
 		$this->viderTable();
@@ -239,6 +281,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son axe scientifique
+	*/
 	public function testfindAxeScientifique()
 	{
 		$this->viderTable();
@@ -249,6 +294,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par son financement
+	*/
 	public function testfindByFinancement()
 	{
 		$this->viderTable();
@@ -259,6 +307,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par sa date de debut
+	*/
 	public function testfindByDateDebut()
 	{
 		$this->viderTable();
@@ -269,6 +320,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par sa date de soutenance
+	*/
 	public function testfindByDateDeSoutenance()
 	{
 		$this->viderTable();
@@ -279,6 +333,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la recherche de theses par sa mention
+	*/
 	public function testfindByMention()
 	{
 		$this->viderTable();
@@ -289,6 +346,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(1, sizeof($req));
 	}
 	
+	/**
+	*	Test de la mise a jour du titre d'une these
+	*/
 	public function testupdateTitreThese()
 	{
 		$this->viderTable();
@@ -302,6 +362,9 @@ class TheseServiceTest extends WebTestCase
 		
 	}
 	
+	/**
+	*	Test de la mise a jour du sujet d'une these
+	*/
 	public function testupdateSujetThese()
 	{
 		$this->viderTable();
@@ -315,6 +378,9 @@ class TheseServiceTest extends WebTestCase
 		
 	}
 	
+	/**
+	*	Test de la mise a jour de la specialite d'une these
+	*/
 	public function testupdateSpecialite()
 	{
 		$this->viderTable();
@@ -327,6 +393,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals('test', $these->getSpecialite());
 	}
 	
+	/**
+	*	Test de la mise a jour du laboratoire d'une these
+	*/
 	public function testupdateLaboratoire()
 	{
 		$this->viderTable();
@@ -339,6 +408,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals('test', $these->getLaboratoire());	
 	}
 	
+	/**
+	*	Test de la mise a jour du financement d'une these
+	*/
 	public function testupdateFinancement()
 	{
 		$this->viderTable();
@@ -351,6 +423,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals('test', $these->getFinancement());	
 	}
 	
+	/**
+	*	Test de la mise a jour de la date de debut d'une these
+	*/
 	public function testupdatedateDebut()
 	{
 		$this->viderTable();
@@ -363,6 +438,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(new \DateTime('2015-01-01'), $these->getDateDebut());	
 	}
 	
+	/**
+	*	Test de la mise a jour de la date de soutenance d'une these
+	*/
 	public function testupdateDateDeSoutenance()
 	{
 		$this->viderTable();
@@ -375,6 +453,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals(new \DateTime('2015-01-01'), $these->getDateDeSoutenance());	
 	}
 	
+	/**
+	*	Test de la mise a jour de la mention d'une these
+	*/
 	public function testupdateMention()
 	{
 		$this->viderTable();
@@ -387,6 +468,9 @@ class TheseServiceTest extends WebTestCase
 		$this->assertEquals('test', $these->getMention());	
 	}
 	
+	/**
+	*	Test de la suppression d'une these
+	*/
 	public function testdeleteThese()
 	{
 		$this->viderTable();

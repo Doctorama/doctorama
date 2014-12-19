@@ -6,7 +6,7 @@ use DT\DoctoramaBundle\Entity\Reunion;
 class ReunionService
 {
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	

@@ -7,7 +7,7 @@ class FicheDeSuiviService
 {
 
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	

@@ -6,7 +6,7 @@ use DT\DoctoramaBundle\Entity\Doctorant;
 class DoctorantService
 {
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	

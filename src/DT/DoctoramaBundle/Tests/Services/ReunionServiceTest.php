@@ -13,7 +13,9 @@ class ReunionServiceTest extends WebTestCase
      */
     private $em;
 
-	// Permet de récupérer l'entitymanager de doctrine
+	/**
+	*	Permet de récupérer l'entitymanager de doctrine
+	*/
     public function setUp()
     {
         static::$kernel = static::createKernel();
@@ -21,6 +23,9 @@ class ReunionServiceTest extends WebTestCase
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 
+	/**
+	*	Permet de vider les tables utilisees lors des tests
+	*/
 	private function viderTable()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -32,6 +37,10 @@ class ReunionServiceTest extends WebTestCase
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
 	}
 	
+	/**
+	*	Permet de créer un encadrant
+	*	@return Encadrant
+	*/	
 	private function creer1Encadrant()
 	{
 		$encadrant = new Encadrant();
@@ -54,7 +63,10 @@ class ReunionServiceTest extends WebTestCase
 		return $encadrant;
 	}
 
-	/*public function testcreateReunion()
+	/**
+	*	Test de la création d'une reunion
+	*/
+	public function testcreateReunion()
 	{
 		$this->viderTable();
 		
@@ -92,6 +104,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(2, sizeof($encdansreu));
 	}
 	
+	/**
+	*	Test de l'ajout d'un encadrant dans la reunion
+	*/
 	public function testaddEncadrant()
 	{
 		$this->viderTable();
@@ -109,6 +124,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(2, count($tab));
 	}
 	
+	/**
+	*	Test de la recuperation des personnes dans la reunion
+	*/
 	public function testgetPersonnes()
 	{
 		$this->viderTable();
@@ -126,6 +144,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(2, count($tab));
 	}
 	
+	/**
+	*	Test de la suppression d'une personne dans la reunion
+	*/
 	public function testdeletePersonne()
 	{
 		$this->viderTable();
@@ -144,6 +165,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(1, count($tabpers));
 	}
 	
+	/**
+	*	Test de la modification de la date d'une reunion
+	*/
 	public function testsetDate()
 	{
 		$this->viderTable();
@@ -155,6 +179,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(new \DateTime('2000-05-01'), $reu->getDate());
 	}
 	
+	/**
+	*	Test de la recuperation de la date d'une reunion
+	*/
 	public function testgetDate()
 	{
 		$this->viderTable();
@@ -164,6 +191,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals(new \DateTime('2000-01-01'), $rs->getDate(1));
 	}
 	
+	/**
+	*	Test de la recuperation du lieu d'une reunion
+	*/
 	public function testgetLieu()
 	{
 		$this->viderTable();
@@ -173,6 +203,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals("135", $rs->getLieu(1));
 	}
 	
+	/**
+	*	Test de la modification du lieu d'une reunion
+	*/
 	public function testsetLieu()
 	{
 		$this->viderTable();
@@ -184,6 +217,9 @@ class ReunionServiceTest extends WebTestCase
 		$this->assertEquals("015", $reu->getLieu());
 	}
 	
+	/**
+	*	Test de la recuperation des reunions d'une personne
+	*/
 	public function testfindReunionByPersonne()
 	{
 		$this->viderTable();
@@ -203,5 +239,5 @@ class ReunionServiceTest extends WebTestCase
 		$rs->addPersonne(1, $enc4);
 		
 		$rs->findReunionByPersonne(2);
-	}*/
+	}
 }

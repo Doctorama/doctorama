@@ -6,7 +6,7 @@ use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 class DossierDeSuiviService
 {
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	

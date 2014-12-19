@@ -12,7 +12,9 @@ class EncadrantServiceTest extends WebTestCase
      */
     private $em;
 
-	// Permet de récupérer l'entitymanager de doctrine
+	/**
+	*	Permet de récupérer l'entitymanager de doctrine
+	*/
     public function setUp()
     {
         static::$kernel = static::createKernel();
@@ -20,6 +22,9 @@ class EncadrantServiceTest extends WebTestCase
         $this->em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
     }
 
+	/**
+	*	Permet de vider les tables utilisees lors des tests
+	*/
 	private function viderTable()
 	{
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 0;")->execute();	
@@ -27,6 +32,10 @@ class EncadrantServiceTest extends WebTestCase
 		$this->em->getConnection()->prepare("SET FOREIGN_KEY_CHECKS = 1;")->execute();
 	}
 	
+	/**
+	*	Permet de créer un encadrant
+	*	@return Encadrant
+	*/
 	private function creer1Encadrant()
 	{
 		$encadrant = new Encadrant();
@@ -49,8 +58,10 @@ class EncadrantServiceTest extends WebTestCase
 		return $encadrant;
 	}
 	
-	// Test création encadrant
-    /*public function testcreateEncadrant()
+	/**
+	*	Test de la création d'un encadrant
+	*/
+    public function testcreateEncadrant()
     {
 		$this->viderTable();
 		
@@ -92,7 +103,9 @@ class EncadrantServiceTest extends WebTestCase
         $this->assertEquals(1, sizeof($en));
     }
 	
-	// Test "retrouver un encadrant par son id"
+	/**
+	*	Test de la recherche d'encadrant par son id
+	*/
 	public function testfindEncadrantById()
 	{
 		$this->viderTable();	
@@ -104,7 +117,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son id"
+	/**
+	*	Test de la recherche d'encadrant par son nom
+	*/
 	public function testfindEncadrantByNom()
 	{
 		$this->viderTable();	
@@ -116,7 +131,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son nom d'usage"
+	/**
+	*	Test de la recherche d'encadrant par son noom d'usage
+	*/
 	public function testfindEncadrantByNomUsage()
 	{
 		$this->viderTable();	
@@ -128,7 +145,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa civilité"
+	/**
+	*	Test de la recherche d'encadrant par sa civilite
+	*/
 	public function testfindEncadrantByCivilite()
 	{
 		$this->viderTable();	
@@ -140,7 +159,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa Prenom"
+	/**
+	*	Test de la recherche d'encadrant par son prenom
+	*/
 	public function testfindEncadrantByPrenom()
 	{
 		$this->viderTable();	
@@ -152,7 +173,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa Adresse"
+	/**
+	*	Test de la recherche d'encadrant par son adresse
+	*/
 	public function testfindEncadrantByAdresse()
 	{
 		$this->viderTable();	
@@ -164,7 +187,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son adresse"
+	/**
+	*	Test de la recherche d'encadrant par son mail
+	*/
 	public function testfindEncadrantByMail()
 	{
 		$this->viderTable();	
@@ -176,7 +201,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa date de naissance"
+	/**
+	*	Test de la recherche d'encadrant par sa date de naissance
+	*/
 	public function testfindEncadrantByDateDeNaissance()
 	{
 		$this->viderTable();	
@@ -188,7 +215,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa Nationalite"
+	/**
+	*	Test de la recherche d'encadrant par sa nationalite
+	*/
 	public function testfindEncadrantByNationalite()
 	{
 		$this->viderTable();	
@@ -200,7 +229,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par sa ville de naissance"
+	/**
+	*	Test de la recherche d'encadrant par son id
+	*/
 	public function testfindEncadrantByVilleDeNaissance()
 	{
 		$this->viderTable();	
@@ -212,7 +243,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son pays de naissance"
+	/**
+	*	Test de la recherche d'encadrant par son paysdenaissance
+	*/
 	public function testfindEncadrantByPaysDeNaissance()
 	{
 		$this->viderTable();	
@@ -224,7 +257,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son département de naissance"
+	/**
+	*	Test de la recherche d'encadrant par son departement de naissance
+	*/
 	public function testfindEncadrantByDepDeNaissance()
 	{
 		$this->viderTable();	
@@ -236,7 +271,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver un encadrant par son nom et prenom"
+	/**
+	*	Test de la recherche d'encadrant par son nom et prenom
+	*/
 	public function testfindEncadrantByNomEtPrenom()
 	{
 		$this->viderTable();	
@@ -248,7 +285,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "retrouver tous les encadrants"
+	/**
+	*	Test de la recherche de tous les encadrants
+	*/
 	public function testfindAll()
 	{
 		$this->viderTable();	
@@ -261,7 +300,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du nom d'un encadrant"
+	/**
+	*	Test de la mise a jour du nom d'un encadrant
+	*/
 	public function testupdateNom()
 	{
 		$this->viderTable();	
@@ -276,7 +317,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du nom d'usage d'un encadrant"
+	/**
+	*	Test de la mise a jour du nom d'usage d'un encadrant
+	*/
 	public function testupdateNomUsage()
 	{
 		$this->viderTable();	
@@ -291,7 +334,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du prenom d'un encadrant"
+	/**
+	*	Test de la mise a jour du prenom d'un encadrant
+	*/
 	public function testupdatePrenom()
 	{
 		$this->viderTable();	
@@ -306,7 +351,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour de l'adresse d'un encadrant"
+	/**
+	*	Test de la mise a jour de l'adresse d'un encadrant
+	*/
 	public function testupdateAdresse()
 	{
 		$this->viderTable();	
@@ -321,7 +368,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du mail d'un encadrant"
+	/**
+	*	Test de la mise a jour du mail d'un encadrant
+	*/
 	public function testupdateMail()
 	{
 		$this->viderTable();	
@@ -336,7 +385,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour de la date de naissance d'un encadrant"
+	/**
+	*	Test de la mise a jour de la date de naissance d'un encadrant
+	*/
 	public function testupdateDateDeNaissance()
 	{
 		$this->viderTable();	
@@ -351,7 +402,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour de la nationalite d'un encadrant"
+	/**
+	*	Test de la mise a jour de la nationalite d'un encadrant
+	*/
 	public function testupdateNationalite()
 	{
 		$this->viderTable();	
@@ -366,7 +419,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour de la ville de naissance d'un encadrant"
+	/**
+	*	Test de la mise a jour de la ville de naissance d'un encadrant
+	*/
 	public function testupdateVilleDeNaissance()
 	{
 		$this->viderTable();	
@@ -381,7 +436,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du pays de naissance d'un encadrant"
+	/**
+	*	Test de la mise a jour du pays de naissance d'un encadrant
+	*/
 	public function testupdatePaysDeNaissance()
 	{
 		$this->viderTable();	
@@ -396,7 +453,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "mise à jour du département de naissance d'un encadrant"
+	/**
+	*	Test de la mise a jour du departement de naissance d'un encadrant
+	*/
 	public function testupdateDepDeNaissance()
 	{
 		$this->viderTable();	
@@ -411,7 +470,9 @@ class EncadrantServiceTest extends WebTestCase
 		
 	}
 	
-	// Test "effacer un encadrant"
+	/**
+	*	Test de la suppression d'un encadrant
+	*/
 	public function testdelete()
 	{
 		$this->viderTable();	
@@ -423,7 +484,7 @@ class EncadrantServiceTest extends WebTestCase
 		
 		$en = $this->em->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
 		$this->assertEquals(1, sizeof($en));
-	}*/
+	}
 	
 }
 

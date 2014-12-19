@@ -6,7 +6,7 @@ use DT\DoctoramaBundle\Entity\These;
 class TheseService
 
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	

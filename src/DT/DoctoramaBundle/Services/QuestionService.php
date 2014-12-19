@@ -6,7 +6,7 @@ use DT\DoctoramaBundle\Entity\Question;
 class QuestionService
 {
 	/**
-	* @var EntityManager
+	* @var \Doctrine\ORM\EntityManager
 	*/
 	private $em;
 	
