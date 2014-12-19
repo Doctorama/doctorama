@@ -23,7 +23,6 @@
                         <b style="font-size:12pt">MENU PRINCIPAL</b>
                     </legend>
                     </li>
-                    <li class="active"><a href="{{ path('dt_doctorama_accueil') }}">Accueil</a></li>
                     <li><a href="{{ path('dt_doctorama_agenda') }}" >Agenda</a></li>
                     {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
                     <li><a href="{{ path('dt_doctorama_mes_doctorants') }}">Doctorants encadrés </a></li>
