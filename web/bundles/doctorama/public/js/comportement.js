@@ -57,22 +57,36 @@ $(document).ready(function(){
 	});
 
 	//Modification template fiche de suivi
-	$('#add_question_t6').click(function(){
-		var question = $('#add_input_question_t6').val();
+	$(document).on('click','#add_question',function(){
+		var input = $(this).parent().parent().find('#add_input_question');
+		var question = input.val();
+		var template = input.attr('class').split(' ').slice(-1);
+
 		var html = '';
 		if(question!=''){
-			html+='<tr><input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td></tr>';
+			var exist = $('.tractive');
+			if(exist.length > 0)
+			{
+				html+='<input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td>';
+				exist.html(html);
+				exist.removeClass('tractive');
+			}
+			else
+			{
+				html+='<tr><input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td></tr>';
+				$("tbody#"+template).append(html);
+			}	
 		}
-		$("#t6").append(html);
-		$('#add_input_question_t6').val('');
+		input.val('');
 	});
 
 	$(document).on('click','.modif_question',function(){
 		var tr = $(this).parent().parent();
-		var question = tr.find('td:first').html();
-		$('#add_input_question_t6').val(question);
-		tr.html('');
-		tr.hide();
+		var td = tr.find('td:first');
+		tr.addClass('tractive');
+		var question = td.html();
+		var template = $(this).attr('class').split(' ').slice(-1);
+		$('input.'+template).val(question);
 	});
 
 	$(document).on('click','.sup_question',function(){

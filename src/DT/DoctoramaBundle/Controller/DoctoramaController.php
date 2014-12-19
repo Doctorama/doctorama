@@ -10,10 +10,14 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use DT\DoctoramaBundle\Entity\Doctorant;
 use DT\DoctoramaBundle\Services\EncadrantService;
+
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
 use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
+use DT\DoctoramaBundle\Entity\Question;
+use DT\DoctoramaBundle\Entity\TemplateFicheSuivi;
+
 use DT\DoctoramaBundle\Form\DoctorantType;
 use DT\DoctoramaBundle\Form\TheseType;
 use DT\DoctoramaBundle\Form\ReunionType;
@@ -723,16 +727,6 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Popup:fermerFenetre.html.twig');
     }
 
-    public function modifFicheAction(Request $request) {
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
-    }
-
-    public function modifFicheFormAction(Request $request) {
-        var_dump($_POST);
-        exit;
-        //return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
-    }
-
     public function adminInfosPeroAction($id_compte, Request $request) {
 
         $compte = $this->getDoctrine()->getManager()->find('DTSecurityBundle:Compte', $id_compte);
@@ -813,6 +807,54 @@ class DoctoramaController extends Controller {
         $em->flush();
         
         return $this->redirect($this->generateUrl('dt_doctorama_admin_utilisateur'));
+	}
+
+    public function modifFicheAction(Request $request){
+        $TR = $this->getDoctrine()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+        $templates = $TR->findAllTemplateLastVersion();
+
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi', 'templates' => $templates));
+    }
+
+    public function modifFicheFormAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $template = new TemplateFicheSuivi();
+
+        $titre = $_GET['libelle'];
+        $version = $_GET['version'] + 1;
+
+        $template->setTitre($titre);
+        $template->setVersion($version);
+
+        foreach ($_GET['question'] as $q) {
+            $q1 = htmlentities(str_replace('"','\"',$q));
+            $ques = new Question();
+            $ques->setQuestion($q1);
+            $template->addQuestions($ques);
+            $em->persist($ques);
+        }
+
+
+        $em->persist($template);
+        $em->flush();
+
+
+        return $this->modifFicheAction(new Request());
+    }
+
+    public function addTemplateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $titre = $_GET['template_libelle'];
+        $template = new TemplateFicheSuivi();
+        $template->setTitre($titre);
+        $template->setVersion(0);
+        $em->persist($template);
+        $em->flush();
+
+        return $this->modifFicheAction(new Request());
     }
 
 }

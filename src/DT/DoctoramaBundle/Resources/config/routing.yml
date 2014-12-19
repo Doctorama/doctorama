@@ -101,3 +101,7 @@ dt_doctorama_modif_fiche_form:
 dt_admin_passer_encadrant:
     pattern: /directeur_labo/passer_encadrant/{id_doctorant}
     defaults: { _controller: DTDoctoramaBundle:Doctorama:passerEncadrant}
+
+dt_doctorama_add_template:
+    pattern: /add_template
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:addTemplate}
