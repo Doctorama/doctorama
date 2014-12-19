@@ -562,6 +562,7 @@ class DoctoramaController extends Controller {
 						    			$list_doctorants[$ligne][$j] = $tab[$i];
 						    			$j++;
 						    			$these->setSujetThese($tab[$i]);
+						    			$these->setTitreThese($tab[$i]);
 						        		break;
 		    						case "Specialite de la thèse":
 		    							$list_doctorants[$ligne][$j] = $tab[$i];
