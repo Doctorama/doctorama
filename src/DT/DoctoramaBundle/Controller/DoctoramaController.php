@@ -121,6 +121,7 @@ class DoctoramaController extends Controller {
             $event[] = array(
                 'start' => $reunion->getDate()->format('Y-m-d H:i:s'),
                 'title' => $reunion->getLieu());
+              $pers=array();
         }
 
 
