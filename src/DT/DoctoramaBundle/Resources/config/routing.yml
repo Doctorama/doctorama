@@ -85,3 +85,6 @@ dt_doctorama_modif_fiche_form:
     pattern: /modifier_fiche_form
     defaults: { _controller: DTDoctoramaBundle:Doctorama:modifFicheForm}
 
+dt_doctorama_add_template:
+    pattern: /add_template
+    defaults: { _controller: DTDoctoramaBundle:Doctorama:addTemplate}

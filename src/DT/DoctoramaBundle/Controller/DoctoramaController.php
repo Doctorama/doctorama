@@ -637,9 +637,20 @@ class DoctoramaController extends Controller {
         $em->persist($template);
         $em->flush();
 
-         $TR = $this->getDoctrine()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
-        $templates = $TR->findAllTemplateLastVersion();
 
-        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi', 'templates' => $templates));
+        return $this->modifFicheAction(new Request());
+    }
+
+    public function addTemplateAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $titre = $_GET['template_libelle'];
+        $template = new TemplateFicheSuivi();
+        $template->setTitre($titre);
+        $template->setVersion(0);
+        $em->persist($template);
+        $em->flush();
+
+        return $this->modifFicheAction(new Request());
     }
 }

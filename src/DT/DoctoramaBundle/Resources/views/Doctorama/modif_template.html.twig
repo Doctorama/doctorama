@@ -7,8 +7,21 @@
         <h3> {{title}} </h3>
     </legend>
 
+
     <section class="row">
             <a href="{{ path('dt_doctorama_modif_fiche') }}" class="btn btn-danger" role="button" style="margin-bottom:15px">Revenir aux dernières sauvegardes</a>
+
+            <form methode="get" action="{{ path('dt_doctorama_add_template') }}"  >
+                <div class="input-group recherche" >
+                    
+                        <input type="text" class="form-control" name="template_libelle" placeholder="Nouveau template"/>
+                        <span class="input-group-btn">
+                            <input class="btn btn-success" id="add_template" value="Ajouter" type="submit"/>
+                        </span>
+                    
+                </div>
+            </form>
+
 
             <ul class="nav nav-tabs" role="tablist">
                 {%set i=0 %}
@@ -26,7 +39,11 @@
                 {% endfor %}
             </ul>
 
+
             <section class="tab-content">
+
+
+
                 {%set i=0 %}
                 {% for template in templates %}
                     {%if i == 0 %}
@@ -37,7 +54,7 @@
                     {% endif%}
                 
                             <div class="input-group">
-                                <input type="text" class="form-control {{template.titre}}" id="add_input_question" placeholder="Nouvelle question">
+                                <input type="text" class="form-control {{template.titre}}" id="add_input_question" placeholder="Nouvelle question"/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-success" id="add_question" type="button">Ajouter</button>
                                 </span>
@@ -66,7 +83,12 @@
                             </form>
                         </article>
                 {% endfor %}
+
+                <article role="tabpanel" class="tab-pane jumbotron backgroundWhite" id="#plus">
+zrfd
+                </article>
             </section>
+
     </section>
 
 
