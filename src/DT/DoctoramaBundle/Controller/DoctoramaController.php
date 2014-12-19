@@ -10,10 +10,14 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use DT\DoctoramaBundle\Entity\Doctorant;
 use DT\DoctoramaBundle\Services\EncadrantService;
+
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
 use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
+use DT\DoctoramaBundle\Entity\Question;
+use DT\DoctoramaBundle\Entity\TemplateFicheSuivi;
+
 use DT\DoctoramaBundle\Form\DoctorantType;
 use DT\DoctoramaBundle\Form\TheseType;
 use DT\DoctoramaBundle\Form\ReunionType;
@@ -610,8 +614,7 @@ class DoctoramaController extends Controller {
     }
 
     public function modifFicheFormAction(Request $request){
-        var_dump($_GET);
-        /*
+
         $em = $this->getDoctrine()->getManager();
 
         $template = new TemplateFicheSuivi();
@@ -625,20 +628,18 @@ class DoctoramaController extends Controller {
         foreach ($_GET['question'] as $q) {
             $q1 = htmlentities(str_replace('"','\"',$q));
             $ques = new Question();
-            $ques->setQuestion($ques);
-
+            $ques->setQuestion($q1);
             $template->addQuestions($ques);
             $em->persist($ques);
         }
 
-        */
-       // var_dump($template);
-       // $em->flush();
-        exit;
-        
 
-        
-       // $template->setTitre();
-       //return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi'));
+        $em->persist($template);
+        $em->flush();
+
+         $TR = $this->getDoctrine()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+        $templates = $TR->findAllTemplateLastVersion();
+
+        return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi', 'templates' => $templates));
     }
 }

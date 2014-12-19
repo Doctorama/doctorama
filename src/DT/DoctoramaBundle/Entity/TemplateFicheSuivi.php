@@ -5,12 +5,12 @@ require_once __DIR__ . '/Question.php';
 require_once __DIR__ . '/Fiche.php';
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * TemplateFicheSuivi
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DT\DoctoramaBundle\Repository\TemplateRepository")
  */
 class TemplateFicheSuivi
 {

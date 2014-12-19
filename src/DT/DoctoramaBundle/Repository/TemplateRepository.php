@@ -28,24 +28,33 @@ class TemplateRepository extends EntityRepository{
 
         	$questions = $this->findAllQuestionByTemplate($res3[0]['id']);
 
-        	$return[] = array('titre'=>$res['titre'], 'id'=>$res3[0]['id'], 'version'=>$res2[0][1], 'questions'=>$questions);
+            $ques = array(); 
+            foreach ($questions as $q) {
+                $ques[] = $q->getQuestion();
+            }
+
+        	$return[] = array('titre'=>$res['titre'], 'id'=>$res3[0]['id'], 'version'=>$res2[0][1], 'questions'=>$ques);
         }
         return $return;
     }
 
     function findAllQuestionByTemplate($id_template)
     {
+        $temp = $this->findOneById($id_template);
+        $questions = $temp->getQuestions();
+
     	// Récupérer l'id des questions du template passé en paramètres //
+
     	//$query = $this->_em->createQuery('SELECT tq.question_id FROM templatefichesuivi_question tq WHERE tq.templatefichesuivi_id ='.$id_template);
         //$results = $query->getResult();
         //var_dump($results);
         
-        $tab = array(1,2,3);
+        /* $tab = array(1,2,3);
         foreach ($tab as $val) {
         	$query = $this->_em->createQuery('SELECT q.question FROM DTDoctoramaBundle:Question q WHERE q.id='.$val);
         	$results = $query->getResult();
         	$questions[]=$results[0]['question'];
-        }
+        }*/
 
         return $questions;
     }
