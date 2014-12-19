@@ -5,19 +5,31 @@ use DT\DoctoramaBundle\Entity\Reunion;
 
 class ReunionService
 {
+	/**
+	* @var EntityManager
+	*/
 	private $em;
 	
+	/**
+	* @var Repository
+	*/
 	private $repository;
 	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/	
 	public function __construct($em)
 	{
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Reunion');
 	}
+	
 	/**
 	* Set Reunion
 	*
-	* @param $lieu, $date
+	* @param string $lieu
+	* @param \datetime $date
 	*
 	* @return Reunion
 	**/
@@ -32,10 +44,12 @@ class ReunionService
 
 		return $reunion;
 	}
+	
 	/**
 	* Set Personnes
 	*
-	* @param $id, $personne
+	* @param \integer $id
+	* @param Personne $personne
 	*
 	* @return Personnes
 	**/
@@ -52,10 +66,12 @@ class ReunionService
 			return $rep;
 		}
 	}
+	
 	/**
 	* Set Personne
 	*
-	* @param Personne $id, $idpersonne
+	* @param \integer $id
+	* @param \integer $idpersonne
 	*
 	* @return True
 	**/
@@ -79,10 +95,11 @@ class ReunionService
 			return $rep;
 		}
 	}
+	
 	/**
 	* get PersonnesById
 	*
-	* @param PersonnesById $id
+	* @param \integer $id
 	* @return Personnes
 	**/
 	public function getPersonnes($id)
@@ -97,10 +114,11 @@ class ReunionService
 			return $rep->getPersonnes();
 		}
 	}
+	
 	/**
 	* get DateById
 	*
-	* @param DateById $id
+	* @param \datetime $id
 	* @return Date
 	**/
 	public function getDate($id)
@@ -115,10 +133,12 @@ class ReunionService
 			return $rep->getDate();
 		}
 	}
+	
 	/**
 	* Set Date
 	*
-	* @param Date $id, $date
+	* @param \integer $id
+	* @param \datetime $date
 	*
 	* @return Date
 	**/
@@ -134,10 +154,11 @@ class ReunionService
 			return $rep->setDate($date);
 		}
 	}
+	
 	/**
 	* get LieuById
 	*
-	* @param LieuById $id
+	* @param \integer $id
 	* @return Lieu
 	**/
 	public function getLieu($id)
@@ -152,10 +173,12 @@ class ReunionService
 			return $rep->getLieu();
 		}
 	}
+	
 	/**
 	* Set Lieu
 	*
-	* @param Lieu $id, $lieu
+	* @param \integer $id
+	* @param string $lieu
 	*
 	* @return Lieu
 	**/
@@ -171,10 +194,11 @@ class ReunionService
 			return $rep->setLieu($lieu);
 		}
 	}
+	
 	/**
 	* get ReunionByPersonne
 	*
-	* @param ReunionByPersonne $idpers
+	* @param \integer $idpers
 	* @return ReunionByPersonne
 	**/
 	public function findReunionByPersonne($idpers)

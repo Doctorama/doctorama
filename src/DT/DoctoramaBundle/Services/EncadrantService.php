@@ -15,11 +15,21 @@ class EncadrantService
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Encadrant');
 	}
+	
 	/**
 	* Set Encadrant
 	*
-	* @param createEncadrant $nom, $nomUsage, $civilite, $prenom, $adresse, $mail,
-	$dateDeNaissance, $nationalite, $villeDeNaissance, $paysDeNaissance, $depDeNaissance
+	* @param string $nom
+	* @param string $nomUsage
+	* @param string $civilite
+	* @param string $prenom
+	* @param string $adresse
+	* @param string $mail
+	* @param \datetime $dateDeNaissance
+	* @param \datetime $nationalite
+	* @param string $villeDeNaissance
+	* @param string $paysDeNaissance
+	* @param \integer $depDeNaissance
 	*
 	* @return Encadrant
 	**/
@@ -45,10 +55,11 @@ class EncadrantService
 		$this->em->flush();
 		return $encadrant;
 	}
+	
 	/**
 	* get EncadrantById
 	*
-	* @param EncadrantById $id
+	* @param \integer $id
 	* @return Encadrant
 	**/
 	public function findEncadrantById($id)
@@ -63,10 +74,11 @@ class EncadrantService
 		else
 			return $encadrant;
 	}
+	
 	/**
 	* get EncadrantByNom
 	*
-	* @param EncadrantByNom $nom
+	* @param string $nom
 	* @return Encadrants
 	**/
 	public function findEncadrantByNom($nom)
@@ -80,10 +92,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByNomUsage
 	*
-	* @param EncadrantByNomUsage $NomUsage
+	* @param string $NomUsage
 	* @return Encadrants
 	**/
 	public function findEncadrantByNomUsage($nomUsage)
@@ -96,10 +109,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
-		/**
+	
+	/**
 	* get EncadrantByCivilite
 	*
-	* @param EncadrantByCivilite $civilite
+	* @param string $civilite
 	* @return Encadrants
 	**/
 	public function findEncadrantByCivilite($civilite)
@@ -113,10 +127,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByPrenom
 	*
-	* @param EncadrantByPrenom $prenom
+	* @param string $prenom
 	* @return Encadrants
 	**/
 	public function findEncadrantByPrenom($prenom)
@@ -129,10 +144,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
-		/**
+	
+	/**
 	* get EncadrantByAdresse
 	*
-	* @param EncadrantByAdresse $adresse
+	* @param string $adresse
 	* @return Encadrants
 	**/
 	public function findEncadrantByAdresse($adresse)
@@ -146,10 +162,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByMail
 	*
-	* @param EncadrantByMail $mail
+	* @param string $mail
 	* @return Encadrants
 	**/
 	public function findEncadrantByMail($mail)
@@ -163,10 +180,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByDateDeNaissance
 	*
-	* @param EncadrantByDateDeNaissance $dateDeNaissance
+	* @param \datetime $dateDeNaissance
 	* @return Encadrants
 	**/
 	public function findEncadrantByDateDeNaissance($dateDeNaissance)
@@ -180,10 +198,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByNationalite
 	*
-	* @param EncadrantByNationalite $nationalite
+	* @param string $nationalite
 	* @return Encadrants
 	**/
 	public function findEncadrantByNationalite($nationalite)
@@ -197,10 +216,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByVilleDeNaissance
 	*
-	* @param EncadrantByVilleDeNaissance $villeDeNaissance
+	* @param string $villeDeNaissance
 	* @return Encadrants
 	**/
 	public function findEncadrantByVilleDeNaissance($villeDeNaissance)
@@ -214,10 +234,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByPaysDeNaissance
 	*
-	* @param EncadrantByPaysDeNaissance $paysDeNaissance
+	* @param string $paysDeNaissance
 	* @return Encadrants
 	**/
 	public function findEncadrantByPaysDeNaissance($paysDeNaissance)
@@ -231,10 +252,11 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByDepDeNaissance
 	*
-	* @param EncadrantByDepDeNaissance $depDeNaissance
+	* @param \integer $depDeNaissance
 	* @return Encadrants
 	**/
 	public function findEncadrantByDepDeNaissance($depDeNaissance)
@@ -248,10 +270,12 @@ class EncadrantService
 		else
 			return $encadrants;
 	}
+	
 	/**
 	* get EncadrantByNomEtPrenom
 	*
-	* @param EncadrantByNomEtPrenom $prenom, $nom
+	* @param string $prenom
+	* @param string $nom
 	* @return Encadrants
 	**/
 	public function findEncadrantByNomEtPrenom($prenom, $nom)
@@ -265,9 +289,9 @@ class EncadrantService
 		else
 			return $encadrant;
 	}
+	
 	/**
-	* get Encadrants
-	*
+	* get tous les Encadrants
 	*
 	* @return Encadrants
 	**/
@@ -286,7 +310,8 @@ class EncadrantService
 	/**
 	* set NomEncadrant
 	*
-	* @param NomEncadrant $id, $nouveauNom
+	* @param \integer $id
+	* @param string $nouveauNom
 	* @return Encadrant
 	**/
 	public function updateNom($id,$nouveauNom)
@@ -305,10 +330,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set NomUsageEncadrant
 	*
-	* @param NomUsageEncadrant $id, $nouveauNomUsage
+	* @param \integer $id
+	* @param string $nouveauNomUsage
 	* @return Encadrant
 	**/
 	public function updateNomUsage($id,$nouveauNomUsage)
@@ -327,10 +354,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set CiviliteEncadrant
 	*
-	* @param CiviliteEncadrant $id, $nouveauCivilite
+	* @param \integer $id
+	* @param string $nouveauCivilite
 	* @return Encadrant
 	**/
 	public function updateCivilite($id,$nouveauCivilite)
@@ -349,10 +378,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set PrenomEncadrant
 	*
-	* @param PrenomEncadrant $id, $nouveauPrenom
+	* @param \integer $id
+	* @param string $nouveauPrenom
 	* @return Encadrant
 	**/
 	public function updatePrenom($id,$nouveauPrenom)
@@ -371,10 +402,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set AdresseEncadrant
 	*
-	* @param AdresseEncadrant $id, $nouveauAdresse
+	* @param \integer $id
+	* @param string $nouveauAdresse
 	* @return Encadrant
 	**/
 	public function updateAdresse($id,$nouveauAdresse)
@@ -393,10 +426,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set MailEncadrant
 	*
-	* @param MailEncadrant $id, $nouveauMail
+	* @param \integer $id
+	* @param string $nouveauMail
 	* @return Encadrant
 	**/
 	public function updateMail($id,$nouveauMail)
@@ -415,10 +450,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set DateDeNaissanceEncadrant
 	*
-	* @param DateDeNaissanceEncadrant $id, $nouveauDateDeNaissance
+	* @param \integer $id
+	* @param \datetime $nouveauDateDeNaissance
 	* @return Encadrant
 	**/
 	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
@@ -437,10 +474,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set NationaliteEncadrant
 	*
-	* @param NationaliteEncadrant $id, $nouveauNationalite
+	* @param \integer $id
+	* @param string $nouveauNationalite
 	* @return Encadrant
 	**/
 	public function updateNationalite($id,$nouveauNationalite)
@@ -459,10 +498,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set VilleDeNaissanceEncadrant
 	*
-	* @param VilleDeNaissanceEncadrant $id, $nouveauVilleDeNaissance
+	* @param \integer $id
+	* @param string $nouveauVilleDeNaissance
 	* @return Encadrant
 	**/
 	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
@@ -481,10 +522,12 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
 	* set PaysDeNaissanceEncadrant
 	*
-	* @param PaysDeNaissanceEncadrant $id, $nouveauPaysDeNaissance
+	* @param \integer $id
+	* @param string $nouveauPaysDeNaissance
 	* @return Encadrant
 	**/
 	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
@@ -506,7 +549,8 @@ class EncadrantService
 	/**
 	* set DepDeNaissanceEncadrant
 	*
-	* @param DepDeNaissanceEncadrant $id, $nouveauDepDeNaissance
+	* @param \integer $id
+	* @param \integer $nouveauDepDeNaissance
 	* @return Encadrant
 	**/
 	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
@@ -525,8 +569,9 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
+	
 	/**
-	* set Encadrant
+	* delete Encadrant
 	*
 	* @param Encadrant $id
 	* @return True

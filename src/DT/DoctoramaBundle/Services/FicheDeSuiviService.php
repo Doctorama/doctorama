@@ -6,19 +6,31 @@ use DT\DoctoramaBundle\Entity\FicheDeSuivi;
 class FicheDeSuiviService
 {
 
+	/**
+	* @var EntityManager
+	*/
 	private $em;
 	
+	/**
+	* @var Repository
+	*/
 	private $repository;
 	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/
 	public function __construct($em)
 	{
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:templatefichedesuivi');
 	}
+	
 	/**
 	* Set FicheDeSuivi
 	*
-	* @param $idType, $titre
+	* @param \integer $idType
+	* @param string $titre
 	*
 	* @return FicheDeSuivi
 	**/
@@ -31,12 +43,14 @@ class FicheDeSuiviService
 		$this->em = $this->getDoctrine()->getManager();
 		$this->em->persist($ficheDeSuivi);
 		$this->em->flush();
+		
+		return $ficheDeSuivi;
 	}
 
-/**
+	/**
 	* get FicheDeSuiviById
 	*
-	* @param FicheDeSuiviById $id
+	* @param \integer $id
 	* @return FicheDeSuivi
 	**/
 	public function findbyId($id)
@@ -50,7 +64,7 @@ class FicheDeSuiviService
 /**
 	* get FicheDeSuiviByIdType
 	*
-	* @param FicheDeSuiviByIdType $idType
+	* @param \integer $idType
 	* @return FicheDeSuivi
 	**/
     public function findByIdType($idType)
@@ -66,10 +80,11 @@ class FicheDeSuiviService
     	}
 
 	}
-/**
+	
+	/**
 	* get FicheDeSuiviByTitre
 	*
-	* @param FicheDeSuiviByTitre $titre
+	* @param string $titre
 	* @return FicheDeSuivi
 	**/
 	public function findByTitre($titre)
@@ -84,10 +99,12 @@ class FicheDeSuiviService
     		$ficheDeSuivi = $this->repository->findByTitre($titre);
     	}
 	}
-/**
+	
+	/**
 	* Set FicheDeSuivi
 	*
-	* @param IdTypeFicheDeSuivi $id, $newIdType
+	* @param \integer $id
+	* @param \integer $newIdType
 	*
 	* @return FicheDeSuivi
 	**/
@@ -105,10 +122,12 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-/**
+	
+	/**
 	* Set FicheDeSuivi
 	*
-	* @param TitreFicheDeSuivi $id, $newTitre
+	* @param \integer $id
+	* @param string $newTitre
 	*
 	* @return FicheDeSuivi
 	**/
@@ -126,10 +145,11 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-/**
-	* Set FicheDeSuivi
+	
+	/**
+	* Delete FicheDeSuivi
 	*
-	* @param FicheDeSuivi $id
+	* @param \integer $id
 	*
 	* @return True
 	**/
