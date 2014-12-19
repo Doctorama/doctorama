@@ -10,13 +10,11 @@
         </legend>
 
 <center>
-<IMG SRC="{{asset('bundles/doctorama/public/img/logo2.png')}}">
-
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="error-template">
-                <h1>Votre fichier a bien été Importer !</h1>
+                <h1>Votre fichier a bien été importé !</h1>
                 <div class="error-actions">
                     <a href="{{ path('dt_doctorama_accueil') }}" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
                         Accueil </a>
@@ -26,10 +24,59 @@
                 <div class="error-details">
                 	</br>
                     Vous pouvez revenir à l'acceuil ou Uploader un nouveau fichier CSV.
+                    </br>
+                    </br>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</center>
+<legend>
+          			<h3>Liste des doctorants importés </h3>
+        		</legend>
+<center>
+<div class="container-fluid">
+	<div class="row">
+		<table class="table table-striped">
+			<tr>
+				<th>
+					Nom
+				</th>
+				<th>
+					Prenom
+				</th>
+				<th>
+					Date de naissance
+				</th>
+				<th>
+					Sujet de la thèse
+				</th>
+				<th>
+					Specialite de la thèse
+				</th>
+			</tr>
+			{% for doctorant in list_doctorants %}
+				<tr>
+					<td>
+						{{ doctorant[0] }}
+					</td>
+					<td>
+						{{ doctorant[1] }}
+					</td>                
+					<td>
+						{{ doctorant[2] }}
+					</td>
+					<td>
+						{{ doctorant[3] }}
+					</td>
+					<td>
+						{{ doctorant[4] }}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
 </div>
 </center>
 {% endblock %}

@@ -6,16 +6,34 @@ use DT\DoctoramaBundle\Entity\FicheDeSuivi;
 class FicheDeSuiviService
 {
 
+	/**
+	* @var EntityManager
+	*/
 	private $em;
 	
+	/**
+	* @var Repository
+	*/
 	private $repository;
 	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/
 	public function __construct($em)
 	{
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:templatefichedesuivi');
 	}
 	
+	/**
+	* Set FicheDeSuivi
+	*
+	* @param \integer $idType
+	* @param string $titre
+	*
+	* @return FicheDeSuivi
+	**/
 	public function createTemplateFicheDeSuivi($idType, $titre)
 	{
 		$ficheDeSuivi = new FicheDeSuivi();
@@ -25,9 +43,16 @@ class FicheDeSuiviService
 		$this->em = $this->getDoctrine()->getManager();
 		$this->em->persist($ficheDeSuivi);
 		$this->em->flush();
+		
+		return $ficheDeSuivi;
 	}
 
-
+	/**
+	* get FicheDeSuiviById
+	*
+	* @param \integer $id
+	* @return FicheDeSuivi
+	**/
 	public function findbyId($id)
 	{		
         $these = $this->repository->findOneById($id);
@@ -36,7 +61,12 @@ class FicheDeSuiviService
 			return null;
     	}
     }
-	
+/**
+	* get FicheDeSuiviByIdType
+	*
+	* @param \integer $idType
+	* @return FicheDeSuivi
+	**/
     public function findByIdType($idType)
 	{
 
@@ -50,7 +80,13 @@ class FicheDeSuiviService
     	}
 
 	}
-
+	
+	/**
+	* get FicheDeSuiviByTitre
+	*
+	* @param string $titre
+	* @return FicheDeSuivi
+	**/
 	public function findByTitre($titre)
 	{
 
@@ -63,7 +99,15 @@ class FicheDeSuiviService
     		$ficheDeSuivi = $this->repository->findByTitre($titre);
     	}
 	}
-
+	
+	/**
+	* Set FicheDeSuivi
+	*
+	* @param \integer $id
+	* @param \integer $newIdType
+	*
+	* @return FicheDeSuivi
+	**/
 	public function updateIdType($id, $newIdType)
 	{
 		
@@ -78,7 +122,15 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+	
+	/**
+	* Set FicheDeSuivi
+	*
+	* @param \integer $id
+	* @param string $newTitre
+	*
+	* @return FicheDeSuivi
+	**/
 	public function updateTitle($id, $newTitre)
 	{
 
@@ -93,7 +145,14 @@ class FicheDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+	
+	/**
+	* Delete FicheDeSuivi
+	*
+	* @param \integer $id
+	*
+	* @return True
+	**/
 	public function deleteFicheDeSuivi($id)
 	{
 

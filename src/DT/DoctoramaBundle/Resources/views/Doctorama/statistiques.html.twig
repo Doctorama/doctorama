@@ -36,7 +36,7 @@
 		  <thead>
 			<tr>
 			  <th>Encadrant</th>
-			  <th>% de thèse encadré</th>
+			  <th>% de thèses encadré</th>
 			</tr>
 		  </thead>
 		  <tbody>
@@ -55,7 +55,6 @@
 						<td>
 							<div class="progress">
 							{% if encadrant.progress is defined %}
-								{% set progress = progress + encadrant.progress %}
 								<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{encadrant.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{encadrant.progress}}%;">
 									{{encadrant.progress}}%
 								</div>
@@ -66,20 +65,11 @@
 									{{progress}}%
 								</div>
 							{%endif %}
-							{% set progression = progression + progress %}	
 							</div>
 						</td>
 					</tr>
 				{% endfor %}
 			{%endif %}
-			<tr>
-			  <td>Total</td>
-			  <td>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{progression}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progression}}%;"> {{progression}} % </div>
-				</div>
-			  </td>
-			</tr>
 			
 		  </tbody>
 		</table>

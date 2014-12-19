@@ -23,7 +23,6 @@
                         <b style="font-size:12pt">MENU PRINCIPAL</b>
                     </legend>
                     </li>
-                    <li class="active"><a href="{{ path('dt_doctorama_accueil') }}">Accueil</a></li>
                     <li><a href="{{ path('dt_doctorama_agenda') }}" >Agenda</a></li>
                     {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
                     <li><a href="{{ path('dt_doctorama_mes_doctorants') }}">Doctorants encadrés </a></li>
@@ -42,11 +41,11 @@
                     </legend>
                     </li>
                     {% if is_granted('ROLE_DIRECTEUR_THESE') or is_granted('ROLE_ENCADRANT') %} 
-                    <li><a href="{{ path('dt_doctorama_admin_dossier_suivis') }}">Dossier de suivis</a></li>
+                    <li><a href="{{ path('dt_doctorama_admin_dossier_suivis') }}">Dossier de suivi</a></li>
                     <li><a href="{{ path('dt_doctorama_modif_fiche') }}">Template de fiche de suivi</a></li>
                     {% endif %}
                     
-                    <li><a href="{{ path('dt_doctorama_info_perso') }}">Information Personnelles</a></li>
+                    <li><a href="{{ path('dt_doctorama_info_perso') }}">Informations Personnelles</a></li>
 
                     {% if is_granted('ROLE_DIRECTEUR_LABO') %} 
                     <li><a href="{{ path('dt_doctorama_admin_utilisateur') }}">Administration utilisateurs</a></li>

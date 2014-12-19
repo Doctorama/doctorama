@@ -14,7 +14,13 @@ class DossierDeSuiviService
 		$this->em = $em;
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:DossierDeSuivi');
 	}
-
+/**
+	* Set DossierDeSuivi
+	*
+	* @param $idFiche, $idTemplate, $commentaires
+	*
+	* @return DossierDeSuivi
+	**/
 	public function createDossierDeSuivi($idFiche, $idTemplate, $commentaires)
 	{
 		$dossierDeSuivi = new DossierDeSuivi();
@@ -24,7 +30,12 @@ class DossierDeSuiviService
 		$this->em->persist($dossierDeSuivi);
 		$this->em->flush();
 	}
-
+/**
+	* get DossierDeSuiviById
+	*
+	* @param DossierDeSuiviById $id
+	* @return DossierDeSuivi
+	**/
 	public function findbyId($id)
 	{
    		$these = $this->repository->findOneById($id);
@@ -33,7 +44,12 @@ class DossierDeSuiviService
 			return null;
     	}
     }
-	
+	/**
+	* get DossierDeSuiviByCommentaires
+	*
+	* @param DossierDeSuiviByCommentaires $commentaires
+	* @return DossierDeSuivi
+	**/
     public function findByCommentaires($commentaires)
 	{
 
@@ -44,7 +60,13 @@ class DossierDeSuiviService
     	}
 
 	}
-
+/**
+	* Set DossierDeSuivi
+	*
+	* @param CommentairesDossierDeSuivi $id, $commentaires
+	*
+	* @return DossierDeSuivi
+	**/
 	public function updateCommentaires($id, $commentaires)
 	{
 
@@ -60,7 +82,13 @@ class DossierDeSuiviService
 
 		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+/**
+	* Set DossierDeSuivi
+	*
+	* @param DossierDeSuivi $id
+	*
+	* @return True
+	**/
 	public function deleteDossierDeSuivi($id)
     {
 		$dossierDeSuivi = $this->repository->findOneById($id);

@@ -423,8 +423,8 @@ class EncadrantServiceTest extends WebTestCase
 		
 		$en = $this->em->getRepository('DTDoctoramaBundle:Encadrant')->findAll();
 		$this->assertEquals(1, sizeof($en));
-	}
-	*/
+	}*/
+	
 }
 
 

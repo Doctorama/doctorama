@@ -16,19 +16,30 @@ class DoctoramaTwigExtensions extends \Twig_Extension{
         );
     }
     
+    function date_diff($date1, $date2) { 
+        $s = strtotime($date2)-strtotime($date1); 
+        $d = intval($s/86400);   
+        return $d; 
+    } 
+    
 
     public function progressionDoctorantFilter($dateDebut, $dateFin )
     {
-        //echo "<script>alert(\" : progressionDoctorantFilter \")</script>";
-        /*$today = date("m.d.y");
-        $tempsEcoule = $today->diff($dateDebut->format("m.d.y"));*/
-        //$tempsTotal = $dateFin->diff($dateDebut);
-        //var_dump($tempsTotal);
-        //echo "<script>alert(\" dateDebut :".$dateDebut->format("d/M/Y")."Date fin : ".$dateFin->format("d/M/Y").".tempsTotal : ".$tempsTotal->format('%d')." \")</script>";
-        //$resultat = $tempsEcoule/$tempsTotal;
-        //var_dump($resultat);
+        if($dateDebut != null &&  $dateFin != null)
+        {
+            $today = new \DateTime('now');
+
+            $intervalEcoule = date_diff($dateDebut,$today);
+            $nbJoursEcoule = $intervalEcoule->format('%a');
+            $intervalDebFin = date_diff($dateDebut,$dateFin);
+            $nbJoursTotaux = $intervalDebFin->format('%a');
+            
+            return round(100*($nbJoursEcoule/$nbJoursTotaux));
+        }
         
-        return 150;
+
+        
+        return 0;
     }
 
     public function getName()

@@ -5,29 +5,50 @@ use DT\DoctoramaBundle\Entity\Reponse;
 
 class ReponseService
 {
-	$repository = $this->getDoctrine()->getRepository('DT/DoctoramaBundle/Entity:Reponse');
-	$em = $this->getDoctrine()->getManager();
-    
-
-	public function createReponse($reponse, $question)
+	/**
+	* @var EntityManager
+	*/
+	private $em;
+	
+	/**
+	* @var Repository
+	*/
+	private $repository;
+	
+	/**
+	* Constructor
+	* @param EntityManager $em
+	*/
+	public function __construct($em)
 	{
-		$reponse = new Reponse();
-		$reponse->setDate($date);
+		$this->em = $em;
+		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Reponse');
+	}
+    
+	/**
+	* Create Reponse
+	*
+	* @param string $reponse
+	*
+	* @return Reponse
+	**/
+	public function createReponse($reponse)
+	{
+		$rep = new Reponse();
+		$rep->setDate($date);
 		
-		$reponse->setQuestion($question);
-		//ou
-		/*
-		foreach($personnes as $personne)
-		{
-			$reunion->addPersonne($personne);
-		}
-		*/
-		
+		$rep->setReponse($reponse);
 		$em = $this->getDoctrine()->getManager();
-		$em->persist($reponse);
+		$em->persist($rep);
 		$em->flush();
 	}
-
+	
+	/**
+	* get ReponseById
+	*
+	* @param \integer $id
+	* @return Reponse
+	**/
 	public function findbyId($id)
 	{
    		
@@ -41,6 +62,12 @@ class ReponseService
     	return $reponse;
     }
 	
+	/**
+	* get ReponseByReponse
+	*
+	* @param \integer $reponse
+	* @return Reponse
+	**/
     public function findByreponse($reponse)
 	{
 
@@ -55,36 +82,51 @@ class ReponseService
     	}
 
 	}
-
+	
+	/**
+	* Set Reponse
+	*
+	* @param \integer $id
+	* @param Reponse $newReponse
+	*
+	* @return Reponse
+	**/
 	public function updateReponse($id, $newReponse)
 	{
-    $reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);
+		$reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);
 
-    if (!$reponse) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
+		if (!$reponse) {
+			throw $this->createNotFoundException(
+				'Aucun produit trouvé pour cet id : '.$id
+			);
+		}
 
-    $reponse->setQuestion($newReponse);
-    $em->flush();
+		$reponse->setReponse($newReponse);
+		$em->flush();
 
-    return $this->redirect($this->generateUrl('homepage'));
+		return $this->redirect($this->generateUrl('homepage'));
 	}
-
+	
+	/**
+	* Delete Reponse
+	*
+	* @param \integer $id
+	*
+	* @return True
+	**/
 	public function deleteReponse($id)
 	{
-     $reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);
+		 $reponse = $em->getRepository('DT/DoctoramaBundle/Entity:Reponse')->find($id);
 
-    if (!$reponse) {
-        throw $this->createNotFoundException(
-            'Aucun produit trouvé pour cet id : '.$id
-        );
-    }
-    $em->remove($reponse);
-	$em->flush();
+		if (!$reponse) {
+			throw $this->createNotFoundException(
+				'Aucun produit trouvé pour cet id : '.$id
+			);
+		}
+		$em->remove($reponse);
+		$em->flush();
 
-	return $reponse;
+		return $reponse;
 	}
 
 

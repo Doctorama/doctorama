@@ -16,7 +16,26 @@ class EncadrantService
 		$this->repository = $this->em->getRepository('DTDoctoramaBundle:Encadrant');
 	}
 	
-	public function createEncadrant($nom, $nomUsage, $civilite, $prenom, $adresse, $mail, $dateDeNaissance, $nationalite, $villeDeNaissance, $paysDeNaissance, $depDeNaissance)
+	/**
+	* Set Encadrant
+	*
+	* @param string $nom
+	* @param string $nomUsage
+	* @param string $civilite
+	* @param string $prenom
+	* @param string $adresse
+	* @param string $mail
+	* @param \datetime $dateDeNaissance
+	* @param \datetime $nationalite
+	* @param string $villeDeNaissance
+	* @param string $paysDeNaissance
+	* @param \integer $depDeNaissance
+	*
+	* @return Encadrant
+	**/
+	public function createEncadrant($nom, $nomUsage, $civilite, 
+	$prenom, $adresse, $mail, $dateDeNaissance, $nationalite, 
+	$villeDeNaissance, $paysDeNaissance, $depDeNaissance)
 	{
 		$encadrant = new Encadrant();
 		$encadrant->setNom($nom);
@@ -37,6 +56,12 @@ class EncadrantService
 		return $encadrant;
 	}
 	
+	/**
+	* get EncadrantById
+	*
+	* @param \integer $id
+	* @return Encadrant
+	**/
 	public function findEncadrantById($id)
 	{
 
@@ -50,136 +75,209 @@ class EncadrantService
 			return $encadrant;
 	}
 	
+	/**
+	* get EncadrantByNom
+	*
+	* @param string $nom
+	* @return Encadrants
+	**/
 	public function findEncadrantByNom($nom)
 	{
 
-		$encadrant = $this->repository->findByNom($nom);
+		$encadrants = $this->repository->findByNom($nom);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByNomUsage
+	*
+	* @param string $NomUsage
+	* @return Encadrants
+	**/
 	public function findEncadrantByNomUsage($nomUsage)
 	{
-		$encadrant = $this->repository->findByNomUsage($nomUsage);
+		$encadrants = $this->repository->findByNomUsage($nomUsage)
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
-		
+	
+	/**
+	* get EncadrantByCivilite
+	*
+	* @param string $civilite
+	* @return Encadrants
+	**/
 	public function findEncadrantByCivilite($civilite)
 	{
 
-		$encadrant = $this->repository->findByCivilite($civilite);
+		$encadrants = $this->repository->findByCivilite($civilite);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByPrenom
+	*
+	* @param string $prenom
+	* @return Encadrants
+	**/
 	public function findEncadrantByPrenom($prenom)
 	{
-		$encadrant = $this->repository->findByPrenom($prenom);
+		$encadrants = $this->repository->findByPrenom($prenom);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
-		
+	
+	/**
+	* get EncadrantByAdresse
+	*
+	* @param string $adresse
+	* @return Encadrants
+	**/
 	public function findEncadrantByAdresse($adresse)
 	{
 
-		$encadrant = $this->repository->findByAdresse($adresse);
+		$encadrants = $this->repository->findByAdresse($adresse);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByMail
+	*
+	* @param string $mail
+	* @return Encadrants
+	**/
 	public function findEncadrantByMail($mail)
 	{
 
-		$encadrant = $this->repository->findByMail($mail);
+		$encadrants = $this->repository->findByMail($mail);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByDateDeNaissance
+	*
+	* @param \datetime $dateDeNaissance
+	* @return Encadrants
+	**/
 	public function findEncadrantByDateDeNaissance($dateDeNaissance)
 	{
 
-		$encadrant = $this->repository->findByDateDeNaissance($dateDeNaissance);
+		$encadrants = $this->repository->findByDateDeNaissance($dateDeNaissance);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByNationalite
+	*
+	* @param string $nationalite
+	* @return Encadrants
+	**/
 	public function findEncadrantByNationalite($nationalite)
 	{
 
-		$encadrant = $this->repository->findByNationalite($nationalite);
+		$encadrants = $this->repository->findByNationalite($nationalite);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByVilleDeNaissance
+	*
+	* @param string $villeDeNaissance
+	* @return Encadrants
+	**/
 	public function findEncadrantByVilleDeNaissance($villeDeNaissance)
 	{
 
-		$encadrant = $this->repository->findByVilleDeNaissance($villeDeNaissance);
+		$encadrants = $this->repository->findByVilleDeNaissance($villeDeNaissance);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByPaysDeNaissance
+	*
+	* @param string $paysDeNaissance
+	* @return Encadrants
+	**/
 	public function findEncadrantByPaysDeNaissance($paysDeNaissance)
 	{
 
-		$encadrant = $this->repository->findByPaysDeNaissance($paysDeNaissance);
+		$encadrants = $this->repository->findByPaysDeNaissance($paysDeNaissance);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByDepDeNaissance
+	*
+	* @param \integer $depDeNaissance
+	* @return Encadrants
+	**/
 	public function findEncadrantByDepDeNaissance($depDeNaissance)
 	{
 
-		$encadrant = $this->repository->findByDepDeNaissance($depDeNaissance);
+		$encadrants = $this->repository->findByDepDeNaissance($depDeNaissance);
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
+	/**
+	* get EncadrantByNomEtPrenom
+	*
+	* @param string $prenom
+	* @param string $nom
+	* @return Encadrants
+	**/
 	public function findEncadrantByNomEtPrenom($prenom, $nom)
 	{
 
@@ -192,19 +290,30 @@ class EncadrantService
 			return $encadrant;
 	}
 	
+	/**
+	* get tous les Encadrants
+	*
+	* @return Encadrants
+	**/
 	public function findAll()
 	{
 
-		$encadrant = $this->repository->findAll();
+		$encadrants = $this->repository->findAll();
 
-		if (!$encadrant) {
+		if (!$encadrants) {
 			return null;
 		}
 		else
-			return $encadrant;
+			return $encadrants;
 	}
 	
-	
+	/**
+	* set NomEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauNom
+	* @return Encadrant
+	**/
 	public function updateNom($id,$nouveauNom)
 	{
 	
@@ -222,6 +331,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set NomUsageEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauNomUsage
+	* @return Encadrant
+	**/
 	public function updateNomUsage($id,$nouveauNomUsage)
 	{
 	
@@ -239,6 +355,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set CiviliteEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauCivilite
+	* @return Encadrant
+	**/
 	public function updateCivilite($id,$nouveauCivilite)
 	{
 	
@@ -256,6 +379,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set PrenomEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauPrenom
+	* @return Encadrant
+	**/
 	public function updatePrenom($id,$nouveauPrenom)
 	{
 	
@@ -273,6 +403,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set AdresseEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauAdresse
+	* @return Encadrant
+	**/
 	public function updateAdresse($id,$nouveauAdresse)
 	{
 	
@@ -290,6 +427,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set MailEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauMail
+	* @return Encadrant
+	**/
 	public function updateMail($id,$nouveauMail)
 	{
 	
@@ -307,6 +451,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set DateDeNaissanceEncadrant
+	*
+	* @param \integer $id
+	* @param \datetime $nouveauDateDeNaissance
+	* @return Encadrant
+	**/
 	public function updateDateDeNaissance($id,$nouveauDateDeNaissance)
 	{
 	
@@ -324,6 +475,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set NationaliteEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauNationalite
+	* @return Encadrant
+	**/
 	public function updateNationalite($id,$nouveauNationalite)
 	{
 	
@@ -341,6 +499,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set VilleDeNaissanceEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauVilleDeNaissance
+	* @return Encadrant
+	**/
 	public function updateVilleDeNaissance($id,$nouveauVilleDeNaissance)
 	{
 	
@@ -358,6 +523,13 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* set PaysDeNaissanceEncadrant
+	*
+	* @param \integer $id
+	* @param string $nouveauPaysDeNaissance
+	* @return Encadrant
+	**/
 	public function updatePaysDeNaissance($id,$nouveauPaysDeNaissance)
 	{
 	
@@ -374,7 +546,13 @@ class EncadrantService
 			return $encadrant;
 		}
 	}
-	
+	/**
+	* set DepDeNaissanceEncadrant
+	*
+	* @param \integer $id
+	* @param \integer $nouveauDepDeNaissance
+	* @return Encadrant
+	**/
 	public function updateDepDeNaissance($id,$nouveauDepDeNaissance)
 	{
 	
@@ -392,6 +570,12 @@ class EncadrantService
 		}
 	}
 	
+	/**
+	* delete Encadrant
+	*
+	* @param Encadrant $id
+	* @return True
+	**/
 	public function delete($id)
 	{
 
