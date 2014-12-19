@@ -45,22 +45,24 @@ class DoctoramaController extends Controller {
             }
             return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier ' . $typeExport, 'export' => $typeExport), $response);
         }elseif(!strcmp($typeExport, "Valider")){
-			/*$templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+            $templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
             $templates = $templateRepository->findByTitre($_POST['ficheId']);
-			$template = null;
-			$version = 0;
-			foreach($templates as $t){
-				if($t->getVersion() > $version){
-					$template = $t;
-				}
-			}
-			foreach($template->getQuestions() as $question){
-				foreach($question->getReponses() as $reponse){
-				    	
-				}
-			}*/
-			return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
-		}else {
+            $version = 0;
+            /*foreach($templates as $t){
+                if($t->getVersion() > $version){
+                    $template = $t;
+
+                }
+            }
+            if(isset($template)){
+                foreach($template->getQuestions() as $question){
+                    foreach($question->getReponses() as $reponse){
+                            
+                    }
+                }
+            }*/
+            return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
+        }else {
             return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
         }
     }
@@ -566,6 +568,7 @@ class DoctoramaController extends Controller {
 						    			$list_doctorants[$ligne][$j] = $tab[$i];
 						    			$j++;
 						    			$these->setSujetThese($tab[$i]);
+						    			$these->setTitreThese($tab[$i]);
 						        		break;
 		    						case "Specialite de la thèse":
 		    							$list_doctorants[$ligne][$j] = $tab[$i];
@@ -576,18 +579,23 @@ class DoctoramaController extends Controller {
 						        		$these->setLaboratoire($tab[$i]);
 						        		break;
 						    		case "Directeur de thèse":
-							        	$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $tab[$i]);
-										$encadrant = $query->getResult();
-										//SI IL EXISTE PAS CRéER UN NOUVEAU//
-										if (!$encadrant) {
-											$encadrant = new Encadrant;
-											$encadrant->setNom($tab[$i]);
-											$encadrant->setPrenom($tab[$i]);
-											$em->persist($encadrant);
-											$these->addDirecteursDeThese($encadrant);
-										}
-										else{
-											$these->setDirecteursDeThese($encadrant);
+						    			$parse_nom = explode(';', $tab[$i]);
+						    			foreach ($parse_nom as $value) {
+    										if ($value) {
+									        	$query = $em->createQuery("SELECT dt FROM DTDoctoramaBundle:Encadrant dt WHERE dt.nom= :nom")->setParameter('nom', $value);
+												$encadrant = $query->getResult();
+												//SI IL EXISTE PAS CRéER UN NOUVEAU//
+												if (!$encadrant) {
+													$encadrant = new Encadrant;
+													$encadrant->setNom($value);
+													$encadrant->setPrenom($value);
+													$em->persist($encadrant);
+													$these->addDirecteursDeThese($encadrant);
+												}
+												else{
+													$these->setDirecteursDeThese($encadrant);
+												}
+											}
 										}
 						        		break;
 						    		case "Collaboration Université":
@@ -696,7 +704,7 @@ class DoctoramaController extends Controller {
 
             return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
-        return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Creation reunion', 'formReunion' => $formReunion->createView()));
+        return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Création réunion', 'formReunion' => $formReunion->createView()));
     }
 
     public function archiverTheseAction($id_these, Request $request) {

@@ -115,7 +115,7 @@ class ReunionServiceTest extends WebTestCase
 		$this->viderTable();
 		
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$enc1 = $this->creer1Encadrant();
 		$enc2 = $this->creer1Encadrant();
@@ -135,7 +135,7 @@ class ReunionServiceTest extends WebTestCase
 		$this->viderTable();
 		
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$enc1 = $this->creer1Encadrant();
 		$enc2 = $this->creer1Encadrant();
@@ -155,7 +155,7 @@ class ReunionServiceTest extends WebTestCase
 		$this->viderTable();
 		
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$enc1 = $this->creer1Encadrant();
 		$enc2 = $this->creer1Encadrant();
@@ -175,7 +175,7 @@ class ReunionServiceTest extends WebTestCase
 	{
 		$this->viderTable();
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$rs->setDate(1, new \DateTime('2000-05-01'));
 		
@@ -189,7 +189,7 @@ class ReunionServiceTest extends WebTestCase
 	{
 		$this->viderTable();
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 				
 		$this->assertEquals(new \DateTime('2000-01-01'), $rs->getDate(1));
 	}
@@ -201,7 +201,7 @@ class ReunionServiceTest extends WebTestCase
 	{
 		$this->viderTable();
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 				
 		$this->assertEquals("135", $rs->getLieu(1));
 	}
@@ -213,7 +213,7 @@ class ReunionServiceTest extends WebTestCase
 	{
 		$this->viderTable();
 		$rs = new ReunionService($this->em);
-		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
+		$reu = $rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$rs->setLieu(1, "015");
 		
@@ -227,8 +227,8 @@ class ReunionServiceTest extends WebTestCase
 	{
 		$this->viderTable();
 		$rs = new ReunionService($this->em);
-		$rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle");
-		$rs->createReunion("136", new \DateTime('2000-01-01'), "un libelle");
+		$rs->createReunion("135", new \DateTime('2000-01-01'), "un libelle", 1);
+		$rs->createReunion("136", new \DateTime('2000-01-01'), "un libelle", 1);
 		
 		$enc1 = $this->creer1Encadrant();
 		$enc2 = $this->creer1Encadrant();

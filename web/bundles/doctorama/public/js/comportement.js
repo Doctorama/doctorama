@@ -107,7 +107,7 @@ $(document).ready(function(){
 		$('.modifFiche_modifier').hide();
 		$('.modifFiche_valider').show();
 		$('.modifFiche_annuler').show();
-		oldForm = $('div#'+$(this).siblings('.modifFiche_id').val());
+		//oldForm = $('div#'+$(this).siblings('.modifFiche_id').val());
 		formId = $(this).siblings('.modifFiche_id').val();
 		$('div#'+formId+" input[type='text']").prop('readonly',false);
 	});
