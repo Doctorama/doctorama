@@ -74,8 +74,12 @@
             <div class="thumbnail">
               <img style="max-height:200px;" src="{{asset('bundles/doctorama/public/img/avatar_def.png')}}" alt="...">
               <div class="caption">
-              <h3> {{doctorant.nom}} {{doctorant.prenom}}</h3>
+              <h6> {{doctorant.nom}} {{doctorant.prenom}}</h6>
+               {% if doctorant.these.titreThese %}
               <p>{{doctorant.these.titreThese}} </p>
+              {% else %}
+              <p></br></p>
+              {% endif %}
               
               <p><a href="{{ path('dt_detail_doctorant', {'id_doctorant': doctorant.id}) }}" class="btn btn-info " role="button">Détails</a></p>
               </div>

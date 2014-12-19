@@ -93,9 +93,14 @@
                             <div class="thumbnail">
                                 <img style="max-height:200px;" src="{{asset('bundles/doctorama/public/img/avatar_def.png')}}" alt="...">
                                 <div class="caption">
-                                    <h3> {{doctorant.nom}} {{doctorant.prenom}}</h3>
+                                    <h6> {{doctorant.nom}} {{doctorant.prenom}}</h6>
                                     <p> 
-                                        {%if doctorant.these.titreThese is defined  %}{{doctorant.these.titreThese}} {% endif%} </p>
+                                        {%if doctorant.these.titreThese %}
+                                        	<p>{{doctorant.these.titreThese}} </p>
+              							{% else %}
+              								<p></br></p>
+              							{% endif %}
+                                    </p>
                                     <div class="progress">
                                         <!--<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%;">10 %</div>-->
                                         {%if doctorant.these.dateDebut is defined and doctorant.these.dateDeSoutenance is defined%}
