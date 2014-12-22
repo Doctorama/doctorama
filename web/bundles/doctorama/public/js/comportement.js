@@ -67,13 +67,13 @@ $(document).ready(function(){
 			var exist = $('.tractive');
 			if(exist.length > 0)
 			{
-				html+='<input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td>';
+				html+='<input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question '+template+'">Modifier</i> </td>';
 				exist.html(html);
 				exist.removeClass('tractive');
 			}
 			else
 			{
-				html+='<tr><input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question">Modifier</i> </td></tr>';
+				html+='<tr><input type="hidden" value="'+question+'" name="question[]"/><td>'+question+'</td><td> <i class="btn-sm btn-danger sup_question">Supprimer</i> <i class="btn-sm btn-warning modif_question '+template+'">Modifier</i> </td></tr>';
 				$("tbody#"+template).append(html);
 			}	
 		}

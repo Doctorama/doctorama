@@ -14,9 +14,13 @@ use DT\DoctoramaBundle\Entity\TemplateFicheSuivi;
  */
 class TemplateRepository extends EntityRepository{
     
+    /**
+    * Permet de trouver les dernières versions de template avec les questions associées
+    * @return un tableau contenant l'ensemble des templates avec leurs informations
+    **/
     function findAllTemplateLastVersion()
     {
-        $query = $this->_em->createQuery('SELECT DISTINCT t.titre FROM DTDoctoramaBundle:TemplateFicheSuivi t ');
+        $query = $this->_em->createQuery('SELECT DISTINCT t.titre FROM DTDoctoramaBundle:TemplateFicheSuivi t ORDER BY t.titre ASC');
         $results = $query->getResult();
 
         foreach ($results as $res) {
@@ -38,23 +42,15 @@ class TemplateRepository extends EntityRepository{
         return $return;
     }
 
+    /**
+    * Permet de récupérer les questions associées à un template
+    * @param integer $id_template
+    * @return un tableau contenant l'ensemble des questions du template
+    **/
     function findAllQuestionByTemplate($id_template)
     {
         $temp = $this->findOneById($id_template);
         $questions = $temp->getQuestions();
-
-    	// Récupérer l'id des questions du template passé en paramètres //
-
-    	//$query = $this->_em->createQuery('SELECT tq.question_id FROM templatefichesuivi_question tq WHERE tq.templatefichesuivi_id ='.$id_template);
-        //$results = $query->getResult();
-        //var_dump($results);
-        
-        /* $tab = array(1,2,3);
-        foreach ($tab as $val) {
-        	$query = $this->_em->createQuery('SELECT q.question FROM DTDoctoramaBundle:Question q WHERE q.id='.$val);
-        	$results = $query->getResult();
-        	$questions[]=$results[0]['question'];
-        }*/
 
         return $questions;
     }
