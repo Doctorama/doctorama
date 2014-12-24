@@ -31,40 +31,6 @@ use \DateTime;
 
 class DoctoramaController extends Controller {
 
-    public function exportFicheAction(Request $request) {
-        $typeExport = htmlentities(str_replace('"', '\"', $_POST['export']));
-        if (!strcmp($typeExport, "CSV") || !strcmp($typeExport, "PDF")) {
-            $response = new Response();
-            if (!strcmp($typeExport, "PDF")) {
-                $response->headers->set('Content-Type', 'application/pdf');
-            } elseif (!strcmp($typeExport, "CSV")) {
-                $response->headers->set('Content-Type', 'text/csv');
-                $response->headers->set('Content-disposition', 'attachment;filename=' . $_GET['nom'] . ' ' . $_POST['ficheLabel'] . '.csv');
-            }
-            return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier ' . $typeExport, 'export' => $typeExport), $response);
-        }elseif(!strcmp($typeExport, "Valider")){
-            $templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
-            $templates = $templateRepository->findByTitre($_POST['ficheId']);
-            $version = 0;
-            /*foreach($templates as $t){
-                if($t->getVersion() > $version){
-                    $template = $t;
-
-                }
-            }
-            if(isset($template)){
-                foreach($template->getQuestions() as $question){
-                    foreach($question->getReponses() as $reponse){
-                            
-                    }
-                }
-            }*/
-            return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
-        }else {
-            return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
-        }
-    }
-
     public function mesDoctorantsAction(Request $request) {
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -303,19 +269,23 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:modif_dossier.html.twig', array('title' => 'Modifier dossier de suivis', 'formDoctorant' => $formDoctorant->createView()));
     }
 
+	// Page de détail d'un doctorant
     public function detailDoctorantAction(Request $request, $id_doctorant) {
         $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant', $id_doctorant);
+		// Formulaire listant les attributs d'un doctorant (infos persos, master et thèse)
         $formDoctorant = $this->createForm(new DoctorantType(true), $doctorant, array('method' => 'GET', 'read_only' => true));
         $em = $this->getDoctrine()->getManager();
         $reponses = array();
         $fiches = array();
         foreach ($doctorant->getReunions() as $reunion) {
             $templateFicheSuivi = $doctorant->getThese()->getDossierDeSuivi()->getTemplateFicheSuivi();
-            $fiches[$reunion->getLibelle()] = array(
+            // fiches retournées composées d'un label, d'une date et de questions/réponses
+			$fiches[$reunion->getLibelle()] = array(
                 'label' => $reunion->getLibelle(),
                 'date_reunion' => $reunion->getDate()->format('m/d/Y'),
                 'questions' => array()
             );
+			// Récupère questions et réponses de ses fiches de suivi
             foreach ($templateFicheSuivi as $template) {
                 foreach ($template->getQuestions() as $question) {
                     $query = $em->createQuery("SELECT r FROM DTDoctoramaBundle:Reponse r WHERE r.question= :id")->setParameter('id', $question->getId());
@@ -451,6 +421,31 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:import_csv.html.twig', array('title' => 'Importation fichier CSV'));
     }
 
+	
+	// Traitement des fiches pour modification ou export
+    public function exportFicheAction(Request $request) {
+        $typeExport = htmlentities(str_replace('"', '\"', $_POST['export']));
+        if (!strcmp($typeExport, "CSV") || !strcmp($typeExport, "PDF")) {
+            $response = new Response();
+			// Modification d'en-tête : contenu de fichier 
+            if (!strcmp($typeExport, "PDF")) {
+				// si PDF -> application
+                $response->headers->set('Content-Type', 'application/pdf');
+            } elseif (!strcmp($typeExport, "CSV")) {
+				// si csv -> text/csv
+                $response->headers->set('Content-Type', 'text/csv');
+                $response->headers->set('Content-disposition', 'attachment;filename=' . $_GET['nom'] . ' ' . $_POST['ficheLabel'] . '.csv');
+            }
+            return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.php', array('title' => 'Export fichier ' . $typeExport, 'export' => $typeExport), $response);
+        }elseif(!strcmp($typeExport, "Valider")){
+			//Modification non fonctionnelle
+            $templateRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
+            $templates = $templateRepository->findByTitre($_POST['ficheId']);
+            return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
+        }else {
+            return $this->render('DTDoctoramaBundle:Doctorama:detail_doctorant.html.twig', array('title' => 'Erreur export'));
+        }
+    }
 
     public function parseCsvAction(Request $request){
     	$reponse;

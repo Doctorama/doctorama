@@ -1,8 +1,10 @@
 <?php
+//Export CSV
 if(!strcmp($export,"CSV")){
 	echo "Fiche de suivi - ".htmlentities(str_replace('"','\"',$_POST['ficheLabel'])).";".htmlentities(str_replace('"','\"',$_GET['nom']))."\n";
 	$formContent = $_POST[$_POST['ficheId']];
 	$i=0;
+	// Parcours des données et ajout d'un caractère de séparation ";"
 	foreach($formContent as $key => $value){
 		if($i==0){
 			echo htmlentities(str_replace('"','\"',$value)).";";
@@ -12,8 +14,12 @@ if(!strcmp($export,"CSV")){
 			echo htmlentities(str_replace('"','\"',$value))."\n";
 		}
 	}
-}elseif(!strcmp($export,"PDF")){
+}
+// Export PDF
+elseif(!strcmp($export,"PDF")){
+//Import librairie
 	require_once('/../../../../../../vendor/html2pdf/html2pdf.class.php');
+//Formatage de la page
 	$content = "<page>
 		<style>
 			table{
@@ -37,7 +43,7 @@ if(!strcmp($export,"CSV")){
 		
 		<table class='logos'>
 		<tr>
-			<td>LOGO</td>
+			<td>Doctorama</td>
 			<td class='right'>Université de La Rochelle</td>
 		</tr>
 		<tr>
@@ -50,6 +56,7 @@ if(!strcmp($export,"CSV")){
 		</tr>";
 	$formContent = $_POST[$_POST['ficheId']];
 	$i=0;
+//Parcours des données et ajout dans un tableau
 	foreach($formContent as $value){
 		if($i==0){
 		$content .= "<tr class='data'>
@@ -67,9 +74,12 @@ if(!strcmp($export,"CSV")){
 		}
 	}
 	$content .= "</table></page>";
+// Création du documetnt PDF
 	$html2pdf = new \HTML2PDF('P','A4','fr');
 	$html2pdf->pdf->SetDisplayMode('fullpage');
+// Ajout du contenu
 	$html2pdf->writeHTML($content);
+// Envoi
 	$html2pdf->Output(htmlentities(str_replace('"','\"',$_GET['nom'])).'_'.htmlentities(str_replace('"','\"',$_POST['ficheLabel'])).'.pdf');
 }
 ?>

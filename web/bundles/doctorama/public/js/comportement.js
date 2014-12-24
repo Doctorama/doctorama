@@ -126,7 +126,7 @@ $(document).ready(function(){
 	});
 	
 	/********************************************************************************\ 
-		
+		Modification fiches de suivi
 	\********************************************************************************/
 	$(document).on('click','.fiche',function(){
 		$('#modif_buttons').hide();
@@ -134,13 +134,12 @@ $(document).ready(function(){
 	$(document).on('click','.infos_doctorant',function(){
 		$('#modif_buttons').show();
 	});
-
-	//Mise à jour fiche de suivi
+	
+	//Comportement des boutons modifier/valider/annuler
 	$(document).on('click','.modifFiche_modifier',function(){
 		$('.modifFiche_modifier').hide();
 		$('.modifFiche_valider').show();
 		$('.modifFiche_annuler').show();
-		//oldForm = $('div#'+$(this).siblings('.modifFiche_id').val());
 		formId = $(this).siblings('.modifFiche_id').val();
 		$('div#'+formId+" input[type='text']").prop('readonly',false);
 	});
@@ -180,6 +179,8 @@ $(document).ready(function(){
 	/********************************************************************************\ 
 		Graphique progression
 	\********************************************************************************/
+	// Ajout des données pour les graphiques
+	// ["Affichage", valeur]
 	var data = [
 		['65%', 65],['35%', 35]
 	];
@@ -189,8 +190,6 @@ $(document).ready(function(){
 		seriesDefaults: {
 			renderer: jQuery.jqplot.PieRenderer, 
 			rendererOptions: {
-			  // Put data labels on the pie slices.
-			  // By default, labels show the percentage of the slice.
 			  showDataLabels: true
 			}
 		}
