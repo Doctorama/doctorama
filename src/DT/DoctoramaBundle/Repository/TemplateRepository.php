@@ -20,18 +20,24 @@ class TemplateRepository extends EntityRepository{
     **/
     function findAllTemplateLastVersion()
     {
+        // Sélectionne les titres distinct des templates
         $query = $this->_em->createQuery('SELECT DISTINCT t.titre FROM DTDoctoramaBundle:TemplateFicheSuivi t ORDER BY t.titre ASC');
         $results = $query->getResult();
 
+        // Pour chaque
         foreach ($results as $res) {
+            // On récupère la dernière version
         	$query2 = $this->_em->createQuery('SELECT MAX(t.version) FROM DTDoctoramaBundle:TemplateFicheSuivi t WHERE t.titre=\''.$res['titre'].'\'');
         	$res2 = $query2->getResult();
-        	
+
+        	// Et ensuite son id
         	$query3 = $this->_em->createQuery('SELECT t.id FROM DTDoctoramaBundle:TemplateFicheSuivi t WHERE t.titre=\''.$res['titre'].'\' AND t.version='.$res2[0][1]);
         	$res3 = $query3->getResult();
 
+            // On récupère les questions associées à cette version de template
         	$questions = $this->findAllQuestionByTemplate($res3[0]['id']);
 
+            // que l'on renge dans un tableau
             $ques = array(); 
             foreach ($questions as $q) {
                 $ques[] = $q->getQuestion();
@@ -39,6 +45,7 @@ class TemplateRepository extends EntityRepository{
 
         	$return[] = array('titre'=>$res['titre'], 'id'=>$res3[0]['id'], 'version'=>$res2[0][1], 'questions'=>$ques);
         }
+        // La fonction renvoie le titre du template, l'id, la version actuelle et la liste de questions associées
         return $return;
     }
 
@@ -49,7 +56,9 @@ class TemplateRepository extends EntityRepository{
     **/
     function findAllQuestionByTemplate($id_template)
     {
+        // Récupère le template
         $temp = $this->findOneById($id_template);
+        // et les questions associées à ce template
         $questions = $temp->getQuestions();
 
         return $questions;

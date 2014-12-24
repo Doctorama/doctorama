@@ -1,15 +1,20 @@
 <?php
 
-// src/DT/DoctoramaBundle/Controller/DoctoramaController.php;
-
 namespace DT\DoctoramaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
-use DT\DoctoramaBundle\Entity\Doctorant;
+
+use Symfony\Component\Security\Core\SecurityContext;
+
 use DT\DoctoramaBundle\Services\EncadrantService;
+
+use DT\DoctoramaBundle\Form\DoctorantType;
+use DT\DoctoramaBundle\Form\TheseType;
+use DT\DoctoramaBundle\Form\ReunionType;
+use DT\DoctoramaBundle\Form\EncadrantType;
 
 use DT\DoctoramaBundle\Entity\Reunion;
 use DT\DoctoramaBundle\Entity\Personne;
@@ -17,20 +22,13 @@ use DT\DoctoramaBundle\Entity\These;
 use DT\DoctoramaBundle\Entity\DossierDeSuivi;
 use DT\DoctoramaBundle\Entity\Question;
 use DT\DoctoramaBundle\Entity\TemplateFicheSuivi;
-
-use DT\DoctoramaBundle\Form\DoctorantType;
-use DT\DoctoramaBundle\Form\TheseType;
-use DT\DoctoramaBundle\Form\ReunionType;
-use DT\DoctoramaBundle\Form\EncadrantType;
+use DT\DoctoramaBundle\Entity\Doctorant;
 use DT\SecurityBundle\Entity\Compte;
 use DT\DoctoramaBundle\Entity\Encadrant;
+
 use \DateTime;
 
-/**
- * Description of DoctoramaController
- *
- * @author benjamin
- */
+
 class DoctoramaController extends Controller {
 
     public function exportFicheAction(Request $request) {
@@ -84,63 +82,75 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:fiche_suivi_export.html.twig');
     }
 
+    // Page liste des doctorants du labo
     public function doctorantLaboAction(Request $request) {
+        // On récupère la liste des doctorants qui n'ont pas encore fini leur thèse
         $DoctorantRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:Doctorant');
         $listDoctorant = $DoctorantRepository->theseNonArchivee();
-        $TheseRepository = $this->getDoctrine()->getRepository('DTDoctoramaBundle:These');
-        /* $listThese = array(sizeof($listDoctorant));
-          for ($i = 0; $i < sizeof($listDoctorant); $i++) {
-
-          $these = $TheseRepository->findById($listDoctorant[$i]->getId());
-          if (isset($these[0]))
-          $listDoctorant[$i]->setThese($these[0]);
-          } */
+        // on retourne le titre de la page et cette liste
         return $this->render('DTDoctoramaBundle:Doctorama:doctorant_labo.html.twig', array('title' => 'Doctorants du laboratoire', 'listDoctorant' => $listDoctorant));
     }
 
+    // Page d'agenda
     public function agendaAction(Request $request) {
+        // récupère l'utilisateur connecté
         $user = $this->get('security.context')->getToken()->getUser();
-        if (method_exists($user, 'getEncadrant') && $user->getEncadrant() != null) {
+
+        // suivant le rôle de l'utilisateur, on récupère les réunions
+        if (method_exists($user, 'getEncadrant') && $user->getEncadrant() != null) 
+        {
             $reu = $user->getEncadrant()->getReunions();
-        } else if (method_exists($user, 'getDoctorant') && $user->getDoctorant() != null) {
+        } 
+        else if (method_exists($user, 'getDoctorant') && $user->getDoctorant() != null) 
+        {
             $reu = $user->getDoctorant()->getReunions();
-        } else {
+        } 
+        else 
+        {
+            // par defaut, on récupère toutes les réunions
             $reunionRepository = $this->getDoctrine()->getManager()->getRepository('DTDoctoramaBundle:Reunion');
             $reu = $reunionRepository->findAll();
         }
+
         $event = array();
         $reunions = array();
+
+        // Pour chaque réunion récupérées
         foreach ($reu as $reunion) {
+            // on récupère le doctorant associé (1 seul)
             $pers[] = array('nom' => $reunion->getDoctorant()->getNom(),
                 'prenom' => $reunion->getDoctorant()->getPrenom());
-
+            // on récupère ensuite tous les encadrants (1 ou plusieurs)
             foreach ($reunion->getEncadrants() as $personnes) {
                 $pers[] = array('nom' => $personnes->getNom(),
                     'prenom' => $personnes->getPrenom());
             }
-
+            // création du tableau a renvoyer ensuite avec à chaque case la réunion et les personnes associées
             $reunions[] = array(
                 'reunion' => $reunion,
                 'participants' => $pers);
-
+            // création du tableau event pour le callendrier fullcallendar
             $event[] = array(
                 'start' => $reunion->getDate()->format('Y-m-d H:i:s'),
                 'title' => $reunion->getLieu());
-              $pers=array();
+            
+            $pers=array();
         }
 
-
+        // écriture au format json des évènements pour le chargement dans le calendrier js
+        // ouverture du fichier
         if (!$fp = fopen("../../mydate.php", 'w+')) {
             echo "Echec de l'ouverture du fichier";
             exit;
-        } else {
+        } 
+        else 
+        {
+            // écriture et fermeture
             fwrite($fp, "<?php echo '" . json_encode($event) . "';");
             fclose($fp);
         }
 
-        // var_dump($reunions);
-
-
+        // retourne le titre de la page et le tableau des réunions
         return $this->render('DTDoctoramaBundle:Doctorama:agenda.html.twig', array('title' => 'Agenda', 'reunions' => $reunions));
     }
 
@@ -202,16 +212,21 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:historique.html.twig', array('title' => 'Historique des doctorants', 'listDoctorant' => $doctorants));
     }
 
+    // Page d'accueil
     public function indexAction(Request $request) {
         //return $this->render('DTDoctoramaBundle::index.html.twig', array('title' => 'Agenda'));
+        // Redirection vers la page d'agenda
         return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
     }
 
+    // Page d'administration des dossiers de suivi
     public function adminDossierSuivisAction(Request $request) {
         return $this->render('DTDoctoramaBundle:Doctorama:admin_dossier.html.twig', array('title' => 'Dossier de suivis'));
     }
 
+    // Page d'administration des utilisateurs
     public function adminUtilisateurAction(Request $request) {
+        // Renvoie la liste des comptes utilisateurs
         $compteRepository = $this->getDoctrine()->getManager()->getRepository('DTSecurityBundle:Compte');
         $listeComptesActifs = $compteRepository->findAll();
 
@@ -437,8 +452,7 @@ class DoctoramaController extends Controller {
     }
 
 
-    public function parseCsvAction(Request $request)
-    {
+    public function parseCsvAction(Request $request){
     	$reponse;
     	$tab_intitule = array(); 
     	$list_doctorants = array();
@@ -662,46 +676,54 @@ class DoctoramaController extends Controller {
         return $this->render('DTDoctoramaBundle:Doctorama:upload_validate.html.twig', array('title' => 'Importation fichier CSV', 'list_doctorants' => $list_doctorants));
     }
     
-
+    // Page de modification des réunions
     public function modifReunionAction($id_reunion, Request $request) {
-
+        // récupère la réunion à modifier
         $reunion = $this->getDoctrine()->getManager()->find("DTDoctoramaBundle:Reunion", $id_reunion);
 
+        // création du formulaire des modifications
         $formReunion = $this->createForm(new ReunionType(), $reunion);
         $formReunion->add('save', 'submit');
 
         $formReunion->handleRequest($request);
 
         if ($formReunion->isValid()) {
-
+            // validation du formulaire et modification en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($reunion);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Reunion modifié.');
 
+            // redirection vers la page agenda
             return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
+
+        // si pas validé, on va sur la page de modification
         return $this->render('DTDoctoramaBundle:Doctorama:modif_reunion.html.twig', array('title' => 'Modification Reunion', 'formReunion' => $formReunion->createView()));
     }
 
+    // Page de création des réunions
     public function creationReunionAction(Request $request) {
-
+        // Création d'une nouvelle réunion
         $reunion = new Reunion();
 
+        // Création du formulaire pour les infos de la réunion
         $formReunion = $this->createForm(new ReunionType(), $reunion);
         $formReunion->add('save', 'submit');
 
         $formReunion->handleRequest($request);
 
         if ($formReunion->isValid()) {
-
+            // lorsque l'on valide le formulaire
             $em = $this->getDoctrine()->getManager();
+            // on enregistre en bdd la réunion créée
             $em->persist($reunion);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Reunion crée');
 
+            // redirection vers la page d'agenda
             return $this->redirect($this->generateUrl('dt_doctorama_agenda'));
         }
         return $this->render('DTDoctoramaBundle:Doctorama:creation_reunion.html.twig', array('title' => 'Création réunion', 'formReunion' => $formReunion->createView()));
@@ -730,8 +752,6 @@ class DoctoramaController extends Controller {
     }
 
     public function fermerFenetreAction(Request $request) {
-
-
         return $this->render('DTDoctoramaBundle:Popup:fermerFenetre.html.twig');
     }
 
@@ -788,8 +808,7 @@ class DoctoramaController extends Controller {
         return $this->redirect($this->generateUrl('dt_doctorama_accueil', array('title' => 'Accueil')));
     }
     
-    public function passerEncadrantAction($id_doctorant, Request $request)
-    {
+    public function passerEncadrantAction($id_doctorant, Request $request){
         $doctorant = $this->getDoctrine()->getManager()->find('DTDoctoramaBundle:Doctorant',$id_doctorant);
         $encadrant = new Encadrant();
         
@@ -817,52 +836,65 @@ class DoctoramaController extends Controller {
         return $this->redirect($this->generateUrl('dt_doctorama_admin_utilisateur'));
 	}
 
+    // Page de modification des templates de fiches de suivi
     public function modifFicheAction(Request $request){
+        // on récupère les dernières versions de chaques templates de fiches de suivi
         $TR = $this->getDoctrine()->getRepository('DTDoctoramaBundle:TemplateFicheSuivi');
-        $templates = $TR->findAllTemplateLastVersion();
+        $templates = $TR->findAllTemplateLastVersion(); 
 
+        // on retourne le tableau les contenants
         return $this->render('DTDoctoramaBundle:Doctorama:modif_template.html.twig', array('title' => 'Modification des templates de fiche de suivi', 'templates' => $templates));
     }
 
+    // Gestion de la modification des templates de fiches de suivi
+    // Page de modification des templates de fiches de suivi
     public function modifFicheFormAction(Request $request){
-
         $em = $this->getDoctrine()->getManager();
 
+        // Création d'un nouveau template car c'est une nouvelle version
         $template = new TemplateFicheSuivi();
 
+        // associe le titre et le numéro de version
         $titre = $_GET['libelle'];
         $version = $_GET['version'] + 1;
-
         $template->setTitre($titre);
         $template->setVersion($version);
 
+        // Pour chaque question reçues du formulaire
         foreach ($_GET['question'] as $q) {
+            // on créé la question ...
             $q1 = htmlentities(str_replace('"','\"',$q));
             $ques = new Question();
             $ques->setQuestion($q1);
+            // et on l'associe au template
             $template->addQuestions($ques);
+            // on insère la question en BDD
             $em->persist($ques);
         }
-
-
+        // on insère le template en BDD
         $em->persist($template);
         $em->flush();
 
-
-        return $this->modifFicheAction(new Request());
+        // On retourne sur la page de modification des templates
+        return $this->redirect($this->generateUrl('dt_doctorama_modif_fiche'));
     }
 
-    public function addTemplateAction(Request $request)
-    {
+    // Gestion de l'ajout d'un nouveau template
+    // Page de modification des templates de fiches de suivi
+    public function addTemplateAction(Request $request){
         $em = $this->getDoctrine()->getManager();
         $titre = $_GET['template_libelle'];
+        // création du template
         $template = new TemplateFicheSuivi();
+        // association du template avec le titre et la version (0 car aucune question pour le moment)
         $template->setTitre($titre);
         $template->setVersion(0);
+        // on insère en BDD
         $em->persist($template);
         $em->flush();
 
-        return $this->modifFicheAction(new Request());
+        // On retourne sur la page de modification des templates
+        return $this->redirect($this->generateUrl('dt_doctorama_modif_fiche'));
     }
 
 }

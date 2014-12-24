@@ -2,11 +2,7 @@
 
 // src/DT/DoctoramaBundle/Twig/TwigExtension.php
 namespace DT\DoctoramaBundle\Twig;
-/**
- * Description of TwigExtensions
- *
- * @author benjamin
- */
+
 class DoctoramaTwigExtensions extends \Twig_Extension{
     
     public function getFilters()
